@@ -1,38 +1,5 @@
-age_to_time = function(age) {
-  time = -age
-  return(time)
-}
+ source(src/utility_functions.R)
 
-depth_to_height = function(depth){
-  height = - depth
-  return(height)
-}
-
-condensation_in_length_dim_to_sedrate = function(condensation){
-  if (any(condensation <= 0)){
-    stop("Condensation in spatial domain must be > 0")
-  }
-  sed_rate = condensation^(-1)
-  return(sed_rate)
-}
-
-order_with_time_increasing_base = function(time, vals) {
-  if (any(duplicated(time))) {
-    stop("Error: Duplicated tie points in time dimension")
-  }
-  if (!is.unsorted(time,strictly = FALSE)) {
-    return(list(time = time,
-                vals = vals))
-  }
-  if (is.unsorted(time, strictly = TRUE)) {
-    sorted_list=sort(time, 
-                     index.return = TRUE)
-    time = sorted_list$x
-    vals = vals[sorted_list$ix]
-    return(list(time = time, 
-                vals = vals))
-  }
-}
 
 time_height_tie_points_to_adm = function(time, 
                                          height, 
