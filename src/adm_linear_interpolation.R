@@ -30,7 +30,8 @@ tie_points_to_adm = function(t, # input in time domain, either time or age
            lpoints = height, 
            interpol_mode = "piecewise_linear",
            lmode = lmode, 
-           tmode = tmode
+           tmode = tmode,
+           interpol_data = NULL
   )
   
   return(adm)
@@ -64,7 +65,8 @@ pc_sed_to_adm_time_domain = function(x, # tie points in time domain
              lpoints = acc_incr, 
              interpol_mode = "piecewise_linear",
              lmode = "height", 
-             tmode = tmode)
+             tmode = tmode,
+             interpol_data = NULL)
   
   return(adm)
   
@@ -99,7 +101,8 @@ pc_sed_to_adm_depth_domain = function(x, # tie points in depth domain
              lpoints = heightr, 
              interpol_mode = "piecewise_linear",
              lmode = lmode, 
-             tmode = "time")
+             tmode = "time",
+             interpol_data = NULL)
   
   return(adm)
   
@@ -129,6 +132,7 @@ pc_cond_to_adm = function (l, # length dimension
        lpoints = height, 
        interpol_mode = "piecewise_linear",
        lmode = lmode, 
-       tmode = "time")
+       tmode = "time",
+       interpol_data = NULL)
   
 }
