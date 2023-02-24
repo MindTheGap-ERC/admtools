@@ -27,4 +27,9 @@ Adms should be able to transform data. The following data should be transformed 
 
 ## Uncertainty
 
-No information on uncertainty will be stored with an individual adm (deterministic adm). A data structure combining multiple adms will be used to account for uncertainty and store outputs of Bayesian analyses (similar to the [multiPhylo class](https://rdrr.io/cran/ape/man/multiphylo.html) in the R package "ape" ).
+No information on uncertainty will be stored with an individual adm (deterministic adm). A data structure combining multiple adms will be used to account for uncertainty and store outputs of Bayesian analyses (similar to the [multiPhylo class](https://rdrr.io/cran/ape/man/multiphylo.html) in the R package "ape").
+
+## Empirical Aspects
+
+The adms should be able to hold information on hiatuses, ommission intervals (zero sediment input), and times with removal of sediment (negative sediment accumulation) including the resulting hiatuses.
+No information on the results of sediment mixing (time avaraging, stratigraphic disorder, different ages of particles of different sizes) will not be included.
