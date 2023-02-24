@@ -70,9 +70,34 @@ accumulate_increments = function(x,
   
   if (mode == "pl") { # integrate over pairwise linear function
     # via trapezoidal rule
-    increments =0.5 * (tail(y,-1) + head(y,-1)) * diff(x)
-    acc_incr = cumsum(c(0,increments))
+    increments = 0.5 * (tail(y, -1) + head(y, -1)) * diff(x)
+    acc_incr = cumsum(c(0, increments))
   }
   
   return(acc_incr)
 }
+
+#### add_roots_pl ####
+# adds root nodes to piece wise linear function
+# assuming length(x) = length(y) & x strictly increasing
+add_roots_pl = function(x, y) {
+  i = 1
+  repeat {
+    if (i + 1 > length(x)) {
+      break
+    }
+    pos_neg_trans = x[i] > 0 && x[i + 1] < 0
+    neg_pos_trans = x[i] < 0 && x[i + 1] > 0
+    is_root_interval = pos_neg_trans || neg_pos_trans
+    if (is_root_interval) {
+      root_position = (- y[i] * (x[i + 1] - x[i])) / (y[i + 1] - y[i]) + x[i]
+      x = c(x[1:i], root_position, x[(i + 1):length(x)])
+      y = c(y[1:i], 0, y[(i + 1):length(x)])
+      i = i + 1
+    }
+    i = i + 1
+  }
+  return(list(x = x,
+              y = y))
+}
+
