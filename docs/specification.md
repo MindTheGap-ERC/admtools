@@ -8,7 +8,8 @@ The adm should be usable in the following ways
 
 1. Store adms (archivability)
 2. Exchange adms between different platforms (interoperability)  
-3. Transform data between time and depth domain  
+3. Transform data between time and depth domain
+4. Extract sedimentological information (hiatuses, sedimentation rates)  
 
 ## Archivability & interoperability
 
