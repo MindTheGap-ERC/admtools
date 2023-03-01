@@ -1,23 +1,13 @@
 adm_generator = function(...) {
   # read input
-  input_args = list(...)
+  input_args_raw = list(...)
 
   # checks no of entries, type check etc
-  first_input_check(input_args)
-  
-  units = get_units(input_args)
-  
-  construction_method = get_adm_construction_method(input_args)
+
+  input_args_formatted = identify_constructor(input_args_raw)
   
   # checks if entries are sufficient to construct adm
-  second_input_check(input_args, units, construction_method)
-  
-  adm = switch(
-    construction_method,
-    "method 1" = blblb,
-    "method 2" = blblb,
-    stop("Construction method for age-depth model not recognized")
-  )
+  adm = dispatch_to_adm_constructors(input_args_formatted)
   
   return(adm)
 }
