@@ -1,4 +1,6 @@
-as_adm = function(t, h, destr_stasis = TRUE){
+as_adm = function(t, h, destr_stasis = TRUE, T_unit = NA,L_unit = NA){
+  #'
+  #'
   if(destr_stasis){
     destructive = duplicated(h)[2:length(h)]
   } else {
@@ -7,7 +9,9 @@ as_adm = function(t, h, destr_stasis = TRUE){
   
   adm = list(t = t,
              h = h,
-             destr = destructive)
+             destr = destructive,
+             T_unit = T_unit,
+             L_unit = L_unit)
   class(adm) = "adm"
   return(adm)
 }
