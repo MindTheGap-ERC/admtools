@@ -4,3 +4,4 @@ test_that("time interpolation at tie points returns tie points", {
   adm = tp_2_adm(t = t, h = h)
   expect_equal(get_height(adm = adm, t = t), h)
 })
+
