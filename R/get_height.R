@@ -9,7 +9,7 @@ get_height = function(adm, t, destructive = TRUE){
   #' 
   #' @return a vector with same length as t, containing the strat heights deposited
   #' 
-  height = approx(x = adm$t,
+  height = stats::approx(x = adm$t,
                   y = adm$h,
                   xout = t)$y
   if (destructive){

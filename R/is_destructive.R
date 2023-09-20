@@ -4,11 +4,12 @@ is_destructive = function(adm, t, mode = "rcll"){
   #' 
   #' @param adm an adm object
   #' @param t vector of times
+  #' @param mode string, either "rcll", "lcrl", "open", or "closed"
   #' 
   #' @returns logical vector of same length as t. Is deposition at time t destructive?
   #' 
   if (mode == "rcll"){
-    is_destructive = as.logical(approx(x = adm$t,
+    is_destructive = as.logical(stats::approx(x = adm$t,
                                        y = c(adm$destr,adm$destr[length(adm$destr)]),
                                        method = "constant",
                                        ties = "ordered",
@@ -17,7 +18,7 @@ is_destructive = function(adm, t, mode = "rcll"){
     return(is_destructive)
   }
   if (mode == "lcrl") {
-    is_destructive = as.logical(approx(x = adm$t,
+    is_destructive = as.logical(stats::approx(x = adm$t,
                                        y = c(adm$destr[1],adm$destr),
                                        method = "constant",
                                        ties = "ordered",

@@ -1,4 +1,4 @@
-is_adm = functino(adm){
+is_adm = function(adm){
   #'
   #' @title Checks for validity of adm object
   #' 

@@ -4,7 +4,6 @@ tp_2_adm = function(t, h, T_unit = NA,L_unit = NA){
   #' 
   #' @param t tie points in time
   #' @param h tie points in height
-  #' @param destr_stasis logical. Is non-accumulation (stasis) destructive?
   #' @param T_unit Time unit
   #' @param L_unit Length unit
   #'

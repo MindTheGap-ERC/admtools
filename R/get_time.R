@@ -1,6 +1,6 @@
 get_time = function(adm, h, mode = "oldest"){
   if(mode == "oldest"){
-    time = approx(x = adm$h,
+    time = stats::approx(x = adm$h,
                   y = adm$t,
                   method = "linear",
                   ties = list("ordered",max),
@@ -8,7 +8,7 @@ get_time = function(adm, h, mode = "oldest"){
     return(time)
   }
   if (mode == "youngest"){
-    time = approx(x = adm$h,
+    time = stats::approx(x = adm$h,
                   y = adm$t,
                   method = "linear",
                   ties = list("ordered",min),
