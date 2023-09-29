@@ -1,20 +1,3 @@
-get_time = function(adm, h, mode = "oldest"){
-  if(mode == "oldest"){
-    time = stats::approx(x = adm$h,
-                  y = adm$t,
-                  method = "linear",
-                  ties = list("ordered",max),
-                  xout = h)$y
-    return(time)
-  }
-  if (mode == "youngest"){
-    time = stats::approx(x = adm$h,
-                  y = adm$t,
-                  method = "linear",
-                  ties = list("ordered",min),
-                  xout = h)$y
-    return(time)
-  }
-  stop("Did not find mode")
-  
+get_time = function(adm, h, hiat_mode = "start", bdry_hiat = "destructive", outside_domain = "default"){
+  UseMethod("get_time")
 }
