@@ -1,4 +1,4 @@
-get_time.adm = function(adm, h, hiat_mode = "start", bdry_hiat = "destructive", outside_domain = "default"){
+get_time.adm = function(adm, h, hiat_mode = "start", bdry_hiat = "destructive", out_dom_val = "default"){
   
   #' 
   #' @title determine formation time of stratigraphic positions
@@ -10,20 +10,20 @@ get_time.adm = function(adm, h, hiat_mode = "start", bdry_hiat = "destructive", 
   #' Using "destroy" retruns NA
   #' @param bdry_hiat string, "consistent" or "destructive". If the adm starts/ends with a hiatus, should
   #' the time returned be consistent with _hiat_mode_, or should it be NA?
-  #' @param outside_domain :"default", "time_limits", or a numeric value. value assigned to values outside of the adms domain. 
+  #' @param out_dom_val :"default", "time_limits", or a numeric value. value assigned to values outside of the adms domain. 
   #' if "default", NA is used, if "time_limits", 
   #' 
   #
   
-  if (outside_domain == "default"){
+  if (out_dom_val == "default"){
     yleft = NA
     yright = NA
-  } else  if (outside_domain == "time_limits"){
+  } else  if (out_dom_val == "time_limits"){
     yleft = min(adm$t)
     yright = max(adm$t)
   } else {
-    yleft = outside_domain
-    yright = outside_domain
+    yleft = out_dom_val
+    yright = out_dom_val
   }
   
   is_start_strat = function(adm, h){
@@ -88,12 +88,12 @@ get_time.adm = function(adm, h, hiat_mode = "start", bdry_hiat = "destructive", 
                           h = h,
                           hiat_mode = "start",
                           bdry_hiat = bdry_hiat,
-                          outside_domain = outside_domain)
+                          out_dom_val = out_dom_val)
     time_end = get_time(adm = adm,
                         h = h,
                         hiat_mode = "end",
                         bdry_hiat = bdry_hiat,
-                        outside_domain = outside_domain)
+                        out_dom_val = out_dom_val)
     time = replace(x = time_start,
                    list = time_start != time_end,
                    values = NA)

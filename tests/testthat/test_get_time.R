@@ -9,11 +9,11 @@ test_that("Assignment of values outside the domain is correct", {
   t = 1:3
   h = 2:4
   adm = tp_2_adm(t = t, h = h)
-  expect_equal(get_time(adm = adm, h = c(0,5), outside_domain = 5), c(5,5))
-  expect_true(is.na(get_time(adm = adm, h = 5, outside_domain = "default")))
-  expect_true(is.na(get_time(adm = adm, h = 5, outside_domain = "default")))
-  expect_equal(get_time(adm = adm, h = c(0), outside_domain = "time_limits"), 1)
-  expect_equal(get_time(adm = adm, h = 5, outside_domain = "time_limits"), 3)
+  expect_equal(get_time(adm = adm, h = c(0,5), out_dom_val = 5), c(5,5))
+  expect_true(is.na(get_time(adm = adm, h = 5, out_dom_val = "default")))
+  expect_true(is.na(get_time(adm = adm, h = 5, out_dom_val = "default")))
+  expect_equal(get_time(adm = adm, h = c(0), out_dom_val = "time_limits"), 1)
+  expect_equal(get_time(adm = adm, h = 5, out_dom_val = "time_limits"), 3)
 })
 
 

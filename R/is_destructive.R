@@ -1,4 +1,5 @@
-is_destructive = function(adm, t, mode = "rcll", bdry_hiat = "destructive", outside_domain = "default"){
+is_destructive = function(adm, t, mode = "rcll", bdry_hiat = "destructive", out_dom_mode = "default"){
+  
   #'
   #' @title Is deposition destructive?
   #' 
@@ -13,17 +14,19 @@ is_destructive = function(adm, t, mode = "rcll", bdry_hiat = "destructive", outs
   #' 
   #' 
   
-  if (outside_domain == "default"){
+  stopifnot(bdry_hiat %in% c("destructive", "consistent"))
+  
+  if (out_dom_mode == "default"){
     yleft = NA
     yright = NA
-  } else if (outside_domain == "destructive") {
+  } else if (out_dom_mode == "destructive") {
     yleft = 1
     yright = 1
-  } else if (outside_domain == "conservative"){
+  } else if (out_dom_mode == "conservative"){
     yleft = 0
     yright = 0
   } else{
-    stop("invalid optino for outside_domain")
+    stop("invalid option for out_dom_mode")
   }
   
   is_start_time = function(adm, t){
@@ -47,7 +50,7 @@ is_destructive = function(adm, t, mode = "rcll", bdry_hiat = "destructive", outs
   
   if (mode == "rcll"){
     is_destructive = as.logical(stats::approx(x = adm$t,
-                                       y = c(adm$destr,adm$destr[length(adm$destr)]),
+                                       y = c(adm$destr,0),
                                        method = "constant",
                                        ties = "ordered",
                                        f = 0,
@@ -56,16 +59,16 @@ is_destructive = function(adm, t, mode = "rcll", bdry_hiat = "destructive", outs
                                        yright = yright)$y)
     if (bdry_hiat == "destructive"){
       if(starts_with_hiatus(adm)){
-        is_destructive = replace(is_destructive, is_start_time(adm, t), NA)
+        is_destructive = replace(is_destructive, is_start_time(adm, t), TRUE)
       }
       if(ends_with_hiatus(adm))
-        is_destructive = replace(is_destructive, is_end_time(adm, t), NA)
+        is_destructive = replace(is_destructive, is_end_time(adm, t), TRUE)
     }
     return(is_destructive)
   }
   if (mode == "lcrl") {
     is_destructive = as.logical(stats::approx(x = adm$t,
-                                       y = c(adm$destr[1],adm$destr),
+                                       y = c(0,adm$destr),
                                        method = "constant",
                                        ties = "ordered",
                                        f = 1,
@@ -74,21 +77,21 @@ is_destructive = function(adm, t, mode = "rcll", bdry_hiat = "destructive", outs
                                        yright = yright)$y)
     if (bdry_hiat == "destructive"){
       if(starts_with_hiatus(adm)){
-        is_destructive = replace(is_destructive, is_start_time(adm, t), NA)
+        is_destructive = replace(is_destructive, is_start_time(adm, t), TRUE)
       }
       if(ends_with_hiatus(adm))
-        is_destructive = replace(is_destructive, is_end_time(adm, t), NA)
+        is_destructive = replace(is_destructive, is_end_time(adm, t), TRUE)
     }
     return(is_destructive)
   }
   
   if (mode == "open") {
-    is_destructive = is_destructive(adm = adm, t = t, mode = "rcll", bdry_hiat = bdry_hiat , outside_domain = "default") & is_destructive(adm = adm, t = t, mode = "lcrl" , bdry_hiat = bdry_hiat , outside_domain = "default")
+    is_destructive = is_destructive(adm = adm, t = t, mode = "rcll", bdry_hiat = bdry_hiat , out_dom_mode = "default") & is_destructive(adm = adm, t = t, mode = "lcrl" , bdry_hiat = bdry_hiat , out_dom_mode = "default")
     return(is_destructive)
   }
   
   if (mode == "closed") {
-    is_destructive = is_destructive(adm = adm, t = t, mode = "rcll" , bdry_hiat = bdry_hiat , outside_domain = "default") | is_destructive(adm = adm, t = t, mode = "lcrl" , bdry_hiat = bdry_hiat , outside_domain = "default")
+    is_destructive = is_destructive(adm = adm, t = t, mode = "rcll" , bdry_hiat = bdry_hiat , out_dom_mode = "default") | is_destructive(adm = adm, t = t, mode = "lcrl" , bdry_hiat = bdry_hiat , out_dom_mode = "default")
     return(is_destructive)
   }
 
