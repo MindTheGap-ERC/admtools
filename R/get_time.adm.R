@@ -15,6 +15,7 @@ get_time.adm = function(adm, h, hiat_mode = "start", bdry_hiat = "destructive", 
   #' 
   #
   
+  stopifnot(bdry_hiat %in% c("consistent", "destructive"))
   if (out_dom_val == "default"){
     yleft = NA
     yright = NA
