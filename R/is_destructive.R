@@ -1,4 +1,4 @@
-is_destructive = function(adm, t, mode = "rcll", bdry_hiat = "destructive", out_dom_mode = "default"){
+is_destructive = function(adm, t, mode = "rcll", bdry_pts_hiat = "destructive", out_dom_mode = "default"){
   
   #'
   #' @title Is deposition destructive?
@@ -6,15 +6,15 @@ is_destructive = function(adm, t, mode = "rcll", bdry_hiat = "destructive", out_
   #' @param adm an adm object
   #' @param t vector of times
   #' @param mode string, either "rcll", "lcrl", "open", or "closed"
-  #' @param bdry_hiat string, "destructive" or "consistent". If the adm starts/ends with a hiatus, should the 
+  #' @param bdry_pts_hiat string, "destructive" or "consistent". If the adm starts/ends with a hiatus, should the 
   #' start/end be removed, or treated consistently with mode?
-  #' @param ouside_domain NA, FALSE, or TRUE. Value assigned to times not covered by the adm 
+  #' @param out_dom_mode ""default", "destructive", or "conservative" 
   #' 
   #' @returns logical vector of same length as t. Is deposition at time t destructive?
   #' 
   #' 
   
-  stopifnot(bdry_hiat %in% c("destructive", "consistent"))
+  stopifnot(bdry_pts_hiat %in% c("destructive", "consistent"))
   
   if (out_dom_mode == "default"){
     yleft = NA
@@ -57,7 +57,7 @@ is_destructive = function(adm, t, mode = "rcll", bdry_hiat = "destructive", out_
                                        xout = t,
                                        yleft = yleft,
                                        yright = yright)$y)
-    if (bdry_hiat == "destructive"){
+    if (bdry_pts_hiat == "destructive"){
       if(starts_with_hiatus(adm)){
         is_destructive = replace(is_destructive, is_start_time(adm, t), TRUE)
       }
@@ -75,7 +75,7 @@ is_destructive = function(adm, t, mode = "rcll", bdry_hiat = "destructive", out_
                                        xout = t,
                                        yleft = yleft,
                                        yright = yright)$y)
-    if (bdry_hiat == "destructive"){
+    if (bdry_pts_hiat == "destructive"){
       if(starts_with_hiatus(adm)){
         is_destructive = replace(is_destructive, is_start_time(adm, t), TRUE)
       }
@@ -86,12 +86,12 @@ is_destructive = function(adm, t, mode = "rcll", bdry_hiat = "destructive", out_
   }
   
   if (mode == "open") {
-    is_destructive = is_destructive(adm = adm, t = t, mode = "rcll", bdry_hiat = bdry_hiat , out_dom_mode = "default") & is_destructive(adm = adm, t = t, mode = "lcrl" , bdry_hiat = bdry_hiat , out_dom_mode = "default")
+    is_destructive = is_destructive(adm = adm, t = t, mode = "rcll", bdry_pts_hiat = bdry_pts_hiat , out_dom_mode = "default") & is_destructive(adm = adm, t = t, mode = "lcrl" , bdry_pts_hiat = bdry_pts_hiat , out_dom_mode = "default")
     return(is_destructive)
   }
   
   if (mode == "closed") {
-    is_destructive = is_destructive(adm = adm, t = t, mode = "rcll" , bdry_hiat = bdry_hiat , out_dom_mode = "default") | is_destructive(adm = adm, t = t, mode = "lcrl" , bdry_hiat = bdry_hiat , out_dom_mode = "default")
+    is_destructive = is_destructive(adm = adm, t = t, mode = "rcll" , bdry_pts_hiat = bdry_pts_hiat , out_dom_mode = "default") | is_destructive(adm = adm, t = t, mode = "lcrl" , bdry_pts_hiat = bdry_pts_hiat , out_dom_mode = "default")
     return(is_destructive)
   }
 

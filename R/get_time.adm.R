@@ -1,4 +1,4 @@
-get_time.adm = function(adm, h, hiat_mode = "start", bdry_hiat = "destructive", out_dom_val = "default"){
+get_time.adm = function(adm, h, hiat_mode = "start", bdry_pts_hiat = "destructive", out_dom_val_t = "default"){
   
   #' 
   #' @title determine formation time of stratigraphic positions
@@ -8,23 +8,24 @@ get_time.adm = function(adm, h, hiat_mode = "start", bdry_hiat = "destructive", 
   #' @param hiat_mode string, "start", "end", or "destroy". If a stratigraphic position
   #' coincides with a hiatus, should the start time or the end time of the hiatus be returned? 
   #' Using "destroy" retruns NA
-  #' @param bdry_hiat string, "consistent" or "destructive". If the adm starts/ends with a hiatus, should
+  #' @param bdry_pts_hiat string, "consistent" or "destructive". If the adm starts/ends with a hiatus, should
   #' the time returned be consistent with _hiat_mode_, or should it be NA?
-  #' @param out_dom_val :"default", "time_limits", or a numeric value. value assigned to values outside of the adms domain. 
+  #' @param out_dom_val_t :"default", "time_limits", or a numeric value. value assigned to values outside of the adms domain. 
   #' if "default", NA is used, if "time_limits", 
   #' 
   #
   
-  stopifnot(bdry_hiat %in% c("consistent", "destructive"))
-  if (out_dom_val == "default"){
+  stopifnot(bdry_pts_hiat %in% c("consistent", "destructive"))
+  if (out_dom_val_t[1] == "default"){
     yleft = NA
     yright = NA
-  } else  if (out_dom_val == "time_limits"){
+  } else  if (out_dom_val_t[1] == "time_limits"){
     yleft = min(adm$t)
     yright = max(adm$t)
   } else {
-    yleft = out_dom_val
-    yright = out_dom_val
+    out_dom_val_t = rep(out_dom_val_t, 2)
+    yleft = out_dom_val_t[1]
+    yright = out_dom_val_t[2]
   }
   
   is_start_strat = function(adm, h){
@@ -55,7 +56,7 @@ get_time.adm = function(adm, h, hiat_mode = "start", bdry_hiat = "destructive", 
                          ties = list("ordered",min),
                          xout = h)$y
     
-    if (bdry_hiat == "destructive"){
+    if (bdry_pts_hiat == "destructive"){
       if (starts_with_hiatus(adm)){
         time = replace(time, is_start_strat(adm, h), NA)
       }
@@ -74,7 +75,7 @@ get_time.adm = function(adm, h, hiat_mode = "start", bdry_hiat = "destructive", 
                          yright = yright,
                          ties = list("ordered",max),
                          xout = h)$y
-    if (bdry_hiat == "destructive"){
+    if (bdry_pts_hiat == "destructive"){
       if (starts_with_hiatus(adm)){
         time = replace(time, is_start_strat(adm, h), NA)
       }
@@ -88,13 +89,13 @@ get_time.adm = function(adm, h, hiat_mode = "start", bdry_hiat = "destructive", 
     time_start = get_time(adm = adm,
                           h = h,
                           hiat_mode = "start",
-                          bdry_hiat = bdry_hiat,
-                          out_dom_val = out_dom_val)
+                          bdry_pts_hiat = bdry_pts_hiat,
+                          out_dom_val_t = out_dom_val_t)
     time_end = get_time(adm = adm,
                         h = h,
                         hiat_mode = "end",
-                        bdry_hiat = bdry_hiat,
-                        out_dom_val = out_dom_val)
+                        bdry_pts_hiat = bdry_pts_hiat,
+                        out_dom_val_t = out_dom_val_t)
     time = replace(x = time_start,
                    list = time_start != time_end,
                    values = NA)

@@ -70,27 +70,27 @@ test_that("Boundary hiatuses are treated correctly", {
   adm2 = tp_2_adm(t = 1:4, h = c(1,2,3,3))
   
   # lower boundary points are destructive
-  expect_true(is_destructive(adm1, t = 1, mode = "rcll", bdry_hiat = "destructive"))
-  expect_true(is_destructive(adm1, t = 1, mode = "lcrl", bdry_hiat = "destructive"))
-  expect_true(is_destructive(adm1, t = 1, mode = "open", bdry_hiat = "destructive"))
-  expect_true(is_destructive(adm1, t = 1, mode = "closed", bdry_hiat = "destructive"))
+  expect_true(is_destructive(adm1, t = 1, mode = "rcll", bdry_pts_hiat = "destructive"))
+  expect_true(is_destructive(adm1, t = 1, mode = "lcrl", bdry_pts_hiat = "destructive"))
+  expect_true(is_destructive(adm1, t = 1, mode = "open", bdry_pts_hiat = "destructive"))
+  expect_true(is_destructive(adm1, t = 1, mode = "closed", bdry_pts_hiat = "destructive"))
   
   # upper boundary points are destructive
-  expect_true(is_destructive(adm2, t = 4, mode = "rcll", bdry_hiat = "destructive"))
-  expect_true(is_destructive(adm2, t = 4, mode = "lcrl", bdry_hiat = "destructive"))
-  expect_true(is_destructive(adm2, t = 4, mode = "open", bdry_hiat = "destructive"))
-  expect_true(is_destructive(adm2, t = 4, mode = "closed", bdry_hiat = "destructive"))
+  expect_true(is_destructive(adm2, t = 4, mode = "rcll", bdry_pts_hiat = "destructive"))
+  expect_true(is_destructive(adm2, t = 4, mode = "lcrl", bdry_pts_hiat = "destructive"))
+  expect_true(is_destructive(adm2, t = 4, mode = "open", bdry_pts_hiat = "destructive"))
+  expect_true(is_destructive(adm2, t = 4, mode = "closed", bdry_pts_hiat = "destructive"))
   
   
-  expect_true(is_destructive(adm1, t = 1, mode = "rcll", bdry_hiat = "consistent"))
-  expect_false(is_destructive(adm1, t = 1, mode = "lcrl", bdry_hiat = "consistent"))
-  expect_false(is_destructive(adm1, t = 1, mode = "open", bdry_hiat = "consistent"))
-  expect_true(is_destructive(adm1, t = 1, mode = "closed", bdry_hiat = "consistent"))
+  expect_true(is_destructive(adm1, t = 1, mode = "rcll", bdry_pts_hiat = "consistent"))
+  expect_false(is_destructive(adm1, t = 1, mode = "lcrl", bdry_pts_hiat = "consistent"))
+  expect_false(is_destructive(adm1, t = 1, mode = "open", bdry_pts_hiat = "consistent"))
+  expect_true(is_destructive(adm1, t = 1, mode = "closed", bdry_pts_hiat = "consistent"))
   
-  expect_false(is_destructive(adm2, t = 4, mode = "rcll", bdry_hiat = "consistent"))
-  expect_true(is_destructive(adm2, t = 4, mode = "lcrl", bdry_hiat = "consistent"))
-  expect_false(is_destructive(adm2, t = 4, mode = "open", bdry_hiat = "consistent"))
-  expect_true(is_destructive(adm2, t = 4, mode = "closed", bdry_hiat = "consistent"))
+  expect_false(is_destructive(adm2, t = 4, mode = "rcll", bdry_pts_hiat = "consistent"))
+  expect_true(is_destructive(adm2, t = 4, mode = "lcrl", bdry_pts_hiat = "consistent"))
+  expect_false(is_destructive(adm2, t = 4, mode = "open", bdry_pts_hiat = "consistent"))
+  expect_true(is_destructive(adm2, t = 4, mode = "closed", bdry_pts_hiat = "consistent"))
   
 })
 

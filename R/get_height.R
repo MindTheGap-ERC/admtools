@@ -1,3 +1,3 @@
-get_height = function(adm, t, destructive = TRUE, outside_domain = "default", ...){
+get_height = function(adm, t, destructive = TRUE, out_dom_val_h = "default", ...){
   UseMethod("get_height")
 }
