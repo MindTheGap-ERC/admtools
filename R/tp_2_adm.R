@@ -11,9 +11,7 @@ tp_2_adm = function(t, h, T_unit = NA,L_unit = NA){
   destructive = duplicated(h)[2:length(h)]
   adm = list(t = t,
              h = h,
-             destr = destructive,
-             T_unit = T_unit,
-             L_unit = L_unit)
+             destr = destructive)
  class(adm) = "adm"
   return(adm)
 }
