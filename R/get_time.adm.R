@@ -13,7 +13,7 @@ get_time.adm = function(adm, h, hiat_mode = "start", bdry_pts_hiat = "destructiv
   #' @param out_dom_val_t :"default", "time_limits", or a numeric value. value assigned to values outside of the adms domain. 
   #' if "default", NA is used, if "time_limits", 
   #' 
-  #
+  #' @export
   
   stopifnot(bdry_pts_hiat %in% c("consistent", "destructive"))
   if (out_dom_val_t[1] == "default"){

@@ -11,7 +11,7 @@ get_height.adm = function(adm, t, destructive = TRUE, out_dom_val_h = "default",
   #' 
   #' @return a vector with same length as t, containing the strat heights deposited
   #' 
-  #' 
+  #' @export
   
   if (out_dom_val_h[1] == "strat_limits"){
     yleft = min(adm$h)

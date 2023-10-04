@@ -12,7 +12,7 @@ is_destructive.adm = function(adm, t, mode = "rcll", bdry_pts_hiat = "destructiv
   #' 
   #' @returns logical vector of same length as t. Is deposition at time t destructive?
   #' 
-  #' 
+  #' @export
   
   stopifnot(bdry_pts_hiat %in% c("destructive", "consistent"))
   
