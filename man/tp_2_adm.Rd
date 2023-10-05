@@ -4,7 +4,7 @@
 \alias{tp_2_adm}
 \title{Turn tie points into age-depth model}
 \usage{
-tp_2_adm(t, h, T_unit = NA, L_unit = NA)
+tp_2_adm(t, h)
 }
 \arguments{
 \item{t}{tie points in time}

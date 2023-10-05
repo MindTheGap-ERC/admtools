@@ -9,4 +9,5 @@ plot.adm = function(adm,...){
        y = adm$h,
        type = "l",
        ...)
-}
+  
+
