@@ -1,0 +1,21 @@
+---
+title: "admtools_getting_started"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{admtools_getting_started}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(admtools)
+```
+
+## Hello WOrld
