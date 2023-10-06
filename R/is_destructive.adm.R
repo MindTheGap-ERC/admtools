@@ -3,6 +3,12 @@ is_destructive.adm = function(adm, t, mode = "rcll", bdry_pts_hiat = "destructiv
   #'
   #' @title Is deposition destructive?
   #' 
+  #' @description
+    #' Determines whether specified time is destrucive or not
+    #' 
+  #' 
+  #' @usage is_destructive(adm, t, mode = "rcll", bdry_pts_hiat = "destructive", out_dom_mode = "default")
+  #' 
   #' @param adm an adm object
   #' @param t vector of times
   #' @param mode string, either "rcll", "lcrl", "open", or "closed"
