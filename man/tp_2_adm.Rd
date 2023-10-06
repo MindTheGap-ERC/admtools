@@ -4,17 +4,21 @@
 \alias{tp_2_adm}
 \title{Turn tie points into age-depth model}
 \usage{
-tp_2_adm(t, h)
+tp_2_adm(t,h)
 }
 \arguments{
 \item{t}{tie points in time}
 
 \item{h}{tie points in height}
-
-\item{T_unit}{Time unit}
-
-\item{L_unit}{Length unit}
+}
+\value{
+an adm object
 }
 \description{
-Turn tie points into age-depth model
+Takes vectors of tie points and turns them into an age-depth mode (adm)
+}
+\details{
+by default, intervals with no sediment accumulation are marked as destructive
+\emph{tp_2_adm} does not check whether the inputs define a valid age-depth model. For this, use
+\emph{is_adm}
 }

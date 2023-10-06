@@ -2,31 +2,29 @@
 % Please edit documentation in R/get_time.adm.R
 \name{get_time.adm}
 \alias{get_time.adm}
-\title{determine formation time of stratigraphic positions}
+\title{Determine times based on age-depth model}
 \usage{
-\method{get_time}{adm}(
-  adm,
-  h,
-  hiat_mode = "start",
-  bdry_pts_hiat = "destructive",
-  out_dom_val_t = "default"
-)
+get_time(adm, h, hiat_mode = "start", bdry_pts_hiat = "destructive", out_dom_val_t = "default")
 }
 \arguments{
 \item{adm}{an adm object}
 
 \item{h}{vector of stratigraphic positions}
 
-\item{hiat_mode}{string, "start", "end", or "destroy". If a stratigraphic position
-coincides with a hiatus, should the start time or the end time of the hiatus be returned?
-Using "destroy" retruns NA}
+\item{hiat_mode}{"start", "end", or "destroy". If a stratigraphic position coincides with a hiatus, what should be returned?}
 
-\item{bdry_pts_hiat}{string, "consistent" or "destructive". If the adm starts/ends with a hiatus, should
-the time returned be consistent with \emph{hiat_mode}, or should it be NA?}
+\item{bdry_pts_hiat}{"consistent" or "destructive". How are hiatuses at the start/end of the adm treated?}
 
-\item{out_dom_val_t}{:"default", "time_limits", or a numeric value. value assigned to values outside of the adms domain.
-if "default", NA is used, if "time_limits",}
+\item{out_dom_val_t}{:"default", "time_limits", or a numeric value. What value is returned for heights not covered by the age-depth model?}
 }
 \description{
-determine formation time of stratigraphic positions
+Takes an age-depth model and vector of stratigraphic positions to determine
+the corresponding time of formation
+}
+\details{
+If a stratigraphic position
+coincides with a hiatus, should the start time or the end time of the hiatus be returned?
+Using "destroy" retruns NA
+If the adm starts/ends with a hiatus, should
+the time returned be consistent with \emph{hiat_mode}, or should it be NA?
 }

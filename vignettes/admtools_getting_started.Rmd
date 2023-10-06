@@ -18,4 +18,8 @@ knitr::opts_chunk$set(
 library(admtools)
 ```
 
-## Hello WOrld
+# Hello WOrld
+
+We explain the workflow of the admtools package using exampel data that is provided with the package.
+
+F

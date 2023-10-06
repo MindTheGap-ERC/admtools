@@ -1,4 +1,4 @@
-is_adm = function(adm){
+is_adm = function(adm, silent){
   #'
   #'
   #' @title Is an adm object a valid age-depth model
@@ -12,10 +12,27 @@ is_adm = function(adm){
   #' 
   #' @returns logical. Is the input a valid adm object?
   #' 
-  stopifnot(class(adm) == "adm")
-  stopifnot(length(adm$t) == length(adm$h))
-  stopifnot(all(diff(adm$t) > 0 ))
-  stopifnot(all(diff(adm$h) >= 0))
-  stopifnot(length(adm$destr) == length(adm$t) + 1)
+  #' 
+  #' 
+  
+  if ( class(adm) != "adm" ){
+    warning("Expected adm class")
+    return(FALSE)
+  }
+  
+if(length(adm$t) != length(adm$h)){
+  warning("Number of tie points in time and height differs")
+  return(FALSE)
+}
+if (!all(diff(adm$t) > 0 )){
+  warning("Time tie points must be strictly increasing")
+  return(FALSE)
+}
+
+if (!all(diff(adm$h) >= 0)){
+  warning("Law of superposition is not met")
+  return(FALSE)
+}
+
   return(TRUE)
 }

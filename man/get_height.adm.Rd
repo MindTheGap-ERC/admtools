@@ -4,16 +4,16 @@
 \alias{get_height.adm}
 \title{determine stratigraphic height deposited at specific time}
 \usage{
-\method{get_height}{adm}(adm, t, destructive = TRUE, out_dom_val_h = "default", ...)
+get_height(adm, t, destructive = TRUE, out_dom_val_h = "default", ...)
 }
 \arguments{
-\item{adm}{adm object}
+\item{adm}{an \emph{adm} object}
 
 \item{t}{vector of times}
 
-\item{destructive}{logical. if true, returns NA for times that coincide with destructive intervals}
+\item{destructive}{logical - should destructive intervals be considered? See Details}
 
-\item{out_dom_val_h}{value assigned to values outside of the domain. If "strat_limits", outputs are limited to max/min depth of strat height}
+\item{out_dom_val_h}{"strat_limits", "default", or a vector with one or two entries. What value is assigned to times that are not covered by the age-depth model?}
 
 \item{...}{parameters handed over to is_destructive}
 }
@@ -21,5 +21,16 @@
 a vector with same length as t, containing the strat heights deposited
 }
 \description{
-determine stratigraphic height deposited at specific time
+Takes an adm object and a vector of times, and returns the stratigraphic
+heights deposited at said times
+}
+\details{
+if destructive is true, NA is returned for times that coincide with
+destructive intervals. This is achieved by calling \emph{is_destructive} with
+arguments passed by \emph{...}.
+
+\emph{out_dom_val} specified the return value for times that are not covered by the
+age-depth model. For "default", NA is returned. For "strat_limits", the lowest
+resp. highest stratigraphic position is returned. For a vector of length one, this value is assigned
+to both sides. For a vector or length 2 or more, the first and second entries are assigned on the left (resp. right) side
 }

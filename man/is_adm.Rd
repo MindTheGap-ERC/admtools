@@ -2,7 +2,7 @@
 % Please edit documentation in R/is_adm.R
 \name{is_adm}
 \alias{is_adm}
-\title{Checks for validity of adm object}
+\title{Is an adm object a valid age-depth model}
 \usage{
 is_adm(adm)
 }
@@ -13,5 +13,6 @@ is_adm(adm)
 logical. Is the input a valid adm object?
 }
 \description{
-Checks for validity of adm object
+Contructors for adm objects such as \emph{tp_2_adm} do not check whether the inputs define a valid
+age-depth mode, e.g. one where the law of superposition holds. This function performs these checks
 }

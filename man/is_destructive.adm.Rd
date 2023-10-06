@@ -4,13 +4,7 @@
 \alias{is_destructive.adm}
 \title{Is deposition destructive?}
 \usage{
-\method{is_destructive}{adm}(
-  adm,
-  t,
-  mode = "rcll",
-  bdry_pts_hiat = "destructive",
-  out_dom_mode = "default"
-)
+is_destructive(adm, t, mode = "rcll", bdry_pts_hiat = "destructive", out_dom_mode = "default")
 }
 \arguments{
 \item{adm}{an adm object}
@@ -28,5 +22,5 @@ start/end be removed, or treated consistently with mode?}
 logical vector of same length as t. Is deposition at time t destructive?
 }
 \description{
-Is deposition destructive?
+Determines whether specified time is destrucive or not
 }
