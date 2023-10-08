@@ -1,4 +1,4 @@
-is_adm = function(adm, silent){
+is_adm = function(adm){
   #'
   #'
   #' @title Is an adm object a valid age-depth model
@@ -15,7 +15,7 @@ is_adm = function(adm, silent){
   #' 
   #' 
   
-  if ( class(adm) != "adm" ){
+  if ( ! inherits(adm, "adm") ){
     warning("Expected adm class")
     return(FALSE)
   }

@@ -2,6 +2,8 @@ merge_adm_2_multiadm = function(...){
   
   #' 
   #' @title combine multiple adm ojects into multiadm object
+  #' 
+  #' @param ... adm objects
   
   adm_list = list(...)
   

@@ -1,8 +1,12 @@
-plot.multiadm = function(multiadm,...){
+plot.multiadm = function(x,...){
   
   #' @export
   #' 
   #' 
+  #' 
+  
+  
+  multiadm = x
   no_of_entries = multiadm$no_of_entries
   t_min = min(sapply(seq_len(no_of_entries), function(x) min(multiadm[["t"]][[x]])))
   t_max = max(sapply(seq_len(no_of_entries), function(x) max(multiadm[["t"]][[x]])))

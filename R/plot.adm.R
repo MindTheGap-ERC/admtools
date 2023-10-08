@@ -1,10 +1,11 @@
-plot.adm = function(adm, lwd_hiat = 1, lwd_cons = 1, lty_hiat = 3, lty_cons = 1, 
+plot.adm = function(x, lwd_hiat = 1, lwd_cons = 1, lty_hiat = 3, lty_cons = 1, 
                     col_hiat = "black", col_cons = "black", ...){
   
   #'
   #'
   #'@export
   
+  adm = x
   
   plot(x = adm$t,
        y = adm$h,

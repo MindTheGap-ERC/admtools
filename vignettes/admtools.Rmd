@@ -1,0 +1,63 @@
+---
+title: "admtools"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{admtools}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(admtools)
+```
+
+# Hello WOrld
+
+We explain the workflow of the admtools package using example data provided with the package.
+
+## Defining age-depth models
+
+A standard constructor for age-depth models is _tp_2_adm_ ("tiepoint to age-depth model"). We use the option to directly associate legnth and time units with the age-depth model.
+
+```{R}
+# see ?tp_2_adm for detailed documentation
+my_adm = tp_2_adm(t = CarboCATLite_data$time_myr,
+                  h = CarboCATLite_data$height_2_km_offshore_m,
+                  L_unit = "m",
+                  T_unit = "Myr")
+```
+
+_my_adm_ is an adm object that contains the age-depth model at 2 km offshore in a carbonate platform. You can use _summary_ to get a quick overview of the properties of the age-depth model
+```{R}
+summary(my_adm)
+```
+
+To get a visual representation, we plot it, and highlight hiatuses in red
+
+```{R}
+# see ?plot.adm for plotting options for adm objects
+plot(my_adm,
+     col_hiat = "red",
+     lwd_cons = 3)
+```
+
+You can see the age-depth model contains hiatuses, which are indicated by dashed lines. You can use the function _is_destructive_ to examine whether time points coincide with hiatuses:
+
+```{R}
+is_destructive(adm = my_adm,
+               t = c(0.1,0.5)) 
+```
+
+## Transforming data between time and stratigraphic domain
+
+The functions _get_height_ and _get_time_ are the workhorses to transform data using age-depth models.
+
+* _get_time_ takes and adm object and vector of heights _h_  (stratigraphic positions), and retruns a vector of times
+* _get_height_ takes an adm object and vector of times and retruns a vector of associated positions

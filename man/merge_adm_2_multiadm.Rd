@@ -6,6 +6,9 @@
 \usage{
 merge_adm_2_multiadm(...)
 }
+\arguments{
+\item{...}{adm objects}
+}
 \description{
 combine multiple adm ojects into multiadm object
 }

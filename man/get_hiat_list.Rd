@@ -4,10 +4,10 @@
 \alias{get_hiat_list}
 \title{extract hiatus list from adm}
 \usage{
-get_hiat_list(adm)
+get_hiat_list(x)
 }
 \arguments{
-\item{adm}{an adm object}
+\item{x}{an adm object}
 }
 \description{
 extract hiatus list from adm
