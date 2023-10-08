@@ -2,16 +2,28 @@
 % Please edit documentation in R/get_completeness.R
 \name{get_completeness}
 \alias{get_completeness}
-\title{Determine stratigraphic completeness}
+\alias{get_incompleteness}
+\title{Determine stratigraphic (in)completeness}
 \usage{
 get_completeness(x)
+get_incompleteness(x)
 }
 \arguments{
 \item{x}{an adm object}
 }
 \value{
-Number between 0 and 1, the stratigraphic completeness
+Number between 0 and 1, the stratigraphic (in)completeness
 }
 \description{
-Determine stratigraphic completeness
+Determine stratigraphic (in)completeness
+}
+\details{
+Stratigraphic (in)completeness is expressed as a proportion, i.e. a number
+between 0 and 1
+}
+\examples{
+my_adm = tp_2_adm(t = 1:4, h = c(1,2,2,4))
+get_completeness(my_adm)
+fet_incompleteness(my_adm)
+
 }
