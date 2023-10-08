@@ -1,6 +1,6 @@
-# AgeDepthModelClass
+# admtools
 
-Definition of a age depth model data structure in R that can be used to transform phylogenetic trees
+R package to handle age-depth models
 
 ## Authors
 
