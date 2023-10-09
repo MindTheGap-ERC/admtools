@@ -26,5 +26,6 @@ get_hiat_no(my_adm)
 \itemize{
 \item \code{\link[=get_hiat_pos]{get_hiat_pos()}} to determine stratigraphic positions of hiatuses
 \item \code{\link[=get_hiat_list]{get_hiat_list()}} to determine position and timing of hiatuses
+\item \code{\link[=get_hiat_duration]{get_hiat_duration()}} to determine duration of hiatuses
 }
 }

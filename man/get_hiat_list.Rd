@@ -24,5 +24,6 @@ returns a list with hiatus position and timing (start & end)
 \itemize{
 \item \code{\link[=get_hiat_pos]{get_hiat_pos()}} to determine only stratigraphic position of hiatuses
 \item \code{\link[=get_hiat_no]{get_hiat_no()}} to determine number of hiatuses in an adm
+\item \code{\link[=get_hiat_duration]{get_hiat_duration()}} to determine duration of hiatuses
 }
 }

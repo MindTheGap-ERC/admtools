@@ -24,5 +24,6 @@ get_hiat_pos(my_adm)
 \itemize{
 \item \code{\link[=get_hiat_list]{get_hiat_list()}} to get hiatus positions and durations
 \item \code{\link[=get_hiat_no]{get_hiat_no()}} to determine number of hiatuses
+\item \code{\link[=get_hiat_duration]{get_hiat_duration()}} to determine duration of hiatuses
 }
 }

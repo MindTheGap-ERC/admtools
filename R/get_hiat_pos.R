@@ -15,6 +15,7 @@ get_hiat_pos = function(x){
   #' @seealso 
     #' * [get_hiat_list()] to get hiatus positions and durations
     #' * [get_hiat_no()] to determine number of hiatuses
+    #' * [get_hiat_duration()] to determine duration of hiatuses
   #' 
   #' 
   #' @examples

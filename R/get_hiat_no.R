@@ -17,6 +17,7 @@ get_hiat_no = function(x){
   #' @seealso 
     #' * [get_hiat_pos()] to determine stratigraphic positions of hiatuses
     #' * [get_hiat_list()] to determine position and timing of hiatuses
+    #' * [get_hiat_duration()] to determine duration of hiatuses
   #'
   #' @examples
     #' my_adm = tp_2_adm(t = 1:4, h = c(1,2,2,3)) # one hiatus

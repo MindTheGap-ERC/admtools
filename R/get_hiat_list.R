@@ -1,5 +1,6 @@
 get_hiat_list = function(x){
   
+  #' @export
   #' 
   #' @title extract hiatus info
   #' 
@@ -18,6 +19,7 @@ get_hiat_list = function(x){
   #' @seealso 
     #' * [get_hiat_pos()] to determine only stratigraphic position of hiatuses
     #' * [get_hiat_no()] to determine number of hiatuses in an adm
+    #' * [get_hiat_duration()] to determine duration of hiatuses
   #' 
   
   UseMethod("get_hiat_list")
