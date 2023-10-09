@@ -1,5 +1,6 @@
 get_hiat_no.adm = function(x){
   
+  #'
   #' @export
   #' 
   

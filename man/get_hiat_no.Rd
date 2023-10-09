@@ -2,13 +2,29 @@
 % Please edit documentation in R/get_hiat_no.R
 \name{get_hiat_no}
 \alias{get_hiat_no}
-\title{get no of hiatuses}
+\title{get no. of hiatuses}
 \usage{
 get_hiat_no(x)
 }
 \arguments{
 \item{x}{an adm object}
 }
+\value{
+An integer, no. of hiatuses in the age-depth model
+}
 \description{
-get no of hiatuses
+Determines the number of hiatuses in an age-depth model
+}
+\examples{
+my_adm = tp_2_adm(t = 1:4, h = c(1,2,2,3)) # one hiatus
+get_hiat_no(my_adm)
+
+
+
+}
+\seealso{
+\itemize{
+\item \code{\link[=get_hiat_pos]{get_hiat_pos()}} to determine stratigraphic positions of hiatuses
+\item \code{\link[=get_hiat_list]{get_hiat_list()}} to determine position and timing of hiatuses
+}
 }

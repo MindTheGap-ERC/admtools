@@ -2,13 +2,27 @@
 % Please edit documentation in R/get_hiat_list.R
 \name{get_hiat_list}
 \alias{get_hiat_list}
-\title{extract hiatus list from adm}
+\title{extract hiatus info}
 \usage{
 get_hiat_list(x)
 }
 \arguments{
 \item{x}{an adm object}
 }
+\value{
+a list with one element per hiatus. each element is a named vector with the following entries:
+\itemize{
+\item "height" : stratigraphic position of hiatus
+\item "start" : time when hiatus begins
+\item "end" : time when hiatus ends
+}
+}
 \description{
-extract hiatus list from adm
+returns a list with hiatus position and timing (start & end)
+}
+\seealso{
+\itemize{
+\item \code{\link[=get_hiat_pos]{get_hiat_pos()}} to determine only stratigraphic position of hiatuses
+\item \code{\link[=get_hiat_no]{get_hiat_no()}} to determine number of hiatuses in an adm
+}
 }

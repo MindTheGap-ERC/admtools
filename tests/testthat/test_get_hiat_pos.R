@@ -26,3 +26,4 @@ test_that("Correct answer for multiple hiatuses", {
   adm = tp_2_adm(t = t, h = h)
   expect_equal(get_hiat_pos(adm), c(1,2,3))
 })
+

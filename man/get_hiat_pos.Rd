@@ -2,13 +2,27 @@
 % Please edit documentation in R/get_hiat_pos.R
 \name{get_hiat_pos}
 \alias{get_hiat_pos}
-\title{get hiatus position}
+\title{get hiatus positions}
 \usage{
 get_hiat_pos(x)
 }
 \arguments{
 \item{x}{an adm object}
 }
+\value{
+a vector with stratigraphic positions of hiatuses
+}
 \description{
-Determines stratigraphic positinos of hiatuses
+Determines stratigraphic position of hiatuses
+}
+\examples{
+my_adm = tp_2_adm(t = 1:4, h = c(1,2,2,3)) # one hiatus at height 2
+get_hiat_pos(my_adm)
+
+}
+\seealso{
+\itemize{
+\item \code{\link[=get_hiat_list]{get_hiat_list()}} to get hiatus positions and durations
+\item \code{\link[=get_hiat_no]{get_hiat_no()}} to determine number of hiatuses
+}
 }

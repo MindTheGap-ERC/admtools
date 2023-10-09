@@ -5,6 +5,7 @@ test_that("Correct answer for adms with 0 hiatuses",{
 
 
 test_that("Correct answer for 1 hiatus", {
+  # hiatus in the middle
   adm = tp_2_adm(t = 1:4, h = c(1,2,2,3))
   expect_equal(get_hiat_no(adm), 1)
   # start with hiatus

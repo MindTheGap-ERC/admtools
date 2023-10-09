@@ -1,4 +1,6 @@
 #' 
+#' @title Example data from CarboCATLite
+#' 
 #' @description
 #' Data exported from CarboCATLite model run
 #' 
