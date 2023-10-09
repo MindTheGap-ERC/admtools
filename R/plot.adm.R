@@ -20,7 +20,7 @@ plot.adm = function(x, lwd_hiat = 1, lwd_cons = 1, lty_hiat = 3, lty_cons = 1,
   }
   
   if ("ylab" %in% names(in_list)){
-    ylab = inlist[["ylab"]]
+    ylab = in_list[["ylab"]]
   } else {
     if (is.null(adm$L_unit)) {
       ylab = "Height"

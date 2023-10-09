@@ -4,7 +4,7 @@ get_hiat_pos.adm = function(x){
   
   adm = x
   
-  hiat_pos = adm$h[duplicated(adm$h)]
+  hiat_pos = unique(adm$h[duplicated(adm$h)])
   
   return(hiat_pos)
 }
