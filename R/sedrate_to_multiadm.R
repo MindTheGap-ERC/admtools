@@ -45,6 +45,8 @@ sedrate_to_multiadm = function(h_tp, t_tp, sed_rate_gen, h, no_of_rep = 100){
     t_list[[i]] = t_out
     destr_list[[i]] = rep(FALSE, length(h))
     
+  }
+    
     multiadm = list(t = t_list,
                     h = h_list,
                     destr = destr_list,
@@ -52,6 +54,6 @@ sedrate_to_multiadm = function(h_tp, t_tp, sed_rate_gen, h, no_of_rep = 100){
                     L_unit = NA)
     class(multiadm) = "multiadm"
     return(multiadm)
-  }
+
     
 }
