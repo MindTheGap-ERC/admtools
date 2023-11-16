@@ -1,0 +1,85 @@
+---
+title: "sed_content"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{sed_content}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(admtools)
+```
+
+# Estimating age-depth models from stratigraphic contents
+
+### Coding tie points
+
+Tie points in time and depth need to be coded as independent functions
+
+For the tie points in height, the function must return a named vector with names "h1" and "h2". For the example, we consider a stratigraphic section of height one. This is coded by the function
+
+```{r}
+h_tp = function(){
+  return(c("h1" = 0, "h2" = 1))
+}
+```
+
+Similarly, tie points in time must return a named vector with names "t1" and "t2"
+
+```{r}
+t_tp = function() return(c("t1" = rnorm(n = 1, mean = 0, sd = 0.01), "t2" = runif(n = 1, min = 9, max = 11)))
+```
+
+```{r, echo=FALSE, fig.show="hold", out.width="50%"}
+
+hist(sapply(1:10000, function(x) t_tp()["t1"]),
+     freq = FALSE,
+     xlab = "Time [Myr]",
+     main = "Timing of first tie point")
+hist(sapply(1:10000, function(x) t_tp()["t2"]),
+     freq = FALSE,
+     xlab = "Time [Myr]",
+     main = "Timing of late tie point")
+```
+
+### Coding Stratigraphic Data
+
+Both stratigraphic contents and time contents must be coded as function factories, i.e., functions that return functions.
+
+```{r}
+time_cont_gen = function(){
+  strat_cont = function(x) return(rep(1, length(x)))
+  return(strat_cont)
+}
+
+
+```
+
+```{r}
+strat_cont_gen = function(){
+   return(approxfun(x = c(0,0.5,1), y = c(10,1,2)))
+}
+```
+
+Age-depth models can be estimated using the function strat_cont_to_multiadm:
+
+```{r}
+my_adm = strat_cont_to_multiadm(h_tp = h_tp,
+                                t_tp = t_tp,
+                                strat_cont_gen = strat_cont_gen,
+                                time_cont_gen = time_cont_gen,
+                                h = seq(0,1,by = 0.1),
+                                no_of_rep = 100)
+```
+
+```{r}
+plot(my_adm)
+```
