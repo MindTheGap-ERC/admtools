@@ -22,15 +22,34 @@ library(admtools)
 
 ### Coding tie points
 
-Tie points in time and depth need to be coded as independent functions
+Timing and height of tie points are coded via the functions t_tp (timing of tie points) and h_tp (height of tie points) that take no inputs. They serve as wrappers around user-defined procedures that reflect uncertainties around tie points. Every time t_tp and h_tp are evaluated, they return possible values for the tie points. Writing these functions requires some effort, but it allows the user to hand over arbitrarily complex uncertainties of the tie points to the strat_cont_to_multiadm function.
 
-For the tie points in height, the function must return a named vector with names "h1" and "h2". For the example, we consider a stratigraphic section of height one. This is coded by the function
+The function for the heights of the tie points must return a named vector with entries "h1" and "h2", corresponding to the heights of the first (lower) and second (upper) tie point. "h1" must be smaller than "h2".
+
+For this example, I assume the stratigraphic positions of the tie points known without uncertainty, and are at 10 and 20 m stratigraphic height.
+
+```{r}
+h_min = 10 # stratigraphic height of lower tie point [m]
+h_max = 20 # stratigraphic height of upper tie point [m]
+```
+
+*h_tp* is then implemented as follows:
 
 ```{r}
 h_tp = function(){
-  return(c("h1" = 0, "h2" = 1))
+  return(c("h1" = h_min,
+           "h2" = h_max))
 }
 ```
+
+When evaluated, this function returns the stratigraphic positions of the tie points:
+
+```{r}
+#Evaluate stratigraphic positions of tie points
+h_tp()
+```
+
+The function for the timing of the tie points must return a named vector with names "t1" (timing of first tie point) and "t2" (timing of second tie point). "t1" must be smaller than "t2".
 
 Similarly, tie points in time must return a named vector with names "t1" and "t2"
 
@@ -39,15 +58,15 @@ t_tp = function() return(c("t1" = rnorm(n = 1, mean = 0, sd = 0.01), "t2" = runi
 ```
 
 ```{r, echo=FALSE, fig.show="hold", out.width="50%"}
-
-hist(sapply(1:10000, function(x) t_tp()["t1"]),
+no_of_samples = 1000
+hist(sapply( seq_len(no_of_samples), function(x) t_tp()["t1"]),
      freq = FALSE,
      xlab = "Time [Myr]",
-     main = "Timing of first tie point")
-hist(sapply(1:10000, function(x) t_tp()["t2"]),
+     main = "Timing of lower tie point")
+hist(sapply(seq_len(no_of_samples), function(x) t_tp()["t2"]),
      freq = FALSE,
      xlab = "Time [Myr]",
-     main = "Timing of late tie point")
+     main = "Timing of upper tie point")
 ```
 
 ### Coding Stratigraphic Data

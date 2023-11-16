@@ -20,52 +20,55 @@ library(admtools)
 
 ## Nonparametric Estimation of age-depth models from sedimentation rates
 
-This vignette gives an example on how to estimate age-depth models from sedimentation rates using the function *sedrate_to_multiadm*. The function takes the following inputs:
+This vignette gives an example on how to estimate age-depth models (ADMs) from sedimentation rates using the function *sedrate_to_multiadm*. The function takes the following inputs:
 
--   *h_tp* : a function that returns stratigraphic tie points
+-   *h_tp* : a function that returns stratigraphic height of the tie points
 
--   *t_tp* : a function that returns time tie points
+-   *t_tp* : a function that returns times of the tie points
 
 -   *sed_rate_gen*: a function that returns sedimentation rates
 
--   *h* : vector of heights where the adm is determined
+-   *h* : vector of heights where the ADM is determined
 
--   *no_of_rep*: integer, number of age-depth models calculated
+-   *no_of_rep*: integer, number of age-depth models determined
 
-### Coding Tie Points in Time and Height
+### Coding Tie Points
 
-Tie points in time and height are coded via the functions *t_tp* (time tie points) and *h_tp* (height tie points) that take no inputs. They serve as wrappers around user-defined procedures that reflect uncertainties of tie points. Every time *t_tp* and *h_tp* are evaluated they return possible values for the tie points.
+Timing and height of tie points are coded via the functions *t_tp* (timing) and *h_tp* (height) that take no inputs. They serve as wrappers around user-defined procedures that reflect uncertainties around tie points. Every time *t_tp* and *h_tp* are evaluated, they return possible values for the tie points. Writing these functions requires some effort, but it allows the user to hand over arbitrarily complex uncertainties of the tie points to the *sedrate*\_to_multiadm function.
 
-The function for the stratigraphic tie points must return a named vector with entries "h1" and "h2", corresponding to the lower and higher tie point. "h1" must be smaller than "h2".
+The function for the heights of the tie points must return a named vector with entries "h1" and "h2", corresponding to the heights of the first (lower) and second (upper) tie point. "h1" must be smaller than "h2".
 
-For this example, I assume the stratigraphic positions of tie points one and two are known without uncertainty, and are at 10 and 85 m stratigraphic height.
+For this example, I assume the stratigraphic positions of the tie points is known without uncertainty, and are at 10 and 85 m stratigraphic height.
 
 ```{r}
 h_min = 10 # height of tie point 1
 h_max = 85 # height of tie point 2
 ```
 
-_h_tp_ is then implemented as follows:
+*h_tp* is then implemented as follows:
+
 ```{r}
 h_tp = function(){
   return(c("h1" = h_min, 
            "h2" = h_max))
 }
 ```
-If it is evaluated, it will simply return the stratigraphic positions of the tie points:
+
+When evaluated, this function returns the stratigraphic positions of the tie points:
+
 ```{r}
 #Evaluate stratigraphic positions of tie points
 h_tp()
 ```
 
-The function for time tie points in time must return a named vector with names "t1" (timing of first tie point) and "t2" (timing of second tie point). "t1" must be smaller than "t2".
+The function for the timing of the tie points must return a named vector with names "t1" (timing of first tie point) and "t2" (timing of second tie point). "t1" must be smaller than "t2".
 
-For this example, I assume the first timing of the first tie point follows a normal distribution with mean 0 and standard deviation 0.1. The timing of the second tie point is bimodal and given as an equal mixture of two normal distributions with means 5 and seven and standard deviations of 0.1c and 0.3. This results in the following implementation for *t_tp*:
+For this example, I assume the first timing of the first tie point follows a normal distribution with mean 0 and standard deviation 0.5. The timing of the second tie point is bimodal and given as an equal mixture of two normal distributions with means 5 and seven and standard deviations of 0.1 and 0.3. This is implemented as follows in *t_tp*:
 
 ```{r}
 t_tp = function(){
   # first tie point
-  t1 = rnorm(n = 1, mean = 0, sd = 0.1)
+  t1 = rnorm(n = 1, mean = 0, sd = 0.5)
   
   # second tie point
   d1 = rbinom(n = 1, size = 2, prob = 0.5) # fair coin flip for mixture
@@ -78,15 +81,16 @@ t_tp = function(){
 }
 ```
 
-Taking Myr as time unit, the distribution of times for the tie points is as follows:
+Using Myr as time unit, the distribution of times for the tie points is as follows:
 
 ```{r, fig.show="hold", out.width="50%"}
+no_of_samples = 10000
 # Evaluate timing of tie points
-hist(sapply(1:1000, function(x) t_tp()["t1"]),
+hist(sapply(seq_len(no_of_samples), function(x) t_tp()["t1"]),
      freq = FALSE,
      xlab = "Time [Myr]",
      main = "Timing of first tie point")
-hist(sapply(1:1000, function(x) t_tp()["t2"]),
+hist(sapply(seq_len(no_of_samples), function(x) t_tp()["t2"]),
      freq = FALSE,
      xlab = "Time [Myr]",
      main = "Timing of second tie point")
@@ -95,7 +99,7 @@ hist(sapply(1:1000, function(x) t_tp()["t2"]),
 
 ### Coding Sedimentation Rates
 
-Sedimentation rates are specified via a function *sed_rate_gen* that takes no inputs. It serves as wrapper for user-defined procedures that specify uncertainties in sedimentation rates. *sed_rate_gen* is a "function factory": every time it is evaluated, it returns another function that is one potential potential sedimentation rate scenario.
+Sedimentation rates are specified via a function *sed_rate_gen* that takes no inputs. It serves as wrapper for user-defined procedures that specify uncertainties in sedimentation rates. *sed_rate_gen* is a "function factory": every time it is evaluated, it returns another function that is one potential sedimentation rate scenario. Writing this function factory requires some effort, but it allows the user to specify how uncertainties of sedimentation rates are expressed in the section, and implement arbitrarily complex distributions.
 
 I use a simple sedimentation rate model, where only upper and lower bounds on sedimentation rates in the section are known. Between these limits, I assume a uniform distribution.
 
@@ -109,6 +113,7 @@ s = c(h_min - 1, 30,75, 80, h_max + 1)
 ```
 
 Based on these parameters, we define the sedimentation rate function factory as follows:
+
 ```{r}
 # define function factory
 sed_rate_fun = function(){
@@ -119,20 +124,19 @@ sed_rate_fun = function(){
          runif(1, lower_limit[4], upper_limit[4]))
   aa = c(aa_1, aa_1[4])
   # define sed rate "realization" based on samples from uniform distribution
- sed_rate = function(h) approx(x = s,
-                                y = aa,
-                                xout = h,
-                               method = "constant")$y
+ sed_rate_fun = approxfun(x = s,
+                          y = aa,
+                          method = "constant")
  # return the function
- return(sed_rate)
+ return(sed_rate_fun)
 }
 ```
 
-To visualize, here are three sedimentation rates generated by the "sedimentation rate factory" *sed_rate_fun*:
+To visualize, here are three sedimentation rates generated by the "sedimentation rate function factory" *sed_rate_fun*:
 
 ```{r}
 plot(NULL,
-     xlim = c(10,85),
+     xlim = c(h_min, h_max),
      ylim = c(0, max(upper_limit)),
      xlab = "Stratigraphic Height [m]",
      ylab = "Sedimentation Rate")
@@ -146,18 +150,25 @@ for (i in seq_len(no_of_sedrates)){
   lines(h, sed_rate_sample(h))
 }
 ```
+
 All sedimentation rates generated by *sed_rate_fun* will be different, because they are determined by random numbers.
 
 ### Estimating the Age-Depth models
 
-The function *sedrate_to_multiadm* estimates the age-depth model from the inputs:
+The function *sedrate_to_multiadm* estimates the age-depth model from the inputs. Here, I determine the age-depth models every meter, and generate 10 ADMs
+
+```{r}
+
+h = seq(h_min,h_max, by = 1)
+no_of_rep = 10
+```
 
 ```{R}
 my_adm = sedrate_to_multiadm(h_tp = h_tp(),
                       t_tp = t_tp(),
                       sed_rate_gen = sed_rate_fun,
-                      h = seq(10,85, by = 1),
-                      no_of_rep = 10)
+                      h = h,
+                      no_of_rep = no_of_rep)
 ```
 
 It generates a portfolio of age-depth models combined into the variable *madm* (multi-adm)
