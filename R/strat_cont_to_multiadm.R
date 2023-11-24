@@ -12,6 +12,8 @@ strat_cont_to_multiadm = function(h_tp, t_tp, strat_cont_gen, time_cont_gen, h, 
   #' 
   #' @returns a multiadm object
   #' 
+  #' @export
+  #' 
   
   # initialize storage
   h_list = vector(mode = "list", length = no_of_rep)
@@ -79,7 +81,8 @@ strat_cont_to_multiadm = function(h_tp, t_tp, strat_cont_gen, time_cont_gen, h, 
                   h = h_list,
                   destr = destr_list,
                   T_unit = NA,
-                  L_unit = NA)
+                  L_unit = NA,
+                  no_of_entries = length(t_list))
   class(multiadm) = "multiadm"
   return(multiadm)
 }

@@ -18,13 +18,19 @@ knitr::opts_chunk$set(
 library(admtools)
 ```
 
-# Hello WOrld
+# Hello World
 
-We explain the workflow of the admtools package using example data provided with the package.
+This vignette is an introduction to the _admtools_ adm package. As example data we use outputs from CarboCAT Lite, a model of carbonate platform growth. This data is provided with the package and loaded using the command below.
+
+```{R}
+data("CarboCatLite_data")
+
+```
 
 ## Defining age-depth models
 
-A standard constructor for age-depth models is _tp_2_adm_ ("tiepoint to age-depth model"). We use the option to directly associate legnth and time units with the age-depth model.
+The standard constructor for age-depth models is _tp_2_adm_ ("tiepoint to age-depth model"). It returns an _adm_ (age-depth model) object.
+We use the timing and position of tie points to construct an age-depth model, and use the option to directly associate length and time units with it.
 
 ```{R}
 # see ?tp_2_adm for detailed documentation
@@ -34,7 +40,7 @@ my_adm = tp_2_adm(t = CarboCATLite_data$time_myr,
                   T_unit = "Myr")
 ```
 
-_my_adm_ is an adm object that contains the age-depth model at 2 km offshore in a carbonate platform. You can use _summary_ to get a quick overview of the properties of the age-depth model
+You can use _summary_ to get a quick overview of the properties of the age-depth model
 ```{R}
 summary(my_adm)
 ```
@@ -48,7 +54,7 @@ plot(my_adm,
      lwd_cons = 3)
 ```
 
-You can see the age-depth model contains hiatuses, which are indicated by dashed lines. You can use the function _is_destructive_ to examine whether time points coincide with hiatuses:
+The function _is_destructive_ can be used to examine whether time points coincide with hiatuses:
 
 ```{R}
 is_destructive(adm = my_adm,

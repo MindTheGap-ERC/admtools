@@ -4,4 +4,6 @@ split_multiadm = function(multiadm){
     adm_list[[i]] = tp_2_adm(t = multiadm[["t"]][[i]],
                              h = multiadm[["h"]][[i]])
   }
+  return(adm_list)
+  
 }

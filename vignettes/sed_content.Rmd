@@ -84,7 +84,7 @@ time_cont_gen = function(){
 
 ```{r}
 strat_cont_gen = function(){
-   return(approxfun(x = c(0,0.5,1), y = c(10,1,2)))
+   return(approxfun(x = c(0,0.5,1), y = c(10,1,8), yleft = 10, yright = 2))
 }
 ```
 
