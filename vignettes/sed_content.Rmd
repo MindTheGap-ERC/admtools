@@ -22,20 +22,20 @@ library(admtools)
 
 ### Coding tie points
 
-Timing and height of tie points are coded via the functions t_tp (timing of tie points) and h_tp (height of tie points) that take no inputs. They serve as wrappers around user-defined procedures that reflect uncertainties around tie points. Every time t_tp and h_tp are evaluated, they return possible values for the tie points. Writing these functions requires some effort, but it allows the user to hand over arbitrarily complex uncertainties of the tie points to the strat_cont_to_multiadm function.
+Ages and stratigraphic positions (heights) of tie points are coded via the functions `t_tp` (timing of tie points) and `h_tp` (height of tie points) that take no inputs. They serve as wrappers around user-defined procedures that reflect uncertainties around tie points. Every time `t_tp` and `h_tp` are evaluated, they return possible values for the tie points. Writing these functions requires some effort, but it allows the user to hand over arbitrarily complex uncertainties of the tie points to the `strat_cont_to_multiadm` function.
 
-The function for the heights of the tie points must return a named vector with entries "h1" and "h2", corresponding to the heights of the first (lower) and second (upper) tie point. "h1" must be smaller than "h2".
+The function for the heights of the tie points must return a named vector with entries `h1` and `h2`, corresponding to the heights of the first (lower) and second (upper) tie point. `h1` must be smaller than `h2`.
 
-For this example, I assume the stratigraphic positions of the tie points known without uncertainty, and are at 10 and 20 m stratigraphic height.
+For this example, I assume the stratigraphic positions of the tie points are known without uncertainty, and are at 10 and 20 m stratigraphic height.
 
 ```{r}
 h_min = 10 # stratigraphic height of lower tie point [m]
 h_max = 20 # stratigraphic height of upper tie point [m]
 ```
 
-*h_tp* is then implemented as follows:
+`h_tp` is then implemented as follows:
 
-```{r}
+```{r, h_tp function}
 h_tp = function(){
   return(c("h1" = h_min,
            "h2" = h_max))
@@ -44,14 +44,13 @@ h_tp = function(){
 
 When evaluated, this function returns the stratigraphic positions of the tie points:
 
-```{r}
-#Evaluate stratigraphic positions of tie points
+```{r, Evaluate stratigraphic positions of tie points}
 h_tp()
 ```
 
-The function for the timing of the tie points must return a named vector with names "t1" (timing of first tie point) and "t2" (timing of second tie point). "t1" must be smaller than "t2".
+The function for the timing of the tie points must return a named vector with names `t1` (timing of first tie point) and `t2` (timing of second tie point). `t1` must be smaller than `t2`.
 
-Similarly, tie points in time must return a named vector with names "t1" and "t2"
+Similarly, tie points in time must return a named vector with names `t1` and `t2`
 
 ```{r}
 t_tp = function() return(c("t1" = rnorm(n = 1, mean = 0, sd = 0.01), "t2" = runif(n = 1, min = 9, max = 11)))
@@ -71,15 +70,13 @@ hist(sapply(seq_len(no_of_samples), function(x) t_tp()["t2"]),
 
 ### Coding Stratigraphic Data
 
-Both stratigraphic contents and time contents must be coded as function factories, i.e., functions that return functions.
+Both stratigraphic contents and age contents must be coded as function factories, i.e., functions that return functions.
 
 ```{r}
 time_cont_gen = function(){
   strat_cont = function(x) return(rep(1, length(x)))
   return(strat_cont)
 }
-
-
 ```
 
 ```{r}
@@ -88,7 +85,7 @@ strat_cont_gen = function(){
 }
 ```
 
-Age-depth models can be estimated using the function strat_cont_to_multiadm:
+Age-depth models can be estimated using the function `strat_cont_to_multiadm`:
 
 ```{r}
 my_adm = strat_cont_to_multiadm(h_tp = h_tp,

@@ -22,15 +22,14 @@ library(admtools)
 
 This vignette is an introduction to the _admtools_ adm package. As example data we use outputs from CarboCAT Lite, a model of carbonate platform growth. This data is provided with the package and loaded using the command below.
 
-```{R}
-data("CarboCatLite_data")
-
+```{r}
+load("data/CarboCatLite_data.rda")
 ```
 
 ## Defining age-depth models
 
 The standard constructor for age-depth models is _tp_2_adm_ ("tiepoint to age-depth model"). It returns an _adm_ (age-depth model) object.
-We use the timing and position of tie points to construct an age-depth model, and use the option to directly associate length and time units with it.
+We use the timing and stratigraphic positions of tie points to construct an age-depth model, and use the option to directly associate length and time units with it.
 
 ```{R}
 # see ?tp_2_adm for detailed documentation
@@ -65,5 +64,5 @@ is_destructive(adm = my_adm,
 
 The functions _get_height_ and _get_time_ are the workhorses to transform data using age-depth models.
 
-* _get_time_ takes and adm object and vector of heights _h_  (stratigraphic positions), and retruns a vector of times
-* _get_height_ takes an adm object and vector of times and retruns a vector of associated positions
+* _get_time_ takes and adm object and vector of heights _h_  (stratigraphic positions), and returns a vector of times
+* _get_height_ takes an adm object and vector of times and returns a vector of associated positions
