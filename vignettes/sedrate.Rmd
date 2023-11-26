@@ -20,23 +20,23 @@ library(admtools)
 
 ## Nonparametric Estimation of age-depth models from sedimentation rates
 
-This vignette gives an example on how to estimate age-depth models (ADMs) from sedimentation rates using the function *sedrate_to_multiadm*. The function takes the following inputs:
+This vignette gives an example on how to estimate age-depth models (ADMs) from sedimentation rates using the function `sedrate_to_multiadm`. The function takes the following inputs:
 
--   *h_tp* : a function that returns stratigraphic height of the tie points
+-   `h_tp` : a function that returns stratigraphic height of the tie points
 
--   *t_tp* : a function that returns times of the tie points
+-   `t_tp` : a function that returns times of the tie points
 
--   *sed_rate_gen*: a function that returns sedimentation rates
+-   `sed_rate_gen`: a function that returns sedimentation rates
 
--   *h* : vector of heights where the ADM is determined
+-   `h` : vector of heights where the ADM is determined
 
--   *no_of_rep*: integer, number of age-depth models determined
+-   `no_of_rep`: integer, number of age-depth models determined
 
 ### Coding Tie Points
 
-Timing and height of tie points are coded via the functions *t_tp* (timing) and *h_tp* (height) that take no inputs. They serve as wrappers around user-defined procedures that reflect uncertainties around tie points. Every time *t_tp* and *h_tp* are evaluated, they return possible values for the tie points. Writing these functions requires some effort, but it allows the user to hand over arbitrarily complex uncertainties of the tie points to the *sedrate*\_to_multiadm function.
+Ages and heights of tie points are coded via the functions `t_tp` (timing) and `h_tp` (height) that take no inputs. They serve as wrappers around user-defined procedures that reflect uncertainties around tie points. Every time `t_tp` and `h_tp` are evaluated, they return possible values for the tie points. Writing these functions requires some effort, but it allows the user to hand over arbitrarily complex uncertainties of the tie points to the `sedrate_to_multiadm` function.
 
-The function for the heights of the tie points must return a named vector with entries "h1" and "h2", corresponding to the heights of the first (lower) and second (upper) tie point. "h1" must be smaller than "h2".
+The function for the heights of the tie points must return a named vector with entries `h1` and `h2`, corresponding to the heights of the first (lower) and second (upper) tie point. `h1` must be smaller than `h2`.
 
 For this example, I assume the stratigraphic positions of the tie points is known without uncertainty, and are at 10 and 85 m stratigraphic height.
 
@@ -45,7 +45,7 @@ h_min = 10 # height of tie point 1
 h_max = 85 # height of tie point 2
 ```
 
-*h_tp* is then implemented as follows:
+`h_tp` is then implemented as follows:
 
 ```{r}
 h_tp = function(){
@@ -63,7 +63,7 @@ h_tp()
 
 The function for the timing of the tie points must return a named vector with names "t1" (timing of first tie point) and "t2" (timing of second tie point). "t1" must be smaller than "t2".
 
-For this example, I assume the first timing of the first tie point follows a normal distribution with mean 0 and standard deviation 0.5. The timing of the second tie point is bimodal and given as an equal mixture of two normal distributions with means 5 and seven and standard deviations of 0.1 and 0.3. This is implemented as follows in *t_tp*:
+For this example, I assume the first timing of the first tie point follows a normal distribution with mean 0 and standard deviation 0.5. The timing of the second tie point is bimodal and given as an equal mixture of two normal distributions with means 5 and seven and standard deviations of 0.1 and 0.3. This is implemented as follows in `t_tp`:
 
 ```{r}
 t_tp = function(){
@@ -99,7 +99,7 @@ hist(sapply(seq_len(no_of_samples), function(x) t_tp()["t2"]),
 
 ### Coding Sedimentation Rates
 
-Sedimentation rates are specified via a function *sed_rate_gen* that takes no inputs. It serves as wrapper for user-defined procedures that specify uncertainties in sedimentation rates. *sed_rate_gen* is a "function factory": every time it is evaluated, it returns another function that is one potential sedimentation rate scenario. Writing this function factory requires some effort, but it allows the user to specify how uncertainties of sedimentation rates are expressed in the section, and implement arbitrarily complex distributions.
+Sedimentation rates are specified via a function `sed_rate_gen` that takes no inputs. It serves as wrapper for user-defined procedures that specify uncertainties in sedimentation rates. `sed_rate_gen` is a "function factory": every time it is evaluated, it returns another function that is one potential sedimentation rate scenario. Writing this function factory requires some effort, but it allows the user to specify how uncertainties of sedimentation rates are expressed in the section, and implement arbitrarily complex distributions.
 
 I use a simple sedimentation rate model, where only upper and lower bounds on sedimentation rates in the section are known. Between these limits, I assume a uniform distribution.
 
@@ -132,7 +132,7 @@ sed_rate_fun = function(){
 }
 ```
 
-To visualize, here are three sedimentation rates generated by the "sedimentation rate function factory" *sed_rate_fun*:
+To visualize, here are three sedimentation rates generated by the "sedimentation rate function factory" `sed_rate_fun`:
 
 ```{r}
 plot(NULL,
@@ -151,14 +151,13 @@ for (i in seq_len(no_of_sedrates)){
 }
 ```
 
-All sedimentation rates generated by *sed_rate_fun* will be different, because they are determined by random numbers.
+All sedimentation rates generated by `sed_rate_fun` will be different, because they are determined by random numbers.
 
-### Estimating the Age-Depth models
+### Estimating the Age-Depth Models
 
-The function *sedrate_to_multiadm* estimates the age-depth model from the inputs. Here, I determine the age-depth models every meter, and generate 10 ADMs
+The function `sedrate_to_multiadm` estimates the age-depth model from the inputs. Here, I determine the age-depth models every meter, and generate 10 ADMs
 
 ```{r}
-
 h = seq(h_min,h_max, by = 1)
 no_of_rep = 10
 ```
@@ -171,14 +170,13 @@ my_adm = sedrate_to_multiadm(h_tp = h_tp(),
                       no_of_rep = no_of_rep)
 ```
 
-It generates a portfolio of age-depth models combined into the variable *madm* (multi-adm)
+It generates a portfolio of age-depth models combined into the variable `madm` (multi-adm)
 
 ```{R, echo=FALSE}
 plot(my_adm)
-
 ```
 
-These are the 10 age-depth models generated by the *sedrate_to_adm* function, which are all equally likely candidates for the age-depth relationship in the section. Running summary statistics on large number of age-depth models (increasing the *no_of_rep* input variable) gives an assessment of the uncertainties of the age-depth relationship. This can also be used to generate the classic envelopes of uncertainty (95 % CI) used in BChron or other methods.
+These are 10 age-depth models generated by the `sedrate_to_adm` function, which are all equally likely candidates for the age-depth relationship in the section. Running summary statistics on large number of age-depth models (increasing the `no_of_rep` input variable) gives an assessment of the uncertainties of the age-depth relationship. This can also be used to generate the classic envelopes of uncertainty (95 % CI) used in BChron or other methods.
 
 Highlights:
 
