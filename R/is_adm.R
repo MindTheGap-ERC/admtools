@@ -20,6 +20,17 @@ is_adm = function(adm){
     return(FALSE)
   }
   
+  has_valid_names = all( names(adm) %in% c("t","h","destr", "T_unit", "L_unit"))
+  if (! has_valid_names){
+    warning("Invalid names")
+    return(FALSE)
+  }
+  
+  if (length(names(adm)) != 5){
+    warning("Missing name fields")
+    return(FALSE)
+  }
+  
 if(length(adm$t) != length(adm$h)){
   warning("Number of tie points in time and height differs")
   return(FALSE)
