@@ -6,13 +6,36 @@ R package to handle age-depth models
 
 __Niklas Hohmann__  
 Utrecht University  
-email: n.hohmann@uu.nl  
+email: n.hohmann [at] uu.nl  
 Web page: [uu.nl/staff/NHohmann](uu.nl/staff/NHohmann)  
 Orcid: [0000-0003-1559-1838](https://orcid.org/0000-0003-1559-1838)
 
-## Software requirements
+## Installation
 
-Base R
+In R, first, install the devtools package:
+
+```{R}
+install.packages("devtools")
+```
+
+You can install the _admtools_ package_ directly from GitHub using
+
+```{R}
+devtools::install_github(repo = "MindTheGap-ERC/admtools",
+                         build_vignettes = TRUE)
+```
+
+Now you can load the package using
+
+```{R}
+library("admtools")
+```
+
+To get started, have a look at the vignettes:
+
+```{R}
+vignette("admtools")
+```
 
 ## Copyright
 
