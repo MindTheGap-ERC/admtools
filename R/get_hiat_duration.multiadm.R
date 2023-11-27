@@ -8,5 +8,5 @@ get_hiat_duration.multiadm = function(x){
   
   adm_list = split_multiadm(multiadm)
   
-  outlist = lapply(amd_list, function(x) get_hiat_duration(x))
+  outlist = lapply(adm_list, function(x) get_hiat_duration(x))
 }
