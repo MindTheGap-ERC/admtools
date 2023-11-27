@@ -1,8 +1,8 @@
 ---
-title: "admtools"
+title: "admtools: Getting Started"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{admtools}
+  %\VignetteIndexEntry{admtools: Getting Started}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -14,16 +14,28 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
+```{r setup, echo=FALSE}
 library(admtools)
 ```
 
-# Hello World
+# Introduction
 
-This vignette is an introduction to the _admtools_ adm package. As example data we use outputs from CarboCAT Lite, a model of carbonate platform growth. This data is provided with the package and loaded using the command below.
+This vignette is an introduction to the _admtools_ package.
+
+## Loading the package
+
+First, load the package using
 
 ```{r}
-load("data/CarboCatLite_data.rda")
+library(admtools)
+```
+
+This makes all functions in the package available.
+
+As example data we use outputs from CarboCAT Lite, a model of carbonate platform growth (Burgess 2013, 2023). This data is automatically loaded in the background by the package. To inspect it, you can load it into your workspace via
+
+```{r}
+data("CarboCatLite_data")
 ```
 
 ## Defining age-depth models
@@ -43,6 +55,7 @@ You can use _summary_ to get a quick overview of the properties of the age-depth
 ```{R}
 summary(my_adm)
 ```
+Use the functions _get_total_duration_, _get_total_thickness_, _get_completeness_, and _get_hiat_no_ extract that information directly from the age-depth model.
 
 To get a visual representation, we plot it, and highlight hiatuses in red
 
@@ -66,3 +79,30 @@ The functions _get_height_ and _get_time_ are the workhorses to transform data u
 
 * _get_time_ takes and adm object and vector of heights _h_  (stratigraphic positions), and returns a vector of times
 * _get_height_ takes an adm object and vector of times and returns a vector of associated positions
+
+As example, say we want to know the time of deposition of the following stratigraphic positions:
+
+```{r}
+h = c(30,120) # stratigraphic positions
+get_time(adm = my_adm,
+             h = h)
+```
+Conversely, to determine what parts of the section are deposited as a specific time, use
+```{r}
+t = c(0.2,1.4)
+get_height(adm = my_adm,
+           t = t)
+```
+Here, the _NA_ indicates that the time 1.4 coincides with erosion. If you want to know the stratigraphic position of the hiatus that coincides with that time, use the option _destructive = FALSE_:
+
+```{r}
+t = c(0.2,1.4)
+get_height(adm = my_adm,
+           t = t,
+           destructive = FALSE)
+```
+
+
+## References
+* Burgess, Peter. "CarboCAT: A cellular automata model of heterogeneous carbonate strata." Computers & geosciences 53 (2013): 129-140. [DOI: 10.1016/j.cageo.2011.08.026](https://doi.org/10.1016/j.cageo.2011.08.026)
+* Burgess, Peter. "CarboCAT Lite v1.0.1". Zenodo 2023. [DOI: 10.5281/zenodo.8402578](https://doi.org/10.5281/zenodo.8402578)
