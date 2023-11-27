@@ -1,6 +1,7 @@
 ---
 title: "admtools: Getting Started"
 output: rmarkdown::html_vignette
+author: "Niklas Hohmann"
 vignette: >
   %\VignetteIndexEntry{admtools: Getting Started}
   %\VignetteEngine{knitr::rmarkdown}
@@ -101,7 +102,18 @@ get_height(adm = my_adm,
            t = t,
            destructive = FALSE)
 ```
+## Further information
 
+For information on estimating age-depth models from sedimentation rates, see
+```{r, eval=FALSE}
+vignette("adm_from_sedrate")
+```
+
+For information on estimating age-depth models from tracer contents of rocks and sediments, see
+```{r, eval=FALSE}
+vignette("adm_from_trace_cont")
+```
+ 
 
 ## References
 * Burgess, Peter. "CarboCAT: A cellular automata model of heterogeneous carbonate strata." Computers & geosciences 53 (2013): 129-140. [DOI: 10.1016/j.cageo.2011.08.026](https://doi.org/10.1016/j.cageo.2011.08.026)
