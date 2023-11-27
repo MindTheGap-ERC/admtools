@@ -9,6 +9,9 @@ merge_adm_2_multiadm(...)
 \arguments{
 \item{...}{adm objects}
 }
+\value{
+a multiadm object
+}
 \description{
 combine multiple adm ojects into multiadm object
 }
