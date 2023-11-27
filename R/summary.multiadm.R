@@ -18,9 +18,9 @@ summary.multiadm = function(object, ...){
   
   adm = object
   cat("multiple age-depth models \n")
-  cat("Median total duration: ", median(get_total_duration(adm)), " ", adm$T_unit, "\n", sep = "")
-  cat("Median total thickness: ", median(get_total_thickness(adm)), " ", adm$L_unit , "\n", sep = "")
-  cat("Median stratigraphic completeness: ", median(get_completeness(adm) *100) , " % \n", sep = "")
-  cat( median(get_hiat_no(adm)), "hiatus(es) (median)")
+  cat("Median total duration: ", stats::median(get_total_duration(adm)), " ", adm$T_unit, "\n", sep = "")
+  cat("Median total thickness: ", stats::median(get_total_thickness(adm)), " ", adm$L_unit , "\n", sep = "")
+  cat("Median stratigraphic completeness: ", stats::median(get_completeness(adm) *100) , " % \n", sep = "")
+  cat( stats::median(get_hiat_no(adm)), "hiatus(es) (median)")
   return(invisible())
 }
