@@ -1,0 +1,7 @@
+bibentry(
+  bibtype  = "Misc",
+  title    = "admtools package for R",
+  author   = "Niklas Hohmann",
+  year     = "2023",
+  doi      ="10.5281/zenodo.10213587"
+)
