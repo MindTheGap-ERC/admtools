@@ -41,7 +41,7 @@ data("CarboCatLite_data")
 
 ## Defining age-depth models
 
-The standard constructor for age-depth models is _tp_2_adm_ ("tiepoint to age-depth model"). It returns an _adm_ (age-depth model) object.
+The standard constructor for age-depth models is _tp_2_adm_ ("tiepoint to age-depth model"). It returns an _adm_ (age-depth model) object. This object combines information of stratigraphic heights and times and erosive interval. It allows to transform data between the stratigraphic and the time domain, and indentify which data is destroyed due to hiatuses.
 We use the timing and stratigraphic positions of tie points to construct an age-depth model, and use the option to directly associate length and time units with it.
 
 ```{R}

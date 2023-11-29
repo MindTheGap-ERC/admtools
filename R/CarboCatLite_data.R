@@ -18,8 +18,8 @@
 #' the [scenario A model run here](https://github.com/MindTheGap-ERC/CarboCATLite/tree/scenarioA)
 #' 
 #' @references
-  #' * Burgess, Peter. "CarboCAT: A cellular automata model of heterogeneous carbonate strata." Computers & geosciences 53 (2013): 129-140. [DOI: 10.1016/j.cageo.2011.08.026](https://doi.org/10.1016/j.cageo.2011.08.026)
-  #' * Burgess, Peter. (2023). CarboCATLite (v1.0.1). Zenodo. [DOI: 10.5281/zenodo.8402578](https://doi.org/10.5281/zenodo.8402578)
+  #' * Burgess, Peter. "CarboCAT: A cellular automata model of heterogeneous carbonate strata." Computers & geosciences 53 (2013): 129-140. \doi{10.1016/j.cageo.2011.08.026}
+  #' * Burgess, Peter. (2023). CarboCATLite (v1.0.1). Zenodo. \doi{10.5281/zenodo.8402578}
 
 
 "CarboCATLite_data"

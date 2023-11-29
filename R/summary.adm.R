@@ -11,7 +11,7 @@ summary.adm = function(object, ...){
   #' @param object an adm object
   #' @param ... other variables, are ignored
   #' 
-  #' @return Prints summary to the console and returns an invisible NULL
+  #' @returns Invisible NULL, prints summary to the console
   #' 
   #' @examples
     #' my_adm = tp_2_adm(t = 1:5, h = c(2,2,3), L_unit = "m", T_unit = "Myr" )

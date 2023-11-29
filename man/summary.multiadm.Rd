@@ -12,7 +12,7 @@
 \item{...}{other variables, are ignored}
 }
 \value{
-Prints summary to the console and returns an invisible NULL
+Invisible NULL, prints summary to the console
 }
 \description{
 Displays some summary numbers of an age-depth models

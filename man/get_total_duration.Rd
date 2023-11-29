@@ -9,6 +9,9 @@ get_total_duration(x)
 \arguments{
 \item{x}{an adm object}
 }
+\value{
+numeric vector, total duration covered by the age-depth models
+}
 \description{
 Total duration covered
 }

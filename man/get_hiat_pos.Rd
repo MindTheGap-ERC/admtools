@@ -10,7 +10,7 @@ get_hiat_pos(x)
 \item{x}{an adm object}
 }
 \value{
-a vector with stratigraphic positions of hiatuses
+numeric vector with stratigraphic positions of hiatuses
 }
 \description{
 Determines stratigraphic position of hiatuses

@@ -18,6 +18,8 @@ get_time = function(adm, h, hiat_mode = "start", bdry_pts_hiat = "destructive", 
   #' @param bdry_pts_hiat "consistent" or "destructive". How are hiatuses at the start/end of the adm treated?
   #' @param out_dom_val_t :"default", "time_limits", or a numeric value. What value is returned for heights not covered by the age-depth model?
   #' 
+  #' @returns numeric vector. Times of deposition of the provided heights in h
+  #' 
   #' @details
   #'  If a stratigraphic position
   #' coincides with a hiatus, should the start time or the end time of the hiatus be returned? 

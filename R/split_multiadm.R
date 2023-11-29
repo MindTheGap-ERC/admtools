@@ -7,7 +7,7 @@ split_multiadm = function(multiadm){
   #' 
   #' @param multiadm a multiadm object
   #' 
-  #' @returns a list of adm objects
+  #' @returns list with objects of class adm
   #'
   adm_list = list()
   for (i in seq_len(multiadm$no_of_entries)){

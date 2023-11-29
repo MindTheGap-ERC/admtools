@@ -10,7 +10,7 @@ is_multiadm(x)
 \item{x}{object to be tested}
 }
 \value{
-Boolean. is the object a valid multiadm object?
+Boolean. Is the object a valid multiadm object?
 }
 \description{
 is valid multiadm object?

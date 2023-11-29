@@ -10,7 +10,7 @@ split_multiadm(multiadm)
 \item{multiadm}{a multiadm object}
 }
 \value{
-a list of adm objects
+list with objects of class adm
 }
 \description{
 split multiadm objects into adm

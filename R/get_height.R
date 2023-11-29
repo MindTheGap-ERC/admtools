@@ -29,7 +29,8 @@ get_height = function(adm, t, destructive = TRUE, out_dom_val_h = "default", ...
   #' 
   #' 
   #' 
-  #' @return a vector with same length as t, containing the strat heights deposited
+  #' @returns a vector with same length as t, containing the strat heights deposited
   #' 
+  
   UseMethod("get_height")
 }

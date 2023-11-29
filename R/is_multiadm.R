@@ -5,7 +5,7 @@ is_multiadm = function(x){
   #' 
   #' @param x object to be tested
   #' 
-  #' @returns Boolean. is the object a valid multiadm object?
+  #' @returns Boolean. Is the object a valid multiadm object?
   #' 
   
   if ( ! inherits(x, "multiadm") ){

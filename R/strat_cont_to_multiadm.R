@@ -10,7 +10,7 @@ strat_cont_to_multiadm = function(h_tp, t_tp, strat_cont_gen, time_cont_gen, h, 
   #' @param h heights where the adm is evaluated
   #' @param no_of_rep integer, number of repetititons
   #' 
-  #' @returns a multiadm object
+  #' @returns Object of class multiadm
   #' 
   #' @export
   #' 

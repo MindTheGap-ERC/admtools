@@ -27,7 +27,7 @@ strat_cont_to_multiadm(
 \item{no_of_rep}{integer, number of repetititons}
 }
 \value{
-a multiadm object
+Object of class multiadm
 }
 \description{
 estimate age-depth model from stratigraphic contents

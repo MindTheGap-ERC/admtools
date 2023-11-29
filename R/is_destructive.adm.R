@@ -3,6 +3,7 @@ is_destructive.adm = function(adm, t, mode = "rcll", bdry_pts_hiat = "destructiv
 
   #' 
   #' @export
+  #' 
   
   stopifnot(bdry_pts_hiat %in% c("destructive", "consistent"))
   

@@ -1,6 +1,7 @@
 get_hiat_pos.adm = function(x){
   #'
   #'@export
+  #'
   
   adm = x
   

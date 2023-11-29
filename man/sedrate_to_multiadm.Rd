@@ -18,7 +18,7 @@ sedrate_to_multiadm(h_tp, t_tp, sed_rate_gen, h, no_of_rep = 100)
 \item{no_of_rep}{: numeric, number of repetitions}
 }
 \value{
-an multiadm object
+object of class multiadm
 }
 \description{
 Estimate age-depth model from sedimentation rate & tie points

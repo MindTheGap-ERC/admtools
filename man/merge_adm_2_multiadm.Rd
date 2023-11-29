@@ -10,7 +10,7 @@ merge_adm_2_multiadm(...)
 \item{...}{adm objects}
 }
 \value{
-a multiadm object
+object of class multiadm
 }
 \description{
 combine multiple adm ojects into multiadm object

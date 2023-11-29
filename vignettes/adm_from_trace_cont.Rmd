@@ -212,6 +212,6 @@ vignette("adm_from_sedrate")
 
 For a simplified application see
 
-*  Jarochowska, E., Nohl, T., Grohganz, M., Hohmann, N., Vandenbroucke, T. R. A., & Munnecke, A. (2020). Reconstructing depositional rates and their effect on paleoenvironmental proxies: The case of the Lau Carbon Isotope Excursion in Gotland, Sweden. Paleoceanography and Paleoclimatology, 35, e2020PA003979. https://doi.org/10.1029/2020PA003979 
+*  Jarochowska, E., Nohl, T., Grohganz, M., Hohmann, N., Vandenbroucke, T. R. A., & Munnecke, A. (2020). Reconstructing depositional rates and their effect on paleoenvironmental proxies: The case of the Lau Carbon Isotope Excursion in Gotland, Sweden. Paleoceanography and Paleoclimatology, 35, e2020PA003979. [DOI: 10.1029/2020PA003979](https://doi.org/10.1029/2020PA003979) 
 
 

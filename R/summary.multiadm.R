@@ -11,7 +11,7 @@ summary.multiadm = function(object, ...){
   #' @param object a multiadm object
   #' @param ... other variables, are ignored
   #' 
-  #' @return Prints summary to the console and returns an invisible NULL
+  #' @returns Invisible NULL, prints summary to the console
   #' 
   #' 
   #' 

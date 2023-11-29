@@ -18,6 +18,9 @@ bdry_pts_hiat = "destructive", out_dom_val_t = "default")
 
 \item{out_dom_val_t}{:"default", "time_limits", or a numeric value. What value is returned for heights not covered by the age-depth model?}
 }
+\value{
+numeric vector. Times of deposition of the provided heights in h
+}
 \description{
 Takes an age-depth model and vector of stratigraphic positions to determine
 the corresponding time of formation

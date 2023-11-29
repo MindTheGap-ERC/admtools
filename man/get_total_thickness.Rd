@@ -9,6 +9,9 @@ get_total_thickness(x)
 \arguments{
 \item{x}{an adm object}
 }
+\value{
+numeric vector containing total sediment thickness accumulated
+}
 \description{
 get thickness
 }

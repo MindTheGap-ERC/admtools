@@ -10,9 +10,9 @@ is_adm = function(adm){
   #' 
   #' @param adm an object
   #' 
-  #' @returns logical. Is the input a valid adm object?
+  #' @returns Boolean. Is the input a valid adm object?
   #' 
-  #' 
+  #' @export
   #' 
   
   if ( ! inherits(adm, "adm") ){

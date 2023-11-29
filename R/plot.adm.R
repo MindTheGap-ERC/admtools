@@ -4,6 +4,7 @@ plot.adm = function(x, lwd_hiat = 1, lwd_cons = 1, lty_hiat = 3, lty_cons = 1,
   #'
   #'
   #'@export
+  #'
   
   adm = x
   

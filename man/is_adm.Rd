@@ -10,7 +10,7 @@ is_adm(adm)
 \item{adm}{an object}
 }
 \value{
-logical. Is the input a valid adm object?
+Boolean. Is the input a valid adm object?
 }
 \description{
 Contructors for adm objects such as \emph{tp_2_adm} do not check whether the inputs define a valid

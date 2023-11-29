@@ -5,7 +5,7 @@ merge_adm_2_multiadm = function(...){
   #' 
   #' @param ... adm objects
   #' 
-  #' @returns a multiadm object
+  #' @returns object of class multiadm
   #' 
   #' @export
   

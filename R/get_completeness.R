@@ -18,7 +18,7 @@ get_completeness = function(x){
     #' between 0 and 1
     #' 
   #' 
-  #' @return Number between 0 and 1, the stratigraphic (in)completeness
+  #' @returns Number between 0 and 1, the stratigraphic (in)completeness
   #' 
   #' @examples
     #' my_adm = tp_2_adm(t = 1:4, h = c(1,2,2,4))

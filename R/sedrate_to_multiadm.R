@@ -9,7 +9,7 @@ sedrate_to_multiadm = function(h_tp, t_tp, sed_rate_gen, h, no_of_rep = 100){
   #' @param h : numeric, heights where the adm is calculated
   #' @param no_of_rep : numeric, number of repetitions
   #' 
-  #' @return an multiadm object
+  #' @returns object of class multiadm
   #' 
   #' @export
   

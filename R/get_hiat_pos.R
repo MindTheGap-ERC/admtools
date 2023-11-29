@@ -10,7 +10,7 @@ get_hiat_pos = function(x){
   #'
   #' @param x an adm object
   #' 
-  #' @return a vector with stratigraphic positions of hiatuses
+  #' @returns numeric vector with stratigraphic positions of hiatuses
   #' 
   #' @seealso 
     #' * [get_hiat_list()] to get hiatus positions and durations

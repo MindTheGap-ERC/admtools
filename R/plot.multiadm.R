@@ -1,8 +1,7 @@
 plot.multiadm = function(x,...){
   
+  #'
   #' @export
-  #' 
-  #' 
   #' 
   
   

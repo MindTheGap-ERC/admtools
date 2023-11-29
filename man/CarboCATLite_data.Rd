@@ -29,8 +29,8 @@ Data exported from CarboCATLite model run
 }
 \references{
 \itemize{
-\item Burgess, Peter. "CarboCAT: A cellular automata model of heterogeneous carbonate strata." Computers & geosciences 53 (2013): 129-140. \href{https://doi.org/10.1016/j.cageo.2011.08.026}{DOI: 10.1016/j.cageo.2011.08.026}
-\item Burgess, Peter. (2023). CarboCATLite (v1.0.1). Zenodo. \href{https://doi.org/10.5281/zenodo.8402578}{DOI: 10.5281/zenodo.8402578}
+\item Burgess, Peter. "CarboCAT: A cellular automata model of heterogeneous carbonate strata." Computers & geosciences 53 (2013): 129-140. \doi{10.1016/j.cageo.2011.08.026}
+\item Burgess, Peter. (2023). CarboCATLite (v1.0.1). Zenodo. \doi{10.5281/zenodo.8402578}
 }
 }
 \keyword{datasets}

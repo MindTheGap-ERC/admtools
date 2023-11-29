@@ -8,5 +8,7 @@ get_total_thickness = function(x){
   #' 
   #' @param x an adm object
   #' 
+  #' @returns numeric vector containing total sediment thickness accumulated
+  #' 
   UseMethod("get_total_thickness")
 }

@@ -1,6 +1,9 @@
 get_hiat_list.adm = function(x){
   
+  #' 
   #' @export
+  #' 
+  
   hiat_pos = get_hiat_pos(x)
   no_of_hiat = get_hiat_no(x)
   hiat_list = list()
