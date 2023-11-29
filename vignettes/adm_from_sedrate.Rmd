@@ -19,48 +19,31 @@ knitr::opts_chunk$set(
 library(admtools)
 ```
 
-## Nonparametric Estimation of age-depth models from sedimentation rates
+# Introduction
 
-This vignette gives an example on how to estimate age-depth models (ADMs) from sedimentation rates using the function `sedrate_to_multiadm`. The function takes the following inputs:
+This vignette explains how to estimate age-depth models (ADMs) from sedimentation rates using the function `sedrate_to_multiadm`
 
--   `h_tp` : a function that returns stratigraphic height of the tie points
+## Inputs
 
--   `t_tp` : a function that returns times of the tie points
+The `sedrate_to_multiadm` function estimates age-depth models from sedimentation rates and position and timing of tie points. It takes the following inputs that encode user knowledge:
 
--   `sed_rate_gen`: a function that returns sedimentation rates
+-   `h_tp` : a function encoding stratigraphic positions of tie points
+
+-   `t_tp` : a function encoding times of the tie points
+
+-   `sed_rate_gen`: a function encoding uncertainties on sedimentation rates
+
+In addition, it takes the following inputs that specify the estimation procedure:
 
 -   `h` : vector of heights where the ADM is determined
 
 -   `no_of_rep`: integer, number of age-depth models determined
 
-### Coding Tie Points
+## Coding user knowledge
+
+### Tie points
 
 Times and heights of tie points are coded via the functions `t_tp` (timing) and `h_tp` (height) that take no inputs. They serve as wrappers around user-defined procedures that reflect uncertainties around tie points. Every time `t_tp` and `h_tp` are evaluated, they return possible values for the tie points. Writing these functions requires some effort, but it allows the user to hand over arbitrarily complex uncertainties of the tie points to the `sedrate_to_multiadm` function.
-
-The function for the heights of the tie points must return a named vector with entries `h1` and `h2`, corresponding to the heights of the first (lower) and second (upper) tie point. `h1` must be smaller than `h2`.
-
-For this example, I assume the stratigraphic positions of the tie points is known without uncertainty, and are at 10 and 85 m stratigraphic height.
-
-```{r}
-h_min = 10 # height of tie point 1
-h_max = 85 # height of tie point 2
-```
-
-`h_tp` is then implemented as follows:
-
-```{r}
-h_tp = function(){
-  return(c("h1" = h_min, 
-           "h2" = h_max))
-}
-```
-
-When evaluated, this function returns the stratigraphic positions of the tie points:
-
-```{r}
-#Evaluate stratigraphic positions of tie points
-h_tp()
-```
 
 The function for the timing of the tie points must return a named vector with names "t1" (timing of first tie point) and "t2" (timing of second tie point). "t1" must be smaller than "t2".
 
@@ -97,6 +80,34 @@ hist(x = sapply(seq_len(no_of_samples), function(x) t_tp()["t2"]),
      main = "Timing of second tie point")
 
 ```
+
+
+The function for the heights of the tie points must return a named vector with entries `h1` and `h2`, corresponding to the heights of the first (lower) and second (upper) tie point. `h1` must be smaller than `h2`.
+
+For this example, I assume the stratigraphic positions of the tie points is known without uncertainty, and are at 10 and 85 m stratigraphic height.
+
+```{r}
+h_min = 10 # height of tie point 1
+h_max = 85 # height of tie point 2
+```
+
+`h_tp` is then implemented as follows:
+
+```{r}
+h_tp = function(){
+  return(c("h1" = h_min, 
+           "h2" = h_max))
+}
+```
+
+When evaluated, this function returns the stratigraphic positions of the tie points:
+
+```{r}
+#Evaluate stratigraphic positions of tie points
+h_tp()
+```
+
+
 
 ### Coding Sedimentation Rates
 

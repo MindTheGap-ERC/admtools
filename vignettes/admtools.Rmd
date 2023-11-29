@@ -23,9 +23,39 @@ library(admtools)
 
 This vignette is an introduction to the _admtools_ package.
 
+## Installation
+
+The package can be installed directly from _GitHub_ or from _CRAN_. Generally, the package deposited from CRAN will be the latest stable release, while the package on GitHub will be the version under development.
+
+### From GitHub
+
+To install the latest version of the package directly from _GitHub_, first install the devtools package if you have not done so yet
+
+```{r, eval=FALSE}
+install.packages("devtools")
+
+```
+
+Then run
+
+```{r, eval=FALSE}
+devtools::install_github(repo = "MindTheGap-ERC/admtools",
+                         build_vignettes = TRUE)
+```
+
+to install the package and build its vignettes.
+
+### From CRAN
+
+To install the package from CRAN, run
+
+```{r, eval=FALSE}
+install.packages("admtools")
+```
+
 ## Loading the package
 
-First, load the package using
+Load the package using
 
 ```{r}
 library(admtools)
@@ -33,16 +63,22 @@ library(admtools)
 
 This makes all functions in the package available.
 
-As example data we use outputs from CarboCAT Lite, a model of carbonate platform growth (Burgess 2013, 2023). This data is automatically loaded in the background by the package. To inspect it, you can load it into your workspace via
+## The adm and multiadm classes
+
+The _admtools_ package defines two main classes: `adm` and `multiadm`. The class `adm` represent a single age-depth model, from which information can be extracted (e.g. completeness, number of hiatuses, etc.) and that can be used to transform data between the stratigraphic domain and time domain. The `multiamd` class is a portfolio of `adm` object used to represent uncertainties of age-depth models.
+
+## Example
+
+This example exmplains the  construction and application of `adm` objects. As example data we use outputs from CarboCAT Lite, a model of carbonate platform growth (Burgess 2013, 2023). This data is automatically loaded in the background by the package. To inspect it, you can load it into your workspace via
 
 ```{r}
-data("CarboCatLite_data")
+data("CarboCATLite_data")
 ```
 
 ## Defining age-depth models
 
-The standard constructor for age-depth models is _tp_2_adm_ ("tiepoint to age-depth model"). It returns an _adm_ (age-depth model) object. This object combines information of stratigraphic heights and times and erosive interval. It allows to transform data between the stratigraphic and the time domain, and indentify which data is destroyed due to hiatuses.
-We use the timing and stratigraphic positions of tie points to construct an age-depth model, and use the option to directly associate length and time units with it.
+The standard constructor for age-depth models is _tp_2_adm_ ("tiepoint to age-depth model"). It returns an _adm_ object. This object combines information of stratigraphic heights and times and erosive interval. It allows to transform data between the stratigraphic and the time domain, and identify which data is destroyed due to hiatuses.
+We use the timing and stratigraphic positions of tie points taken from CarboCAT Lite to construct an age-depth model. , and use the option to directly associate length and time units with it.
 
 ```{R}
 # see ?tp_2_adm for detailed documentation
@@ -52,11 +88,21 @@ my_adm = tp_2_adm(t = CarboCATLite_data$time_myr,
                   T_unit = "Myr")
 ```
 
-You can use _summary_ to get a quick overview of the properties of the age-depth model
+Typing `adm` in the console will only tell that the generated variable is an age-depth model
+
+```{r}
+my_adm
+```
+To get some a quick overview of the properties of `my_adm`, use _summary_:
 ```{R}
 summary(my_adm)
 ```
-Use the functions _get_total_duration_, _get_total_thickness_, _get_completeness_, and _get_hiat_no_ extract that information directly from the age-depth model.
+
+If you want to inspect the insides of the object, use _str_:
+
+```{r}
+str(my_adm)
+```
 
 To get a visual representation, we plot it, and highlight hiatuses in red
 
@@ -66,6 +112,18 @@ plot(my_adm,
      col_hiat = "red",
      lwd_cons = 3)
 ```
+
+
+Use the functions _get_total_duration_, _get_total_thickness_, _get_completeness_, and _get_hiat_no_ extract information directly from the age-depth model:
+
+```{r}
+get_total_duration(my_adm) #total time covered by the age-depth model
+get_total_thickness(my_adm) # total thickness of section represented by the amd
+get_completeness(my_adm) # stratigraphic completeness as proportion
+get_incompleteness(my_adm) # stratigraphic incompleteness (= 1- strat. incompleteness)
+get_hiat_no(my_adm) # number of hiatuses
+```
+
 
 The function _is_destructive_ can be used to examine whether time points coincide with hiatuses:
 
