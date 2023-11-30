@@ -16,6 +16,8 @@ strat_to_time = function(obj, x, ...){
   #' 
   #' @returns an object of the same type as obj
   #' 
+  #' @seealso [time_to_strat()] to transform data from the time to the stratigraphic domain
+  #' 
   
   UseMethod("strat_to_time")
   
