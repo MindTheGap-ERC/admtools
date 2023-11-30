@@ -25,22 +25,22 @@ This vignette is an introduction to the _admtools_ package.
 
 ## Installation
 
-The package can be installed from _GitHub_ or _CRAN_. Generally, the package deposited from CRAN will be the latest stable release, while the package on GitHub will be the version under development.
+The package can be installed from _GitHub_ or _CRAN_.
 
 ### From GitHub
 
-To install the latest version of the package directly from _GitHub_, first install the devtools package if you have not done so yet:
+To install the package directly from _GitHub_, first install the _remotes_ package if you have not done so yet:
 
 ```{r, eval=FALSE}
-install.packages("devtools")
+install.packages("remotes")
 
 ```
 
 Then run
 
 ```{r, eval=FALSE}
-devtools::install_github(repo = "MindTheGap-ERC/admtools",
-                         build_vignettes = TRUE)
+remotes::install_github(repo = "MindTheGap-ERC/admtools",
+                        build_vignettes = TRUE)
 ```
 
 to install the package and build its vignettes.
