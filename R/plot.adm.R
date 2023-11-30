@@ -2,9 +2,18 @@ plot.adm = function(x, lwd_hiat = 1, lwd_cons = 1, lty_hiat = 3, lty_cons = 1,
                     col_hiat = "black", col_cons = "black", ...){
   
   #'
-  #'
   #'@export
   #'
+  #' @title plotting adm objects
+  #' 
+  #' @param x an adm object
+  #' @param lwd_hiat line width of hiatuse
+  #' @param lwd_cons line width of conservative intervals
+  #' @param lty_hiat linetype of hiatuses
+  #' @param lty_cons line type of conservative intervals
+  #' @param col_hiat color of erosive intervals
+  #' @param col_cons color of conservative intervals
+  #' 
   
   adm = x
   

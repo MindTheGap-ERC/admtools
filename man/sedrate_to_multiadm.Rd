@@ -24,8 +24,9 @@ object of class multiadm
 Estimate age-depth model from sedimentation rate & tie points
 }
 \examples{
+\dontrun{
 # see this vignette for an example
-\dontrun{vignette("adm_from_sedrate")}
-
+vignette("adm_from_sedrate")
+}
 
 }
