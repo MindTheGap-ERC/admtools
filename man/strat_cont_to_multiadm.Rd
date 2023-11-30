@@ -32,3 +32,9 @@ Object of class multiadm
 \description{
 estimate age-depth model from stratigraphic contents
 }
+\examples{
+# see this vignette for an example
+\dontrun{vignette("adm_from_trace_cont")}
+
+
+}

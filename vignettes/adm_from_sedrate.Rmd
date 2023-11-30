@@ -31,7 +31,7 @@ The `sedrate_to_multiadm` function estimates age-depth models from sedimentation
 
 -   `t_tp` : a function encoding times of the tie points
 
--   `sed_rate_gen`: a function encoding uncertainties on sedimentation rates
+-   `sed_rate_gen`: a function encoding how sedimentation rates change with stratigraphic positions. This information can for example be derived from cyclostratigraphic analyses.
 
 In addition, it takes the following inputs that specify the estimation procedure:
 
@@ -47,40 +47,39 @@ Times and heights of tie points are coded via the functions `t_tp` (timing) and 
 
 The function for the timing of the tie points must return a named vector with names "t1" (timing of first tie point) and "t2" (timing of second tie point). "t1" must be smaller than "t2".
 
-For this example, I assume the first timing of the first tie point follows a normal distribution with mean 0 and standard deviation 0.5. The timing of the second tie point is bimodal and given as an equal mixture of two normal distributions with means 5 and 7 and standard deviations of 0.1 and 0.3. This is implemented as follows in `t_tp`:
+For this example, I assume that the first tie point follows a normal distribution with mean - 20 Myr before present and standard deviation 0.5 Myr. The timing of the second tie point is bimodal and given as an equal mixture of two normal distributions with means - 5 and - 7 Myr years before present and standard deviations of 0.1 and 0.3 Myr years. This is implemented as follows in `t_tp`:
 
 ```{r}
 t_tp = function(){
   # first tie point
-  t1 = rnorm(n = 1, mean = 0, sd = 0.5)
+  t1 = rnorm(n = 1, mean = -20 , sd = 0.5)
   
   # second tie point
   d1 = rbinom(n = 1, size = 2, prob = 0.5) # fair coin flip for mixture
   if (d1 == 0){
-    t2 = rnorm(n = 1, mean = 5, sd = 0.1)
+    t2 = rnorm(n = 1, mean =  - 5, sd = 0.1)
   } else {
-    t2 = rnorm(n = 1, mean = 7, sd = 0.3)
+    t2 = rnorm(n = 1, mean =  - 7, sd = 0.3)
   }
   return(c("t1" = t1, "t2" = t2))
 }
 ```
 
-Using Myr as time unit, the distribution of times for the tie points is as follows:
+Sampling from `t_tp` yields the following empirical distribution for the tie points:
 
 ```{r, fig.show="hold", out.width="50%"}
 no_of_samples = 10000
 # Evaluate timing of tie points
 hist(x = sapply(seq_len(no_of_samples), function(x) t_tp()["t1"]),
      freq = FALSE,
-     xlab = "Time [Myr]",
+     xlab = "Time before present [Myr]",
      main = "Timing of first tie point")
 hist(x = sapply(seq_len(no_of_samples), function(x) t_tp()["t2"]),
      freq = FALSE,
-     xlab = "Time [Myr]",
+     xlab = "Time before present [Myr]",
      main = "Timing of second tie point")
 
 ```
-
 
 The function for the heights of the tie points must return a named vector with entries `h1` and `h2`, corresponding to the heights of the first (lower) and second (upper) tie point. `h1` must be smaller than `h2`.
 
@@ -107,11 +106,13 @@ When evaluated, this function returns the stratigraphic positions of the tie poi
 h_tp()
 ```
 
-
+This is a lot of effort to simply encode fixed stratigraphic positions of tie points. However, it allows to implement arbitrary uncertainties on the position of the tie points if needed.
 
 ### Coding Sedimentation Rates
 
-Sedimentation rates are specified via a function `sed_rate_gen` that takes no inputs. It serves as wrapper for user-defined procedures that specify uncertainties in sedimentation rates. `sed_rate_gen` is a "function factory": every time it is evaluated, it returns another function that is one potential sedimentation rate scenario. Writing this function factory requires some effort, but it allows the user to specify how uncertainties of sedimentation rates are expressed in the section, and implement arbitrarily complex distributions.
+Sedimentation rates are specified via a function `sed_rate_gen` that takes no inputs. It serves as wrapper for user-defined procedures that specify uncertainties in sedimentation rates. `sed_rate_gen` is a "function factory": every time it is evaluated, it returns another function that is one potential sedimentation rate scenario. Writing this function factory requires some effort, but it allows the user to specify how uncertainties of sedimentation rates are expressed in the section, and implement arbitrarily complex distributions. The idea behind this is that sedimentation rates are considered stochastic processes. Every time `sed_rate_gen` is evaluated, it returns one sample path from this process.
+
+The functions returned by `sed_rate_gen` must return strictly positive values - negative sedimentation rates can not be observed in the section.
 
 I use a simple sedimentation rate model, where only upper and lower bounds on sedimentation rates in the section are known. Between these limits, I assume a uniform distribution.
 

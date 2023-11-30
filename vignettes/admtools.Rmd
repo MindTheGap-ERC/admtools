@@ -25,11 +25,11 @@ This vignette is an introduction to the _admtools_ package.
 
 ## Installation
 
-The package can be installed directly from _GitHub_ or from _CRAN_. Generally, the package deposited from CRAN will be the latest stable release, while the package on GitHub will be the version under development.
+The package can be installed from _GitHub_ or _CRAN_. Generally, the package deposited from CRAN will be the latest stable release, while the package on GitHub will be the version under development.
 
 ### From GitHub
 
-To install the latest version of the package directly from _GitHub_, first install the devtools package if you have not done so yet
+To install the latest version of the package directly from _GitHub_, first install the devtools package if you have not done so yet:
 
 ```{r, eval=FALSE}
 install.packages("devtools")
@@ -66,6 +66,10 @@ This makes all functions in the package available.
 ## The adm and multiadm classes
 
 The _admtools_ package defines two main classes: `adm` and `multiadm`. The class `adm` represent a single age-depth model, from which information can be extracted (e.g. completeness, number of hiatuses, etc.) and that can be used to transform data between the stratigraphic domain and time domain. The `multiamd` class is a portfolio of `adm` object used to represent uncertainties of age-depth models.
+
+## Conventions
+
+In contrast to its name, the _admtools_ package currently deals with time and height instead of age and depth. In this sense, the age-depth models are time-height models. To model ages and depths, use time before present and height below some point of reference.
 
 ## Example
 
