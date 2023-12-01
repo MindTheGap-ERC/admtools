@@ -2,8 +2,8 @@ print.multiadm = function(x, ...){
   
   #'
   #' @export
-  #' 
+  #' @noRd
   
-  cat("Portfolio of age-depth models")
+  cat("Collection of age-depth models")
   return(invisible())
 }

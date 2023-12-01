@@ -1,32 +1,38 @@
 tp_2_adm = function(t, h, T_unit = NULL, L_unit = NULL){
   #'
-  #' @title Turn tie points into age-depth model
+  #' @export
+  #' 
+  #' @title Construct age-depth model from tie points
   #' 
   #' @description
-    #' Takes vectors of tie points and turns them into an age-depth model object (adm)
+    #' Turns tie points into an `adm` object that represents an age-depth model
     #' 
   #' 
   #' 
-  #' @param t tie points in time
-  #' @param h tie points in height
+  #' @param t Vector, tie points in time
+  #' @param h Vector, tie points in height
   #' @param T_unit time unit
   #' @param L_unit length unit
   #' 
   #' @details
-    #' by default, intervals with no sediment accumulation are marked as destructive
-    #' _tp_2_adm_ does not check whether the inputs define a valid age-depth model. For this, use
-    #' _is_adm_
+    #' by default, intervals with no sediment accumulation are marked as destructive.
+    #' `tp_2_adm` does not check whether the inputs define a valid age-depth model. For this, use
+    #' `is_adm`
     #' 
   #' 
-  #' @returns an adm object
+  #' @returns object of class `adm`
+  #' 
+  #' @seealso [is_adm()] to check validity of `adm` objects
   #'
   #'
   #' @examples
-    #' 
-    #'  my_adm = tp_2_adm(t = 1:4, h = c(1,2,2,3), T_unit = "kyr", L_unit = "m")
+    #' \dontrun{
+    #' my_adm = tp_2_adm(t = 1:4, h = c(1,2,2,3), T_unit = "kyr", L_unit = "m")
+    #' plot(my_adm)
+    #' # see vignette("admtools") for other examples
+    #' }
+    #'  
   #' 
-  #' 
-  #' @export
   
   destructive = duplicated(h)[2:length(h)]
   adm = list(t = t,
@@ -35,5 +41,5 @@ tp_2_adm = function(t, h, T_unit = NULL, L_unit = NULL){
              T_unit = T_unit,
              L_unit = L_unit)
  class(adm) = "adm"
-  return(adm)
+ return(adm)
 }
