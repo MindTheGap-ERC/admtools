@@ -53,11 +53,28 @@ install.packages("admtools")
 
 Load the package using
 
-```{r}
+```{r, eval=FALSE}
 library(admtools)
 ```
 
 This makes all functions in the package available.
+
+## Getting help
+
+Use
+
+```{r, eval=FALSE}
+help(package = "admtools")
+```
+
+to get an overview of the available help pages of the package. To list the available vignettes with more complex examples use
+
+```{r, eval=FALSE}
+browseVignettes(package = "admtools") # opens in Browser
+#or
+vignette(package = "admtools")
+```
+
 
 ## The adm and multiadm classes
 
@@ -65,7 +82,7 @@ The _admtools_ package defines two main classes: `adm` and `multiadm`. The class
 
 ## Conventions
 
-In contrast to its name, the _admtools_ package currently deals with time and height instead of age and depth. In this sense, the age-depth models are time-height models. To handle ages, use time before the present. To handle depths, use height below a point of reference (e.g. sediment surface).
+In contrast to its name, the _admtools_ package currently deals with time and height instead of age and depth. In this sense, the age-depth models are time-height models. To handle ages, use time before the present. To handle depths, use height below a point of reference (e.g., the sediment surface).
 
 ## Example
 
@@ -91,7 +108,7 @@ This age-depth model represents the relationship between elapsed model time and 
 
 ## Representation
 
-Typing `adm` in the console will only tell that the generated variable is an age-depth model
+Typing the name `my_adm` in the console will only tell that the generated variable is an age-depth model
 
 ```{r}
 my_adm
@@ -106,19 +123,22 @@ If you want to inspect the insides of the object, use `str`:
 ```{r}
 str(my_adm)
 ```
-This gives you the option to manually manifulate the fields (if you wish to).
+You can manually manipulate the fields of the `adm` object by treating it like a list. I do not recommend doing so, as it might result in unexpected behavior.
 
-You can plot `adm` objects via the standard `plot` function. Here, I highlight hiatuses in red.
+You can plot `adm` objects via the standard `plot` function. Here, I use the option to highlight hiatuses in red, and increase the linw width of the conservative ( = non-destructive) intervals.
 
 ```{R}
 # see ?plot.adm for plotting options for adm objects
 plot(my_adm,
      col_hiat = "red",
-     lwd_cons = 3)
+     lwd_cons = 2)
 ```
+
 To see the available plotting options, use `?plot.adm`
 
-Use the functions _get_total_duration_, _get_total_thickness_, _get_completeness_, and _get_hiat_no_ extract information directly from the age-depth model:
+### Extracting data from age-depth models
+
+Use the functions _get_total_duration_, _get_total_thickness_, _get_completeness_, and _get_hiat_no_ to extract information:
 
 ```{r}
 get_total_duration(my_adm) #total time covered by the age-depth model
@@ -128,15 +148,29 @@ get_incompleteness(my_adm) # stratigraphic incompleteness (= 1- strat. incomplet
 get_hiat_no(my_adm) # number of hiatuses
 ```
 
+For more detailed information, you can use
 
-The function _is_destructive_ can be used to examine whether time points coincide with hiatuses:
+* `get_hiat_duration` to get a vector of hiatus durations
+* `get_hiat_list` to get a list of hiatus positions and duration.
+
+For example, to plot a histogram of hiatus durations you can use
+
+```{r}
+hist(x = get_hiat_duration(my_adm),
+     freq = TRUE,
+     xlab = "Hiatus duration [Myr]",
+     main = "Hiatus duration 2 km offshore")
+```
+
+
+The function _is_destructive_ can be used to examine whether points in time coincide with hiatuses:
 
 ```{R}
 is_destructive(adm = my_adm,
                t = c(0.1,0.5)) 
 ```
 
-## Transforming data between time and stratigraphic domain
+### Transforming data between time and stratigraphic domain
 
 The functions _get_height_ and _get_time_ are the workhorses to transform data using age-depth models.
 
