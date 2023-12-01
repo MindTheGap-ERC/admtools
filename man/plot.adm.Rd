@@ -29,6 +29,8 @@
 \item{col_hiat}{color of erosive intervals}
 
 \item{col_cons}{color of conservative intervals}
+
+\item{...}{arguments passed to plot}
 }
 \description{
 plotting adm objects

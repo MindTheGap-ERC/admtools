@@ -13,6 +13,7 @@ plot.adm = function(x, lwd_hiat = 1, lwd_cons = 1, lty_hiat = 3, lty_cons = 1,
   #' @param lty_cons line type of conservative intervals
   #' @param col_hiat color of erosive intervals
   #' @param col_cons color of conservative intervals
+  #' @param ... arguments passed to plot
   #' 
   
   adm = x
