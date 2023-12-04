@@ -4,13 +4,15 @@
 \alias{is_multiadm}
 \title{is valid multiadm object?}
 \usage{
-is_multiadm(x)
+is_multiadm(x, quietly = TRUE)
 }
 \arguments{
 \item{x}{object to be tested}
+
+\item{quietly}{logical, should a descriptive warning be returned?}
 }
 \value{
-Boolean. Is the object a valid multiadm object?
+Logical. Is the object a valid multiadm object?
 }
 \description{
 is valid multiadm object?

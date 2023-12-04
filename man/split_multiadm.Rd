@@ -4,10 +4,10 @@
 \alias{split_multiadm}
 \title{split multiadm objects into adm}
 \usage{
-split_multiadm(multiadm)
+split_multiadm(x)
 }
 \arguments{
-\item{multiadm}{a multiadm object}
+\item{x}{a multiadm object}
 }
 \value{
 list with objects of class adm
