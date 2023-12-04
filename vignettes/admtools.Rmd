@@ -175,6 +175,8 @@ is_destructive(adm = my_adm,
 
 ### Transforming data between time and stratigraphic domain
 
+#### Heights and times
+
 The functions _get_height_ and _get_time_ are the workhorses to transform data using age-depth models.
 
 * _get_time_ takes and adm object and vector of heights _h_  (stratigraphic positions), and returns a vector of times
@@ -213,6 +215,39 @@ For information on estimating age-depth models from tracer contents of rocks and
 vignette("adm_from_trace_cont")
 ```
  
+#### Phylogenetic trees
+
+The `admtools` package can transform complex objects between the time and stratigraphic domain. This is done using the functions `strat_to_time` and `time_to_strat`.
+
+As an example, we transform a chronogram (a phylogenetic tree where branch length represents time). For this, we first generate a tree following the birth-death model using the `ape` package.
+
+```{r}
+#install.packages("ape") Package for analyses of phylogenetics and evolution
+# see ?ape::rlineage for help
+set.seed(1)
+tree_in_time = ape::rlineage(birth = 1.8,
+                             death = 0.2,
+                             Tmax = 2)
+plot(tree_in_time) # see also ?ape::plot.phylo
+axis(1)
+mtext("Time [Myr]", side = 1, line = 2.5)
+```
+You can transform the tree using `time_to_strat`:
+
+```{r}
+tree_in_strat_domain = time_to_strat(obj = tree_in_time,
+                                     x = my_adm)
+```
+
+Plotting the resulting tree along the tratigraphic column shows how the evolutinoary relationships would be preserved 2 km offshore in the simulated carbonate platform:
+
+```{r}
+plot(tree_in_strat_domain, direction = "upwards")
+axis(side = 2)
+mtext("Stratigraphic Height [m]",
+      side = 2,
+      line = 2)
+```
 
 ## References
 * Burgess, Peter. "CarboCAT: A cellular automata model of heterogeneous carbonate strata." Computers & geosciences 53 (2013): 129-140. [DOI: 10.1016/j.cageo.2011.08.026](https://doi.org/10.1016/j.cageo.2011.08.026)
