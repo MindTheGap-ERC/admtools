@@ -1,6 +1,6 @@
 # admtools
 
-R package to handle age-depth models
+R package to estimate age-depth models from stratigraphic and sedimentological data, and transfrom complex data between the time and stratigraphic domain.
 
 ## Authors
 
@@ -12,38 +12,69 @@ Orcid: [0000-0003-1559-1838](https://orcid.org/0000-0003-1559-1838)
 
 ## Installation
 
-In R, first, install the devtools package:
+To install the package from _CRAN_, run
 
-```{R}
-install.packages("devtools")
+```R
+install.packages("admtools")
 ```
 
-You can install the _admtools_ package_ directly from GitHub using
+in R. To install the package from _GitHub_, first install the _remotes_ package
 
-```{R}
-devtools::install_github(repo = "MindTheGap-ERC/admtools",
-                         build_vignettes = TRUE)
+```R
+install.packages("remotes")
 ```
 
-Now you can load the package using
+Then, run
 
-```{R}
+```R
+remotes::install_github(repo = "MindTheGap-ERC/admtools",
+                        build_vignettes = TRUE,
+                        ref = "v0.0.1")
+```
+
+To install the version under development, use `ref = "HEAD"` instead.
+
+After installation, you can load the package using
+
+```R
 library("admtools")
 ```
 
-To get started, have a look at the vignettes:
+To get started, have a look at the available vignettes via
 
-```{R}
+```R
+browseVignettes(package = "admtools") # opens in Browser
+#or
+vignette(package = "admtools")
+```
+
+A good place to start reading is the introductionary vignette, availble via
+
+```R
 vignette("admtools")
 ```
+
+## License
+
+Apache 2.0 License, see LICENSE file for license text.
 
 ## Copyright
 
 Copyright 2023 Netherlands eScience Center and Utrecht University
 
-## License
+## Citation
 
-Apache 2.0 License, see LICENSE file for license text.
+To cite the package, use
+
+* Hohmann N (2023). “admtools package for R.” doi:10.5281/zenodo.10213587 <https://doi.org/10.5281/zenodo.10213587>
+
+or run
+
+```R
+citation("admtools)
+```
+
+in R. Alternatively, you can use the information in the CITATION.cff file, or generate it using the "cite this repository" button on GitHub.
 
 ## Funding information
 
