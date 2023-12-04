@@ -1,6 +1,10 @@
 # admtools
 
-R package to estimate age-depth models from stratigraphic and sedimentological data, and transfrom complex data between the time and stratigraphic domain.
+R package to estimate age-depth models from stratigraphic and sedimentological data, and transform complex data between the time and stratigraphic domain.
+
+<!-- badges: start -->
+  [![R-CMD-check](https://github.com/MindTheGap-ERC/admtools/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/MindTheGap-ERC/admtools/actions/workflows/R-CMD-check.yaml)
+  <!-- badges: end -->
 
 ## Authors
 
