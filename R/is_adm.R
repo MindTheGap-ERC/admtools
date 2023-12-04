@@ -10,7 +10,7 @@ is_adm = function(x, quietly = TRUE){
     #' age-depth mode, e.g. one where the law of superposition holds. This function performs these checks 
     #' 
   #' 
-  #' @param adm an object
+  #' @param x an object
   #' @param quietly logical. should descriptive warnings be shown?
   #' 
   #' @returns logical. Is the input a valid adm object?
