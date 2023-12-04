@@ -20,3 +20,6 @@ an object of the same type as obj
 Takes an object and transforms it from the time domain into the stratigraphic domain using the provided age-depth model.
 Currently implemented for the "phylo" class.
 }
+\seealso{
+\code{\link[=strat_to_time]{strat_to_time()}} to transform data from the stratigraphic domain to the time domain
+}
