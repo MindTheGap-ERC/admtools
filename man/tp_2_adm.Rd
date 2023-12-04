@@ -2,33 +2,39 @@
 % Please edit documentation in R/tp_2_adm.R
 \name{tp_2_adm}
 \alias{tp_2_adm}
-\title{Turn tie points into age-depth model}
+\title{Construct age-depth model from tie points}
 \usage{
 tp_2_adm(t, h, T_unit = NULL, L_unit = NULL)
 }
 \arguments{
-\item{t}{tie points in time}
+\item{t}{Vector, tie points in time}
 
-\item{h}{tie points in height}
+\item{h}{Vector, tie points in height}
 
 \item{T_unit}{time unit}
 
 \item{L_unit}{length unit}
 }
 \value{
-an adm object
+object of class \code{adm}
 }
 \description{
-Takes vectors of tie points and turns them into an age-depth model object (adm)
+Turns tie points into an \code{adm} object that represents an age-depth model
 }
 \details{
-by default, intervals with no sediment accumulation are marked as destructive
-\emph{tp_2_adm} does not check whether the inputs define a valid age-depth model. For this, use
-\emph{is_adm}
+by default, intervals with no sediment accumulation are marked as destructive.
+\code{tp_2_adm} does not check whether the inputs define a valid age-depth model. For this, use
+\code{is_adm}
 }
 \examples{
+\dontrun{
+my_adm = tp_2_adm(t = 1:4, h = c(1,2,2,3), T_unit = "kyr", L_unit = "m")
+plot(my_adm)
+# see vignette("admtools") for other examples
+}
+ 
 
- my_adm = tp_2_adm(t = 1:4, h = c(1,2,2,3), T_unit = "kyr", L_unit = "m")
-
-
+}
+\seealso{
+\code{\link[=is_adm]{is_adm()}} to check validity of \code{adm} objects
 }

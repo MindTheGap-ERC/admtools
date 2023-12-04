@@ -3,6 +3,13 @@ plot.multiadm = function(x,...){
   #'
   #' @export
   #' 
+  #' @title plot multiadm object
+  #' 
+  #' @param x multiadm object
+  #' @param ... parameters passed to `plot`
+  #' 
+  #' @returns a plot of the multiadm object
+  #' 
   
   
   multiadm = x

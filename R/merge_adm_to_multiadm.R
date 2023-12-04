@@ -1,5 +1,7 @@
-merge_adm_2_multiadm = function(...){
+merge_adm_to_multiadm = function(...){
   
+  #' 
+  #' @export
   #' 
   #' @title combine multiple adm ojects into multiadm object
   #' 
@@ -7,7 +9,6 @@ merge_adm_2_multiadm = function(...){
   #' 
   #' @returns object of class multiadm
   #' 
-  #' @export
   
   adm_list = list(...)
   
