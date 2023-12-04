@@ -20,7 +20,7 @@ get_hiat_no = function(x){
     #' * [get_hiat_duration()] to determine duration of hiatuses
   #'
   #' @examples
-    #' my_adm = tp_2_adm(t = 1:4, h = c(1,2,2,3)) # one hiatus
+    #' my_adm = tp_to_adm(t = 1:4, h = c(1,2,2,3)) # one hiatus
     #' get_hiat_no(my_adm)
     #' 
   #'

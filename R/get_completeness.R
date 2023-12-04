@@ -21,7 +21,7 @@ get_completeness = function(x){
   #' @returns Number between 0 and 1, the stratigraphic (in)completeness
   #' 
   #' @examples
-    #' my_adm = tp_2_adm(t = 1:4, h = c(1,2,2,4))
+    #' my_adm = tp_to_adm(t = 1:4, h = c(1,2,2,4))
     #' get_completeness(my_adm)
     #' get_incompleteness(my_adm)
     #' 

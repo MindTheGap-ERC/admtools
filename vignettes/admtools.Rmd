@@ -94,12 +94,12 @@ data("CarboCATLite_data")
 
 ### Defining age-depth models
 
-The standard constructor for age-depth models is `tp_2_adm` ("tiepoint to age-depth model"). It returns an objecto of class `adm`. This object combines information of stratigraphic heights and times and erosive interval. It allows to transform data between the stratigraphic and the time domain, and identify which data is destroyed due to hiatuses.
+The standard constructor for age-depth models is `tp_to_adm` ("tiepoint to age-depth model"). It returns an objecto of class `adm`. This object combines information of stratigraphic heights and times and erosive interval. It allows to transform data between the stratigraphic and the time domain, and identify which data is destroyed due to hiatuses.
 As example, I use the timing and stratigraphic positions of tie points taken from CarboCAT Lite to construct an age-depth model, and use the option to directly associate length and time units with it.
 
 ```{R}
-# see ?tp_2_adm for detailed documentation
-my_adm = tp_2_adm(t = CarboCATLite_data$time_myr,
+# see ?tp_to_adm for detailed documentation
+my_adm = tp_to_adm(t = CarboCATLite_data$time_myr,
                   h = CarboCATLite_data$height_2_km_offshore_m,
                   L_unit = "m",
                   T_unit = "Myr")

@@ -1,4 +1,4 @@
-tp_2_adm = function(t, h, T_unit = NULL, L_unit = NULL){
+tp_to_adm = function(t, h, T_unit = NULL, L_unit = NULL){
   #'
   #' @export
   #' 
@@ -16,7 +16,7 @@ tp_2_adm = function(t, h, T_unit = NULL, L_unit = NULL){
   #' 
   #' @details
     #' by default, intervals with no sediment accumulation are marked as destructive.
-    #' `tp_2_adm` does not check whether the inputs define a valid age-depth model. For this, use
+    #' `tp_to_adm` does not check whether the inputs define a valid age-depth model. For this, use
     #' `is_adm`
     #' 
   #' 
@@ -27,7 +27,7 @@ tp_2_adm = function(t, h, T_unit = NULL, L_unit = NULL){
   #'
   #' @examples
     #' \dontrun{
-    #' my_adm = tp_2_adm(t = 1:4, h = c(1,2,2,3), T_unit = "kyr", L_unit = "m")
+    #' my_adm = tp_to_adm(t = 1:4, h = c(1,2,2,3), T_unit = "kyr", L_unit = "m")
     #' plot(my_adm)
     #' # see vignette("admtools") for other examples
     #' }

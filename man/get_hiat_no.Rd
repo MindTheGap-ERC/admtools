@@ -16,7 +16,7 @@ An integer, no. of hiatuses in the age-depth model
 Determines the number of hiatuses in an age-depth model
 }
 \examples{
-my_adm = tp_2_adm(t = 1:4, h = c(1,2,2,3)) # one hiatus
+my_adm = tp_to_adm(t = 1:4, h = c(1,2,2,3)) # one hiatus
 get_hiat_no(my_adm)
 
 

@@ -1,14 +1,14 @@
 test_that("interpolation at tie points returns tie points", {
   t = 1:3
   h = 2:4
-  adm = tp_2_adm(t = t, h = h)
+  adm = tp_to_adm(t = t, h = h)
   expect_equal(get_height(adm = adm, t = t), h)
 })
 
 test_that("Assignement of values outside of domain are correct", {
   t = 1:3
   h = 2:4
-  adm = tp_2_adm(t = t, h = h)
+  adm = tp_to_adm(t = t, h = h)
   expect_equal(get_height(adm = adm, t = c(0,4), out_dom_val_h = 5), c(5,5))
   expect_equal(get_height(adm = adm, t = c(0,4), out_dom_val_h = c(1,10)), c(1,10))
   expect_true(is.na(get_height(adm = adm, t = max(t) + 1, out_dom_val_h = "default")))

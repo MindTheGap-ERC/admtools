@@ -15,6 +15,6 @@ is_adm(x, quietly = TRUE)
 logical. Is the input a valid adm object?
 }
 \description{
-Contructors for adm objects such as \emph{tp_2_adm} do not check whether the inputs define a valid
+Contructors for adm objects such as \emph{tp_to_adm} do not check whether the inputs define a valid
 age-depth mode, e.g. one where the law of superposition holds. This function performs these checks
 }

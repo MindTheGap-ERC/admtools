@@ -8,7 +8,7 @@ test_that("Returns False for non adm objects",
 test_that("Requires all name fields",
           {
             # correct adm
-            adm = tp_2_adm(t = 1:3, h = 2:4)
+            adm = tp_to_adm(t = 1:3, h = 2:4)
             expect_true(is_adm(adm))
             expect_true(is_adm(adm, quietly = TRUE))
             expect_true(is_adm(adm, quietly = FALSE))
@@ -29,7 +29,7 @@ test_that("Requires all name fields",
 
 test_that("Detects flawed number of tie points",
           {
-            adm = tp_2_adm(t = 1:3, h = 2:4)
+            adm = tp_to_adm(t = 1:3, h = 2:4)
             adm_mod = adm
             adm_mod$t = c(1,2)
             expect_false(is_adm(adm_mod))
@@ -52,7 +52,7 @@ test_that("Detects flawed number of tie points",
           })
 
 test_that("tie points in time must be strictly increasing",{
-  adm = tp_2_adm(t = 1:3, h = 2:4)
+  adm = tp_to_adm(t = 1:3, h = 2:4)
   adm$t = c(1,1,3)
   
   expect_false(is_adm(adm))
@@ -66,7 +66,7 @@ test_that("tie points in time must be strictly increasing",{
 })
 
 test_that("strat tie point must obey the law of superposition",{
-  adm = tp_2_adm(t = 1:3, h = 2:4)
+  adm = tp_to_adm(t = 1:3, h = 2:4)
   adm$h = c(2,1,4)
   
   expect_false(is_adm(adm))

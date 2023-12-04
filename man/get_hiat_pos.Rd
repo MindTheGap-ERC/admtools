@@ -16,7 +16,7 @@ numeric vector with stratigraphic positions of hiatuses
 Determines stratigraphic position of hiatuses
 }
 \examples{
-my_adm = tp_2_adm(t = 1:4, h = c(1,2,2,3)) # one hiatus at height 2
+my_adm = tp_to_adm(t = 1:4, h = c(1,2,2,3)) # one hiatus at height 2
 get_hiat_pos(my_adm)
 
 }
