@@ -7,9 +7,9 @@
 is_adm(x, quietly = TRUE)
 }
 \arguments{
-\item{quietly}{logical. should descriptive warnings be shown?}
+\item{x}{an object}
 
-\item{adm}{an object}
+\item{quietly}{logical. should descriptive warnings be shown?}
 }
 \value{
 logical. Is the input a valid adm object?
