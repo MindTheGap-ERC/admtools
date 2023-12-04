@@ -11,6 +11,12 @@ sedrate_to_multiadm = function(h_tp, t_tp, sed_rate_gen, h, no_of_rep = 100){
   #' 
   #' @returns object of class multiadm
   #' 
+  #' @examples
+    #' \dontrun{
+    #' # see this vignette for an example
+    #' vignette("adm_from_sedrate")
+    #' }
+  #' 
   #' @export
   
   h_list = list()

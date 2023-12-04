@@ -4,15 +4,17 @@
 \alias{is_adm}
 \title{Is an adm object a valid age-depth model}
 \usage{
-is_adm(adm)
+is_adm(x, quietly = TRUE)
 }
 \arguments{
-\item{adm}{an object}
+\item{x}{an object}
+
+\item{quietly}{logical. should descriptive warnings be shown?}
 }
 \value{
-Boolean. Is the input a valid adm object?
+logical. Is the input a valid adm object?
 }
 \description{
-Contructors for adm objects such as \emph{tp_2_adm} do not check whether the inputs define a valid
+Contructors for adm objects such as \emph{tp_to_adm} do not check whether the inputs define a valid
 age-depth mode, e.g. one where the law of superposition holds. This function performs these checks
 }

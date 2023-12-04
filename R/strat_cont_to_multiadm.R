@@ -12,6 +12,12 @@ strat_cont_to_multiadm = function(h_tp, t_tp, strat_cont_gen, time_cont_gen, h, 
   #' 
   #' @returns Object of class multiadm
   #' 
+  #' @examples
+    #' \dontrun{
+    #' # see this vignette for an example
+    #' vignette("adm_from_trace_cont")
+    #' }
+  #' 
   #' @export
   #' 
   

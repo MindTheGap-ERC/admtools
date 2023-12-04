@@ -14,7 +14,7 @@ summary.adm = function(object, ...){
   #' @returns Invisible NULL, prints summary to the console
   #' 
   #' @examples
-    #' my_adm = tp_2_adm(t = 1:5, h = c(2,2,3), L_unit = "m", T_unit = "Myr" )
+    #' my_adm = tp_to_adm(t = 1:5, h = c(2,2,3), L_unit = "m", T_unit = "Myr" )
     #' summary(my_adm)
   #' 
   #' 

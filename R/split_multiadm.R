@@ -1,18 +1,21 @@
-split_multiadm = function(multiadm){
+split_multiadm = function(x){
   
   #'
   #' @export
   #' 
   #' @title split multiadm objects into adm
   #' 
-  #' @param multiadm a multiadm object
+  #' @param x a multiadm object
   #' 
   #' @returns list with objects of class adm
   #'
+
   adm_list = list()
-  for (i in seq_len(multiadm$no_of_entries)){
-    adm_list[[i]] = tp_2_adm(t = multiadm[["t"]][[i]],
-                             h = multiadm[["h"]][[i]])
+  for (i in seq_len(x$no_of_entries)){
+    adm_list[[i]] = tp_to_adm(t = x[["t"]][[i]],
+                             h = x[["h"]][[i]],
+                             T_unit = x[["T_unit"]],
+                             L_unit = x[["L_unit"]])
   }
   return(adm_list)
   
