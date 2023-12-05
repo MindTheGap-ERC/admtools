@@ -38,8 +38,11 @@ Then run
 
 ```{r, eval=FALSE}
 remotes::install_github(repo = "MindTheGap-ERC/admtools",
-                        build_vignettes = TRUE)
+                        build_vignettes = TRUE,
+                        ref = "v0.0.1")
 ```
+
+to install the latest release. To install the version in development, use `ref = "HEAD"` instead.
 
 ### From CRAN
 
@@ -67,7 +70,15 @@ Use
 help(package = "admtools")
 ```
 
-to get an overview of the available help pages of the package. To list the available vignettes with more complex examples use
+to get an overview of the available help pages of the package, and
+
+```{r, eval=FALSE}
+?admtools
+```
+
+to view a simple help page for the package.
+
+Vignettes are a long form of package documentation that provide more detailed examples. To list the available vignettes, use
 
 ```{r, eval=FALSE}
 browseVignettes(package = "admtools") # opens in Browser
@@ -82,7 +93,7 @@ The _admtools_ package defines two main classes: `adm` and `multiadm`. The class
 
 ## Conventions
 
-In contrast to its name, the _admtools_ package currently deals with time and height instead of age and depth. In this sense, the age-depth models are time-height models. To handle ages, use time before the present. To handle depths, use height below a point of reference (e.g., the sediment surface).
+In contrast to its name, the _admtools_ package currently deals with time and height instead of age and depth. In this sense, the age-depth models are time-height models. Both time and height can be negative values. To handle ages, use time before the present. To handle depths, use height below a point of reference (e.g., the sediment surface).
 
 ## Example
 
@@ -95,6 +106,7 @@ data("CarboCATLite_data")
 ### Defining age-depth models
 
 The standard constructor for age-depth models is `tp_to_adm` ("tiepoint to age-depth model"). It returns an objecto of class `adm`. This object combines information of stratigraphic heights and times and erosive interval. It allows to transform data between the stratigraphic and the time domain, and identify which data is destroyed due to hiatuses.
+
 As example, I use the timing and stratigraphic positions of tie points taken from CarboCAT Lite to construct an age-depth model, and use the option to directly associate length and time units with it.
 
 ```{R}
@@ -134,11 +146,9 @@ plot(my_adm,
      lwd_cons = 2)
 ```
 
-To see the available plotting options, use `?plot.adm`
-
 ### Extracting data from age-depth models
 
-Use the functions _get_total_duration_, _get_total_thickness_, _get_completeness_, and _get_hiat_no_ to extract information:
+Use the functions `get_total_duration`, `get_total_thickness`, `get_completeness`, and `get_hiat_no` to extract information:
 
 ```{r}
 get_total_duration(my_adm) #total time covered by the age-depth model
@@ -153,7 +163,7 @@ For more detailed information, you can use
 * `get_hiat_duration` to get a vector of hiatus durations
 * `get_hiat_list` to get a list of hiatus positions and duration.
 
-For example, to plot a histogram of hiatus durations you can use
+For example, to plot a histogram of hiatus durations, use
 
 ```{r}
 hist(x = get_hiat_duration(my_adm),
@@ -163,7 +173,7 @@ hist(x = get_hiat_duration(my_adm),
 ```
 
 
-The function _is_destructive_ can be used to examine whether points in time coincide with hiatuses:
+The function `is_destructive` can be used to examine whether points in time coincide with hiatuses:
 
 ```{R}
 is_destructive(adm = my_adm,
@@ -172,10 +182,12 @@ is_destructive(adm = my_adm,
 
 ### Transforming data between time and stratigraphic domain
 
-The functions _get_height_ and _get_time_ are the workhorses to transform data using age-depth models.
+#### Heights and times
 
-* _get_time_ takes and adm object and vector of heights _h_  (stratigraphic positions), and returns a vector of times
-* _get_height_ takes an adm object and vector of times and returns a vector of associated positions
+The functions `get_height` and `get_time` are the workhorses to transform data using age-depth models.
+
+* `get_time` takes and adm object and vector of heights `h`  (stratigraphic positions), and returns a vector of times
+* `get_height` takes an adm object and vector of times and returns a vector of associated positions
 
 As example, say we want to know the time of deposition of the following stratigraphic positions:
 
@@ -190,7 +202,7 @@ t = c(0.2,1.4)
 get_height(adm = my_adm,
            t = t)
 ```
-Here, the _NA_ indicates that the time 1.4 coincides with erosion. If you want to know the stratigraphic position of the hiatus that coincides with that time, use the option _destructive = FALSE_:
+Here, the `NA` indicates that the time 1.4 coincides with erosion. If you want to know the stratigraphic position of the hiatus that coincides with that time, use the option `destructive = FALSE`:
 
 ```{r}
 t = c(0.2,1.4)
@@ -198,6 +210,42 @@ get_height(adm = my_adm,
            t = t,
            destructive = FALSE)
 ```
+ 
+#### Phylogenetic trees
+
+The `admtools` package can transform complex objects between the time and stratigraphic domain. This is done using the functions `strat_to_time` and `time_to_strat`.
+
+As an example, we transform a chronogram (a phylogenetic tree where branch length represents time). For this, we first generate a tree following the birth-death model using the `ape` package.
+
+```{r}
+#install.packages("ape") Package for analyses of phylogenetics and evolution
+# see ?ape::rlineage for help
+set.seed(1)
+tree_in_time = ape::rlineage(birth = 1.8,
+                             death = 0.2,
+                             Tmax = 2)
+plot(tree_in_time) # see also ?ape::plot.phylo
+axis(1)
+mtext("Time [Myr]", side = 1, line = 2.5)
+```
+
+You can transform the tree using `time_to_strat`:
+
+```{r}
+tree_in_strat_domain = time_to_strat(obj = tree_in_time,
+                                     x = my_adm)
+```
+
+Plotting the resulting tree along the tratigraphic column shows how the evolutinoary relationships would be preserved 2 km offshore in the simulated carbonate platform:
+
+```{r}
+plot(tree_in_strat_domain, direction = "upwards")
+axis(side = 2)
+mtext("Stratigraphic Height [m]",
+      side = 2,
+      line = 2)
+```
+
 ## Further information
 
 For information on estimating age-depth models from sedimentation rates, see
@@ -209,7 +257,7 @@ For information on estimating age-depth models from tracer contents of rocks and
 ```{r, eval=FALSE}
 vignette("adm_from_trace_cont")
 ```
- 
+
 
 ## References
 * Burgess, Peter. "CarboCAT: A cellular automata model of heterogeneous carbonate strata." Computers & geosciences 53 (2013): 129-140. [DOI: 10.1016/j.cageo.2011.08.026](https://doi.org/10.1016/j.cageo.2011.08.026)
