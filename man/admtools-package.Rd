@@ -12,6 +12,7 @@ Estimate age-depth models from stratigraphic and sedimentological data, and tran
 Useful links:
 \itemize{
   \item \url{https://github.com/MindTheGap-ERC/admtools}
+  \item \url{https://mindthegap-erc.github.io/admtools/}
   \item Report bugs at \url{https://github.com/MindTheGap-ERC/admtools/issues}
 }
 
