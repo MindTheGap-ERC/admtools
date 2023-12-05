@@ -7,7 +7,7 @@ Authors@R:
 Description: Estimate age-depth models from stratigraphic and sedimentological data,
     and transform data
     between the time and stratigraphic domain.
-URL: https://github.com/MindTheGap-ERC/admtools
+URL: https://github.com/MindTheGap-ERC/admtools, https://mindthegap-erc.github.io/admtools/
 BugReports: https://github.com/MindTheGap-ERC/admtools/issues
 License: Apache License (== 2.0)
 Encoding: UTF-8
