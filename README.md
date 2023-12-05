@@ -33,7 +33,7 @@ Then, run
 ```R
 remotes::install_github(repo = "MindTheGap-ERC/admtools",
                         build_vignettes = TRUE,
-                        ref = "v0.0.1")
+                        ref = "v0.1.0")
 ```
 
 To install the version under development, use `ref = "HEAD"` instead.
