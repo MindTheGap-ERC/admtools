@@ -11,22 +11,59 @@ plot.multiadm = function(x,...){
   #' @returns a plot of the multiadm object
   #' 
   
+  arg_list = list(...)
+   
+  if ("mode" %in% names(arg_list)){
+    if (arg_list[["mode"]] == "envelope"){
+      mode = "envelope"
+    } else {
+      mode = "lines"
+    }
+  }
+  
   
   multiadm = x
-  no_of_entries = multiadm$no_of_entries
-  t_min = min(sapply(seq_len(no_of_entries), function(x) min(multiadm[["t"]][[x]])))
-  t_max = max(sapply(seq_len(no_of_entries), function(x) max(multiadm[["t"]][[x]])))
-  h_min = min(sapply(seq_len(no_of_entries), function(x) min(multiadm[["h"]][[x]])))
-  h_max = max(sapply(seq_len(no_of_entries), function(x) max(multiadm[["h"]][[x]])))
   
-  plot(NULL,
-       xlim = c(t_min, t_max),
-       ylim = c(h_min, h_max),
-       xlab = "Time",
-       ylab = "Height")
-  
-  for ( i in seq_len(no_of_entries)){
-    graphics::lines(multiadm$t[[i]], multiadm$h[[i]])
+  if (mode == "lines") {
+    no_of_entries = multiadm$no_of_entries
+    t_min = min(sapply(seq_len(no_of_entries), function(x) min(multiadm[["t"]][[x]])))
+    t_max = max(sapply(seq_len(no_of_entries), function(x) max(multiadm[["t"]][[x]])))
+    h_min = min(sapply(seq_len(no_of_entries), function(x) min(multiadm[["h"]][[x]])))
+    h_max = max(sapply(seq_len(no_of_entries), function(x) max(multiadm[["h"]][[x]])))
+    
+    plot(NULL,
+         xlim = c(t_min, t_max),
+         ylim = c(h_min, h_max),
+         xlab = "Time",
+         ylab = "Height")
+    
+    for ( i in seq_len(no_of_entries)){
+      graphics::lines(multiadm$t[[i]], multiadm$h[[i]])
+    }
   }
+  
+  if (mode == "envelope"){
+    t_min = min(sapply(seq_len(no_of_entries), function(x) min(multiadm[["t"]][[x]])))
+    t_max = max(sapply(seq_len(no_of_entries), function(x) max(multiadm[["t"]][[x]])))
+    h_min = min(sapply(seq_len(no_of_entries), function(x) min(multiadm[["h"]][[x]])))
+    h_max = max(sapply(seq_len(no_of_entries), function(x) max(multiadm[["h"]][[x]])))
+    
+    plot(NULL,
+         xlim = c(t_min, t_max),
+         ylim = c(h_min, h_max),
+         xlab = "Time",
+         ylab = "Height")
+    
+    h = seq(h_min, h_max, length.out = 100)
+    h_list = get_time(multiadm, h)
+    h_t= list()
+    for ( i in seq_len(100)){
+      h_t[[i]] = sapply(h_list, function(x) x[i])
+    }
+    lines(sapply(h_t, function(x) quantile(x, 0.025, na.rm = TRUE)),h, col = "blue")
+    lines(sapply(h_t, function(x) quantile(x, 0.975, na.rm = TRUE)),h, col = "blue")
+    lines(sapply(h_t, function(x) quantile(x, 0.5, na.rm = TRUE)),h, col = "red")
+  }
+
   
 }

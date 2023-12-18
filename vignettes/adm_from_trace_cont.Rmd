@@ -182,7 +182,7 @@ With all the input data coded, age-depth models can be estimated using the funct
 
 ```{r}
 h = seq(h_min,h_max, by = 0.25) # strat. positions where ADMs are estimated
-no_of_rep = 10 # no. of ADMs estimated
+no_of_rep = 1000 # no. of ADMs estimated
 ```
 
 
@@ -198,7 +198,11 @@ my_adm = strat_cont_to_multiadm(h_tp = h_tp,
 The estimated age-depth model can be handed to plot to display it:
 
 ```{r}
-plot(my_adm)
+plot(my_adm, mode = "envelope")
+legend("topleft",
+       col = c("blue", "red"),
+       legend = c("95 % envelope", "Median"),
+       lwd = 2)
 ```
 
 ## Further information
