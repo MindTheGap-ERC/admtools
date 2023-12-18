@@ -271,7 +271,7 @@ model from the inputs. Here, I determine the age-depth models every
 meter, and generate 10 ADMs</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">h</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="va">h_min</span>,<span class="va">h_max</span>, by <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="co"># strat. positions where ADMs are estimated</span></span>
-<span><span class="va">no_of_rep</span> <span class="op">=</span> <span class="fl">10</span> <span class="co"># no. of ADMs estimated</span></span></code></pre></div>
+<span><span class="va">no_of_rep</span> <span class="op">=</span> <span class="fl">1000</span> <span class="co"># no. of ADMs estimated</span></span></code></pre></div>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">my_adm</span> <span class="op">=</span> <span class="fu"><a href="../reference/sedrate_to_multiadm.html">sedrate_to_multiadm</a></span><span class="op">(</span>h_tp <span class="op">=</span> <span class="fu">h_tp</span><span class="op">(</span><span class="op">)</span>,</span>
 <span>                             t_tp <span class="op">=</span> <span class="fu">t_tp</span><span class="op">(</span><span class="op">)</span>,</span>
