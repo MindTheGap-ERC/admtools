@@ -1,4 +1,4 @@
-is_destructive = function(adm, t, mode = "rcll", bdry_pts_hiat = "destructive", out_dom_mode = "default"){
+is_destructive = function(x, t, mode = "rcll", bdry_pts_hiat = "destructive", out_dom_mode = "default"){
   
   #' @export
   #' 
@@ -9,10 +9,10 @@ is_destructive = function(adm, t, mode = "rcll", bdry_pts_hiat = "destructive", 
   #' Determines whether specified time is destrucive or not
   #' 
   #' 
-  #' @usage is_destructive(adm, t, mode = "rcll", 
+  #' @usage is_destructive(x, t, mode = "rcll", 
   #' bdry_pts_hiat = "destructive", out_dom_mode = "default")
   #' 
-  #' @param adm an adm object
+  #' @param x an _adm_ or _multiadm_ object
   #' @param t vector of times
   #' @param mode string, either "rcll", "lcrl", "open", or "closed"
   #' @param bdry_pts_hiat string, "destructive" or "consistent". If the adm starts/ends with a hiatus, should the 

@@ -1,10 +1,11 @@
-get_time.adm = function(adm, h, hiat_mode = "start", bdry_pts_hiat = "destructive", out_dom_val_t = "default"){
+get_time.adm = function(x, h, hiat_mode = "start", bdry_pts_hiat = "destructive", out_dom_val_t = "default"){
   
   
   #' 
   #' @export
   #' 
   
+  adm = x
   stopifnot(bdry_pts_hiat %in% c("consistent", "destructive"))
   if (out_dom_val_t[1] == "default"){
     yleft = NA
@@ -76,12 +77,12 @@ get_time.adm = function(adm, h, hiat_mode = "start", bdry_pts_hiat = "destructiv
     return(time)
   }
   if (hiat_mode == "destroy"){
-    time_start = get_time(adm = adm,
+    time_start = get_time(adm,
                           h = h,
                           hiat_mode = "start",
                           bdry_pts_hiat = bdry_pts_hiat,
                           out_dom_val_t = out_dom_val_t)
-    time_end = get_time(adm = adm,
+    time_end = get_time(adm,
                         h = h,
                         hiat_mode = "end",
                         bdry_pts_hiat = bdry_pts_hiat,

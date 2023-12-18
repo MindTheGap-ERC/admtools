@@ -4,11 +4,11 @@
 \alias{is_destructive}
 \title{Is deposition destructive?}
 \usage{
-is_destructive(adm, t, mode = "rcll", 
+is_destructive(x, t, mode = "rcll", 
 bdry_pts_hiat = "destructive", out_dom_mode = "default")
 }
 \arguments{
-\item{adm}{an adm object}
+\item{x}{an \emph{adm} or \emph{multiadm} object}
 
 \item{t}{vector of times}
 

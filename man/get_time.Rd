@@ -4,11 +4,11 @@
 \alias{get_time}
 \title{Determine times based on age-depth model}
 \usage{
-get_time(adm, h, hiat_mode = "start", 
+get_time(x, h, hiat_mode = "start", 
 bdry_pts_hiat = "destructive", out_dom_val_t = "default")
 }
 \arguments{
-\item{adm}{an adm object}
+\item{x}{an \emph{adm} or \emph{multiadm} object}
 
 \item{h}{vector of stratigraphic positions}
 

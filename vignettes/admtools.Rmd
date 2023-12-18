@@ -176,7 +176,7 @@ hist(x = get_hiat_duration(my_adm),
 The function `is_destructive` can be used to examine whether points in time coincide with hiatuses:
 
 ```{R}
-is_destructive(adm = my_adm,
+is_destructive(my_adm,
                t = c(0.1,0.5)) 
 ```
 
@@ -193,20 +193,20 @@ As example, say we want to know the time of deposition of the following stratigr
 
 ```{r}
 h = c(30,120) # stratigraphic positions
-get_time(adm = my_adm,
+get_time(my_adm,
              h = h)
 ```
 Conversely, to determine what parts of the section are deposited as a specific time, use
 ```{r}
 t = c(0.2,1.4)
-get_height(adm = my_adm,
+get_height(my_adm,
            t = t)
 ```
 Here, the `NA` indicates that the time 1.4 coincides with erosion. If you want to know the stratigraphic position of the hiatus that coincides with that time, use the option `destructive = FALSE`:
 
 ```{r}
 t = c(0.2,1.4)
-get_height(adm = my_adm,
+get_height(my_adm,
            t = t,
            destructive = FALSE)
 ```

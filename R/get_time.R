@@ -1,4 +1,4 @@
-get_time = function(adm, h, hiat_mode = "start", bdry_pts_hiat = "destructive", out_dom_val_t = "default"){
+get_time = function(x, h, hiat_mode = "start", bdry_pts_hiat = "destructive", out_dom_val_t = "default"){
   #' @export
   #' 
   #' 
@@ -9,10 +9,10 @@ get_time = function(adm, h, hiat_mode = "start", bdry_pts_hiat = "destructive", 
   #' the corresponding time of formation
   #' 
   #' 
-  #' @usage get_time(adm, h, hiat_mode = "start", 
+  #' @usage get_time(x, h, hiat_mode = "start", 
   #' bdry_pts_hiat = "destructive", out_dom_val_t = "default")
   #' 
-  #' @param adm an adm object
+  #' @param x an _adm_ or _multiadm_ object
   #' @param h vector of stratigraphic positions
   #' @param hiat_mode "start", "end", or "destroy". If a stratigraphic position coincides with a hiatus, what should be returned?
   #' @param bdry_pts_hiat "consistent" or "destructive". How are hiatuses at the start/end of the adm treated?
