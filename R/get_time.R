@@ -9,7 +9,7 @@ get_time = function(x, h, hiat_mode = "start", bdry_pts_hiat = "destructive", ou
   #' the corresponding time of formation
   #' 
   #' 
-  #' @usage get_time(adm, h, hiat_mode = "start", 
+  #' @usage get_time(x, h, hiat_mode = "start", 
   #' bdry_pts_hiat = "destructive", out_dom_val_t = "default")
   #' 
   #' @param x an _adm_ or _multiadm_ object

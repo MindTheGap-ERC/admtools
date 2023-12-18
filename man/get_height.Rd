@@ -4,7 +4,7 @@
 \alias{get_height}
 \title{determine stratigraphic height deposited at specific time}
 \usage{
-get_height(adm, t, destructive = TRUE, out_dom_val_h = "default", ...)
+get_height(x, t, destructive = TRUE, out_dom_val_h = "default", ...)
 }
 \arguments{
 \item{x}{an \emph{adm} or \emph{multiadm} object}

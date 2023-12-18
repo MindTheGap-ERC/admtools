@@ -4,7 +4,7 @@
 \alias{get_time}
 \title{Determine times based on age-depth model}
 \usage{
-get_time(adm, h, hiat_mode = "start", 
+get_time(x, h, hiat_mode = "start", 
 bdry_pts_hiat = "destructive", out_dom_val_t = "default")
 }
 \arguments{

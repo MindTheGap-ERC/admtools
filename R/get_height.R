@@ -9,7 +9,7 @@ get_height = function(x, t, destructive = TRUE, out_dom_val_h = "default", ...){
   #' heights deposited at said times
   #' 
   #' 
-  #' @usage get_height(adm, t, destructive = TRUE, out_dom_val_h = "default", ...)
+  #' @usage get_height(x, t, destructive = TRUE, out_dom_val_h = "default", ...)
   #' 
   #' @param x an _adm_ or _multiadm_ object
   #' @param t vector of times

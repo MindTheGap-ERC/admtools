@@ -9,7 +9,7 @@ is_destructive = function(x, t, mode = "rcll", bdry_pts_hiat = "destructive", ou
   #' Determines whether specified time is destrucive or not
   #' 
   #' 
-  #' @usage is_destructive(adm, t, mode = "rcll", 
+  #' @usage is_destructive(x, t, mode = "rcll", 
   #' bdry_pts_hiat = "destructive", out_dom_mode = "default")
   #' 
   #' @param x an _adm_ or _multiadm_ object
