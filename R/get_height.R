@@ -1,4 +1,4 @@
-get_height = function(adm, t, destructive = TRUE, out_dom_val_h = "default", ...){
+get_height = function(x, t, destructive = TRUE, out_dom_val_h = "default", ...){
   
   #' @export
   #' 
@@ -11,7 +11,7 @@ get_height = function(adm, t, destructive = TRUE, out_dom_val_h = "default", ...
   #' 
   #' @usage get_height(adm, t, destructive = TRUE, out_dom_val_h = "default", ...)
   #' 
-  #' @param adm an _adm_ object
+  #' @param x an _adm_ or _multiadm_ object
   #' @param t vector of times
   #' @param destructive logical - should destructive intervals be considered? See Details
   #' @param out_dom_val_h "strat_limits", "default", or a vector with one or two entries. What value is assigned to times that are not covered by the age-depth model? 

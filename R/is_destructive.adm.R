@@ -1,9 +1,11 @@
-is_destructive.adm = function(adm, t, mode = "rcll", bdry_pts_hiat = "destructive", out_dom_mode = "default"){
+is_destructive.adm = function(x, t, mode = "rcll", bdry_pts_hiat = "destructive", out_dom_mode = "default"){
   
 
   #' 
   #' @export
   #' 
+  
+  adm = x
   
   stopifnot(bdry_pts_hiat %in% c("destructive", "consistent"))
   
@@ -77,12 +79,12 @@ is_destructive.adm = function(adm, t, mode = "rcll", bdry_pts_hiat = "destructiv
   }
   
   if (mode == "open") {
-    is_destructive = is_destructive(adm = adm, t = t, mode = "rcll", bdry_pts_hiat = bdry_pts_hiat , out_dom_mode = "default") & is_destructive(adm = adm, t = t, mode = "lcrl" , bdry_pts_hiat = bdry_pts_hiat , out_dom_mode = "default")
+    is_destructive = is_destructive(adm, t = t, mode = "rcll", bdry_pts_hiat = bdry_pts_hiat , out_dom_mode = "default") & is_destructive( adm, t = t, mode = "lcrl" , bdry_pts_hiat = bdry_pts_hiat , out_dom_mode = "default")
     return(is_destructive)
   }
   
   if (mode == "closed") {
-    is_destructive = is_destructive(adm = adm, t = t, mode = "rcll" , bdry_pts_hiat = bdry_pts_hiat , out_dom_mode = "default") | is_destructive(adm = adm, t = t, mode = "lcrl" , bdry_pts_hiat = bdry_pts_hiat , out_dom_mode = "default")
+    is_destructive = is_destructive(adm, t = t, mode = "rcll" , bdry_pts_hiat = bdry_pts_hiat , out_dom_mode = "default") | is_destructive( adm, t = t, mode = "lcrl" , bdry_pts_hiat = bdry_pts_hiat , out_dom_mode = "default")
     return(is_destructive)
   }
 

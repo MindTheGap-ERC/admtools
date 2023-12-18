@@ -7,7 +7,7 @@
 get_height(adm, t, destructive = TRUE, out_dom_val_h = "default", ...)
 }
 \arguments{
-\item{adm}{an \emph{adm} object}
+\item{x}{an \emph{adm} or \emph{multiadm} object}
 
 \item{t}{vector of times}
 

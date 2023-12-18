@@ -8,7 +8,7 @@ get_time(adm, h, hiat_mode = "start",
 bdry_pts_hiat = "destructive", out_dom_val_t = "default")
 }
 \arguments{
-\item{adm}{an adm object}
+\item{x}{an \emph{adm} or \emph{multiadm} object}
 
 \item{h}{vector of stratigraphic positions}
 

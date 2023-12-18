@@ -1,9 +1,10 @@
-get_height.adm = function(adm, t, destructive = TRUE, out_dom_val_h = "default", ...){
+get_height.adm = function(x, t, destructive = TRUE, out_dom_val_h = "default", ...){
   
   #' 
   #' @export
   #' 
   
+  adm = x
   if (out_dom_val_h[1] == "strat_limits"){
     yleft = min(adm$h)
     yright = max(adm$h)
