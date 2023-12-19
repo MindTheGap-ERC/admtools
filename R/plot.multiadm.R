@@ -19,6 +19,8 @@ plot.multiadm = function(x,...){
     } else {
       mode = "lines"
     }
+  } else {
+    mode == "lines"
   }
   
   
