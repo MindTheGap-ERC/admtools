@@ -11,7 +11,9 @@ strat_cont_to_multiadm(
   time_cont_gen,
   h,
   no_of_rep = 100L,
-  subdivisions = 100L
+  subdivisions = 100L,
+  T_unit = NULL,
+  L_unit = NULL
 )
 }
 \arguments{
@@ -28,6 +30,10 @@ strat_cont_to_multiadm(
 \item{no_of_rep}{integer, number of repetititons}
 
 \item{subdivisions}{integer, max no. of subintervals used by integration procedure}
+
+\item{T_unit}{time unit}
+
+\item{L_unit}{length unit}
 }
 \value{
 Object of class multiadm

@@ -1,4 +1,5 @@
-strat_cont_to_multiadm = function(h_tp, t_tp, strat_cont_gen, time_cont_gen, h, no_of_rep = 100L, subdivisions = 100L){
+strat_cont_to_multiadm = function(h_tp, t_tp, strat_cont_gen, time_cont_gen, h, no_of_rep = 100L, subdivisions = 100L,
+                                  T_unit = NULL, L_unit = NULL){
   
   #'
   #' @title estimate age-depth model from stratigraphic contents
@@ -10,6 +11,8 @@ strat_cont_to_multiadm = function(h_tp, t_tp, strat_cont_gen, time_cont_gen, h, 
   #' @param h heights where the adm is evaluated
   #' @param no_of_rep integer, number of repetititons
   #' @param subdivisions integer, max no. of subintervals used by integration procedure
+  #' @param T_unit time unit
+  #' @param L_unit length unit
   #' 
   #' @returns Object of class multiadm
   #' 
@@ -91,8 +94,8 @@ strat_cont_to_multiadm = function(h_tp, t_tp, strat_cont_gen, time_cont_gen, h, 
   multiadm = list(t = t_list,
                   h = h_list,
                   destr = destr_list,
-                  T_unit = NA,
-                  L_unit = NA,
+                  T_unit = T_unit,
+                  L_unit = L_unit,
                   no_of_entries = length(t_list))
   class(multiadm) = "multiadm"
   return(multiadm)

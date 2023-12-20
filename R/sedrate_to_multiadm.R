@@ -1,4 +1,5 @@
-sedrate_to_multiadm = function(h_tp, t_tp, sed_rate_gen, h, no_of_rep = 100){
+sedrate_to_multiadm = function(h_tp, t_tp, sed_rate_gen, h, no_of_rep = 100L,
+                               T_unit = NULL, L_unit = NULL){
   
   #' 
   #' @title Estimate age-depth model from sedimentation rate & tie points
@@ -8,6 +9,8 @@ sedrate_to_multiadm = function(h_tp, t_tp, sed_rate_gen, h, no_of_rep = 100){
   #' @param sed_rate_gen : function, returns sedimentation rate functions
   #' @param h : numeric, heights where the adm is calculated
   #' @param no_of_rep : numeric, number of repetitions
+  #' @param T_unit time unit
+  #' @param L_unit length unit
   #' 
   #' @returns object of class multiadm
   #' 
@@ -56,8 +59,8 @@ sedrate_to_multiadm = function(h_tp, t_tp, sed_rate_gen, h, no_of_rep = 100){
     multiadm = list(t = t_list,
                     h = h_list,
                     destr = destr_list,
-                    T_unit = NA,
-                    L_unit = NA,
+                    T_unit = T_unit,
+                    L_unit = L_unit,
                     no_of_entries = length(t_list))
     class(multiadm) = "multiadm"
     return(multiadm)

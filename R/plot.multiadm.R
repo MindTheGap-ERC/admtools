@@ -23,6 +23,8 @@ plot.multiadm = function(x,...){
     mode == "lines"
   }
   
+  assign("adm_plot_info",list("T_unit" = x$T_unit,
+                              "L_unit" = x$L_unit), envir = .adm_plot_env)
   
   multiadm = x
   
@@ -36,8 +38,8 @@ plot.multiadm = function(x,...){
     plot(NULL,
          xlim = c(t_min, t_max),
          ylim = c(h_min, h_max),
-         xlab = "Time",
-         ylab = "Height")
+         xlab = "",
+         ylab = "")
     
     for ( i in seq_len(no_of_entries)){
       graphics::lines(multiadm$t[[i]], multiadm$h[[i]])
@@ -54,8 +56,8 @@ plot.multiadm = function(x,...){
     plot(NULL,
          xlim = c(t_min, t_max),
          ylim = c(h_min, h_max),
-         xlab = "Time",
-         ylab = "Height")
+         xlab = "",
+         ylab = "")
     
     h = seq(h_min, h_max, length.out = 100)
     h_list = get_time(multiadm, h)

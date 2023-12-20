@@ -16,36 +16,19 @@ plot.adm = function(x, lwd_hiat = 1, lwd_cons = 1, lty_hiat = 3, lty_cons = 1,
   #' @param ... arguments passed to plot
   #' 
   
+  assign("adm_plot_info",list("T_unit" = x$T_unit,
+                              "L_unit" = x$L_unit), envir = .adm_plot_env)
+  
   adm = x
   
   in_list = list(...)
-  
-  if ("xlab" %in% names(in_list)){
-    xlab = in_list[["xlab"]]
-  } else {
-    if (is.null(adm$T_unit)) {
-      xlab = "Time"
-    } else {
-      xlab = paste0("Time [", adm$T_unit, "]") 
-    }
-  }
-  
-  if ("ylab" %in% names(in_list)){
-    ylab = in_list[["ylab"]]
-  } else {
-    if (is.null(adm$L_unit)) {
-      ylab = "Height"
-    } else {
-      ylab = paste0("Height [", adm$L_unit, "]") 
-    }
-  }
   
   plot(x = adm$t,
        y = adm$h,
        type = "l",
        lty = "blank",
-       xlab = xlab,
-       ylab = ylab,
+       xlab = "",
+       ylab = "",
        ...)
   
 

@@ -4,7 +4,15 @@
 \alias{sedrate_to_multiadm}
 \title{Estimate age-depth model from sedimentation rate & tie points}
 \usage{
-sedrate_to_multiadm(h_tp, t_tp, sed_rate_gen, h, no_of_rep = 100)
+sedrate_to_multiadm(
+  h_tp,
+  t_tp,
+  sed_rate_gen,
+  h,
+  no_of_rep = 100L,
+  T_unit = NULL,
+  L_unit = NULL
+)
 }
 \arguments{
 \item{h_tp}{: function, returns stratigraphic positions of tie points}
@@ -16,6 +24,10 @@ sedrate_to_multiadm(h_tp, t_tp, sed_rate_gen, h, no_of_rep = 100)
 \item{h}{: numeric, heights where the adm is calculated}
 
 \item{no_of_rep}{: numeric, number of repetitions}
+
+\item{T_unit}{time unit}
+
+\item{L_unit}{length unit}
 }
 \value{
 object of class multiadm
