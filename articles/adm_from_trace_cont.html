@@ -266,11 +266,15 @@ determine the age-depth models every 0.25 m, and generate 10 ADMs</p>
 <span>                                strat_cont_gen <span class="op">=</span> <span class="va">strat_cont_gen</span>,</span>
 <span>                                time_cont_gen <span class="op">=</span> <span class="va">time_cont_gen</span>,</span>
 <span>                                h <span class="op">=</span> <span class="va">h</span>,</span>
-<span>                                no_of_rep <span class="op">=</span> <span class="va">no_of_rep</span><span class="op">)</span></span></code></pre></div>
+<span>                                no_of_rep <span class="op">=</span> <span class="va">no_of_rep</span>,</span>
+<span>                                T_unit <span class="op">=</span> <span class="st">"m"</span>,</span>
+<span>                                L_unit <span class="op">=</span> <span class="st">"Myr"</span><span class="op">)</span></span></code></pre></div>
 <p>The estimated age-depth model can be handed to plot to display
 it:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">my_adm</span>, mode <span class="op">=</span> <span class="st">"envelope"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/T_axis_lab.html">T_axis_lab</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># plot time axis label, see ?T_axis_lab for details</span></span>
+<span><span class="fu"><a href="../reference/L_axis_lab.html">L_axis_lab</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># plot length axis label, see ?L_axis_lab for details</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span><span class="st">"topleft"</span>,</span>
 <span>       col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"blue"</span>, <span class="st">"red"</span><span class="op">)</span>,</span>
 <span>       legend <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"95 % envelope"</span>, <span class="st">"Median"</span><span class="op">)</span>,</span>
