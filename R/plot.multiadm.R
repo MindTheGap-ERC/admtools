@@ -20,7 +20,7 @@ plot.multiadm = function(x,...){
       mode = "lines"
     }
   } else {
-    mode == "lines"
+    mode = "lines"
   }
   
   assign("adm_plot_info",list("T_unit" = x$T_unit,
