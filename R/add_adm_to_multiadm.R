@@ -18,8 +18,12 @@ add_adm_to_multiadm = function(x, ...){
     x[["t"]][[x$no_of_entries + i]] = inlist[[i]]$t
     x[["h"]][[x$no_of_entries + i]] = inlist[[i]]$h
     x[["destr"]][[x$no_of_entries + i]] = inlist[[i]]$destr
-    x[["T_unit"]][[x$no_of_entries + i]] = inlist[[i]]$T_unit
-    x[["L_unit"]][[x$no_of_entries + i]] = inlist[[i]]$L_unit
+    if (x$T_unit != get_T_unit(inlist[[i]])){
+      stop("Inconsistent time units, can not merge")
+    }
+    if (x$L_unit != get_L_unit(inlist[[i]])){
+      stop("Inconsistent length units, can not merge")
+    }
     
   }
   x$no_of_entries = x$no_of_entries + length(inlist)
