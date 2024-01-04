@@ -10,6 +10,7 @@ sedrate_to_multiadm(
   sed_rate_gen,
   h,
   no_of_rep = 100L,
+  subdivisions = 100L,
   T_unit = NULL,
   L_unit = NULL
 )
@@ -24,6 +25,8 @@ sedrate_to_multiadm(
 \item{h}{: numeric, heights where the adm is calculated}
 
 \item{no_of_rep}{: numeric, number of repetitions}
+
+\item{subdivisions}{maximum no of subintervals used in numeric integration}
 
 \item{T_unit}{time unit}
 
