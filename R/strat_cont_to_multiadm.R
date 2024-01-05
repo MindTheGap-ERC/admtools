@@ -1,4 +1,5 @@
-strat_cont_to_multiadm = function(h_tp, t_tp, strat_cont_gen, time_cont_gen, h, no_of_rep = 100L, subdivisions = 100L,
+strat_cont_to_multiadm = function(h_tp, t_tp, strat_cont_gen, time_cont_gen, h, no_of_rep = 100L, 
+                                  subdivisions = 100L, stop.on.error = TRUE,
                                   T_unit = NULL, L_unit = NULL){
   
   #'
@@ -10,7 +11,8 @@ strat_cont_to_multiadm = function(h_tp, t_tp, strat_cont_gen, time_cont_gen, h, 
   #' @param time_cont_gen function, generating the hypothesis on content input in time
   #' @param h heights where the adm is evaluated
   #' @param no_of_rep integer, number of repetititons
-  #' @param subdivisions integer, max no. of subintervals used by integration procedure
+  #' @param subdivisions integer, max no. of subintervals used by integration procedure. passed to _integrate_, see ?stats::integrate for details
+  #' @param stop.on.error logical passed to _integrate_, see ?stats::integrate for details
   #' @param T_unit time unit
   #' @param L_unit length unit
   #' 
@@ -52,12 +54,14 @@ strat_cont_to_multiadm = function(h_tp, t_tp, strat_cont_gen, time_cont_gen, h, 
     strat_cont_total = stats::integrate(f = strat_cont_sample,
                                         lower = h1_sample,
                                         upper = h2_sample,
-                                        subdivisions = subdivisions)$value
+                                        subdivisions = subdivisions,
+                                        stop.on.error = stop.on.error)$value
     
     time_cont_total = stats::integrate(f = time_cont_sample,
                                        lower = t1_sample,
                                        upper = t2_sample,
-                                       subdivisions = subdivisions)$value
+                                       subdivisions = subdivisions,
+                                       stop.on.error = stop.on.error)$value
     
     corr_factor = strat_cont_total / time_cont_total
     
@@ -66,10 +70,8 @@ strat_cont_to_multiadm = function(h_tp, t_tp, strat_cont_gen, time_cont_gen, h, 
     integrated_time_cont = function(t) stats::integrate(f = time_cont_sample_corr,
                                                         lower = t1_sample,
                                                         upper = t,
-                                                        subdivisions = subdivisions)$val
-    ## Basic checks
-    # integrated_time_cont(t1_sample) == 0
-    # (integrated_time_cont(t2_sample) - strat_cont_total) < 10^-8o
+                                                        subdivisions = subdivisions,
+                                                        stop.on.error = stop.on.error)$val
     
     t_out = rep(NA, length(h_relevant))
     
@@ -77,12 +79,13 @@ strat_cont_to_multiadm = function(h_tp, t_tp, strat_cont_gen, time_cont_gen, h, 
       strat_cont_at_hi = stats::integrate(f = strat_cont_sample,
                                           lower = h1_sample,
                                           upper = h_relevant[j],
-                                          subdivisions = subdivisions)$val
+                                          subdivisions = subdivisions,
+                                          stop.on.error = stop.on.error)$val
       
       f = function(t) integrated_time_cont(t) - strat_cont_at_hi
       t_out[j] = t1_sample + stats::uniroot(f = f, 
-                                interval = c(t1_sample, t2_sample), 
-                                extendInt = "yes")$root
+                                            interval = c(t1_sample, t2_sample), 
+                                            extendInt = "yes")$root
     }
     
     h_list[[i]] = h_relevant

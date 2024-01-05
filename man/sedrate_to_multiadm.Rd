@@ -11,6 +11,7 @@ sedrate_to_multiadm(
   h,
   no_of_rep = 100L,
   subdivisions = 100L,
+  stop.on.error = TRUE,
   T_unit = NULL,
   L_unit = NULL
 )
@@ -26,7 +27,9 @@ sedrate_to_multiadm(
 
 \item{no_of_rep}{: numeric, number of repetitions}
 
-\item{subdivisions}{maximum no of subintervals used in numeric integration}
+\item{subdivisions}{maximum no of subintervals used in numeric integration. passed to \emph{integrate}, see ?stats::integrate for details}
+
+\item{stop.on.error}{logical passed to \emph{integrate}, see ?stats::integrate for details}
 
 \item{T_unit}{time unit}
 
