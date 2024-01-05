@@ -12,6 +12,7 @@ strat_cont_to_multiadm(
   h,
   no_of_rep = 100L,
   subdivisions = 100L,
+  stop.on.error = TRUE,
   T_unit = NULL,
   L_unit = NULL
 )
@@ -29,7 +30,9 @@ strat_cont_to_multiadm(
 
 \item{no_of_rep}{integer, number of repetititons}
 
-\item{subdivisions}{integer, max no. of subintervals used by integration procedure}
+\item{subdivisions}{integer, max no. of subintervals used by integration procedure. passed to \emph{integrate}, see ?stats::integrate for details}
+
+\item{stop.on.error}{logical passed to \emph{integrate}, see ?stats::integrate for details}
 
 \item{T_unit}{time unit}
 
