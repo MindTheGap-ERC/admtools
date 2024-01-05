@@ -1,4 +1,5 @@
 sedrate_to_multiadm = function(h_tp, t_tp, sed_rate_gen, h, no_of_rep = 100L, subdivisions = 100L,
+                               stop.on.error = TRUE,
                                T_unit = NULL, L_unit = NULL){
   
   #' 
@@ -9,7 +10,8 @@ sedrate_to_multiadm = function(h_tp, t_tp, sed_rate_gen, h, no_of_rep = 100L, su
   #' @param sed_rate_gen : function, returns sedimentation rate functions
   #' @param h : numeric, heights where the adm is calculated
   #' @param no_of_rep : numeric, number of repetitions
-  #' @param subdivisions maximum no of subintervals used in numeric integration
+  #' @param subdivisions maximum no of subintervals used in numeric integration. passed to _integrate_, see ?stats::integrate for details
+  #' @param stop.on.error logical passed to _integrate_, see ?stats::integrate for details
   #' @param T_unit time unit
   #' @param L_unit length unit
   #' 
@@ -42,13 +44,22 @@ sedrate_to_multiadm = function(h_tp, t_tp, sed_rate_gen, h, no_of_rep = 100L, su
     h_relevant = c(h1_sample, h[h> h1_sample & h < h2_sample], h2_sample)
     
     sed_rate_sample = sed_rate_gen()
-    c_corr = (t2_sample-t1_sample)/stats::integrate(function(x) 1/sed_rate_sample(x), lower = h1_sample, upper = h2_sample, subdivisions = subdivisions)$value
+    time_cont = stats::integrate(function(x) 1/sed_rate_sample(x),
+                                 lower = h1_sample, 
+                                 upper = h2_sample, 
+                                 subdivisions = subdivisions, 
+                                 stop.on.error = stop.on.error)$value
+    c_corr = (t2_sample-t1_sample)/time_cont
     tp_corr_sed_rate_sample = function(x) sed_rate_sample(x) / c_corr
     
     t_out = rep(NA, length(h))
     
     for (j in seq_along(h)){
-      t_out[j] = t1_sample + stats::integrate( function(x) 1/tp_corr_sed_rate_sample(x), lower =  h1_sample, upper = h[j], subdivisions = subdivisions)$value
+      t_out[j] = t1_sample + stats::integrate( function(x) 1/tp_corr_sed_rate_sample(x),
+                                               lower =  h1_sample,
+                                               upper = h[j],
+                                               subdivisions = subdivisions, 
+                                               stop.on.error = stop.on.error)$value
     }
     
     h_list[[i]] = h
