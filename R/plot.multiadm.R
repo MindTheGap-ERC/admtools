@@ -11,6 +11,9 @@ plot.multiadm = function(x,...){
   #' @returns a plot of the multiadm object
   #' 
   
+  
+  
+  
   arg_list = list(...)
    
   if ("mode" %in% names(arg_list)){
@@ -23,41 +26,34 @@ plot.multiadm = function(x,...){
     mode = "lines"
   }
   
-  assign("adm_plot_info",list("T_unit" = x$T_unit,
-                              "L_unit" = x$L_unit), envir = .adm_plot_env)
-  
   multiadm = x
   
+  no_of_entries = multiadm$no_of_entries
+  t_min = min(sapply(seq_len(no_of_entries), function(x) min(multiadm[["t"]][[x]])))
+  t_max = max(sapply(seq_len(no_of_entries), function(x) max(multiadm[["t"]][[x]])))
+  h_min = min(sapply(seq_len(no_of_entries), function(x) min(multiadm[["h"]][[x]])))
+  h_max = max(sapply(seq_len(no_of_entries), function(x) max(multiadm[["h"]][[x]])))
+
+  assign(x = "adm_plot_info",
+         value = list("T_unit" = x$T_unit,
+                      "L_unit" = x$L_unit,
+                      "h_range" = c(h_min, h_max),
+                      "t_range" = c(t_min, t_max),
+                      "madm" = x),
+         envir = .adm_plot_env)
+  
+
+  
+  make_adm_canvas()
+  
   if (mode == "lines") {
-    no_of_entries = multiadm$no_of_entries
-    t_min = min(sapply(seq_len(no_of_entries), function(x) min(multiadm[["t"]][[x]])))
-    t_max = max(sapply(seq_len(no_of_entries), function(x) max(multiadm[["t"]][[x]])))
-    h_min = min(sapply(seq_len(no_of_entries), function(x) min(multiadm[["h"]][[x]])))
-    h_max = max(sapply(seq_len(no_of_entries), function(x) max(multiadm[["h"]][[x]])))
-    
-    plot(NULL,
-         xlim = c(t_min, t_max),
-         ylim = c(h_min, h_max),
-         xlab = "",
-         ylab = "")
-    
     for ( i in seq_len(no_of_entries)){
       graphics::lines(multiadm$t[[i]], multiadm$h[[i]])
     }
   }
   
   if (mode == "envelope"){
-    no_of_entries = multiadm$no_of_entries
-    t_min = min(sapply(seq_len(no_of_entries), function(x) min(multiadm[["t"]][[x]])))
-    t_max = max(sapply(seq_len(no_of_entries), function(x) max(multiadm[["t"]][[x]])))
-    h_min = min(sapply(seq_len(no_of_entries), function(x) min(multiadm[["h"]][[x]])))
-    h_max = max(sapply(seq_len(no_of_entries), function(x) max(multiadm[["h"]][[x]])))
 
-    plot(NULL,
-         xlim = c(t_min, t_max),
-         ylim = c(h_min, h_max),
-         xlab = "",
-         ylab = "")
     
     h = seq(h_min, h_max, length.out = 100)
     h_list = get_time(multiadm, h)

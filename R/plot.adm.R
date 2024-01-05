@@ -19,6 +19,8 @@ plot.adm = function(x, lwd_destr = 1, lwd_acc = 1, lty_destr = 3, lty_acc = 1,
   assign(x = "adm_plot_info",
          value = list("T_unit" = x$T_unit,
                       "L_unit" = x$L_unit,
+                      "h_range" = range(x$h),
+                      "t_range" = range(x$t),
                       "adm" = x),
          envir = .adm_plot_env)
   

@@ -14,11 +14,11 @@ make_adm_canvas = function(){
   
   list = get("adm_plot_info", envir = .adm_plot_env)
   
-  x = list$adm
+  
   
   plot(NULL,
-       xlim = range(x$t),
-       ylim = range(x$h),
+       xlim = list$t_range,
+       ylim = list$h_range,
        xlab = "",
        ylab = "")
 }
