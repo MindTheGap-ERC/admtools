@@ -69,6 +69,7 @@
 <span>  <span class="va">h</span>,</span>
 <span>  no_of_rep <span class="op">=</span> <span class="fl">100L</span>,</span>
 <span>  subdivisions <span class="op">=</span> <span class="fl">100L</span>,</span>
+<span>  stop.on.error <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  T_unit <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  L_unit <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -101,7 +102,11 @@
 
 
 <dt>subdivisions</dt>
-<dd><p>integer, max no. of subintervals used by integration procedure</p></dd>
+<dd><p>integer, max no. of subintervals used by integration procedure. passed to <em>integrate</em>, see ?stats::integrate for details</p></dd>
+
+
+<dt>stop.on.error</dt>
+<dd><p>logical passed to <em>integrate</em>, see ?stats::integrate for details</p></dd>
 
 
 <dt>T_unit</dt>
