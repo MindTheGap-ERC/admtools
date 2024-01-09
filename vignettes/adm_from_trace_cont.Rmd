@@ -109,7 +109,7 @@ I assume the tracer input into the sediment is constant with time. This is imple
 
 ```{r}
 time_cont_gen = function(){
-  time_cont = function(x) return(rep(1, length(x)))
+  time_cont = approxfun(x = c(0,10), y = c(0,1), rule = 2)
   return(time_cont)
 }
 ```

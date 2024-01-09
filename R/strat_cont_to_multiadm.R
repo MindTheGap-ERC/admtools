@@ -44,13 +44,13 @@ strat_cont_to_multiadm = function(h_tp, t_tp, strat_cont_gen, time_cont_gen, h, 
     h2_sample = h_tp_sample["h2"]
     
     # determine relevant heights
-    h_relevant = c(h1_sample, h[h> h1_sample & h < h2_sample], h2_sample)
+    h_relevant = unname(c(h1_sample, h[h> h1_sample & h < h2_sample], h2_sample))
     
     # sample stratigraphic & time contents
     strat_cont_sample = strat_cont_gen()
     time_cont_sample = time_cont_gen()
     
-    # correct for differnece in time & strat domain
+    # correct for difference in time & strat domain
     strat_cont_total = stats::integrate(f = strat_cont_sample,
                                         lower = h1_sample,
                                         upper = h2_sample,

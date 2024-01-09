@@ -41,7 +41,7 @@ sedrate_to_multiadm = function(h_tp, t_tp, sed_rate_gen, h, no_of_rep = 100L, su
     h2_sample = h_tp_sample["h2"]
     
     # relevant heights
-    h_relevant = c(h1_sample, h[h> h1_sample & h < h2_sample], h2_sample)
+    h_relevant = unname(c(h1_sample, h[h> h1_sample & h < h2_sample], h2_sample))
     
     sed_rate_sample = sed_rate_gen()
     time_cont = stats::integrate(function(x) 1/sed_rate_sample(x),
