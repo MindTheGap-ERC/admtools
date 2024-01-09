@@ -37,7 +37,7 @@ In addition, it takes the following inputs that specify the estimation procedure
 
 -   `h` : vector of heights where the ADM is determined
 
--   `no_of_rep`: integer, number of age-depth models determined
+-   `no_of_rep`: integer, number of runs
 
 ## Coding user knowledge
 
@@ -45,7 +45,7 @@ In addition, it takes the following inputs that specify the estimation procedure
 
 Times and heights of tie points are coded via the functions `t_tp` (timing) and `h_tp` (height) that take no inputs. They serve as wrappers around user-defined procedures that reflect uncertainties around tie points. Every time `t_tp` and `h_tp` are evaluated, they return possible values for the tie points. Writing these functions requires some effort, but it allows the user to hand over arbitrarily complex uncertainties of the tie points to the `sedrate_to_multiadm` function.
 
-The function for the timing of the tie points must return a named vector with names "t1" (timing of first tie point) and "t2" (timing of second tie point). "t1" must be smaller than "t2".
+The function for the timing of the tie points must return a vector of increasing times.
 
 For this example, I assume that the first tie point follows a normal distribution with mean - 20 Myr before present and standard deviation 0.5 Myr. The timing of the second tie point is bimodal and given as an equal mixture of two normal distributions with means - 5 and - 7 Myr years before present and standard deviations of 0.1 and 0.3 Myr years. This is implemented as follows in `t_tp`:
 
@@ -61,7 +61,7 @@ t_tp = function(){
   } else {
     t2 = rnorm(n = 1, mean =  - 7, sd = 0.3)
   }
-  return(c("t1" = t1, "t2" = t2))
+  return(c(t1, t2))
 }
 ```
 
@@ -70,18 +70,18 @@ Sampling from `t_tp` yields the following empirical distribution for the tie poi
 ```{r, fig.show="hold", out.width="50%"}
 no_of_samples = 10000
 # Evaluate timing of tie points
-hist(x = sapply(seq_len(no_of_samples), function(x) t_tp()["t1"]),
+hist(x = sapply(seq_len(no_of_samples), function(x) t_tp()[1]),
      freq = FALSE,
      xlab = "Time before present [Myr]",
      main = "Timing of first tie point")
-hist(x = sapply(seq_len(no_of_samples), function(x) t_tp()["t2"]),
+hist(x = sapply(seq_len(no_of_samples), function(x) t_tp()[2]),
      freq = FALSE,
      xlab = "Time before present [Myr]",
      main = "Timing of second tie point")
 
 ```
 
-The function for the heights of the tie points must return a named vector with entries `h1` and `h2`, corresponding to the heights of the first (lower) and second (upper) tie point. `h1` must be smaller than `h2`.
+The function for the heights of the tie points must return an ordered vector of stratigraphic positions of the tie points. The number of stratigraphic tie points and time tie points must be identical.
 
 For this example, I assume the stratigraphic positions of the tie points is known without uncertainty, and are at 10 and 85 m stratigraphic height.
 
@@ -94,8 +94,7 @@ h_max = 85 # height of tie point 2
 
 ```{r}
 h_tp = function(){
-  return(c("h1" = h_min, 
-           "h2" = h_max))
+  return(c(h_min, h_max))
 }
 ```
 
@@ -122,7 +121,7 @@ lower_limit = c(0.1,2,0.1,10)
 upper_limit = c(0.2,3,2,12)
 
 # strat intervals where sed rates are defined
-s = c(h_min - 1, 30,75, 80, h_max + 1)
+s = c(h_min, 30,65, 80, h_max)
 ```
 
 Based on these parameters, the sedimentation rate function factory is defined as follows:
@@ -131,15 +130,15 @@ Based on these parameters, the sedimentation rate function factory is defined as
 # define function factory
 sed_rate_fun = function(){
   # draw sed rates from uniform distribution
-  aa_1 = c(runif(1,lower_limit[1],upper_limit[1]),
-         runif(1, lower_limit[2],upper_limit[2]),
-         runif(1,lower_limit[3],upper_limit[3]),
-         runif(1, lower_limit[4], upper_limit[4]))
-  aa = c(aa_1, aa_1[4])
+  aa = runif(n = length(lower_limit),
+             min = lower_limit,
+             max = upper_limit)
   # define sed rate "realization" based on samples from uniform distribution
  sed_rate_fun = approxfun(x = s,
-                          y = aa,
-                          method = "constant")
+                          y = c(aa, aa[length(aa)]), # duplicate right most value bc of step function, see ?stats::approxfun for details
+                          method = "constant",
+                          rule = 2, #extrapolate outside of domain of definition, see ?stats::approxfun
+                          f = 1) # left continuous function
  # return the function
  return(sed_rate_fun)
 }
