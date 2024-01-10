@@ -203,10 +203,7 @@ The estimated age-depth model can be handed to plot to display it:
 plot(my_adm, mode = "envelope")
 T_axis_lab() # plot time axis label, see ?T_axis_lab for details
 L_axis_lab() # plot length axis label, see ?L_axis_lab for details
-legend("topleft",
-       col = c("blue", "red"),
-       legend = c("95 % envelope", "Median"),
-       lwd = 2)
+make_legend()
 ```
 
 ## Further information
