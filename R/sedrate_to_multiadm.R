@@ -26,9 +26,8 @@ sedrate_to_multiadm = function(h_tp, t_tp, sed_rate_gen, h, no_of_rep = 100L, su
     #' }
   #' 
   
-  t_rel = unname(t_tp())
-  h_rel = unname(h_tp())
-  
+  t_rel = t_tp()
+  h_rel = h_tp()
   if(is.unsorted(h_rel, strictly = TRUE)){
     stop("Expected strictly increasing stratigraphic positions of tie points")
   }
@@ -39,28 +38,26 @@ sedrate_to_multiadm = function(h_tp, t_tp, sed_rate_gen, h, no_of_rep = 100L, su
     stop("Uneven number of tie points in time and height")
   }
   
-  
-  h_list = list()
-  t_list = list()
-  destr_list = list()
-  
-
-  
-  madm_list = list()
+  h_list = vector(mode = "list", length = no_of_rep)
+  t_list = vector(mode = "list", length = no_of_rep)
+  destr_list = vector(mode = "list", length = no_of_rep)
   
   for ( i in seq_len(no_of_rep)){
     sed_rate_sample = sed_rate_gen()
     t_sample = t_tp()
     h_sample = h_tp()
-    
     h_temp = c()
     t_temp = c()
-    for (int_no in seq_along(diff(h_rel))){
+    no_of_intervals = length(diff(h_sample))
+    
+    for (int_no in seq_len(no_of_intervals)){
       h_lower = h_sample[int_no]
       h_upper = h_sample[int_no + 1]
       t_lower = t_sample[int_no]
       t_upper = t_sample[int_no + 1]
-      tp_corr_sed_rate_sample = get_tp_corr_sed_rate(sed_rate = sed_rate_sample,
+      h_relevant = c(h_lower, h[h> h_lower & h < h_upper], h_upper)
+      t_out = rep(NA, length(h_relevant))
+      inv_tp_corr_sed_rate_sample = get_tp_corr_sed_rate(sed_rate = sed_rate_sample,
                                                      t_lower = t_lower,
                                                      t_upper = t_upper,
                                                      h_lower = h_lower,
@@ -68,24 +65,20 @@ sedrate_to_multiadm = function(h_tp, t_tp, sed_rate_gen, h, no_of_rep = 100L, su
                                                      subdivisions = subdivisions,
                                                      stop.on.error = stop.on.error)
       
-      h_relevant = unname(c(h_lower, h[h> h_lower & h < h_upper], h_upper))
-      
-      t_out = rep(NA, length(h_relevant))
-      
       for (j in seq_along(h_relevant)){
-        t_out[j] = t_lower + stats::integrate( function(x) 1/tp_corr_sed_rate_sample(x),
-                                                 lower =  h_lower,
-                                                 upper = h_relevant[j],
-                                                 subdivisions = subdivisions, 
-                                                 stop.on.error = stop.on.error)$value
+        t_out[j] = t_lower + stats::integrate(f = inv_tp_corr_sed_rate_sample,
+                                             lower =  h_lower,
+                                             upper = h_relevant[j],
+                                             subdivisions = subdivisions, 
+                                             stop.on.error = stop.on.error)$value
       }
       h_temp = unique(c(h_temp, h_relevant))
       t_temp = unique(c(t_temp, t_out))
       
       
     }
-    h_list[[i]] = h
-    t_list[[i]] = t_out
+    h_list[[i]] = h_temp
+    t_list[[i]] = t_temp
     destr_list[[i]] = rep(FALSE, length(h))
     
   }
@@ -108,7 +101,7 @@ get_tp_corr_sed_rate = function(sed_rate, h_lower, h_upper, t_lower, t_upper, su
   #' @keywords internal
   #' @noRd
   #' 
-  #' @title tie point corrected sed rate
+  #' @title inverse tie point corrected sed rate
   #' 
   #' @param sed_rate function, sed rate
   #' @param h_lower lower strat limit   
@@ -118,7 +111,7 @@ get_tp_corr_sed_rate = function(sed_rate, h_lower, h_upper, t_lower, t_upper, su
   #' @param subdivision maximum no of subintervals used in numeric integration. passed to _integrate_, see ?stats::integrate for details
   #' @param stop.on.error logical passed to _integrate_, see ?stats::integrate for details
   #' 
-  #' @returns function, the tie point corrected sedimentation rate
+  #' @returns function, the inverse tie point corrected sedimentation rate
   #' 
   
   time_cont = stats::integrate(function(x) 1/sed_rate(x),
@@ -127,9 +120,9 @@ get_tp_corr_sed_rate = function(sed_rate, h_lower, h_upper, t_lower, t_upper, su
                                subdivisions = subdivisions, 
                                stop.on.error = stop.on.error)$value
   c_corr = (t_upper - t_lower)/time_cont
-  tp_corr_sed_rate_sample = function(x) sed_rate(x) / c_corr
+  inv_tp_corr_sed_rate_sample = function(x)  c_corr / sed_rate(x)
   
-  return( tp_corr_sed_rate_sample )
+  return( inv_tp_corr_sed_rate_sample )
   
 }
 
