@@ -51,21 +51,15 @@ strat_cont_to_multiadm = function(h_tp, t_tp, strat_cont_gen, time_cont_gen, h, 
     time_cont_sample = time_cont_gen()
     
     # correct for difference in time & strat domain
-    strat_cont_total = stats::integrate(f = strat_cont_sample,
-                                        lower = h1_sample,
-                                        upper = h2_sample,
-                                        subdivisions = subdivisions,
-                                        stop.on.error = stop.on.error)$value
-    
-    time_cont_total = stats::integrate(f = time_cont_sample,
-                                       lower = t1_sample,
-                                       upper = t2_sample,
-                                       subdivisions = subdivisions,
-                                       stop.on.error = stop.on.error)$value
-    
-    corr_factor = strat_cont_total / time_cont_total
-    
-    time_cont_sample_corr = function(x) time_cont_sample(x) * corr_factor
+    time_cont_sample_corr = get_corr_time_cont(strat_cont = strat_cont_sample,
+                                               time_cont = time_cont_sample, 
+                                               h_lower = h1_sample,
+                                               h_upper = h2_sample,
+                                               t_lower = t1_sample, 
+                                               t_upper = t2_sample,
+                                               subdivisions = subdivisions,
+                                               stop.on.error = stop.on.error)
+
     
     integrated_time_cont = function(t) stats::integrate(f = time_cont_sample_corr,
                                                         lower = t1_sample,
@@ -102,4 +96,43 @@ strat_cont_to_multiadm = function(h_tp, t_tp, strat_cont_gen, time_cont_gen, h, 
                   no_of_entries = length(t_list))
   class(multiadm) = "multiadm"
   return(multiadm)
+}
+
+get_corr_time_cont = function(strat_cont, time_cont, h_lower, h_upper, t_lower, t_upper, subdivisions, stop.on.error){
+  #' @keywords internal
+  #' @noRd
+  #' 
+  #' @title get corrected time content
+  #' 
+  #' @description
+    #' normalizes proxy contents to match empirical observations
+    #' 
+  #' @param strat_cont function, proxy cont in strat domain
+  #' @param time_cont function, proxy cont in time domain
+  #' @param h_lower lower strat limit
+  #' @param h_upper upper strat limit
+  #' @param t_lower lower time limit
+  #' @param t_upper upper time limit
+  #' @param subdivisions maximum no of subintervals used in numeric integration. passed to _integrate_, see ?stats::integrate for details
+  #' @param stop.on.error logical passed to _integrate_, see ?stats::integrate for details
+  #' 
+  #' @returns function, normalized proxy content in time domain
+  
+  strat_cont_total = stats::integrate(f = strat_cont,
+                                      lower = h_lower,
+                                      upper = h_upper,
+                                      subdivisions = subdivisions,
+                                      stop.on.error = stop.on.error)$value
+  
+  time_cont_total = stats::integrate(f = time_cont,
+                                     lower = t_lower,
+                                     upper = t_upper,
+                                     subdivisions = subdivisions,
+                                     stop.on.error = stop.on.error)$value
+  
+  corr_factor = strat_cont_total / time_cont_total
+  time_cont_sample_corr = function(x) time_cont(x) * corr_factor
+  
+  return(time_cont_sample_corr)
+  
 }
