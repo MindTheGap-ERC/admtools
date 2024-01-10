@@ -27,7 +27,19 @@ strat_cont_to_multiadm = function(h_tp, t_tp, strat_cont_gen, time_cont_gen, h, 
   #' @export
   #' 
   
-  # initialize storage
+  t_rel = unname(t_tp())
+  h_rel = unname(h_tp())
+  
+  if(is.unsorted(h_rel, strictly = TRUE)){
+    stop("Expected strictly increasing stratigraphic positions of tie points")
+  }
+  if(is.unsorted(t_rel, strictly = TRUE)){
+    stop("Expected strictly increasing times of tie points")
+  }
+  if(length(t_rel) != length(h_rel)){
+    stop("Uneven number of tie points in time and height")
+  }
+  
   h_list = vector(mode = "list", length = no_of_rep)
   t_list = vector(mode = "list", length = no_of_rep)
   destr_list = vector(mode = "list", length = no_of_rep)
@@ -37,11 +49,11 @@ strat_cont_to_multiadm = function(h_tp, t_tp, strat_cont_gen, time_cont_gen, h, 
     h_tp_sample  = h_tp()
     t_tp_sample = t_tp()
     
-    t1_sample = t_tp_sample["t1"]
-    t2_sample = t_tp_sample["t2"]
+    t1_sample = t_tp_sample[1]
+    t2_sample = t_tp_sample[2]
     
-    h1_sample = h_tp_sample["h1"]
-    h2_sample = h_tp_sample["h2"]
+    h1_sample = h_tp_sample[1]
+    h2_sample = h_tp_sample[2]
     
     # determine relevant heights
     h_relevant = unname(c(h1_sample, h[h> h1_sample & h < h2_sample], h2_sample))
