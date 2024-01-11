@@ -43,6 +43,12 @@
     <loc>https://mindthegap-erc.github.io/admtools/reference/admtools-package.html</loc>
   </url>
   <url>
+    <loc>https://mindthegap-erc.github.io/admtools/reference/get_L_unit.html</loc>
+  </url>
+  <url>
+    <loc>https://mindthegap-erc.github.io/admtools/reference/get_T_unit.html</loc>
+  </url>
+  <url>
     <loc>https://mindthegap-erc.github.io/admtools/reference/get_completeness.html</loc>
   </url>
   <url>
@@ -95,6 +101,12 @@
   </url>
   <url>
     <loc>https://mindthegap-erc.github.io/admtools/reference/sedrate_to_multiadm.html</loc>
+  </url>
+  <url>
+    <loc>https://mindthegap-erc.github.io/admtools/reference/set_L_unit.html</loc>
+  </url>
+  <url>
+    <loc>https://mindthegap-erc.github.io/admtools/reference/set_T_unit.html</loc>
   </url>
   <url>
     <loc>https://mindthegap-erc.github.io/admtools/reference/split_multiadm.html</loc>
