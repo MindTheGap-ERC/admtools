@@ -122,7 +122,7 @@ make_legend = function(){
   #' 
   
   list = get("adm_plot_info", envir = .adm_plot_env)
-  legend("topleft",
+  graphics::legend("topleft",
          lwd = 1,
          lty = 1,
          col = c(list$envelope_col, list$median_col),
