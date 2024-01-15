@@ -24,14 +24,14 @@ strat_cont_gen_from_proxy = function(bin_borders, df, distribution = "normal"){
   sd = df[ , "sd"]
   
   strat_cont_gen = function(){
-    proxy_vals = rnorm( n = length(mean),
-                     mean = mean,
-                     sd = sd)
-    strat_cont = approxfun(x = bin_borders,
-                           y = c(proxy_vals, proxy_vals[length(proxy_vals)]),
-                           method = "constant",
-                           rule = 2,
-                           f = 0)
+    proxy_vals = stats::rnorm( n = length(mean),
+                               mean = mean,
+                               sd = sd)
+    strat_cont = stats::approxfun(x = bin_borders,
+                                   y = c(proxy_vals, proxy_vals[length(proxy_vals)]),
+                                   method = "constant",
+                                   rule = 2,
+                                   f = 0)
     return(strat_cont)
   }
   return(strat_cont_gen)

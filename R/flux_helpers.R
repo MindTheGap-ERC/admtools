@@ -53,5 +53,3 @@ flux_quad = function(a = 1, b = 1, c = 1){
   }
   return(function() return(f))
 }
-
-s
