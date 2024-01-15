@@ -127,6 +127,8 @@ plot(x = t,
      ylab = "Tracer Input into the Sediment [1/Myr]")
 
 ```
+The implementation of the tracer values can be simplified using the helper functions `flux_const`, `flux_linear`, `flux_quad` that are wrappers that define constant, linear, and quadratic changes of tracer flux with time.
+
 
 For the tracer measured in the section, I assume it was measured at the bottom, middle, and top of the examined section:
 
