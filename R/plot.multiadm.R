@@ -1,4 +1,4 @@
-plot.multiadm = function(x,...){
+plot.multiadm = function(x, ...){
   
   #'
   #' @export
@@ -15,16 +15,6 @@ plot.multiadm = function(x,...){
   
   
   arg_list = list(...)
-   
-  if ("mode" %in% names(arg_list)){
-    if (arg_list[["mode"]] == "envelope"){
-      mode = "envelope"
-    } else {
-      mode = "lines"
-    }
-  } else {
-    mode = "lines"
-  }
   
   move_multiadm_to_env(x)
   
@@ -32,17 +22,7 @@ plot.multiadm = function(x,...){
   
   make_adm_canvas()
   
-  if (mode == "lines") {
-    for ( i in seq_len(multiadm$no_of_entries)){
-      graphics::lines(multiadm$t[[i]], multiadm$h[[i]])
-    }
-  }
-  
-  if (mode == "envelope"){
-    plot_envelope()
-    
-    
-  }
+  plot_envelope()
 
   
 }
@@ -79,7 +59,7 @@ move_multiadm_to_env = function(x, ...){
                       "t_range" = c(t_min, t_max),
                       "median_col" = "red",
                       "envelope_col" = "blue",
-                      "p_envelope" = 0.95,
+                      "p_envelope" = 0.9,
                       "madm" = x),
          envir = .adm_plot_env)
   return(invisible())
@@ -118,6 +98,10 @@ make_legend = function(){
   #' 
   #' @title plot legend
   #' 
+  #' @description
+    #' plots a legend for the multiadm plot
+    #' 
+  #' 
   #' @returns invisible NULL
   #' 
   
@@ -125,6 +109,6 @@ make_legend = function(){
   graphics::legend("topleft",
          lwd = 1,
          lty = 1,
-         col = c(list$envelope_col, list$median_col),
+         col = c(list$median_col, list$envelope_col),
          legend = c("Median", paste0(list$p_envelope, " Percentile Envelope" )))
 }
