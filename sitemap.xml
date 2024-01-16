@@ -46,6 +46,15 @@
     <loc>https://mindthegap-erc.github.io/admtools/reference/admtools-package.html</loc>
   </url>
   <url>
+    <loc>https://mindthegap-erc.github.io/admtools/reference/flux_const.html</loc>
+  </url>
+  <url>
+    <loc>https://mindthegap-erc.github.io/admtools/reference/flux_linear.html</loc>
+  </url>
+  <url>
+    <loc>https://mindthegap-erc.github.io/admtools/reference/flux_quad.html</loc>
+  </url>
+  <url>
     <loc>https://mindthegap-erc.github.io/admtools/reference/get_L_unit.html</loc>
   </url>
   <url>
@@ -121,6 +130,9 @@
     <loc>https://mindthegap-erc.github.io/admtools/reference/split_multiadm.html</loc>
   </url>
   <url>
+    <loc>https://mindthegap-erc.github.io/admtools/reference/strat_cont_gen_from_proxy.html</loc>
+  </url>
+  <url>
     <loc>https://mindthegap-erc.github.io/admtools/reference/strat_cont_to_multiadm.html</loc>
   </url>
   <url>
@@ -134,6 +146,9 @@
   </url>
   <url>
     <loc>https://mindthegap-erc.github.io/admtools/reference/time_to_strat.html</loc>
+  </url>
+  <url>
+    <loc>https://mindthegap-erc.github.io/admtools/reference/tp_float.html</loc>
   </url>
   <url>
     <loc>https://mindthegap-erc.github.io/admtools/reference/tp_to_adm.html</loc>

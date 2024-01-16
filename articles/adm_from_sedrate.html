@@ -113,8 +113,7 @@ estimation procedure:</p>
 <ul>
 <li><p><code>h</code> : vector of heights where the ADM is
 determined</p></li>
-<li><p><code>no_of_rep</code>: integer, number of age-depth models
-determined</p></li>
+<li><p><code>no_of_rep</code>: integer, number of runs</p></li>
 </ul>
 </div>
 <div class="section level3">
@@ -131,9 +130,8 @@ and <code>h_tp</code> are evaluated, they return possible values for the
 tie points. Writing these functions requires some effort, but it allows
 the user to hand over arbitrarily complex uncertainties of the tie
 points to the <code>sedrate_to_multiadm</code> function.</p>
-<p>The function for the timing of the tie points must return a named
-vector with names “t1” (timing of first tie point) and “t2” (timing of
-second tie point). “t1” must be smaller than “t2”.</p>
+<p>The function for the timing of the tie points must return a vector of
+increasing times.</p>
 <p>For this example, I assume that the first tie point follows a normal
 distribution with mean - 20 Myr before present and standard deviation
 0.5 Myr. The timing of the second tie point is bimodal and given as an
@@ -152,26 +150,25 @@ This is implemented as follows in <code>t_tp</code>:</p>
 <span>  <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
 <span>    <span class="va">t2</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">1</span>, mean <span class="op">=</span>  <span class="op">-</span> <span class="fl">7</span>, sd <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span></span>
 <span>  <span class="op">}</span></span>
-<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"t1"</span> <span class="op">=</span> <span class="va">t1</span>, <span class="st">"t2"</span> <span class="op">=</span> <span class="va">t2</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">t1</span>, <span class="va">t2</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>Sampling from <code>t_tp</code> yields the following empirical
 distribution for the tie points:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">no_of_samples</span> <span class="op">=</span> <span class="fl">10000</span></span>
 <span><span class="co"># Evaluate timing of tie points</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="va">no_of_samples</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">t_tp</span><span class="op">(</span><span class="op">)</span><span class="op">[</span><span class="st">"t1"</span><span class="op">]</span><span class="op">)</span>,</span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="va">no_of_samples</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">t_tp</span><span class="op">(</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>,</span>
 <span>     freq <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>     xlab <span class="op">=</span> <span class="st">"Time before present [Myr]"</span>,</span>
 <span>     main <span class="op">=</span> <span class="st">"Timing of first tie point"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="va">no_of_samples</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">t_tp</span><span class="op">(</span><span class="op">)</span><span class="op">[</span><span class="st">"t2"</span><span class="op">]</span><span class="op">)</span>,</span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="va">no_of_samples</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">t_tp</span><span class="op">(</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>,</span>
 <span>     freq <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>     xlab <span class="op">=</span> <span class="st">"Time before present [Myr]"</span>,</span>
 <span>     main <span class="op">=</span> <span class="st">"Timing of second tie point"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="adm_from_sedrate_files/figure-html/unnamed-chunk-3-1.png" width="50%"><img src="adm_from_sedrate_files/figure-html/unnamed-chunk-3-2.png" width="50%"></p>
-<p>The function for the heights of the tie points must return a named
-vector with entries <code>h1</code> and <code>h2</code>, corresponding
-to the heights of the first (lower) and second (upper) tie point.
-<code>h1</code> must be smaller than <code>h2</code>.</p>
+<p>The function for the heights of the tie points must return an ordered
+vector of stratigraphic positions of the tie points. The number of
+stratigraphic tie points and time tie points must be identical.</p>
 <p>For this example, I assume the stratigraphic positions of the tie
 points is known without uncertainty, and are at 10 and 85 m
 stratigraphic height.</p>
@@ -181,16 +178,14 @@ stratigraphic height.</p>
 <p><code>h_tp</code> is then implemented as follows:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">h_tp</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span><span class="op">{</span></span>
-<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"h1"</span> <span class="op">=</span> <span class="va">h_min</span>, </span>
-<span>           <span class="st">"h2"</span> <span class="op">=</span> <span class="va">h_max</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">h_min</span>, <span class="va">h_max</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>When evaluated, this function returns the stratigraphic positions of
 the tie points:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#Evaluate stratigraphic positions of tie points</span></span>
 <span><span class="fu">h_tp</span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; h1 h2 </span></span>
-<span><span class="co">#&gt; 10 85</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] 10 85</span></span></code></pre></div>
 <p>This is a lot of effort to simply encode fixed stratigraphic
 positions of tie points. However, it allows to implement arbitrary
 uncertainties on the position of the tie points if needed.</p>
@@ -222,22 +217,22 @@ limits, I assume a uniform distribution.</p>
 <span><span class="va">upper_limit</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.2</span>,<span class="fl">3</span>,<span class="fl">2</span>,<span class="fl">12</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># strat intervals where sed rates are defined</span></span>
-<span><span class="va">s</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">h_min</span> <span class="op">-</span> <span class="fl">1</span>, <span class="fl">30</span>,<span class="fl">75</span>, <span class="fl">80</span>, <span class="va">h_max</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">s</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">h_min</span>, <span class="fl">30</span>,<span class="fl">65</span>, <span class="fl">80</span>, <span class="va">h_max</span><span class="op">)</span></span></code></pre></div>
 <p>Based on these parameters, the sedimentation rate function factory is
 defined as follows:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># define function factory</span></span>
 <span><span class="va">sed_rate_fun</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="co"># draw sed rates from uniform distribution</span></span>
-<span>  <span class="va">aa_1</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">1</span>,<span class="va">lower_limit</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,<span class="va">upper_limit</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>,</span>
-<span>         <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">lower_limit</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,<span class="va">upper_limit</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>,</span>
-<span>         <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">1</span>,<span class="va">lower_limit</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>,<span class="va">upper_limit</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span>,</span>
-<span>         <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">lower_limit</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span>, <span class="va">upper_limit</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
-<span>  <span class="va">aa</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">aa_1</span>, <span class="va">aa_1</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="va">aa</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">lower_limit</span><span class="op">)</span>,</span>
+<span>             min <span class="op">=</span> <span class="va">lower_limit</span>,</span>
+<span>             max <span class="op">=</span> <span class="va">upper_limit</span><span class="op">)</span></span>
 <span>  <span class="co"># define sed rate "realization" based on samples from uniform distribution</span></span>
 <span> <span class="va">sed_rate_fun</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/approxfun.html" class="external-link">approxfun</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">s</span>,</span>
-<span>                          y <span class="op">=</span> <span class="va">aa</span>,</span>
-<span>                          method <span class="op">=</span> <span class="st">"constant"</span><span class="op">)</span></span>
+<span>                          y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">aa</span>, <span class="va">aa</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">aa</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>, <span class="co"># duplicate right most value bc of step function, see ?stats::approxfun for details</span></span>
+<span>                          method <span class="op">=</span> <span class="st">"constant"</span>,</span>
+<span>                          rule <span class="op">=</span> <span class="fl">2</span>, <span class="co">#extrapolate outside of domain of definition, see ?stats::approxfun</span></span>
+<span>                          f <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="co"># left continuous function</span></span>
 <span> <span class="co"># return the function</span></span>
 <span> <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">sed_rate_fun</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
