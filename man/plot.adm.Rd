@@ -6,29 +6,29 @@
 \usage{
 \method{plot}{adm}(
   x,
-  lwd_hiat = 1,
-  lwd_cons = 1,
-  lty_hiat = 3,
-  lty_cons = 1,
-  col_hiat = "black",
-  col_cons = "black",
+  lwd_destr = 1,
+  lwd_acc = 1,
+  lty_destr = 3,
+  lty_acc = 1,
+  col_destr = "black",
+  col_acc = "black",
   ...
 )
 }
 \arguments{
 \item{x}{an adm object}
 
-\item{lwd_hiat}{line width of hiatuse}
+\item{lwd_destr}{line width of hiatuse}
 
-\item{lwd_cons}{line width of conservative intervals}
+\item{lwd_acc}{line width of conservative intervals}
 
-\item{lty_hiat}{linetype of hiatuses}
+\item{lty_destr}{linetype of hiatuses}
 
-\item{lty_cons}{line type of conservative intervals}
+\item{lty_acc}{line type of conservative intervals}
 
-\item{col_hiat}{color of erosive intervals}
+\item{col_destr}{color of erosive intervals}
 
-\item{col_cons}{color of conservative intervals}
+\item{col_acc}{color of conservative intervals}
 
 \item{...}{arguments passed to plot}
 }
