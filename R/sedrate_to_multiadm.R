@@ -3,6 +3,8 @@ sedrate_to_multiadm = function(h_tp, t_tp, sed_rate_gen, h, no_of_rep = 100L, su
                                T_unit = NULL, L_unit = NULL){
   
   #' 
+  #' @export
+  #' 
   #' @title Estimate age-depth model from sedimentation rate & tie points
   #' 
   #' @param h_tp : function, returns stratigraphic positions of tie points
@@ -23,52 +25,65 @@ sedrate_to_multiadm = function(h_tp, t_tp, sed_rate_gen, h, no_of_rep = 100L, su
     #' vignette("adm_from_sedrate")
     #' }
   #' 
-  #' @export
   
-  h_list = list()
-  t_list = list()
-  destr_list = list()
+  t_rel = t_tp()
+  h_rel = h_tp()
+  if(is.unsorted(h_rel, strictly = TRUE)){
+    stop("Expected strictly increasing stratigraphic positions of tie points")
+  }
+  if(is.unsorted(t_rel, strictly = TRUE)){
+    stop("Expected strictly increasing times of tie points")
+  }
+  if(length(t_rel) != length(h_rel)){
+    stop("Uneven number of tie points in time and height")
+  }
   
-  for (i in seq_len(no_of_rep)){
-    #generate samples from tie points
-    h_tp_sample  = h_tp()
-    t_tp_sample = t_tp()
-    
-    t1_sample = t_tp_sample["t1"]
-    t2_sample = t_tp_sample["t2"]
-    
-    h1_sample = h_tp_sample["h1"]
-    h2_sample = h_tp_sample["h2"]
-    
-    # relevant heights
-    h_relevant = c(h1_sample, h[h> h1_sample & h < h2_sample], h2_sample)
-    
+  h_list = vector(mode = "list", length = no_of_rep)
+  t_list = vector(mode = "list", length = no_of_rep)
+  destr_list = vector(mode = "list", length = no_of_rep)
+  
+  for ( i in seq_len(no_of_rep)){
     sed_rate_sample = sed_rate_gen()
-    time_cont = stats::integrate(function(x) 1/sed_rate_sample(x),
-                                 lower = h1_sample, 
-                                 upper = h2_sample, 
-                                 subdivisions = subdivisions, 
-                                 stop.on.error = stop.on.error)$value
-    c_corr = (t2_sample-t1_sample)/time_cont
-    tp_corr_sed_rate_sample = function(x) sed_rate_sample(x) / c_corr
+    t_sample = t_tp()
+    h_sample = h_tp()
+    h_temp = c()
+    t_temp = c()
+    no_of_intervals = length(diff(h_sample))
     
-    t_out = rep(NA, length(h))
-    
-    for (j in seq_along(h)){
-      t_out[j] = t1_sample + stats::integrate( function(x) 1/tp_corr_sed_rate_sample(x),
-                                               lower =  h1_sample,
-                                               upper = h[j],
-                                               subdivisions = subdivisions, 
-                                               stop.on.error = stop.on.error)$value
+    for (int_no in seq_len(no_of_intervals)){
+      h_lower = h_sample[int_no]
+      h_upper = h_sample[int_no + 1]
+      t_lower = t_sample[int_no]
+      t_upper = t_sample[int_no + 1]
+      h_relevant = c(h_lower, h[h> h_lower & h < h_upper], h_upper)
+      t_out = rep(NA, length(h_relevant))
+      inv_tp_corr_sed_rate_sample = get_tp_corr_sed_rate(sed_rate = sed_rate_sample,
+                                                     t_lower = t_lower,
+                                                     t_upper = t_upper,
+                                                     h_lower = h_lower,
+                                                     h_upper = h_upper,
+                                                     subdivisions = subdivisions,
+                                                     stop.on.error = stop.on.error)
+      
+      for (j in seq_along(h_relevant)){
+        t_out[j] = t_lower + stats::integrate(f = inv_tp_corr_sed_rate_sample,
+                                             lower =  h_lower,
+                                             upper = h_relevant[j],
+                                             subdivisions = subdivisions, 
+                                             stop.on.error = stop.on.error)$value
+      }
+      h_temp = unique(c(h_temp, h_relevant))
+      t_temp = unique(c(t_temp, t_out))
+      
+      
     }
-    
-    h_list[[i]] = h
-    t_list[[i]] = t_out
+    h_list[[i]] = h_temp
+    t_list[[i]] = t_temp
     destr_list[[i]] = rep(FALSE, length(h))
     
   }
-    
-    multiadm = list(t = t_list,
+  
+  multiadm = list(t = t_list,
                     h = h_list,
                     destr = destr_list,
                     T_unit = T_unit,
@@ -79,3 +94,35 @@ sedrate_to_multiadm = function(h_tp, t_tp, sed_rate_gen, h, no_of_rep = 100L, su
 
     
 }
+
+get_tp_corr_sed_rate = function(sed_rate, h_lower, h_upper, t_lower, t_upper, subdivisions, stop.on.error){
+  
+  #' 
+  #' @keywords internal
+  #' @noRd
+  #' 
+  #' @title inverse tie point corrected sed rate
+  #' 
+  #' @param sed_rate function, sed rate
+  #' @param h_lower lower strat limit   
+  #' @param h_upper  higher strat limit
+  #' @param t_lower time of early tie point
+  #' @param t_upper time of later tie point
+  #' @param subdivision maximum no of subintervals used in numeric integration. passed to _integrate_, see ?stats::integrate for details
+  #' @param stop.on.error logical passed to _integrate_, see ?stats::integrate for details
+  #' 
+  #' @returns function, the inverse tie point corrected sedimentation rate
+  #' 
+  
+  time_cont = stats::integrate(function(x) 1/sed_rate(x),
+                               lower = h_lower, 
+                               upper = h_upper, 
+                               subdivisions = subdivisions, 
+                               stop.on.error = stop.on.error)$value
+  c_corr = (t_upper - t_lower)/time_cont
+  inv_tp_corr_sed_rate_sample = function(x)  c_corr / sed_rate(x)
+  
+  return( inv_tp_corr_sed_rate_sample )
+  
+}
+

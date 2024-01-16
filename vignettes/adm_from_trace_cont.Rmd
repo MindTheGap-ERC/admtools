@@ -47,7 +47,7 @@ This idea is formalized using the idea of stratigraphic content and time content
 
 Times and heights of tie points are coded via the functions `t_tp` (timing) and `h_tp` (height) that take no inputs. They serve as wrappers around user-defined procedures that reflect uncertainties around tie points. Every time `t_tp` and `h_tp` are evaluated, they return possible values for the tie points. Writing these functions requires some effort, but it allows the user to hand over arbitrarily complex uncertainties of the tie points to the `strat_cont_to_multiadm` function.
 
-The function for the heights of the tie points must return a named vector with entries `h1` and `h2`, corresponding to the heights of the first (lower) and second (upper) tie point. `h1` must be smaller than `h2`.
+The function for the heights of the tie points must return an ordered vector of tie point heights.
 
 For this example, I assume the stratigraphic positions of the tie points are known without uncertainty, and are at 10 and 20 m stratigraphic height.
 
@@ -60,8 +60,7 @@ h_max = 20 # stratigraphic height of upper tie point [m]
 
 ```{r, h_tp function}
 h_tp = function(){
-  return(c("h1" = h_min,
-           "h2" = h_max))
+  return(c(h_min, h_max))
 }
 ```
 
@@ -71,7 +70,7 @@ When evaluated, this function returns the stratigraphic positions of the tie poi
 h_tp()
 ```
 
-The function for the timing of the tie points must return a named vector with names "t1" (timing of first tie point) and "t2" (timing of second tie point). "t1" must be smaller than "t2".
+The function for the timing of the tie points must return a vector of strictly increasing values corresponding to the times of the tie points.
 
 For this example, I assume that the timing of the first tie point follows a normal distribution with mean 0 and standard deviation 0.5. For the second tie point, only maximum and minimum time is available. Due to the lack of information, I assume a uniform distribution between the minimum (9) and the maximum (11). This is implemented as follows in `t_tp`:
 
@@ -83,7 +82,7 @@ t_tp = function() {
   # timing second tie point
   t2 = runif(n = 1, min = 9, max = 11)
   
-  return(c("t1" = t1, "t2" = t2))
+  return(c(t1, t2))
 }
 ```
 
@@ -91,11 +90,11 @@ Using Myr as time unit, the distribution of times for the tie points is as follo
 
 ```{r, echo=FALSE, fig.show="hold"}
 no_of_samples = 1000
-hist(sapply( seq_len(no_of_samples), function(x) t_tp()["t1"]),
+hist(sapply( seq_len(no_of_samples), function(x) t_tp()[1]),
      freq = FALSE,
      xlab = "Time [Myr]",
      main = "Timing of lower tie point")
-hist(sapply(seq_len(no_of_samples), function(x) t_tp()["t2"]),
+hist(sapply(seq_len(no_of_samples), function(x) t_tp()[1]),
      freq = FALSE,
      xlab = "Time [Myr]",
      main = "Timing of upper tie point")
@@ -109,7 +108,7 @@ I assume the tracer input into the sediment is constant with time. This is imple
 
 ```{r}
 time_cont_gen = function(){
-  time_cont = function(x) return(rep(1, length(x)))
+  time_cont = approxfun(x = c(0,10), y = c(1,1), rule = 2)
   return(time_cont)
 }
 ```
@@ -128,6 +127,8 @@ plot(x = t,
      ylab = "Tracer Input into the Sediment [1/Myr]")
 
 ```
+The implementation of the tracer values can be simplified using the helper functions `flux_const`, `flux_linear`, `flux_quad` that are wrappers that define constant, linear, and quadratic changes of tracer flux with time.
+
 
 For the tracer measured in the section, I assume it was measured at the bottom, middle, and top of the examined section:
 
