@@ -29,6 +29,7 @@
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/adm_from_sedrate.html">Estimating Age-Depth Models from Sedimentation Rates</a>
     <a class="dropdown-item" href="../articles/adm_from_trace_cont.html">Estimating Age-Depth Models from Tracer Contents of Rocks and Sediments</a>
+    <a class="dropdown-item" href="../articles/adm_plotting.html">adm_plotting</a>
   </div>
 </li>
 <li class="nav-item">
@@ -64,12 +65,12 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for adm</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span></span>
 <span>  <span class="va">x</span>,</span>
-<span>  lwd_hiat <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>  lwd_cons <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>  lty_hiat <span class="op">=</span> <span class="fl">3</span>,</span>
-<span>  lty_cons <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>  col_hiat <span class="op">=</span> <span class="st">"black"</span>,</span>
-<span>  col_cons <span class="op">=</span> <span class="st">"black"</span>,</span>
+<span>  lwd_destr <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  lwd_acc <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  lty_destr <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>  lty_acc <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  col_destr <span class="op">=</span> <span class="st">"black"</span>,</span>
+<span>  col_acc <span class="op">=</span> <span class="st">"black"</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -80,27 +81,27 @@
 <dd><p>an adm object</p></dd>
 
 
-<dt>lwd_hiat</dt>
+<dt>lwd_destr</dt>
 <dd><p>line width of hiatuse</p></dd>
 
 
-<dt>lwd_cons</dt>
+<dt>lwd_acc</dt>
 <dd><p>line width of conservative intervals</p></dd>
 
 
-<dt>lty_hiat</dt>
+<dt>lty_destr</dt>
 <dd><p>linetype of hiatuses</p></dd>
 
 
-<dt>lty_cons</dt>
+<dt>lty_acc</dt>
 <dd><p>line type of conservative intervals</p></dd>
 
 
-<dt>col_hiat</dt>
+<dt>col_destr</dt>
 <dd><p>color of erosive intervals</p></dd>
 
 
-<dt>col_cons</dt>
+<dt>col_acc</dt>
 <dd><p>color of conservative intervals</p></dd>
 
 

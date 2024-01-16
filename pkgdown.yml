@@ -4,8 +4,9 @@ pkgdown_sha: ~
 articles:
   adm_from_sedrate: adm_from_sedrate.html
   adm_from_trace_cont: adm_from_trace_cont.html
+  adm_plotting: adm_plotting.html
   admtools: admtools.html
-last_built: 2024-01-11T12:19Z
+last_built: 2024-01-16T10:39Z
 urls:
   reference: https://mindthegap-erc.github.io/admtools/reference
   article: https://mindthegap-erc.github.io/admtools/articles
