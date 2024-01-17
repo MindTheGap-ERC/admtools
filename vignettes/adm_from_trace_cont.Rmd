@@ -52,7 +52,7 @@ h_min = 3 # bottom of section
 h_max = 8 # top of section
 sampling_bin_borders = seq(h_min, h_max, by = 1) # limits of sampling bins
 mean_3He = seq(from = 15, to = 5, length.out = length(sampling_bin_borders) - 1) # assumed 3He mean vals
-sd_3He = runif(n = length(mean_3He), min = 0.1, max = 1) # standard deviation of 3He
+sd_3He = runif(n = length(mean_3He), min = 0.1 * mean_3He, max = 0.2 * mean_3He) # standard deviation of 3He
 He_measurements = data.frame("mean" = mean_3He, "sd" = sd_3He)
 ```
 
@@ -92,9 +92,9 @@ plot(NULL,
      ylim = c(0,max(He_measurements$mean) + 2 * max(He_measurements$sd)),
      xlab = paste("Height [", L_unit, "]", sep = ""),
      ylab = "3He observed")
-lines(h, observed_flux()(h), type = "p", col = "red", pch = 3)
-lines(h, observed_flux()(h), type = "p", col = "blue", pch = 19)
-lines(h, observed_flux()(h), type = "p", col = "black")
+lines(h, observed_proxy()(h), type = "p", col = "red", pch = 3)
+lines(h, observed_proxy()(h), type = "p", col = "blue", pch = 19)
+lines(h, observed_proxy()(h), type = "p", col = "black")
 ```
 
 With the tie points, assumptions on flux in time, and observed values of the tracer coded, we can now estimate the age-depth model:
@@ -113,6 +113,7 @@ my_adm = strat_cont_to_multiadm(h_tp = tp_height,
 plot(my_adm, mode = "envelope")
 T_axis_lab()
 L_axis_lab()
+make_legend()
 ```
 
 ### Coding tie points
