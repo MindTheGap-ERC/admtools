@@ -10,5 +10,5 @@ make_legend()
 invisible NULL
 }
 \description{
-plot legend
+plots a legend for the multiadm plot
 }
