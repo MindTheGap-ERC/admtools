@@ -142,8 +142,8 @@ You can plot `adm` objects via the standard `plot` function. Here, I use the opt
 ```{R}
 # see ?plot.adm for plotting options for adm objects
 plot(my_adm,
-     col_hiat = "red",
-     lwd_cons = 2)
+     col_destr = "red",
+     lwd_acc = 2)
 T_axis_lab() # plot time axis label, see ?T_axis_lab for details
 L_axis_lab() # plot height axis label, see ?L_axis_lab for details
 ```

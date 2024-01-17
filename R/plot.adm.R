@@ -1,5 +1,5 @@
-plot.adm = function(x, lwd_hiat = 1, lwd_cons = 1, lty_hiat = 3, lty_cons = 1, 
-                    col_hiat = "black", col_cons = "black", ...){
+plot.adm = function(x, lwd_destr = 1, lwd_acc = 1, lty_destr = 3, lty_acc = 1, 
+                    col_destr = "black", col_acc = "black", ...){
   
   #'
   #'@export
@@ -7,44 +7,39 @@ plot.adm = function(x, lwd_hiat = 1, lwd_cons = 1, lty_hiat = 3, lty_cons = 1,
   #' @title plotting adm objects
   #' 
   #' @param x an adm object
-  #' @param lwd_hiat line width of hiatuse
-  #' @param lwd_cons line width of conservative intervals
-  #' @param lty_hiat linetype of hiatuses
-  #' @param lty_cons line type of conservative intervals
-  #' @param col_hiat color of erosive intervals
-  #' @param col_cons color of conservative intervals
+  #' @param lwd_destr line width of hiatuse
+  #' @param lwd_acc line width of conservative intervals
+  #' @param lty_destr linetype of hiatuses
+  #' @param lty_acc line type of conservative intervals
+  #' @param col_destr color of erosive intervals
+  #' @param col_acc color of conservative intervals
   #' @param ... arguments passed to plot
   #' 
   
-  assign("adm_plot_info",list("T_unit" = x$T_unit,
-                              "L_unit" = x$L_unit), envir = .adm_plot_env)
+  assign(x = "adm_plot_info",
+         value = list("T_unit" = x$T_unit,
+                      "L_unit" = x$L_unit,
+                      "h_range" = range(x$h),
+                      "t_range" = range(x$t),
+                      "adm" = x),
+         envir = .adm_plot_env)
   
   adm = x
   
   in_list = list(...)
   
-  plot(x = adm$t,
-       y = adm$h,
-       type = "l",
-       lty = "blank",
-       xlab = "",
-       ylab = "",
-       ...)
+  make_adm_canvas()
   
 
   
   # non-erosive parts
-  x = replace(adm$t, is_destructive(adm, adm$t, mode = "open"), NA)
-  y = replace(adm$h, is_destructive(adm, adm$t, mode = "open"), NA)
-  graphics::lines(x = x, y = y,
-                  lwd = lwd_cons,
-                  lty = lty_cons,
-                  col = col_cons)
+  plot_acc_parts(lwd_acc = lwd_acc, lty_acc = lty_acc, 
+                            col_acc = col_acc)
   
   # erosive parts
-  x= replace(adm$t, ! is_destructive(adm, adm$t, mode = "closed"), NA)
-  y= replace(adm$h, ! is_destructive(adm, adm$t, mode = "closed"), NA)
-  graphics::lines(x, y, lwd = lwd_hiat, lty = lty_hiat, col = col_hiat)
+  plot_destr_parts(lwd_destr = lwd_destr, lty_destr = lty_destr, col_destr = col_destr)
+  
+  return(invisible())
   
 }
   

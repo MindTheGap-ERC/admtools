@@ -25,7 +25,7 @@ T_axis_lab(
 
 \item{unit}{Logical or character, should unit be plotted}
 
-\item{sep}{separater between label and unit}
+\item{sep}{separator between label and unit}
 
 \item{brac}{brackets surrounding unit}
 

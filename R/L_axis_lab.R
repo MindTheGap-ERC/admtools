@@ -8,7 +8,7 @@ L_axis_lab = function(label = "Height", unit = TRUE, sep = " ", brac = c("[", "]
   #' 
   #' @param label Axis label
   #' @param unit Logical or character, should unit be plotted
-  #' @param sep separater between label and unit
+  #' @param sep separator between label and unit
   #' @param brac brackets surrounding unit
   #' @param line parameter passed to _mtext_, see ?mtext for details
   #' @param outer parameter passed to _mtext_, see ?mtext for details
@@ -38,7 +38,7 @@ L_axis_lab = function(label = "Height", unit = TRUE, sep = " ", brac = c("[", "]
     L_lab = paste0(sep, brac[1], unit, brac[2])
   }
   
-  graphics::mtext(text = paste(label, L_lab, sep = " "),
+  graphics::mtext(text = paste(label, L_lab, sep = ""),
                   side = 2,
                   line = line,
                   outer = outer,
