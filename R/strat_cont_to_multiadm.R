@@ -5,15 +5,15 @@ strat_cont_to_multiadm = function(h_tp, t_tp, strat_cont_gen, time_cont_gen, h, 
   #'
   #' @title estimate age-depth model from stratigraphic contents
   #' 
-  #' @param h_tp function generating height tie poitns
-  #' @param t_tp function generating time tie points
+  #' @param h_tp function, returning tie point heights
+  #' @param t_tp function, returning tie points times
   #' @param strat_cont_gen function, generating stratigraphic contents
   #' @param time_cont_gen function, generating the hypothesis on content input in time
-  #' @param h heights where the adm is evaluated
-  #' @param no_of_rep integer, number of repetititons
+  #' @param h numeric vector, heights where the adm is evaluated
+  #' @param no_of_rep integer, number of repetitions
   #' @param subdivisions integer, max no. of subintervals used by integration procedure. passed to _integrate_, see ?stats::integrate for details
   #' @param stop.on.error logical passed to _integrate_, see ?stats::integrate for details
-  #' @param T_unit time unit
+  #' @param T_unit time unit 
   #' @param L_unit length unit
   #' 
   #' @returns Object of class multiadm
