@@ -145,6 +145,9 @@
     <loc>https://mindthegap-erc.github.io/admtools/reference/strat_to_time.html</loc>
   </url>
   <url>
+    <loc>https://mindthegap-erc.github.io/admtools/reference/strat_to_time.list.html</loc>
+  </url>
+  <url>
     <loc>https://mindthegap-erc.github.io/admtools/reference/summary.adm.html</loc>
   </url>
   <url>
@@ -152,6 +155,9 @@
   </url>
   <url>
     <loc>https://mindthegap-erc.github.io/admtools/reference/time_to_strat.html</loc>
+  </url>
+  <url>
+    <loc>https://mindthegap-erc.github.io/admtools/reference/time_to_strat.list.html</loc>
   </url>
   <url>
     <loc>https://mindthegap-erc.github.io/admtools/reference/tp_float.html</loc>

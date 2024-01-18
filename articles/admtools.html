@@ -361,6 +361,47 @@ simulated carbonate platform:</p>
 <span>      line <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="admtools_files/figure-html/unnamed-chunk-23-1.png" width="700"></p>
 </div>
+<div class="section level5">
+<h5 id="lists-and-timestratigraphic-series">Lists and time/stratigraphic series<a class="anchor" aria-label="anchor" href="#lists-and-timestratigraphic-series"></a>
+</h5>
+<p><em>admtools</em> can transfrom lists from the time to the height
+domain and vice versa given they have elements with names <code>h</code>
+or <code>t</code>. These lists can be interpreted as time/stratigraphic
+series, where times and stratigraphic positions are associated with
+measured values. Note that these are not <code>t</code> objects as used
+by the <code>stats</code> package, as they will be generally
+heterodistant due to hte irregular nature of the age-depth
+transformation.</p>
+<p>As example, we simulate trait evolution over 2 Myr using a Brownian
+motion, and transform the simulation into the stratigraphic domain.</p>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">t</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span>, by <span class="op">=</span> <span class="fl">0.001</span><span class="op">)</span> <span class="co"># times</span></span>
+<span><span class="va">BM</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">t</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="co">#" Simulate Brownian motion at times t</span></span>
+<span>  <span class="va">li</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"t"</span> <span class="op">=</span> <span class="va">t</span>,</span>
+<span>            trait_val <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cumsum.html" class="external-link">cumsum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">t</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/diff.html" class="external-link">diff</a></span><span class="op">(</span><span class="va">t</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">li</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="va">evo_list</span> <span class="op">=</span> <span class="fu">BM</span><span class="op">(</span><span class="va">t</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">evo_list</span><span class="op">$</span><span class="va">t</span>,</span>
+<span>     y <span class="op">=</span> <span class="va">evo_list</span><span class="op">$</span><span class="va">trait_val</span>,</span>
+<span>     xlab <span class="op">=</span> <span class="st">"Time [Myr]"</span>,</span>
+<span>     ylab <span class="op">=</span> <span class="st">"Trait Value"</span>,</span>
+<span>     type <span class="op">=</span> <span class="st">"l"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="admtools_files/figure-html/unnamed-chunk-24-1.png" width="700"></p>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">strat_list</span> <span class="op">=</span> <span class="fu"><a href="../reference/time_to_strat.html">time_to_strat</a></span><span class="op">(</span>obj <span class="op">=</span> <span class="va">evo_list</span>,</span>
+<span>                            x <span class="op">=</span> <span class="va">my_adm</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">strat_list</span><span class="op">$</span><span class="va">h</span>,</span>
+<span>     y <span class="op">=</span> <span class="va">strat_list</span><span class="op">$</span><span class="va">trait_val</span>,</span>
+<span>     type <span class="op">=</span> <span class="st">"l"</span>,</span>
+<span>     xlab <span class="op">=</span> <span class="st">"Stratigraphic Height [m]"</span>,</span>
+<span>     ylab <span class="op">=</span> <span class="st">"Trait Value"</span>,</span>
+<span>     main <span class="op">=</span> <span class="st">"Trait Evolution 2 km Offshore"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="admtools_files/figure-html/unnamed-chunk-25-1.png" width="700"></p>
+<p>Note the jump in traits generated by the erosional interval in
+<code>my_adm</code>.</p>
+</div>
 </div>
 </div>
 <div class="section level3">
@@ -368,11 +409,11 @@ simulated carbonate platform:</p>
 </h3>
 <p>For information on estimating age-depth models from sedimentation
 rates, see</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/vignette.html" class="external-link">vignette</a></span><span class="op">(</span><span class="st">"adm_from_sedrate"</span><span class="op">)</span></span></code></pre></div>
 <p>For information on estimating age-depth models from tracer contents
 of rocks and sediments, see</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/vignette.html" class="external-link">vignette</a></span><span class="op">(</span><span class="st">"adm_from_trace_cont"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
