@@ -39,7 +39,7 @@ Then run
 ```{r, eval=FALSE}
 remotes::install_github(repo = "MindTheGap-ERC/admtools",
                         build_vignettes = TRUE,
-                        ref = "v0.1.0")
+                        ref = "HEAD")
 ```
 
 to install the latest release. To install the version in development, use `ref = "HEAD"` instead.
