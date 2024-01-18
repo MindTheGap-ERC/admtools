@@ -2,7 +2,7 @@ time_to_strat.phylo = function(obj, x, ...){
   
   #' 
   #' @export
-  #' 
+  #' @import ape
   
   tree = obj
   adm = x
