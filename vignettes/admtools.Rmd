@@ -89,7 +89,7 @@ vignette(package = "admtools")
 
 ## The adm and multiadm classes
 
-The *admtools* package defines two main classes: `adm` and `multiadm`. The class `adm` represent a single age-depth model, from which information can be extracted (e.g. completeness, number of hiatuses, etc.) and that can be used to transform data between the stratigraphic domain and time domain. The `multiamd` class is a list of `adm` objects. `multiadm` objects are used to represent uncertainties of age-depth models.
+The *admtools* package defines three main classes: `adm,` `sac` and `multiadm`. The class `adm` represent a single age-depth model, from which information can be extracted (e.g. completeness, number of hiatuses, etc.) and that can be used to transform data between the stratigraphic domain and time domain. The `multiamd` class is a list of `adm` objects. `multiadm` objects are used to represent uncertainties of age-depth models. Objects of type `sac` are sediment accumulation curves that can contain information on erosion, and can be turned into age-depth models.
 
 ## Conventions
 
@@ -97,10 +97,10 @@ In contrast to its name, the *admtools* package currently deals with time and he
 
 ## Example
 
-This example explains the construction and application of `adm` objects. As example data we use outputs from CarboCAT Lite, a model of carbonate platform growth (Burgess 2013, 2023). This data is automatically loaded in the background by the package. To inspect it, you can load it into your workspace via
+This example explains the construction and application of `adm` objects. As example data we use outputs from CarboCAT Lite, a model of carbonate platform growth (Burgess 2013, 2023). This data is automatically loaded in the background by the package. To get some info of the data use
 
-```{r}
-data("CarboCATLite_data")
+```{r, eval=FALSE}
+?CarboCATLite_data
 ```
 
 ### Defining age-depth models
@@ -139,7 +139,7 @@ If you want to inspect the insides of the object, use `str`:
 str(my_adm)
 ```
 
-You can manually manipulate the fields of the `adm` object by treating it like a list. I do not recommend doing so, as it might result in unexpected behavior.
+You can manually manipulate the fields of the `adm` object by treating it like a list. I do not recommend doing so, as it might result in unexpected downstream behavior.
 
 You can plot `adm` objects via the standard `plot` function. Here, I use the option to highlight hiatuses in red, and increase the linw width of the conservative ( = non-destructive) intervals.
 
@@ -158,7 +158,7 @@ Use the functions `get_total_duration`, `get_total_thickness`, `get_completeness
 
 ```{r}
 get_total_duration(my_adm) #total time covered by the age-depth model
-get_total_thickness(my_adm) # total thickness of section represented by the amd
+get_total_thickness(my_adm) # total thickness of section represented by the adm
 get_completeness(my_adm) # stratigraphic completeness as proportion
 get_incompleteness(my_adm) # stratigraphic incompleteness (= 1- strat. incompleteness)
 get_hiat_no(my_adm) # number of hiatuses
@@ -191,15 +191,15 @@ is_destructive(my_adm,
 
 The functions `get_height` and `get_time` are the workhorses to transform data using age-depth models.
 
--   `get_time` takes and adm object and vector of heights `h` (stratigraphic positions), and returns a vector of times
--   `get_height` takes an adm object and vector of times and returns a vector of associated positions
+-   `get_time` takes and `adm` object and vector of heights `h` (stratigraphic positions), and returns a vector of times
+-   `get_height` takes an `adm` object and vector of times and returns a vector of associated positions
 
 As example, say we want to know the time of deposition of the following stratigraphic positions:
 
 ```{r}
 h = c(30,120) # stratigraphic positions
 get_time(my_adm,
-             h = h)
+         h = h)
 ```
 
 Conversely, to determine what parts of the section are deposited as a specific time, use
