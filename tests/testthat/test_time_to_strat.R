@@ -14,3 +14,11 @@ test_that(" for phylo objects, tree topology is unaffected by transformation",
             expect_equal(tree$Nnode, tree_trans$Nnode)
             
           })
+
+test_that("transformation of lists works", {
+  t = 1:3
+  h = 4:6
+  adm = tp_to_adm(t,h)
+  li = list("t" = t, "r" = "a")
+  expect_equal(time_to_strat(li, adm)$h, h)
+})

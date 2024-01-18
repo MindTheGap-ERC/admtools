@@ -21,13 +21,13 @@ library(admtools)
 
 # Introduction
 
-This vignette is an introduction to the _admtools_ package.
+This vignette is an introduction to the *admtools* package.
 
 ## Installation
 
 ### From GitHub
 
-To install the package from _GitHub_, first install the _remotes_ package:
+To install the package from *GitHub*, first install the *remotes* package:
 
 ```{r, eval=FALSE}
 install.packages("remotes")
@@ -87,18 +87,17 @@ browseVignettes(package = "admtools") # opens in Browser
 vignette(package = "admtools")
 ```
 
-
 ## The adm and multiadm classes
 
-The _admtools_ package defines two main classes: `adm` and `multiadm`. The class `adm` represent a single age-depth model, from which information can be extracted (e.g. completeness, number of hiatuses, etc.) and that can be used to transform data between the stratigraphic domain and time domain. The `multiamd` class is a list of `adm` objects. `multiadm` objects are used to represent uncertainties of age-depth models.
+The *admtools* package defines two main classes: `adm` and `multiadm`. The class `adm` represent a single age-depth model, from which information can be extracted (e.g. completeness, number of hiatuses, etc.) and that can be used to transform data between the stratigraphic domain and time domain. The `multiamd` class is a list of `adm` objects. `multiadm` objects are used to represent uncertainties of age-depth models.
 
 ## Conventions
 
-In contrast to its name, the _admtools_ package currently deals with time and height instead of age and depth. In this sense, the age-depth models are time-height models. Both time and height can be negative values. To handle ages, use time before the present. To handle depths, use height below a point of reference (e.g., the sediment surface).
+In contrast to its name, the *admtools* package currently deals with time and height instead of age and depth. In this sense, the age-depth models are time-height models. Both time and height can be negative values. To handle ages, use time before the present. To handle depths, use height below a point of reference (e.g., the sediment surface).
 
 ## Example
 
-This example explains the  construction and application of `adm` objects. As example data we use outputs from CarboCAT Lite, a model of carbonate platform growth (Burgess 2013, 2023). This data is automatically loaded in the background by the package. To inspect it, you can load it into your workspace via
+This example explains the construction and application of `adm` objects. As example data we use outputs from CarboCAT Lite, a model of carbonate platform growth (Burgess 2013, 2023). This data is automatically loaded in the background by the package. To inspect it, you can load it into your workspace via
 
 ```{r}
 data("CarboCATLite_data")
@@ -117,6 +116,7 @@ my_adm = tp_to_adm(t = CarboCATLite_data$time_myr,
                   L_unit = "m",
                   T_unit = "Myr")
 ```
+
 This age-depth model represents the relationship between elapsed model time and accumulated sediment 2 km offshore in a synthetic carbonate platform.
 
 ## Representation
@@ -126,7 +126,9 @@ Typing the name `my_adm` in the console will only tell that the generated variab
 ```{r}
 my_adm
 ```
+
 To get a quick overview of the properties of `my_adm`, use `summary`:
+
 ```{R}
 summary(my_adm)
 ```
@@ -136,6 +138,7 @@ If you want to inspect the insides of the object, use `str`:
 ```{r}
 str(my_adm)
 ```
+
 You can manually manipulate the fields of the `adm` object by treating it like a list. I do not recommend doing so, as it might result in unexpected behavior.
 
 You can plot `adm` objects via the standard `plot` function. Here, I use the option to highlight hiatuses in red, and increase the linw width of the conservative ( = non-destructive) intervals.
@@ -163,8 +166,8 @@ get_hiat_no(my_adm) # number of hiatuses
 
 For more detailed information, you can use
 
-* `get_hiat_duration` to get a vector of hiatus durations
-* `get_hiat_list` to get a list of hiatus positions and duration.
+-   `get_hiat_duration` to get a vector of hiatus durations
+-   `get_hiat_list` to get a list of hiatus positions and duration.
 
 For example, to plot a histogram of hiatus durations, use
 
@@ -174,7 +177,6 @@ hist(x = get_hiat_duration(my_adm),
      xlab = "Hiatus duration [Myr]",
      main = "Hiatus duration 2 km offshore")
 ```
-
 
 The function `is_destructive` can be used to examine whether points in time coincide with hiatuses:
 
@@ -189,8 +191,8 @@ is_destructive(my_adm,
 
 The functions `get_height` and `get_time` are the workhorses to transform data using age-depth models.
 
-* `get_time` takes and adm object and vector of heights `h`  (stratigraphic positions), and returns a vector of times
-* `get_height` takes an adm object and vector of times and returns a vector of associated positions
+-   `get_time` takes and adm object and vector of heights `h` (stratigraphic positions), and returns a vector of times
+-   `get_height` takes an adm object and vector of times and returns a vector of associated positions
 
 As example, say we want to know the time of deposition of the following stratigraphic positions:
 
@@ -199,12 +201,15 @@ h = c(30,120) # stratigraphic positions
 get_time(my_adm,
              h = h)
 ```
+
 Conversely, to determine what parts of the section are deposited as a specific time, use
+
 ```{r}
 t = c(0.2,1.4)
 get_height(my_adm,
            t = t)
 ```
+
 Here, the `NA` indicates that the time 1.4 coincides with erosion. If you want to know the stratigraphic position of the hiatus that coincides with that time, use the option `destructive = FALSE`:
 
 ```{r}
@@ -213,7 +218,7 @@ get_height(my_adm,
            t = t,
            destructive = FALSE)
 ```
- 
+
 #### Phylogenetic trees
 
 The `admtools` package can transform complex objects between the time and stratigraphic domain. This is done using the functions `strat_to_time` and `time_to_strat`.
@@ -249,19 +254,56 @@ mtext("Stratigraphic Height [m]",
       line = 2)
 ```
 
+#### Lists and time/stratigraphic series
+
+*admtools* can transfrom lists from the time to the height domain and vice versa given they have elements with names `h` or `t`. These lists can be interpreted as time/stratigraphic series, where times and stratigraphic positions are associated with measured values. Note that these are not `t` objects as used by the `stats` package, as they will be generally heterodistant due to hte irregular nature of the age-depth transformation.
+
+As example, we simulate trait evolution over 2 Myr using a Brownian motion, and transform the simulation into the stratigraphic domain.
+
+```{r}
+t = seq(0, 2, by = 0.001) # times
+BM = function(t){
+  #" Simulate Brownian motion at times t
+  li = list("t" = t,
+            trait_val = cumsum(c(0, rnorm(n = length(t) - 1, mean = 0, sd = sqrt(diff(t))))))
+  return(li)
+}
+evo_list = BM(t)
+plot(x = evo_list$t,
+     y = evo_list$trait_val,
+     xlab = "Time [Myr]",
+     ylab = "Trait Value",
+     type = "l")
+```
+
+```{r}
+strat_list = time_to_strat(obj = evo_list,
+                            x = my_adm)
+plot(x = strat_list$h,
+     y = strat_list$trait_val,
+     type = "l",
+     xlab = "Stratigraphic Height [m]",
+     ylab = "Trait Value",
+     main = "Trait Evolution 2 km Offshore")
+```
+
+Note the jump in traits generated by the erosional interval in `my_adm`.
+
 ## Further information
 
 For information on estimating age-depth models from sedimentation rates, see
+
 ```{r, eval=FALSE}
 vignette("adm_from_sedrate")
 ```
 
 For information on estimating age-depth models from tracer contents of rocks and sediments, see
+
 ```{r, eval=FALSE}
 vignette("adm_from_trace_cont")
 ```
 
-
 ## References
-* Burgess, Peter. "CarboCAT: A cellular automata model of heterogeneous carbonate strata." Computers & geosciences 53 (2013): 129-140. [DOI: 10.1016/j.cageo.2011.08.026](https://doi.org/10.1016/j.cageo.2011.08.026)
-* Burgess, Peter. "CarboCAT Lite v1.0.1". Zenodo 2023. [DOI: 10.5281/zenodo.8402578](https://doi.org/10.5281/zenodo.8402578)
+
+-   Burgess, Peter. "CarboCAT: A cellular automata model of heterogeneous carbonate strata." Computers & geosciences 53 (2013): 129-140. [DOI: 10.1016/j.cageo.2011.08.026](https://doi.org/10.1016/j.cageo.2011.08.026)
+-   Burgess, Peter. "CarboCAT Lite v1.0.1". Zenodo 2023. [DOI: 10.5281/zenodo.8402578](https://doi.org/10.5281/zenodo.8402578)
