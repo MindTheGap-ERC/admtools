@@ -87,6 +87,7 @@ Hohmann</h4>
 
     
     
+<pre><code><span><span class="co">#&gt; Loading required package: ape</span></span></code></pre>
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
@@ -100,21 +101,21 @@ package.</p>
 </h4>
 <p>To install the package from <em>GitHub</em>, first install the
 <em>remotes</em> package:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span></span></code></pre></div>
 <p>Then run</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span>repo <span class="op">=</span> <span class="st">"MindTheGap-ERC/admtools"</span>,</span>
 <span>                        build_vignettes <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>                        ref <span class="op">=</span> <span class="st">"v0.1.0"</span><span class="op">)</span></span></code></pre></div>
-<p>to install the latest release. To install the version in development,
-use <code>ref = "HEAD"</code> instead.</p>
+<span>                        ref <span class="op">=</span> <span class="st">"HEAD"</span>,</span>
+<span>                        dependencies <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<p>to install the latest version.</p>
 </div>
 <div class="section level4">
 <h4 id="from-cran">From CRAN<a class="anchor" aria-label="anchor" href="#from-cran"></a>
 </h4>
 <p>To install the package from CRAN, run</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"admtools"</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
@@ -122,7 +123,7 @@ use <code>ref = "HEAD"</code> instead.</p>
 <h3 id="loading-the-package">Loading the package<a class="anchor" aria-label="anchor" href="#loading-the-package"></a>
 </h3>
 <p>Load the package using</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/MindTheGap-ERC/admtools" class="external-link">admtools</a></span><span class="op">)</span></span></code></pre></div>
 <p>This makes all functions in the package available.</p>
 </div>
@@ -130,16 +131,16 @@ use <code>ref = "HEAD"</code> instead.</p>
 <h3 id="getting-help">Getting help<a class="anchor" aria-label="anchor" href="#getting-help"></a>
 </h3>
 <p>Use</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/help.html" class="external-link">help</a></span><span class="op">(</span>package <span class="op">=</span> <span class="st">"admtools"</span><span class="op">)</span></span></code></pre></div>
 <p>to get an overview of the available help pages of the package,
 and</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">?</span><span class="va">admtools</span></span></code></pre></div>
 <p>to view a simple help page for the package.</p>
 <p>Vignettes are a long form of package documentation that provide more
 detailed examples. To list the available vignettes, use</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/browseVignettes.html" class="external-link">browseVignettes</a></span><span class="op">(</span>package <span class="op">=</span> <span class="st">"admtools"</span><span class="op">)</span> <span class="co"># opens in Browser</span></span>
 <span><span class="co">#or</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/vignette.html" class="external-link">vignette</a></span><span class="op">(</span>package <span class="op">=</span> <span class="st">"admtools"</span><span class="op">)</span></span></code></pre></div>
@@ -174,7 +175,7 @@ surface).</p>
 Lite, a model of carbonate platform growth (Burgess 2013, 2023). This
 data is automatically loaded in the background by the package. To
 inspect it, you can load it into your workspace via</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"CarboCATLite_data"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning in data("CarboCATLite_data"): data set 'CarboCATLite_data' not found</span></span></code></pre></div>
 <div class="section level4">
@@ -189,7 +190,7 @@ identify which data is destroyed due to hiatuses.</p>
 <p>As example, I use the timing and stratigraphic positions of tie
 points taken from CarboCAT Lite to construct an age-depth model, and use
 the option to directly associate length and time units with it.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># see ?tp_to_adm for detailed documentation</span></span>
 <span><span class="va">my_adm</span> <span class="op">=</span> <span class="fu"><a href="../reference/tp_to_adm.html">tp_to_adm</a></span><span class="op">(</span>t <span class="op">=</span> <span class="va">CarboCATLite_data</span><span class="op">$</span><span class="va">time_myr</span>,</span>
 <span>                  h <span class="op">=</span> <span class="va">CarboCATLite_data</span><span class="op">$</span><span class="va">height_2_km_offshore_m</span>,</span>
@@ -205,12 +206,12 @@ carbonate platform.</p>
 </h3>
 <p>Typing the name <code>my_adm</code> in the console will only tell
 that the generated variable is an age-depth model</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">my_adm</span></span>
 <span><span class="co">#&gt; Age-depth model</span></span></code></pre></div>
 <p>To get a quick overview of the properties of <code>my_adm</code>, use
 <code>summary</code>:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">my_adm</span><span class="op">)</span></span>
 <span><span class="co">#&gt; age-depth model </span></span>
 <span><span class="co">#&gt; Total duration: 2 Myr</span></span>
@@ -219,7 +220,7 @@ that the generated variable is an age-depth model</p>
 <span><span class="co">#&gt; 10 hiatus(es)</span></span></code></pre></div>
 <p>If you want to inspect the insides of the object, use
 <code>str</code>:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">my_adm</span><span class="op">)</span></span>
 <span><span class="co">#&gt; List of 5</span></span>
 <span><span class="co">#&gt;  $ t     : num [1:2001] 0 0.001 0.002 0.003 0.004 0.005 0.006 0.007 0.008 0.009 ...</span></span>
@@ -235,7 +236,7 @@ result in unexpected behavior.</p>
 <code>plot</code> function. Here, I use the option to highlight hiatuses
 in red, and increase the linw width of the conservative ( =
 non-destructive) intervals.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># see ?plot.adm for plotting options for adm objects</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">my_adm</span>,</span>
 <span>     col_destr <span class="op">=</span> <span class="st">"red"</span>,</span>
@@ -249,7 +250,7 @@ non-destructive) intervals.</p>
 <p>Use the functions <code>get_total_duration</code>,
 <code>get_total_thickness</code>, <code>get_completeness</code>, and
 <code>get_hiat_no</code> to extract information:</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get_total_duration.html">get_total_duration</a></span><span class="op">(</span><span class="va">my_adm</span><span class="op">)</span> <span class="co">#total time covered by the age-depth model</span></span>
 <span><span class="co">#&gt; [1] 2</span></span>
 <span><span class="fu"><a href="../reference/get_total_thickness.html">get_total_thickness</a></span><span class="op">(</span><span class="va">my_adm</span><span class="op">)</span> <span class="co"># total thickness of section represented by the amd</span></span>
@@ -270,7 +271,7 @@ durations</li>
 duration.</li>
 </ul>
 <p>For example, to plot a histogram of hiatus durations, use</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="../reference/get_hiat_duration.html">get_hiat_duration</a></span><span class="op">(</span><span class="va">my_adm</span><span class="op">)</span>,</span>
 <span>     freq <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>     xlab <span class="op">=</span> <span class="st">"Hiatus duration [Myr]"</span>,</span>
@@ -278,7 +279,7 @@ duration.</li>
 <p><img src="admtools_files/figure-html/unnamed-chunk-16-1.png" width="700"></p>
 <p>The function <code>is_destructive</code> can be used to examine
 whether points in time coincide with hiatuses:</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/is_destructive.html">is_destructive</a></span><span class="op">(</span><span class="va">my_adm</span>,</span>
 <span>               t <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>,<span class="fl">0.5</span><span class="op">)</span><span class="op">)</span> </span>
 <span><span class="co">#&gt; [1] FALSE  TRUE</span></span></code></pre></div>
@@ -302,14 +303,14 @@ returns a vector of associated positions</li>
 </ul>
 <p>As example, say we want to know the time of deposition of the
 following stratigraphic positions:</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">h</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">30</span>,<span class="fl">120</span><span class="op">)</span> <span class="co"># stratigraphic positions</span></span>
 <span><span class="fu"><a href="../reference/get_time.html">get_time</a></span><span class="op">(</span><span class="va">my_adm</span>,</span>
 <span>             h <span class="op">=</span> <span class="va">h</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 0.1380552 1.2704696</span></span></code></pre></div>
 <p>Conversely, to determine what parts of the section are deposited as a
 specific time, use</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">t</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.2</span>,<span class="fl">1.4</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/get_height.html">get_height</a></span><span class="op">(</span><span class="va">my_adm</span>,</span>
 <span>           t <span class="op">=</span> <span class="va">t</span><span class="op">)</span></span>
@@ -318,7 +319,7 @@ specific time, use</p>
 erosion. If you want to know the stratigraphic position of the hiatus
 that coincides with that time, use the option
 <code>destructive = FALSE</code>:</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">t</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.2</span>,<span class="fl">1.4</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/get_height.html">get_height</a></span><span class="op">(</span><span class="va">my_adm</span>,</span>
 <span>           t <span class="op">=</span> <span class="va">t</span>,</span>
@@ -334,7 +335,7 @@ functions <code>strat_to_time</code> and <code>time_to_strat</code>.</p>
 <p>As an example, we transform a chronogram (a phylogenetic tree where
 branch length represents time). For this, we first generate a tree
 following the birth-death model using the <code>ape</code> package.</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#install.packages("ape") Package for analyses of phylogenetics and evolution</span></span>
 <span><span class="co"># see ?ape::rlineage for help</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
@@ -346,13 +347,13 @@ following the birth-death model using the <code>ape</code> package.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/mtext.html" class="external-link">mtext</a></span><span class="op">(</span><span class="st">"Time [Myr]"</span>, side <span class="op">=</span> <span class="fl">1</span>, line <span class="op">=</span> <span class="fl">2.5</span><span class="op">)</span></span></code></pre></div>
 <p><img src="admtools_files/figure-html/unnamed-chunk-21-1.png" width="700"></p>
 <p>You can transform the tree using <code>time_to_strat</code>:</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tree_in_strat_domain</span> <span class="op">=</span> <span class="fu"><a href="../reference/time_to_strat.html">time_to_strat</a></span><span class="op">(</span>obj <span class="op">=</span> <span class="va">tree_in_time</span>,</span>
 <span>                                     x <span class="op">=</span> <span class="va">my_adm</span><span class="op">)</span></span></code></pre></div>
 <p>Plotting the resulting tree along the tratigraphic column shows how
 the evolutinoary relationships would be preserved 2 km offshore in the
 simulated carbonate platform:</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">tree_in_strat_domain</span>, direction <span class="op">=</span> <span class="st">"upwards"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/axis.html" class="external-link">axis</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/mtext.html" class="external-link">mtext</a></span><span class="op">(</span><span class="st">"Stratigraphic Height [m]"</span>,</span>
@@ -367,11 +368,11 @@ simulated carbonate platform:</p>
 </h3>
 <p>For information on estimating age-depth models from sedimentation
 rates, see</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/vignette.html" class="external-link">vignette</a></span><span class="op">(</span><span class="st">"adm_from_sedrate"</span><span class="op">)</span></span></code></pre></div>
 <p>For information on estimating age-depth models from tracer contents
 of rocks and sediments, see</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/vignette.html" class="external-link">vignette</a></span><span class="op">(</span><span class="st">"adm_from_trace_cont"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">

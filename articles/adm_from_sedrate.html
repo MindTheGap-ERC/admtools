@@ -87,6 +87,7 @@ Hohmann</h4>
 
     
     
+<pre><code><span><span class="co">#&gt; Loading required package: ape</span></span></code></pre>
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
@@ -138,7 +139,7 @@ distribution with mean - 20 Myr before present and standard deviation
 equal mixture of two normal distributions with means - 5 and - 7 Myr
 years before present and standard deviations of 0.1 and 0.3 Myr years.
 This is implemented as follows in <code>t_tp</code>:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">t_tp</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="co"># first tie point</span></span>
 <span>  <span class="va">t1</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">1</span>, mean <span class="op">=</span> <span class="op">-</span><span class="fl">20</span> , sd <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span>
@@ -154,7 +155,7 @@ This is implemented as follows in <code>t_tp</code>:</p>
 <span><span class="op">}</span></span></code></pre></div>
 <p>Sampling from <code>t_tp</code> yields the following empirical
 distribution for the tie points:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">no_of_samples</span> <span class="op">=</span> <span class="fl">10000</span></span>
 <span><span class="co"># Evaluate timing of tie points</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="va">no_of_samples</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">t_tp</span><span class="op">(</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>,</span>
@@ -172,17 +173,17 @@ stratigraphic tie points and time tie points must be identical.</p>
 <p>For this example, I assume the stratigraphic positions of the tie
 points is known without uncertainty, and are at 10 and 85 m
 stratigraphic height.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">h_min</span> <span class="op">=</span> <span class="fl">10</span> <span class="co"># height of tie point 1</span></span>
 <span><span class="va">h_max</span> <span class="op">=</span> <span class="fl">85</span> <span class="co"># height of tie point 2</span></span></code></pre></div>
 <p><code>h_tp</code> is then implemented as follows:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">h_tp</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">h_min</span>, <span class="va">h_max</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>When evaluated, this function returns the stratigraphic positions of
 the tie points:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#Evaluate stratigraphic positions of tie points</span></span>
 <span><span class="fu">h_tp</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 10 85</span></span></code></pre></div>
@@ -211,7 +212,7 @@ observed in the section.</p>
 <p>I use a simple sedimentation rate model, where only upper and lower
 bounds on sedimentation rates in the section are known. Between these
 limits, I assume a uniform distribution.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># limits on sed. rates</span></span>
 <span><span class="va">lower_limit</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>,<span class="fl">2</span>,<span class="fl">0.1</span>,<span class="fl">10</span><span class="op">)</span></span>
 <span><span class="va">upper_limit</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.2</span>,<span class="fl">3</span>,<span class="fl">2</span>,<span class="fl">12</span><span class="op">)</span></span>
@@ -220,7 +221,7 @@ limits, I assume a uniform distribution.</p>
 <span><span class="va">s</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">h_min</span>, <span class="fl">30</span>,<span class="fl">65</span>, <span class="fl">80</span>, <span class="va">h_max</span><span class="op">)</span></span></code></pre></div>
 <p>Based on these parameters, the sedimentation rate function factory is
 defined as follows:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># define function factory</span></span>
 <span><span class="va">sed_rate_fun</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="co"># draw sed rates from uniform distribution</span></span>
@@ -238,7 +239,7 @@ defined as follows:</p>
 <span><span class="op">}</span></span></code></pre></div>
 <p>To visualize, here are three sedimentation rates generated by the
 “sedimentation rate function factory” <code>sed_rate_fun</code>:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="cn">NULL</span>,</span>
 <span>     xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">h_min</span>, <span class="va">h_max</span><span class="op">)</span>,</span>
 <span>     ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">upper_limit</span><span class="op">)</span><span class="op">)</span>,</span>
@@ -265,10 +266,10 @@ be different, because they are determined by random numbers.</p>
 <p>The function <code>sedrate_to_multiadm</code> estimates the age-depth
 model from the inputs. Here, I determine the age-depth models every
 meter, and generate 10 ADMs</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">h</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="va">h_min</span>,<span class="va">h_max</span>, by <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="co"># strat. positions where ADMs are estimated</span></span>
 <span><span class="va">no_of_rep</span> <span class="op">=</span> <span class="fl">1000</span> <span class="co"># no. of ADMs estimated</span></span></code></pre></div>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">my_adm</span> <span class="op">=</span> <span class="fu"><a href="../reference/sedrate_to_multiadm.html">sedrate_to_multiadm</a></span><span class="op">(</span>h_tp <span class="op">=</span> <span class="fu">h_tp</span><span class="op">(</span><span class="op">)</span>,</span>
 <span>                             t_tp <span class="op">=</span> <span class="fu">t_tp</span><span class="op">(</span><span class="op">)</span>,</span>
 <span>                             sed_rate_gen <span class="op">=</span> <span class="va">sed_rate_fun</span>,</span>
@@ -294,7 +295,7 @@ generate the classic envelopes of uncertainty (95 % CI).</p>
 </h3>
 <p>For information on estimating age-depth models from tracer contents
 of rocks and sediments, see</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/vignette.html" class="external-link">vignette</a></span><span class="op">(</span><span class="st">"adm_from_trace_cont"</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
