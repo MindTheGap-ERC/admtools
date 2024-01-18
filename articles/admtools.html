@@ -148,14 +148,16 @@ detailed examples. To list the available vignettes, use</p>
 <div class="section level3">
 <h3 id="the-adm-and-multiadm-classes">The adm and multiadm classes<a class="anchor" aria-label="anchor" href="#the-adm-and-multiadm-classes"></a>
 </h3>
-<p>The <em>admtools</em> package defines two main classes:
-<code>adm</code> and <code>multiadm</code>. The class <code>adm</code>
-represent a single age-depth model, from which information can be
-extracted (e.g. completeness, number of hiatuses, etc.) and that can be
-used to transform data between the stratigraphic domain and time domain.
-The <code>multiamd</code> class is a list of <code>adm</code> objects.
-<code>multiadm</code> objects are used to represent uncertainties of
-age-depth models.</p>
+<p>The <em>admtools</em> package defines three main classes:
+<code>adm,</code> <code>sac</code> and <code>multiadm</code>. The class
+<code>adm</code> represent a single age-depth model, from which
+information can be extracted (e.g. completeness, number of hiatuses,
+etc.) and that can be used to transform data between the stratigraphic
+domain and time domain. The <code>multiamd</code> class is a list of
+<code>adm</code> objects. <code>multiadm</code> objects are used to
+represent uncertainties of age-depth models. Objects of type
+<code>sac</code> are sediment accumulation curves that can contain
+information on erosion, and can be turned into age-depth models.</p>
 </div>
 <div class="section level3">
 <h3 id="conventions">Conventions<a class="anchor" aria-label="anchor" href="#conventions"></a>
@@ -173,11 +175,10 @@ surface).</p>
 <p>This example explains the construction and application of
 <code>adm</code> objects. As example data we use outputs from CarboCAT
 Lite, a model of carbonate platform growth (Burgess 2013, 2023). This
-data is automatically loaded in the background by the package. To
-inspect it, you can load it into your workspace via</p>
+data is automatically loaded in the background by the package. To get
+some info of the data use</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"CarboCATLite_data"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning in data("CarboCATLite_data"): data set 'CarboCATLite_data' not found</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="op">?</span><span class="va">CarboCATLite_data</span></span></code></pre></div>
 <div class="section level4">
 <h4 id="defining-age-depth-models">Defining age-depth models<a class="anchor" aria-label="anchor" href="#defining-age-depth-models"></a>
 </h4>
@@ -208,7 +209,7 @@ carbonate platform.</p>
 that the generated variable is an age-depth model</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">my_adm</span></span>
-<span><span class="co">#&gt; Age-depth model</span></span></code></pre></div>
+<span><span class="co">#&gt; age-depth model</span></span></code></pre></div>
 <p>To get a quick overview of the properties of <code>my_adm</code>, use
 <code>summary</code>:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
@@ -231,7 +232,7 @@ that the generated variable is an age-depth model</p>
 <span><span class="co">#&gt;  - attr(*, "class")= chr "adm"</span></span></code></pre></div>
 <p>You can manually manipulate the fields of the <code>adm</code> object
 by treating it like a list. I do not recommend doing so, as it might
-result in unexpected behavior.</p>
+result in unexpected downstream behavior.</p>
 <p>You can plot <code>adm</code> objects via the standard
 <code>plot</code> function. Here, I use the option to highlight hiatuses
 in red, and increase the linw width of the conservative ( =
@@ -253,7 +254,7 @@ non-destructive) intervals.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get_total_duration.html">get_total_duration</a></span><span class="op">(</span><span class="va">my_adm</span><span class="op">)</span> <span class="co">#total time covered by the age-depth model</span></span>
 <span><span class="co">#&gt; [1] 2</span></span>
-<span><span class="fu"><a href="../reference/get_total_thickness.html">get_total_thickness</a></span><span class="op">(</span><span class="va">my_adm</span><span class="op">)</span> <span class="co"># total thickness of section represented by the amd</span></span>
+<span><span class="fu"><a href="../reference/get_total_thickness.html">get_total_thickness</a></span><span class="op">(</span><span class="va">my_adm</span><span class="op">)</span> <span class="co"># total thickness of section represented by the adm</span></span>
 <span><span class="co">#&gt; [1] 146.0621</span></span>
 <span><span class="fu"><a href="../reference/get_completeness.html">get_completeness</a></span><span class="op">(</span><span class="va">my_adm</span><span class="op">)</span> <span class="co"># stratigraphic completeness as proportion</span></span>
 <span><span class="co">#&gt; [1] 0.3265</span></span>
@@ -294,19 +295,19 @@ whether points in time coincide with hiatuses:</p>
 the workhorses to transform data using age-depth models.</p>
 <ul>
 <li>
-<code>get_time</code> takes and adm object and vector of heights
-<code>h</code> (stratigraphic positions), and returns a vector of
-times</li>
+<code>get_time</code> takes and <code>adm</code> object and vector
+of heights <code>h</code> (stratigraphic positions), and returns a
+vector of times</li>
 <li>
-<code>get_height</code> takes an adm object and vector of times and
-returns a vector of associated positions</li>
+<code>get_height</code> takes an <code>adm</code> object and vector
+of times and returns a vector of associated positions</li>
 </ul>
 <p>As example, say we want to know the time of deposition of the
 following stratigraphic positions:</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">h</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">30</span>,<span class="fl">120</span><span class="op">)</span> <span class="co"># stratigraphic positions</span></span>
 <span><span class="fu"><a href="../reference/get_time.html">get_time</a></span><span class="op">(</span><span class="va">my_adm</span>,</span>
-<span>             h <span class="op">=</span> <span class="va">h</span><span class="op">)</span></span>
+<span>         h <span class="op">=</span> <span class="va">h</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 0.1380552 1.2704696</span></span></code></pre></div>
 <p>Conversely, to determine what parts of the section are deposited as a
 specific time, use</p>
