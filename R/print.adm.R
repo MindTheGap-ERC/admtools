@@ -4,6 +4,6 @@ print.adm = function(x, ...){
   #' @export
   #' @noRd
 
-  cat("Age-depth model")
+  cat("age-depth model")
   return(invisible())
 }
