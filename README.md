@@ -60,7 +60,7 @@ vignette("admtools")
 
 ## License
 
-Apache 2.0 License, see LICENSE file for license text.
+GPL-3.0, see LICENSE file for license text.
 
 ## Copyright
 
