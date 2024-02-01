@@ -160,7 +160,10 @@
     <loc>https://mindthegap-erc.github.io/admtools/reference/time_to_strat.list.html</loc>
   </url>
   <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/tp_float.html</loc>
+    <loc>https://mindthegap-erc.github.io/admtools/reference/tp_height_det.html</loc>
+  </url>
+  <url>
+    <loc>https://mindthegap-erc.github.io/admtools/reference/tp_time_floating_scale.html</loc>
   </url>
   <url>
     <loc>https://mindthegap-erc.github.io/admtools/reference/tp_to_adm.html</loc>
