@@ -9,7 +9,7 @@ time_to_strat.phylo = function(obj, x, ...){
   
   times = get_all_node_vals(tree)
   
-  height = get_height(adm, times, destructive = FALSE)
+  height = get_height(adm, times, destructive = FALSE, out_dom_val_h = "strat_limits")
   
   new_tree = update_branch_lengths(tree,height)
   
