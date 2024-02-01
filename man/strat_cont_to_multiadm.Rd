@@ -18,17 +18,17 @@ strat_cont_to_multiadm(
 )
 }
 \arguments{
-\item{h_tp}{function generating height tie poitns}
+\item{h_tp}{function, returning tie point heights}
 
-\item{t_tp}{function generating time tie points}
+\item{t_tp}{function, returning tie points times}
 
 \item{strat_cont_gen}{function, generating stratigraphic contents}
 
 \item{time_cont_gen}{function, generating the hypothesis on content input in time}
 
-\item{h}{heights where the adm is evaluated}
+\item{h}{numeric vector, heights where the adm is evaluated}
 
-\item{no_of_rep}{integer, number of repetititons}
+\item{no_of_rep}{integer, number of repetitions}
 
 \item{subdivisions}{integer, max no. of subintervals used by integration procedure. passed to \emph{integrate}, see ?stats::integrate for details}
 

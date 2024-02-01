@@ -43,6 +43,79 @@ A standard example is when tracer input into the sediment is constant. The high 
 
 This idea is formalized using the idea of stratigraphic content and time content: Stratigraphic content is the tracer value measured in the section (units tracer per length unit), and time content is the input of tracer into the sediment (units tracer per time unit).
 
+## Example ##
+
+We construct a floating age-depth model for a section of 5 m thickness from measurements of extraterrestrial 3He based on the assumption that 3He flux is constant with time. We start by defining the section, the sampling bins, and the measurements of 3He:
+
+```{r}
+h_min = 3 # bottom of section
+h_max = 8 # top of section
+sampling_bin_borders = seq(h_min, h_max, by = 1) # limits of sampling bins
+mean_3He = seq(from = 15, to = 5, length.out = length(sampling_bin_borders) - 1) # assumed 3He mean vals
+sd_3He = runif(n = length(mean_3He), min = 0.1 * mean_3He, max = 0.2 * mean_3He) # standard deviation of 3He
+He_measurements = data.frame("mean" = mean_3He, "sd" = sd_3He)
+```
+
+We want to know the age every 10 cm, so we define
+```{r}
+h = seq(h_min, h_max, by = 0.1)
+T_unit = "dimensionless"
+L_unit = "m"
+```
+
+The tie points in height are deterministic and defined using the function `tp_height_det`:
+```{r}
+tp_height = tp_height_det(heights = c(h_min, h_max))
+```
+
+We use the function `tp_time_floating_scale` to define the time tie points for the floting time scale
+```{r}
+tp_time = tp_time_floating_scale()
+```
+
+To define the assumption of constant 3He flux in time, we use the function `flux_const`:
+```{r}
+flux = flux_const()
+```
+
+The observations of 3He are put into a machine-readable format using the function `strat_cont_gen_from_proxy`:
+```{r}
+observed_proxy = strat_cont_gen_from_proxy(bin_borders = sampling_bin_borders, 
+                                          df = He_measurements,
+                                          distribution = "normal")
+``` 
+
+Because the 3He measurements are uncertain, values returned from `observed_flux` will differ every time the function is evaluated. As example, we plot three realizations of the proxy values with depth:
+```{r echo=FALSE}
+plot(NULL,
+     xlim = range(h),
+     ylim = c(0,max(He_measurements$mean) + 2 * max(He_measurements$sd)),
+     xlab = paste("Height [", L_unit, "]", sep = ""),
+     ylab = "3He observed")
+lines(h, observed_proxy()(h), type = "p", col = "red", pch = 3)
+lines(h, observed_proxy()(h), type = "p", col = "blue", pch = 19)
+lines(h, observed_proxy()(h), type = "p", col = "black")
+```
+
+With the tie points, assumptions on flux in time, and observed values of the tracer coded, we can now estimate the age-depth model:
+
+```{r}
+my_adm = strat_cont_to_multiadm(h_tp = tp_height,
+                                t_tp = tp_time,
+                                strat_cont_gen = observed_proxy,
+                                time_cont_gen = flux,
+                                h = h,
+                                T_unit = T_unit,
+                                L_unit = L_unit)
+```
+
+```{r}
+plot(my_adm, mode = "envelope")
+T_axis_lab()
+L_axis_lab()
+make_legend()
+```
+
 ### Coding tie points
 
 Times and heights of tie points are coded via the functions `t_tp` (timing) and `h_tp` (height) that take no inputs. They serve as wrappers around user-defined procedures that reflect uncertainties around tie points. Every time `t_tp` and `h_tp` are evaluated, they return possible values for the tie points. Writing these functions requires some effort, but it allows the user to hand over arbitrarily complex uncertainties of the tie points to the `strat_cont_to_multiadm` function.
