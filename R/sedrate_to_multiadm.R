@@ -57,13 +57,15 @@ sedrate_to_multiadm = function(h_tp, t_tp, sed_rate_gen, h, no_of_rep = 100L, su
       t_upper = t_sample[int_no + 1]
       h_relevant = c(h_lower, h[h> h_lower & h < h_upper], h_upper)
       t_out = rep(NA, length(h_relevant))
+      rescale = is.finite(t_upper - t_lower)
       inv_tp_corr_sed_rate_sample = get_tp_corr_sed_rate(sed_rate = sed_rate_sample,
                                                      t_lower = t_lower,
                                                      t_upper = t_upper,
                                                      h_lower = h_lower,
                                                      h_upper = h_upper,
                                                      subdivisions = subdivisions,
-                                                     stop.on.error = stop.on.error)
+                                                     stop.on.error = stop.on.error,
+                                                     rescale = rescale)
       
       for (j in seq_along(h_relevant)){
         t_out[j] = t_lower + stats::integrate(f = inv_tp_corr_sed_rate_sample,
@@ -95,7 +97,7 @@ sedrate_to_multiadm = function(h_tp, t_tp, sed_rate_gen, h, no_of_rep = 100L, su
     
 }
 
-get_tp_corr_sed_rate = function(sed_rate, h_lower, h_upper, t_lower, t_upper, subdivisions, stop.on.error){
+get_tp_corr_sed_rate = function(sed_rate, h_lower, h_upper, t_lower, t_upper, subdivisions, stop.on.error, rescale){
   
   #' 
   #' @keywords internal
@@ -110,16 +112,20 @@ get_tp_corr_sed_rate = function(sed_rate, h_lower, h_upper, t_lower, t_upper, su
   #' @param t_upper time of later tie point
   #' @param subdivision maximum no of subintervals used in numeric integration. passed to _integrate_, see ?stats::integrate for details
   #' @param stop.on.error logical passed to _integrate_, see ?stats::integrate for details
+  #' @param rescale logical, should the the function be rescaled?
   #' 
   #' @returns function, the inverse tie point corrected sedimentation rate
   #' 
-  
-  time_cont = stats::integrate(function(x) 1/sed_rate(x),
-                               lower = h_lower, 
-                               upper = h_upper, 
-                               subdivisions = subdivisions, 
-                               stop.on.error = stop.on.error)$value
-  c_corr = (t_upper - t_lower)/time_cont
+  c_corr = 1
+  if (rescale){
+    time_cont = stats::integrate(function(x) 1/sed_rate(x),
+                                 lower = h_lower, 
+                                 upper = h_upper, 
+                                 subdivisions = subdivisions, 
+                                 stop.on.error = stop.on.error)$value
+    c_corr = (t_upper - t_lower)/time_cont
+  }
+
   inv_tp_corr_sed_rate_sample = function(x)  c_corr / sed_rate(x)
   
   return( inv_tp_corr_sed_rate_sample )
