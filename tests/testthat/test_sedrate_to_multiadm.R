@@ -1,8 +1,8 @@
 test_that("constant sed rate gives correct results for 2 tp between tps",{
-  t_min = 0
-  t_max = 1
-  h_min = 0
-  h_max = 1
+  t_min = -2
+  t_max = -1
+  h_min = 2
+  h_max = 3
   no_eval = 100
   t_tp = function() return(c(t_min, t_max))
   h_tp = function() return(c(h_min, h_max))
@@ -11,12 +11,12 @@ test_that("constant sed rate gives correct results for 2 tp between tps",{
   madm  = sedrate_to_multiadm(h_tp, t_tp, sed_rate_gen, h, no_of_rep = 1)
   expect_equal(madm$h[[1]], h)
   expect_equal(madm$t[[1]], seq(t_min + 0.1, t_max - 0.1, length.out = no_eval))
-  
 })
+
 test_that("constant sed rate gives correct results for 2 tp at tps",{
-  t_min = 0
+  t_min = -2
   t_max = 2
-  h_min = 0
+  h_min = -3
   h_max = 1
   no_eval = 100
   t_tp = function() return(c( t_min,  t_max))
@@ -29,9 +29,9 @@ test_that("constant sed rate gives correct results for 2 tp at tps",{
 })
 
 test_that("correct vals outside of tps are returned",{
-  t_min = 0
-  t_max = 1
-  h_min = 0
+  t_min = -2
+  t_max = 2
+  h_min = -3
   h_max = 1
   no_eval = 100
   t_tp = function() return(c( t_min,  t_max))
