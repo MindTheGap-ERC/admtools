@@ -27,9 +27,9 @@ strat_cont_to_multiadm = function(h_tp, t_tp, strat_cont_gen, time_cont_gen, h, 
   #' @export
   #' 
   
+  ## check inputs
   t_rel = t_tp()
   h_rel = h_tp()
-  
   if(is.unsorted(h_rel, strictly = TRUE)){
     stop("Expected strictly increasing stratigraphic positions of tie points")
   }
@@ -39,7 +39,7 @@ strat_cont_to_multiadm = function(h_tp, t_tp, strat_cont_gen, time_cont_gen, h, 
   if(length(t_rel) != length(h_rel)){
     stop("Uneven number of tie points in time and height")
   }
-  
+  ## initialize storage
   h_list = vector(mode = "list", length = no_of_rep)
   t_list = vector(mode = "list", length = no_of_rep)
   destr_list = vector(mode = "list", length = no_of_rep)
@@ -48,8 +48,8 @@ strat_cont_to_multiadm = function(h_tp, t_tp, strat_cont_gen, time_cont_gen, h, 
     # sample stratigraphic & time contents, and tie points
     strat_cont_sample = strat_cont_gen()
     time_cont_sample = time_cont_gen()
-    h_tp_sample  = h_tp()
-    t_tp_sample = t_tp()
+    h_tp_sample  = c(-Inf, h_tp(), Inf) # draw sample and pad
+    t_tp_sample = c( - Inf, t_tp(), Inf ) # draw sample and pad
     no_of_intervals = length(diff(h_tp_sample))
     h_temp = c()
     t_temp = c()
@@ -59,6 +59,7 @@ strat_cont_to_multiadm = function(h_tp, t_tp, strat_cont_gen, time_cont_gen, h, 
       h_upper = h_tp_sample[int_no + 1]
       t_lower = t_tp_sample[int_no]
       t_upper = t_tp_sample[int_no + 1]
+      rescale = is.finite(h_upper - h_lower)
       time_cont_sample_corr = get_corr_time_cont(strat_cont = strat_cont_sample,
                                                  time_cont = time_cont_sample, 
                                                  h_lower = h_lower,
@@ -66,31 +67,71 @@ strat_cont_to_multiadm = function(h_tp, t_tp, strat_cont_gen, time_cont_gen, h, 
                                                  t_lower = t_lower, 
                                                  t_upper = t_upper,
                                                  subdivisions = subdivisions,
-                                                 stop.on.error = stop.on.error)
+                                                 stop.on.error = stop.on.error,
+                                                 rescale = rescale)
       
-      h_relevant = c(h_lower, h[h> h_lower & h < h_upper], h_upper)
+      h_relevant = h[h> h_lower & h <= h_upper]
+      if (length(h_relevant) == 0){
+        next
+      }
       t_out = rep(NA, length(h_relevant))
       
-      integrated_time_cont = function(t) stats::integrate(f = time_cont_sample_corr,
-                                                          lower = t_lower,
-                                                          upper = t,
-                                                          subdivisions = subdivisions,
-                                                          stop.on.error = stop.on.error)$val
+      reverse_direction = is.infinite(t_lower)
+      
+      if (reverse_direction){
+        integrated_time_cont = function(t) stats::integrate(f = time_cont_sample_corr,
+                                                            lower = t,
+                                                            upper = t_upper,
+                                                            subdivisions = subdivisions,
+                                                            stop.on.error = stop.on.error)$val
+      }
+      if (!reverse_direction){
+        integrated_time_cont = function(t) stats::integrate(f = time_cont_sample_corr,
+                                                            lower = t_lower,
+                                                            upper = t,
+                                                            subdivisions = subdivisions,
+                                                            stop.on.error = stop.on.error)$val
+      }
       
       for (j in seq_along(h_relevant)){
-        strat_cont_at_hi = stats::integrate(f = strat_cont_sample,
-                                            lower = h_lower,
-                                            upper = h_relevant[j],
-                                            subdivisions = subdivisions,
-                                            stop.on.error = stop.on.error)$val
+        if (reverse_direction){
+          strat_cont_at_hi = stats::integrate(f = strat_cont_sample,
+                                              lower = h_relevant[j],
+                                              upper = h_upper,
+                                              subdivisions = subdivisions,
+                                              stop.on.error = stop.on.error)$val
+        }
+        if (!reverse_direction){
+          strat_cont_at_hi = stats::integrate(f = strat_cont_sample,
+                                              lower = h_lower,
+                                              upper = h_relevant[j],
+                                              subdivisions = subdivisions,
+                                              stop.on.error = stop.on.error)$val
+        }
+
         
         f = function(t) integrated_time_cont(t) - strat_cont_at_hi
-        t_out[j] = t_lower + stats::uniroot(f = f, 
+        if (is.infinite(t_lower)){
+          t_lower = -10^-99
+        }
+        if (is.infinite(t_upper)){
+          t_upper = 10^99
+        }
+        if (!reverse_direction){
+          t_out[j] =  stats::uniroot(f = f, 
                                               interval = c(t_lower, t_upper), 
                                               extendInt = "yes")$root
+        }
+        if (reverse_direction){
+          t_out[j] =  stats::uniroot(f = f, 
+                                              interval = c(t_lower, t_upper), 
+                                              extendInt = "yes")$root
+        }
       }
-      h_temp = unique(c(h_temp, h_relevant))
-      t_temp = unique(c(t_temp, t_out))
+        
+        
+      h_temp = c(h_temp, h_relevant)
+      t_temp = c(t_temp, t_out)
       
     }
     
@@ -110,7 +151,7 @@ strat_cont_to_multiadm = function(h_tp, t_tp, strat_cont_gen, time_cont_gen, h, 
   return(multiadm)
 }
 
-get_corr_time_cont = function(strat_cont, time_cont, h_lower, h_upper, t_lower, t_upper, subdivisions, stop.on.error){
+get_corr_time_cont = function(strat_cont, time_cont, h_lower, h_upper, t_lower, t_upper, subdivisions, stop.on.error, rescale){
   #' @keywords internal
   #' @noRd
   #' 
@@ -127,24 +168,28 @@ get_corr_time_cont = function(strat_cont, time_cont, h_lower, h_upper, t_lower, 
   #' @param t_upper upper time limit
   #' @param subdivisions maximum no of subintervals used in numeric integration. passed to _integrate_, see ?stats::integrate for details
   #' @param stop.on.error logical passed to _integrate_, see ?stats::integrate for details
+  #' @param rescale logical, should the function be rescaled
   #' 
   #' @returns function, normalized proxy content in time domain
+  #' 
+  corr_factor = 1
   
-  strat_cont_total = stats::integrate(f = strat_cont,
-                                      lower = h_lower,
-                                      upper = h_upper,
-                                      subdivisions = subdivisions,
-                                      stop.on.error = stop.on.error)$value
-  
-  time_cont_total = stats::integrate(f = time_cont,
-                                     lower = t_lower,
-                                     upper = t_upper,
-                                     subdivisions = subdivisions,
-                                     stop.on.error = stop.on.error)$value
-  
-  corr_factor = strat_cont_total / time_cont_total
+  if (rescale){
+    strat_cont_total = stats::integrate(f = strat_cont,
+                                        lower = h_lower,
+                                        upper = h_upper,
+                                        subdivisions = subdivisions,
+                                        stop.on.error = stop.on.error)$value
+    
+    time_cont_total = stats::integrate(f = time_cont,
+                                       lower = t_lower,
+                                       upper = t_upper,
+                                       subdivisions = subdivisions,
+                                       stop.on.error = stop.on.error)$value
+    
+    corr_factor = strat_cont_total / time_cont_total
+    
+  }
   time_cont_sample_corr = function(x) time_cont(x) * corr_factor
-  
   return(time_cont_sample_corr)
-  
 }
