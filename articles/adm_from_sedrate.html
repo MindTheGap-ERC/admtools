@@ -92,7 +92,7 @@ Hohmann</h4>
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
 <p>This vignette explains how to estimate age-depth models (ADMs) from
-sedimentation rates using the function
+sedimentation rates and tie points using the function
 <code>sedrate_to_multiadm</code></p>
 <div class="section level3">
 <h3 id="inputs">Inputs<a class="anchor" aria-label="anchor" href="#inputs"></a>
@@ -116,6 +116,10 @@ estimation procedure:</p>
 determined</p></li>
 <li><p><code>no_of_rep</code>: integer, number of runs</p></li>
 </ul>
+<p>Additional parameters that determine the numeric behavior are
+<code>subdivisions</code> and <code>stop.on.error</code>. The parameters
+<code>T_unit</code> and <code>L_unit</code> can be used to associate
+time and length units with the generated age-depth model.</p>
 </div>
 <div class="section level3">
 <h3 id="coding-user-knowledge">Coding user knowledge<a class="anchor" aria-label="anchor" href="#coding-user-knowledge"></a>
@@ -130,7 +134,10 @@ reflect uncertainties around tie points. Every time <code>t_tp</code>
 and <code>h_tp</code> are evaluated, they return possible values for the
 tie points. Writing these functions requires some effort, but it allows
 the user to hand over arbitrarily complex uncertainties of the tie
-points to the <code>sedrate_to_multiadm</code> function.</p>
+points to the <code>sedrate_to_multiadm</code> function. The functions
+<code>tp_time_floating_scale</code>, <code>tp_time_norm</code> and
+<code>tp_height_det</code> can be used to simplify the definition of tie
+points.</p>
 <p>The function for the timing of the tie points must return a vector of
 increasing times.</p>
 <p>For this example, I assume that the first tie point follows a normal
