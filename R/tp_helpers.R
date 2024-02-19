@@ -28,7 +28,7 @@ tp_time_norm = function(mean, sd, force_order = TRUE){
   #' @returns a function
   if (!force_order){
     f = function(){
-      return(rnorm(n = length(mean), mean = mean, sd = sd))
+      return(stats::rnorm(n = length(mean), mean = mean, sd = sd))
     }
     return(f)
   }
@@ -36,7 +36,7 @@ tp_time_norm = function(mean, sd, force_order = TRUE){
   f = function(){
     i = 1
     repeat{
-      t = rnorm(n = length(mean), mean = mean, sd = sd)
+      t = stats::rnorm(n = length(mean), mean = mean, sd = sd)
       if (!is.unsorted(t)){
         break
       }
@@ -61,7 +61,9 @@ tp_height_det = function(heights){
   #' @param heights numeric vector. Stratigraphic positions of the tie points
   #' 
   #' @returns a function for usage with _strat_cont_to_multiadm_ and _sedrate_to_multiamd_
-  
+  if (is.unsorted(heights, strictly = TRUE)){
+    stop("Need strictly increasing heights")
+  }
   f = function() return(heights)
   return(f)
 }
