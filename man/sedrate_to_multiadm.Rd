@@ -19,9 +19,9 @@ sedrate_to_multiadm(
 \arguments{
 \item{h_tp}{: function, returns stratigraphic positions of tie points}
 
-\item{t_tp}{: function, returns times of deposition of tie points}
+\item{t_tp}{: function, returns times of tie points}
 
-\item{sed_rate_gen}{: function, returns sedimentation rate functions}
+\item{sed_rate_gen}{: function, returns function describing sedimentation rate}
 
 \item{h}{: numeric, heights where the adm is calculated}
 
@@ -39,7 +39,7 @@ sedrate_to_multiadm(
 object of class multiadm
 }
 \description{
-Estimate age-depth model from sedimentation rate & tie points
+Combines information on tie points and sedimentation rates to estimate age-depth models and their associated uncertainty. For an example, see \code{vignette("adm_from_sedrate")}.
 }
 \examples{
 \dontrun{

@@ -7,9 +7,13 @@ sedrate_to_multiadm = function(h_tp, t_tp, sed_rate_gen, h, no_of_rep = 100L, su
   #' 
   #' @title Estimate age-depth model from sedimentation rate & tie points
   #' 
+  #' @description
+    #' Combines information on tie points and sedimentation rates to estimate age-depth models and their associated uncertainty. For an example, see `vignette("adm_from_sedrate")`.
+    #' 
+  #' 
   #' @param h_tp : function, returns stratigraphic positions of tie points
-  #' @param t_tp : function, returns times of deposition of tie points
-  #' @param sed_rate_gen : function, returns sedimentation rate functions
+  #' @param t_tp : function, returns times of tie points
+  #' @param sed_rate_gen : function, returns function describing sedimentation rate
   #' @param h : numeric, heights where the adm is calculated
   #' @param no_of_rep : numeric, number of repetitions
   #' @param subdivisions maximum no of subintervals used in numeric integration. passed to _integrate_, see ?stats::integrate for details
@@ -26,6 +30,7 @@ sedrate_to_multiadm = function(h_tp, t_tp, sed_rate_gen, h, no_of_rep = 100L, su
     #' }
   #' 
   
+  ## Check inputs
   t_rel = t_tp()
   h_rel = h_tp()
   if(is.unsorted(h_rel, strictly = TRUE)){
@@ -38,14 +43,15 @@ sedrate_to_multiadm = function(h_tp, t_tp, sed_rate_gen, h, no_of_rep = 100L, su
     stop("Uneven number of tie points in time and height")
   }
   
+  ## Initialize storage
   h_list = vector(mode = "list", length = no_of_rep)
   t_list = vector(mode = "list", length = no_of_rep)
   destr_list = vector(mode = "list", length = no_of_rep)
   
   for ( i in seq_len(no_of_rep)){
-    sed_rate_sample = sed_rate_gen()
-    t_sample = t_tp()
-    h_sample = h_tp()
+    sed_rate_sample = sed_rate_gen() # draw sed rate
+    t_sample = c(-Inf, t_tp(), Inf) # draw times, pad
+    h_sample = c(-Inf, h_tp(), Inf) # draw heights, pad
     h_temp = c()
     t_temp = c()
     no_of_intervals = length(diff(h_sample))
@@ -55,25 +61,41 @@ sedrate_to_multiadm = function(h_tp, t_tp, sed_rate_gen, h, no_of_rep = 100L, su
       h_upper = h_sample[int_no + 1]
       t_lower = t_sample[int_no]
       t_upper = t_sample[int_no + 1]
-      h_relevant = c(h_lower, h[h> h_lower & h < h_upper], h_upper)
+      h_relevant = h[h> h_lower & h <= h_upper]
+      if (length(h_relevant) == 0){ # if no h vals are in interval, move to next
+        next
+      }
       t_out = rep(NA, length(h_relevant))
+      rescale = is.finite(h_upper - h_lower) # does sed rate need to be rescaled? 
+      reverse_direction = is.infinite(h_lower) # reverse integration direction for first/last interval
       inv_tp_corr_sed_rate_sample = get_tp_corr_sed_rate(sed_rate = sed_rate_sample,
                                                      t_lower = t_lower,
                                                      t_upper = t_upper,
                                                      h_lower = h_lower,
                                                      h_upper = h_upper,
                                                      subdivisions = subdivisions,
-                                                     stop.on.error = stop.on.error)
+                                                     stop.on.error = stop.on.error,
+                                                     rescale = rescale)
       
       for (j in seq_along(h_relevant)){
-        t_out[j] = t_lower + stats::integrate(f = inv_tp_corr_sed_rate_sample,
-                                             lower =  h_lower,
-                                             upper = h_relevant[j],
-                                             subdivisions = subdivisions, 
-                                             stop.on.error = stop.on.error)$value
+        if (!reverse_direction){
+          t_out[j] = t_lower + stats::integrate(f = inv_tp_corr_sed_rate_sample,
+                                                lower =  h_lower,
+                                                upper = h_relevant[j],
+                                                subdivisions = subdivisions, 
+                                                stop.on.error = stop.on.error)$value
+        }
+        if (reverse_direction){
+          t_out[j] = t_upper - stats::integrate(f = inv_tp_corr_sed_rate_sample,
+                                                lower =  h_relevant[j],
+                                                upper = h_upper,
+                                                subdivisions = subdivisions, 
+                                                stop.on.error = stop.on.error)$value
+        }
+
       }
-      h_temp = unique(c(h_temp, h_relevant))
-      t_temp = unique(c(t_temp, t_out))
+      h_temp = c(h_temp, h_relevant)
+      t_temp = c(t_temp, t_out)
       
       
     }
@@ -95,7 +117,7 @@ sedrate_to_multiadm = function(h_tp, t_tp, sed_rate_gen, h, no_of_rep = 100L, su
     
 }
 
-get_tp_corr_sed_rate = function(sed_rate, h_lower, h_upper, t_lower, t_upper, subdivisions, stop.on.error){
+get_tp_corr_sed_rate = function(sed_rate, h_lower, h_upper, t_lower, t_upper, subdivisions, stop.on.error, rescale){
   
   #' 
   #' @keywords internal
@@ -110,16 +132,20 @@ get_tp_corr_sed_rate = function(sed_rate, h_lower, h_upper, t_lower, t_upper, su
   #' @param t_upper time of later tie point
   #' @param subdivision maximum no of subintervals used in numeric integration. passed to _integrate_, see ?stats::integrate for details
   #' @param stop.on.error logical passed to _integrate_, see ?stats::integrate for details
+  #' @param rescale logical, should the the function be rescaled?
   #' 
   #' @returns function, the inverse tie point corrected sedimentation rate
   #' 
-  
-  time_cont = stats::integrate(function(x) 1/sed_rate(x),
-                               lower = h_lower, 
-                               upper = h_upper, 
-                               subdivisions = subdivisions, 
-                               stop.on.error = stop.on.error)$value
-  c_corr = (t_upper - t_lower)/time_cont
+  c_corr = 1
+  if (rescale){
+    time_cont = stats::integrate(function(x) 1/sed_rate(x),
+                                 lower = h_lower, 
+                                 upper = h_upper, 
+                                 subdivisions = subdivisions, 
+                                 stop.on.error = stop.on.error)$value
+    c_corr = (t_upper - t_lower)/time_cont
+  }
+
   inv_tp_corr_sed_rate_sample = function(x)  c_corr / sed_rate(x)
   
   return( inv_tp_corr_sed_rate_sample )

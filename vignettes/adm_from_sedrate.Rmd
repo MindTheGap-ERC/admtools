@@ -21,7 +21,7 @@ library(admtools)
 
 # Introduction
 
-This vignette explains how to estimate age-depth models (ADMs) from sedimentation rates using the function `sedrate_to_multiadm`
+This vignette explains how to estimate age-depth models (ADMs) from sedimentation rates and tie points using the function `sedrate_to_multiadm`
 
 ## Inputs
 
@@ -39,11 +39,13 @@ In addition, it takes the following inputs that specify the estimation procedure
 
 -   `no_of_rep`: integer, number of runs
 
+Additional parameters that determine the numeric behavior are `subdivisions` and `stop.on.error`. The parameters `T_unit` and `L_unit` can be used to associate time and length units with the generated age-depth model.
+
 ## Coding user knowledge
 
 ### Tie points
 
-Times and heights of tie points are coded via the functions `t_tp` (timing) and `h_tp` (height) that take no inputs. They serve as wrappers around user-defined procedures that reflect uncertainties around tie points. Every time `t_tp` and `h_tp` are evaluated, they return possible values for the tie points. Writing these functions requires some effort, but it allows the user to hand over arbitrarily complex uncertainties of the tie points to the `sedrate_to_multiadm` function.
+Times and heights of tie points are coded via the functions `t_tp` (timing) and `h_tp` (height) that take no inputs. They serve as wrappers around user-defined procedures that reflect uncertainties around tie points. Every time `t_tp` and `h_tp` are evaluated, they return possible values for the tie points. Writing these functions requires some effort, but it allows the user to hand over arbitrarily complex uncertainties of the tie points to the `sedrate_to_multiadm` function. The functions `tp_time_floating_scale`, `tp_time_norm` and `tp_height_det` can be used to simplify the definition of tie points.
 
 The function for the timing of the tie points must return a vector of increasing times.
 
