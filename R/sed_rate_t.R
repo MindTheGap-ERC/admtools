@@ -1,4 +1,5 @@
 sed_rate_t = function(x, t, mode = "rcll"){
+  #' @export
   #' @title sedimentation rate in time domain
   #'  
   #' @description
@@ -16,11 +17,11 @@ sed_rate_t.adm = function(x, t, mode = "rcll"){
   val = diff(x$h)/diff(x$t)
   borders = x$t
   if (mode == "rcll"){
-    srate = approx(x = borders, y = c(val, val[length(val)]), xout = t,  method = "constant", f = 0)$y
+    srate = stats::approx(x = borders, y = c(val, val[length(val)]), xout = t,  method = "constant", f = 0)$y
     return(srate)
   }
   if (mode == "lcrl"){
-    srate = approx(x = borders, y = c(val, val[length(val)]), xout = t, method = "constant", f = 1)$y
+    srate = stats::approx(x = borders, y = c(val, val[length(val)]), xout = t, method = "constant", f = 1)$y
     return(srate)
   }
   stop("unrecognized mode. Use \'rcll\' or \'lcrl\'.")
@@ -38,17 +39,29 @@ sed_rate_t.multiadm = function(x,t,mode){
 
 sed_rate_t_fun = function(x, mode = "rcll"){
   
+  #' @export
+  #' 
+  #' @title sedimentation rate function
+  #' 
+  #' @description
+    #' returns a function that retruns sedimentation rate
+  #' 
+  #' @param x an adm object
+  #' @param mode string, "rcll" or "lcrl". Should the sedimentation rate be Right Continuous with Left Limits (rcll) or Left Continuous with Right Limits (lcrl)
+  #' 
+  #' @returns a function
+  #' 
   if (!is_adm(x)){
     stop("Please use an adm object")
   }
   val = diff(x$h)/diff(x$t)
   borders = x$t
   if (mode == "rcll"){
-    f = approxfun(x = borders, y = c(val, val[length(val)]),  method = "constant", f = 0)
+    f = stats::approxfun(x = borders, y = c(val, val[length(val)]),  method = "constant", f = 0)
     return(f)
   }
   if (mode == "lcrl"){
-    f = approxfun(x = borders, y = c(val, val[length(val)]), method = "constant", f = 1)
+    f = stats::approxfun(x = borders, y = c(val, val[length(val)]), method = "constant", f = 1)
     return(f)
   }
   stop("unrecognized mode. Use \'rcll\' or \'lcrl\'.")
