@@ -121,7 +121,16 @@
     <loc>https://mindthegap-erc.github.io/admtools/reference/plot_erosive_intervals.html</loc>
   </url>
   <url>
+    <loc>https://mindthegap-erc.github.io/admtools/reference/plot_sed_rate_t.html</loc>
+  </url>
+  <url>
     <loc>https://mindthegap-erc.github.io/admtools/reference/sac_to_adm.html</loc>
+  </url>
+  <url>
+    <loc>https://mindthegap-erc.github.io/admtools/reference/sed_rate_t.html</loc>
+  </url>
+  <url>
+    <loc>https://mindthegap-erc.github.io/admtools/reference/sed_rate_t_fun.html</loc>
   </url>
   <url>
     <loc>https://mindthegap-erc.github.io/admtools/reference/sedrate_to_multiadm.html</loc>
