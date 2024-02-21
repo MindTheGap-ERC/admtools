@@ -1,0 +1,135 @@
+---
+title: "Structure and classes of the admtools package"
+output: rmarkdown::html_vignette
+author: "Niklas Hohmann"
+vignette: >
+  %\VignetteIndexEntry{admtools_doc}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(admtools)
+```
+
+# Introduction
+
+This vignette provides an overview of the larger scale structure of the `admtools` package and the classes used therein.
+
+## S3 Classes
+
+### S3 class `adm`
+
+#### Description
+
+The S3 class `adm` represents **a**ge **d**epth **m**odels. Structurally, they are lists with five fields:
+
+-   `t` : numeric vector, time points
+
+-   `h` : numeric vectors, heights
+
+-   `destr`: logical vector, is the interval destructive
+
+-   `T_unit` : `NULL` or a string, time unit
+
+-   `L_unit` : `NULL` or a string, length unit
+
+`h[i]` is the height at time `t[i]`. `h` and `t` must be of same length and have at least 2 elements, `t` must be strictly increasing and `h` must be nondecreasing. `length(destr)` must be identical to `length(t) - 1`. `destr[i] == TRUE` indicates that the time interval from `t[i]` to `t[i+1]` is destructive and no information is preserved. Whether tie points are considered destructive is determined by the function `is_destructive`. Geologically, `destr[i] == TRUE` should imply `h[i] == h[i+1]` , as no sediment is accumulated during hiatuses.
+
+#### Construction
+
+-   `tp_to_adm` for construction from tie points
+-   `sac_to_adm` for construction from sediment accumulation curves `sac`
+-   `split_multiadm` for extraction from multiple age-depth models `multiadm`
+
+#### Logic
+
+-   `is_adm` to check for validity of an adm object
+
+#### Representation
+
+-   `plot.adm` for plotting
+-   `print.adm` for printing to the console
+-   `summary.adm` to provide a quick summary of an object
+
+#### Modification
+
+-   `set_L_unit.adm` and `set_T_unit.adm` to change units
+
+#### Extracting information
+
+-   `condensation.adm` and `condensation_fun` to extract condensation
+-   `get_L_unit.adm` and `get_T_unit.adm` to extract data
+-   `get_completeness.adm` and `get_incompleteness.adm`
+-   `get_height.adm`
+-   `get_time.adm`
+-   `get_hiat_duration.adm`
+-   `get_hiat_list.adm`
+-   `get_hiat_no.adm`
+-   `get_hiat_pos.adm`
+-   `get_total_duration.adm`
+-   `get_total_thickness.adm`
+-   `is_destructive.adm`
+-   `sed_rate_l.adm` and `sed_rate_l_fun.adm` to extract sedimentation rate in height domain
+-   `sed_rate_t.adm` and `sed_rate_t_fun.adm` to extract sedimentation rate in time domain
+
+#### Transformation into other S3 classes
+
+-   `merge_adm_to_multiadm` into `multiamd`
+-   `add_adm_to_multiadm` to add `adm` to `multiadm`
+
+### S3 class `sac`
+
+#### Description
+
+The S3 class `sac` represents **s**ediment **a**ccumulation **c**urves. Structurally, they are lists with four fields:
+
+-   `t` : numeric vector, time points
+-   `h` : numeric vectors, heights
+-   `T_unit` : `NULL` or a string, time unit
+-   `L_unit` : `NULL` or a string, length unit
+
+`h[i]` is the height at time `t[i]`. `h` and `t` must be of same length and have at least 2 elements, `t` must be increasing.
+
+#### Construction
+
+Standard constructor is `tp_to_sac` (tie point to sediment accumulation curve)
+
+#### Logic
+
+None
+
+#### Representation
+
+Plotting via `plot.sac.` Printing to the console is handled by `print.sac`.
+
+#### Modification
+
+None
+
+#### Transformation into other S3 classes
+
+`sac` can be transformed into the S3 class `adm` using `sac_to_adm`
+
+### S3 class `multiadm`
+
+#### Description
+
+#### Construction
+
+#### Logic
+
+#### Representation
+
+#### Modification
+
+#### Extracting information
+
+#### Transformation into other S3 classes

@@ -206,3 +206,8 @@ For information on estimating age-depth models from tracer contents of rocks and
 vignette("adm_from_trace_cont")
 ```
  
+For an overview of the structure of the `admtools` package and the classes used therein see
+
+```{r, eval=FALSE}
+vignette("admtools_doc")
+```

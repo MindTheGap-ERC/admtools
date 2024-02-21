@@ -287,6 +287,12 @@ For information on estimating age-depth models from sedimentation rates, see
 vignette("adm_from_sedrate")
 ```
 
+For an overview of the structure of the `admtools` package and the classes used therein see
+
+```{r, eval=FALSE}
+vignette("admtools_doc")
+```
+
 ## See also
 
 For a simplified application see
