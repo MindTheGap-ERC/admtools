@@ -45,15 +45,21 @@ The S3 class `adm` represents **a**ge **d**epth **m**odels. Structurally, they a
 
 #### Construction
 
+The following functions construct `adm` objects:
+
 -   `tp_to_adm` for construction from tie points
 -   `sac_to_adm` for construction from sediment accumulation curves `sac`
 -   `split_multiadm` for extraction from multiple age-depth models `multiadm`
 
 #### Logic
 
+The following functions examine the logic of `adm` objects:
+
 -   `is_adm` to check for validity of an adm object
 
 #### Representation
+
+The following functions yield a representation of `adm` objects:
 
 -   `plot.adm` for plotting
 -   `print.adm` for printing to the console
@@ -61,9 +67,13 @@ The S3 class `adm` represents **a**ge **d**epth **m**odels. Structurally, they a
 
 #### Modification
 
+The following functions modify `adm` objects:
+
 -   `set_L_unit.adm` and `set_T_unit.adm` to change units
 
 #### Extracting information
+
+The following functions extract information from `adm` objects:
 
 -   `condensation.adm` and `condensation_fun` to extract condensation
 -   `get_L_unit.adm` and `get_T_unit.adm` to extract data
@@ -81,6 +91,8 @@ The S3 class `adm` represents **a**ge **d**epth **m**odels. Structurally, they a
 -   `sed_rate_t.adm` and `sed_rate_t_fun.adm` to extract sedimentation rate in time domain
 
 #### Transformation into other S3 classes
+
+The following functions transform `adm` objects into other S3 classes:
 
 -   `merge_adm_to_multiadm` into `multiamd`
 -   `add_adm_to_multiadm` to add `adm` to `multiadm`
@@ -100,21 +112,31 @@ The S3 class `sac` represents **s**ediment **a**ccumulation **c**urves. Structur
 
 #### Construction
 
+The following functions construct `sac` objects:
+
 Standard constructor is `tp_to_sac` (tie point to sediment accumulation curve)
 
 #### Logic
+
+The following functions inspect the logic of `sac` objects:
 
 None
 
 #### Representation
 
+The following functions yiled a representation of `sac` objects:
+
 Plotting via `plot.sac.` Printing to the console is handled by `print.sac`.
 
 #### Modification
 
+The following functions modify `sac` objects:
+
 None
 
 #### Transformation into other S3 classes
+
+The following functions transform `sac` objects into other S3 classes:
 
 `sac` can be transformed into the S3 class `adm` using `sac_to_adm`
 
@@ -122,14 +144,85 @@ None
 
 #### Description
 
+The S3 class `multiadm` represents **multi**ple **a**ge **d**epth **m**odels.. Structurally, they are lists with the following elements:
+
+-   `no_of_entries`: Positive integer, number of age depth models contained
+-   `t` list of length `no_of_entries`. Each element contains a numeric vector
+-   `h`: list of length `no_of_entries`. Each element contain a numeric vector
+-   `destr`: list of length `no_of_entries`. Each element contain a logic
+-   `T_unit` : `NULL` or a string, time unit
+-   `L_unit` : `NULL` or a string, length unit
+
+`h[[i]][j]` is the height of the i-th age-depth model at time `t[[i]][j]`. For each `i`, the quintuple `h[[i]]`, `t[[i]]`, `destr[[i]]`, `T_unit` and `L_unit` specify an `adm` object with the constraints as specified in the section *S3 class `adm`* (e.g., on monotonicity, length, etc.). `T_unit` and `L_unit` are shared among all age-depth models in an `multiamd` object.
+
+
 #### Construction
+
+The following functions construct `multiadm` objects:
+
+-   `merge_adm_to_multiadm` to contruct `multiadm` from `adm` objects
+-   `sedrate_to_multiadm` construct `multiadm` from info on sedimentation rates, see `vignette("adm_from_sedrate")`
+-   `strat_cont_to_multiadm` construct `multiadm` from tracer information, see `vignette("adm_from_trace_cont")`
 
 #### Logic
 
+The following functions inspect the logic of `multiadm` objects:
+
+-   `is_multiadm` to check for validity of multiadm object
+
 #### Representation
+
+The following functions yield a representation `multiadm` objects:
+
+-   `plot.multiadm` for plotting
+-   `print.multiadm` for printing to console
+-   `summary.multiadm` for providing summary statistics
 
 #### Modification
 
+The following functions modify `multiadm` objects:
+
+-   `merge_multiadm` to combine multiple `multiadm` objects
+-   `set_L_unit.adm` and `set_T_unit.adm` to change units
+
 #### Extracting information
 
+The following functions extract information from `multiadm` objects:
+
+-   `condensation` to extract condensation
+-   `get_completeness` and `get_incompleteness`
+-   `get_height`
+-   `get_hiat_duration`
+-   `get_hiat_list`
+-   `get_hiat_no`
+-   `get_hiat_pos`
+-   `get_L_unit` and `get_T_unit` to extract data
+-   `get_time`
+-   `get_total_duration`
+-   `get_total_thickness`
+-   `is_destructive`
+-   `sed_rate_l`
+-   `sed_rate_t`
+
 #### Transformation into other S3 classes
+
+The following functions transform `multiadm` objects into other S3 classes:
+
+-   `split_multiadm` to split `multiadm` into list of `adm` objects
+
+## Methods implemented for external S3 classes
+
+### S3 class `list`
+
+`admtools` implements the following methods for `list`:
+
+-   `strat_to_time`: Transform strat-val pairs into time domain
+-   `time_to_strat`: Transform time-val pairs into strat domain
+
+### S3 class `phylo`
+
+`admtools` implements the following methods for `phylo`:
+
+-   `strat_to_time`: Transform stratigraphic tree into time domain
+-   `time_to_strat`: Transform time tree into strat domain
+
