@@ -158,7 +158,7 @@ You can also plot sedimentation rates in the time domain using `plot_sed_rate_t`
 plot_sed_rate_t(my_adm)
 ```
 
-For more information on the extraction of sedimentation rates see the function `sed_rate_t`.
+For more information on the extraction of sedimentation rates xin the time domain see the functions `sed_rate_t` and `sed_rate_t_fun`. Sedimentation rates in the length domain can be extracted using `sed_rate_l` and `sed_rate_l_fun` and plotted via `plot_sed_rate_l`. In addition, condensation (time preserved per stratigraphic increment) can be examined using the functions `condensation`, `condensation_fun` and `plot_condensation`.
 
 ### Extracting data from age-depth models
 

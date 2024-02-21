@@ -14,6 +14,7 @@ sed_rate_t = function(x, t, mode = "rcll"){
 }
 
 sed_rate_t.adm = function(x, t, mode = "rcll"){
+  #' @export
   val = diff(x$h)/diff(x$t)
   borders = x$t
   if (mode == "rcll"){
@@ -21,14 +22,14 @@ sed_rate_t.adm = function(x, t, mode = "rcll"){
     return(srate)
   }
   if (mode == "lcrl"){
-    srate = stats::approx(x = borders, y = c(val, val[length(val)]), xout = t, method = "constant", f = 1)$y
+    srate = stats::approx(x = borders, y = c(val[1], val), xout = t, method = "constant", f = 1)$y
     return(srate)
   }
   stop("unrecognized mode. Use \'rcll\' or \'lcrl\'.")
 }
 
 sed_rate_t.multiadm = function(x,t,mode){
-  
+  #' @export
   adm_list = split_multiadm(x)
   
   h_list = lapply(adm_list, function(x) sed_rate_t.adm(x,t,mode))

@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_sed_rate.R
 \name{plot_sed_rate_t}
 \alias{plot_sed_rate_t}
-\title{plot sedimentation rate}
+\title{plot sedimentation rate in time}
 \usage{
 plot_sed_rate_t(x, mode = "rcll")
 }
@@ -15,5 +15,5 @@ plot_sed_rate_t(x, mode = "rcll")
 invisible NULL
 }
 \description{
-plot sedimentation rate
+plot sedimentation rate in time
 }
