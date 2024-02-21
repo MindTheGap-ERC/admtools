@@ -46,6 +46,12 @@
     <loc>https://mindthegap-erc.github.io/admtools/reference/admtools-package.html</loc>
   </url>
   <url>
+    <loc>https://mindthegap-erc.github.io/admtools/reference/condensation.html</loc>
+  </url>
+  <url>
+    <loc>https://mindthegap-erc.github.io/admtools/reference/condensation_fun.html</loc>
+  </url>
+  <url>
     <loc>https://mindthegap-erc.github.io/admtools/reference/flux_const.html</loc>
   </url>
   <url>
@@ -118,13 +124,25 @@
     <loc>https://mindthegap-erc.github.io/admtools/reference/plot.sac.html</loc>
   </url>
   <url>
+    <loc>https://mindthegap-erc.github.io/admtools/reference/plot_condensation.html</loc>
+  </url>
+  <url>
     <loc>https://mindthegap-erc.github.io/admtools/reference/plot_erosive_intervals.html</loc>
+  </url>
+  <url>
+    <loc>https://mindthegap-erc.github.io/admtools/reference/plot_sed_rate_l.html</loc>
   </url>
   <url>
     <loc>https://mindthegap-erc.github.io/admtools/reference/plot_sed_rate_t.html</loc>
   </url>
   <url>
     <loc>https://mindthegap-erc.github.io/admtools/reference/sac_to_adm.html</loc>
+  </url>
+  <url>
+    <loc>https://mindthegap-erc.github.io/admtools/reference/sed_rate_l.html</loc>
+  </url>
+  <url>
+    <loc>https://mindthegap-erc.github.io/admtools/reference/sed_rate_l_fun.html</loc>
   </url>
   <url>
     <loc>https://mindthegap-erc.github.io/admtools/reference/sed_rate_t.html</loc>
