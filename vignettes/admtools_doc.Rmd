@@ -69,26 +69,26 @@ The following functions yield a representation of `adm` objects:
 
 The following functions modify `adm` objects:
 
--   `set_L_unit.adm` and `set_T_unit.adm` to change units
+-   `set_L_unit` and `set_T_unit` to change units
 
 #### Extracting information
 
 The following functions extract information from `adm` objects:
 
--   `condensation.adm` and `condensation_fun` to extract condensation
--   `get_L_unit.adm` and `get_T_unit.adm` to extract data
--   `get_completeness.adm` and `get_incompleteness.adm`
--   `get_height.adm`
--   `get_time.adm`
--   `get_hiat_duration.adm`
--   `get_hiat_list.adm`
--   `get_hiat_no.adm`
--   `get_hiat_pos.adm`
--   `get_total_duration.adm`
--   `get_total_thickness.adm`
--   `is_destructive.adm`
--   `sed_rate_l.adm` and `sed_rate_l_fun.adm` to extract sedimentation rate in height domain
--   `sed_rate_t.adm` and `sed_rate_t_fun.adm` to extract sedimentation rate in time domain
+-   `condensation` and `condensation_fun` to extract condensation
+-   `get_L_unit` and `get_T_unit` to extract data
+-   `get_completeness` and `get_incompleteness`
+-   `get_height`
+-   `get_time`
+-   `get_hiat_duration`
+-   `get_hiat_list`
+-   `get_hiat_no`
+-   `get_hiat_pos`
+-   `get_total_duration`
+-   `get_total_thickness`
+-   `is_destructive`
+-   `sed_rate_l` and `sed_rate_l_fun` to extract sedimentation rate in height domain
+-   `sed_rate_t` and `sed_rate_t_fun` to extract sedimentation rate in time domain
 
 #### Transformation into other S3 classes
 
@@ -124,21 +124,28 @@ None
 
 #### Representation
 
-The following functions yiled a representation of `sac` objects:
+The following functions yield a representation of `sac` objects:
 
-Plotting via `plot.sac.` Printing to the console is handled by `print.sac`.
+-   `plot.sac` for plotting
+-   `print.sac` for printing to the console
 
 #### Modification
 
 The following functions modify `sac` objects:
 
-None
+-   `set_L_unit` and `set_T_unit` to change units
+
+#### Extracting information
+
+The following functions extract information from `sac` objects:
+
+-   `get_L_unit` and `get_T_unit` to extract units
 
 #### Transformation into other S3 classes
 
 The following functions transform `sac` objects into other S3 classes:
 
-`sac` can be transformed into the S3 class `adm` using `sac_to_adm`
+-   `sac_to_adm` to transform `sac` into the S3 class `adm`
 
 ### S3 class `multiadm`
 
@@ -183,7 +190,7 @@ The following functions yield a representation `multiadm` objects:
 The following functions modify `multiadm` objects:
 
 -   `merge_multiadm` to combine multiple `multiadm` objects
--   `set_L_unit.adm` and `set_T_unit.adm` to change units
+-   `set_L_unit` and `set_T_unit` to change units
 
 #### Extracting information
 
