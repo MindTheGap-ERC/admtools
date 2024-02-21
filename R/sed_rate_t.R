@@ -22,7 +22,7 @@ sed_rate_t.adm = function(x, t, mode = "rcll"){
     return(srate)
   }
   if (mode == "lcrl"){
-    srate = stats::approx(x = borders, y = c(val, val[length(val)]), xout = t, method = "constant", f = 1)$y
+    srate = stats::approx(x = borders, y = c(val[1], val), xout = t, method = "constant", f = 1)$y
     return(srate)
   }
   stop("unrecognized mode. Use \'rcll\' or \'lcrl\'.")
