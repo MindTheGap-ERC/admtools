@@ -120,7 +120,7 @@ Standard constructor is `tp_to_sac` (tie point to sediment accumulation curve)
 
 The following functions inspect the logic of `sac` objects:
 
-None
+-   `is_sac` to check validity of `sac` object
 
 #### Representation
 
