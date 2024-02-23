@@ -39,6 +39,9 @@ strat_cont_to_multiadm = function(h_tp, t_tp, strat_cont_gen, time_cont_gen, h, 
   if(length(t_rel) != length(h_rel)){
     stop("Uneven number of tie points in time and height")
   }
+  if (length(t_rel) < 1){
+    stop("Need at least one tie point")
+  }
   ## initialize storage
   h_list = vector(mode = "list", length = no_of_rep)
   t_list = vector(mode = "list", length = no_of_rep)
@@ -135,7 +138,6 @@ strat_cont_to_multiadm = function(h_tp, t_tp, strat_cont_gen, time_cont_gen, h, 
 
         }
       }
-        
         
       h_temp = c(h_temp, h_relevant)
       t_temp = c(t_temp, t_out)
