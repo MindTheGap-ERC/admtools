@@ -59,6 +59,12 @@ strat_cont_to_multiadm = function(h_tp, t_tp, strat_cont_gen, time_cont_gen, h, 
       h_upper = h_tp_sample[int_no + 1]
       t_lower = t_tp_sample[int_no]
       t_upper = t_tp_sample[int_no + 1]
+      
+      h_relevant = h[h> h_lower & h <= h_upper]
+      if (length(h_relevant) == 0){
+        next
+      }
+      
       rescale = is.finite(h_upper - h_lower)
       time_cont_sample_corr = get_corr_time_cont(strat_cont = strat_cont_sample,
                                                  time_cont = time_cont_sample, 
@@ -70,10 +76,7 @@ strat_cont_to_multiadm = function(h_tp, t_tp, strat_cont_gen, time_cont_gen, h, 
                                                  stop.on.error = stop.on.error,
                                                  rescale = rescale)
       
-      h_relevant = h[h> h_lower & h <= h_upper]
-      if (length(h_relevant) == 0){
-        next
-      }
+
       t_out = rep(NA, length(h_relevant))
       
       reverse_direction = is.infinite(t_lower)
@@ -84,6 +87,24 @@ strat_cont_to_multiadm = function(h_tp, t_tp, strat_cont_gen, time_cont_gen, h, 
                                                             upper = t_upper,
                                                             subdivisions = subdivisions,
                                                             stop.on.error = stop.on.error)$val
+        for (j in seq_along(h_relevant)){
+            strat_cont_at_hi = stats::integrate(f = strat_cont_sample,
+                                                lower = h_relevant[j],
+                                                upper = h_upper,
+                                                subdivisions = subdivisions,
+                                                stop.on.error = stop.on.error)$val
+
+          f = function(t) integrated_time_cont(t) - strat_cont_at_hi
+          if (is.infinite(t_lower)){
+            t_lower = -10^-99
+          }
+          if (is.infinite(t_upper)){
+            t_upper = 10^99
+          }
+            t_out[j] =  stats::uniroot(f = f, 
+                                       interval = c(t_lower, t_upper), 
+                                       extendInt = "yes")$root
+        }
       }
       if (!reverse_direction){
         integrated_time_cont = function(t) stats::integrate(f = time_cont_sample_corr,
@@ -91,41 +112,27 @@ strat_cont_to_multiadm = function(h_tp, t_tp, strat_cont_gen, time_cont_gen, h, 
                                                             upper = t,
                                                             subdivisions = subdivisions,
                                                             stop.on.error = stop.on.error)$val
-      }
-      
-      for (j in seq_along(h_relevant)){
-        if (reverse_direction){
-          strat_cont_at_hi = stats::integrate(f = strat_cont_sample,
-                                              lower = h_relevant[j],
-                                              upper = h_upper,
-                                              subdivisions = subdivisions,
-                                              stop.on.error = stop.on.error)$val
-        }
-        if (!reverse_direction){
-          strat_cont_at_hi = stats::integrate(f = strat_cont_sample,
-                                              lower = h_lower,
-                                              upper = h_relevant[j],
-                                              subdivisions = subdivisions,
-                                              stop.on.error = stop.on.error)$val
-        }
-
         
-        f = function(t) integrated_time_cont(t) - strat_cont_at_hi
-        if (is.infinite(t_lower)){
-          t_lower = -10^-99
-        }
-        if (is.infinite(t_upper)){
-          t_upper = 10^99
-        }
-        if (!reverse_direction){
-          t_out[j] =  stats::uniroot(f = f, 
-                                              interval = c(t_lower, t_upper), 
-                                              extendInt = "yes")$root
-        }
-        if (reverse_direction){
-          t_out[j] =  stats::uniroot(f = f, 
-                                              interval = c(t_lower, t_upper), 
-                                              extendInt = "yes")$root
+        for (j in seq_along(h_relevant)){
+            strat_cont_at_hi = stats::integrate(f = strat_cont_sample,
+                                                lower = h_lower,
+                                                upper = h_relevant[j],
+                                                subdivisions = subdivisions,
+                                                stop.on.error = stop.on.error)$val
+
+          
+          
+          f = function(t) integrated_time_cont(t) - strat_cont_at_hi
+          if (is.infinite(t_lower)){
+            t_lower = -10^-99
+          }
+          if (is.infinite(t_upper)){
+            t_upper = 10^99
+          }
+            t_out[j] =  stats::uniroot(f = f, 
+                                       interval = c(t_lower, t_upper), 
+                                       extendInt = "yes")$root
+
         }
       }
         
