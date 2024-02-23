@@ -47,6 +47,12 @@ strat_cont_to_multiadm = function(h_tp, t_tp, strat_cont_gen, time_cont_gen, h, 
   t_list = vector(mode = "list", length = no_of_rep)
   destr_list = vector(mode = "list", length = no_of_rep)
   
+  if (length(t_tp()) == 1){
+    timescale = 10^3
+  } else {
+    timescale = 10* diff(range(t_tp()))
+  }
+  
   for (i in seq_len(no_of_rep)){
     # sample stratigraphic & time contents, and tie points
     strat_cont_sample = strat_cont_gen()
@@ -68,7 +74,23 @@ strat_cont_to_multiadm = function(h_tp, t_tp, strat_cont_gen, time_cont_gen, h, 
         next
       }
       
-      rescale = is.finite(h_upper - h_lower)
+      rescale = TRUE
+      is_unbounded_interval = is.infinite(h_upper - h_lower)
+      if (is_unbounded_interval){
+        m1 = stats::integrate(strat_cont_sample,
+                              lower = h_lower,
+                              upper = h_upper,
+                              subdivisions = subdivisions,
+                              stop.on.error = FALSE)$message
+        m2 = stats::integrate(time_cont_sample,
+                               lower = t_lower,
+                               upper = t_upper,
+                               subdivisions = subdivisions,
+                               stop.on.error = FALSE)$message
+        if (m1 =="the integral is probably divergent" & m2 == "the integral is probably divergent"){
+          rescale = FALSE
+        }
+      }
       time_cont_sample_corr = get_corr_time_cont(strat_cont = strat_cont_sample,
                                                  time_cont = time_cont_sample, 
                                                  h_lower = h_lower,
@@ -99,22 +121,26 @@ strat_cont_to_multiadm = function(h_tp, t_tp, strat_cont_gen, time_cont_gen, h, 
 
           f = function(t) integrated_time_cont(t) - strat_cont_at_hi
           if (is.infinite(t_lower)){
-            t_lower = -10^-99
+            t_lower_search = t_upper - timescale
+          } else {
+            t_lower_search = t_lower
           }
           if (is.infinite(t_upper)){
-            t_upper = 10^99
+            t_upper_search = t_lower + timescale
+          } else{
+            t_upper_search = t_upper
           }
             t_out[j] =  stats::uniroot(f = f, 
-                                       interval = c(t_lower, t_upper), 
+                                       interval = c(t_lower_search, t_upper_search), 
                                        extendInt = "yes")$root
         }
       }
       if (!reverse_direction){
-        integrated_time_cont = function(t) stats::integrate(f = time_cont_sample_corr,
-                                                            lower = t_lower,
-                                                            upper = t,
-                                                            subdivisions = subdivisions,
-                                                            stop.on.error = stop.on.error)$val
+        integrated_time_cont = function(t) sapply(t, function(x) stats::integrate(f = time_cont_sample_corr,
+                                                                                  lower = t_lower,
+                                                                                  upper = x,
+                                                                                  subdivisions = subdivisions,
+                                                                                  stop.on.error = stop.on.error)$val)
         
         for (j in seq_along(h_relevant)){
             strat_cont_at_hi = stats::integrate(f = strat_cont_sample,
@@ -127,13 +153,17 @@ strat_cont_to_multiadm = function(h_tp, t_tp, strat_cont_gen, time_cont_gen, h, 
           
           f = function(t) integrated_time_cont(t) - strat_cont_at_hi
           if (is.infinite(t_lower)){
-            t_lower = -10^-99
+            t_lower_search = t_upper - timescale
+          } else {
+            t_lower_search = t_lower
           }
           if (is.infinite(t_upper)){
-            t_upper = 10^99
+            t_upper_search = t_lower + timescale
+          } else{
+            t_upper_search = t_upper
           }
             t_out[j] =  stats::uniroot(f = f, 
-                                       interval = c(t_lower, t_upper), 
+                                       interval = c(t_lower_search, t_upper_search), 
                                        extendInt = "yes")$root
 
         }
