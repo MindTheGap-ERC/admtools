@@ -1,4 +1,4 @@
-strat_cont_gen_from_proxy = function(bin_borders, df, distribution = "normal"){
+strat_cont_gen_from_proxy = function(bin_borders, df, distribution = "normal", cap = TRUE, cap_val = 0){
   #' @export
   #' 
   #' @title proxy record fluxes
@@ -6,6 +6,8 @@ strat_cont_gen_from_proxy = function(bin_borders, df, distribution = "normal"){
   #' @param bin_borders borders of sampling bins
   #' @param df data frame with proxy records
   #' @param distribution character, currently only "normal" implemented. Specifies the distribution of proxies
+  #' @param cap logical. Should values below `cap_val`be replaced?
+  #' @param cap_val numeric. If `cap = TRUE`, values below `cap_val`will be replaced by `cap_val`
   #' 
   #' @returns a functional for usage with strat_cont_to_multiadm
   #' 
@@ -27,6 +29,9 @@ strat_cont_gen_from_proxy = function(bin_borders, df, distribution = "normal"){
     proxy_vals = stats::rnorm( n = length(mean),
                                mean = mean,
                                sd = sd)
+    if (cap){
+      proxy_vals = pmax(proxy_vals, cap_val)
+    }
     strat_cont = stats::approxfun(x = bin_borders,
                                    y = c(proxy_vals, proxy_vals[length(proxy_vals)]),
                                    method = "constant",
