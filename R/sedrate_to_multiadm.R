@@ -1,7 +1,4 @@
-sedrate_to_multiadm = function(h_tp, t_tp, sed_rate_gen, h, no_of_rep = 100L, subdivisions = 100L,
-                               stop.on.error = TRUE,
-                               T_unit = NULL, L_unit = NULL){
-  
+sedrate_to_multiadm = function(h_tp, t_tp, sed_rate_gen, h, no_of_rep = 100L, subdivisions = 100L, stop.on.error = TRUE, T_unit = NULL, L_unit = NULL){
   #' 
   #' @export
   #' 
@@ -40,7 +37,7 @@ sedrate_to_multiadm = function(h_tp, t_tp, sed_rate_gen, h, no_of_rep = 100L, su
     stop("Expected strictly increasing times of tie points")
   }
   if(length(t_rel) != length(h_rel)){
-    stop("Uneven number of tie points in time and height")
+    stop("Number of tie points in time does not match number of tie points in height")
   }
   
   ## Initialize storage
@@ -66,16 +63,16 @@ sedrate_to_multiadm = function(h_tp, t_tp, sed_rate_gen, h, no_of_rep = 100L, su
         next
       }
       t_out = rep(NA, length(h_relevant))
-      rescale = is.finite(h_upper - h_lower) # does sed rate need to be rescaled? 
-      reverse_direction = is.infinite(h_lower) # reverse integration direction for first/last interval
-      inv_tp_corr_sed_rate_sample = get_tp_corr_sed_rate(sed_rate = sed_rate_sample,
-                                                     t_lower = t_lower,
-                                                     t_upper = t_upper,
-                                                     h_lower = h_lower,
-                                                     h_upper = h_upper,
-                                                     subdivisions = subdivisions,
-                                                     stop.on.error = stop.on.error,
-                                                     rescale = rescale)
+      rescale = !any(is.infinite(c(t_upper, t_lower))) # does sed rate need to be rescaled? 
+      reverse_direction = is.infinite(h_lower) # reverse integration direction for heights below first tie point
+      inv_tp_corr_sed_rate_sample = get_inv_tp_corr_sed_rate(sed_rate = sed_rate_sample,
+                                                             t_lower = t_lower,
+                                                             t_upper = t_upper,
+                                                             h_lower = h_lower,
+                                                             h_upper = h_upper,
+                                                             subdivisions = subdivisions,
+                                                             stop.on.error = stop.on.error,
+                                                             rescale = rescale)
       
       for (j in seq_along(h_relevant)){
         if (!reverse_direction){
@@ -91,18 +88,15 @@ sedrate_to_multiadm = function(h_tp, t_tp, sed_rate_gen, h, no_of_rep = 100L, su
                                                 upper = h_upper,
                                                 subdivisions = subdivisions, 
                                                 stop.on.error = stop.on.error)$value
-        }
+          }
 
       }
       h_temp = c(h_temp, h_relevant)
       t_temp = c(t_temp, t_out)
-      
-      
     }
     h_list[[i]] = h_temp
     t_list[[i]] = t_temp
-    destr_list[[i]] = rep(FALSE, length(h))
-    
+    destr_list[[i]] = rep(FALSE, length(h) - 1)
   }
   
   multiadm = list(t = t_list,
@@ -117,13 +111,15 @@ sedrate_to_multiadm = function(h_tp, t_tp, sed_rate_gen, h, no_of_rep = 100L, su
     
 }
 
-get_tp_corr_sed_rate = function(sed_rate, h_lower, h_upper, t_lower, t_upper, subdivisions, stop.on.error, rescale){
-  
-  #' 
+get_inv_tp_corr_sed_rate = function(sed_rate, h_lower, h_upper, t_lower, t_upper, subdivisions, stop.on.error, rescale){ 
   #' @keywords internal
   #' @noRd
   #' 
-  #' @title inverse tie point corrected sed rate
+  #' @title inverse (tie point corrected) sed. rate
+  #' 
+  #' @description
+    #' determines the uncorrected or tie point corrected inverse sedimentation rate
+    #' 
   #' 
   #' @param sed_rate function, sed rate
   #' @param h_lower lower strat limit   
@@ -132,9 +128,9 @@ get_tp_corr_sed_rate = function(sed_rate, h_lower, h_upper, t_lower, t_upper, su
   #' @param t_upper time of later tie point
   #' @param subdivision maximum no of subintervals used in numeric integration. passed to _integrate_, see ?stats::integrate for details
   #' @param stop.on.error logical passed to _integrate_, see ?stats::integrate for details
-  #' @param rescale logical, should the the function be rescaled?
+  #' @param rescale logical, should the the function be rescaled (corrected for tie points)?
   #' 
-  #' @returns function, the inverse tie point corrected sedimentation rate
+  #' @returns function, the inverse (tie point corrected) sedimentation rate
   #' 
   c_corr = 1
   if (rescale){
@@ -145,10 +141,6 @@ get_tp_corr_sed_rate = function(sed_rate, h_lower, h_upper, t_lower, t_upper, su
                                  stop.on.error = stop.on.error)$value
     c_corr = (t_upper - t_lower)/time_cont
   }
-
   inv_tp_corr_sed_rate_sample = function(x)  c_corr / sed_rate(x)
-  
   return( inv_tp_corr_sed_rate_sample )
-  
 }
-
