@@ -4,7 +4,13 @@
 \alias{strat_cont_gen_from_proxy}
 \title{proxy record fluxes}
 \usage{
-strat_cont_gen_from_proxy(bin_borders, df, distribution = "normal")
+strat_cont_gen_from_proxy(
+  bin_borders,
+  df,
+  distribution = "normal",
+  cap = TRUE,
+  cap_val = 0
+)
 }
 \arguments{
 \item{bin_borders}{borders of sampling bins}
@@ -12,6 +18,10 @@ strat_cont_gen_from_proxy(bin_borders, df, distribution = "normal")
 \item{df}{data frame with proxy records}
 
 \item{distribution}{character, currently only "normal" implemented. Specifies the distribution of proxies}
+
+\item{cap}{logical. Should values below \code{cap_val}be replaced?}
+
+\item{cap_val}{numeric. If \code{cap = TRUE}, values below \code{cap_val}will be replaced by \code{cap_val}}
 }
 \value{
 a functional for usage with strat_cont_to_multiadm
