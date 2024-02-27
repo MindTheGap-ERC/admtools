@@ -1,0 +1,85 @@
+rej_sampling = function(x,y, n = 1){
+  #' @noRd
+  #' @keywords internal
+  #' 
+  #' @title rejection sampling
+  #' 
+  #' @param x numeirc vector, strictly increasing.
+  #' @param y numeric vector, positive
+  #' @param n interger, number of samples generated
+  #' 
+  #' @description
+    #' draws samples from a pdf given by approxfun(x,y)
+    #'  
+  #' @returns numeric vector of length n
+  
+  f = approxfun(x,y)
+  f_max = max(y)
+  out = c()
+  while (length(out) < n){
+    x_draw = runif(1, min = min(x), max = max(x))
+    y_draw = runif(1, min = 0, max = f_max)
+    if (y_draw < f(x_draw)){
+      out = c(out, x_draw)
+    }
+  }
+  return(out)
+}
+
+crppp = function(x_min, x_max, rate = 1){
+  #' @noRd
+  #' @keywords internal
+  #' 
+  #' @title Poisson point process
+  #' 
+  #' @description
+    #' generates points of Poisson point process in the interval x_min, x_max
+  #'
+  #' @param x_min lower limit
+  #' @param x_max upper limit
+  #' @param rate  numeric, rate of PPP
+  #' 
+  #' @returns numeric vector of variable length
+  #' 
+  n = rpois(1, (x_max - x_min)* rate)
+  points = runif(n, min = x_min, max = x_max)
+  return(points)
+}
+
+sed_rate_from_matrix = function(height, sedrate, matrix, rate = 1){
+  #' @noRd
+  #' @keywords internal
+  #' @title make sed rate gen from matrix
+  #' 
+  #' @param height vector of heights
+  #' @param sedrate vector of sed. rates x values
+  #' @param matrix matrix of sed rate y values
+  #' 
+  #' @description
+    #' at height `height[i]`, the sedimentation rate is specified by the pdf approxfun(sedrate, matrix[i,])
+    #' 
+  
+  # x_min = -2
+  # x_max = 3
+  # height = seq(x_min, x_max, by = 0.25)
+  # sedrate = seq(0.1, 10, by = 0.1)
+  # matrix = matrix(data = runif(n = length(height) * length(sedrate)), nrow = length(height), ncol = length(sedrate))
+  f = function(){
+  x_max = max(height)
+  x_min = min(height)
+  interp_points = sort(c(x_min, x_max, crppp(x_min, x_max, rate)))
+  interp_heights = rep(NA, length(interp_points))
+  interp_vals = rep(NA, length(interp_points))
+  se = rep(NA, length(interp_points))
+  for (i in seq_along(interp_points)){
+    interp_index = which.min(abs(interp_points[i] - height))
+    sed_rate_vals = matrix[interp_index,]
+    sed_rate_val = rej_sampling(sedrate, sed_rate_vals)
+    interp_heights[i] = height[interp_index]
+    se[i] = sed_rate_val
+    
+  }
+  return(approxfun(interp_heights, se, ties = function(x) sample(x, 1))) # for ties, randomly select one sample
+  }
+  return(f)
+}
