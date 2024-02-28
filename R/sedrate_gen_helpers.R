@@ -83,3 +83,23 @@ sed_rate_from_matrix = function(height, sedrate, matrix, rate = 1){
   }
   return(f)
 }
+
+sed_rate_gen_from_bounds = function(h_l, s_l, h_u, s_u, rate = 1){
+  #' 
+  #' @title seg rate gen from upper/lower bounds
+  #' 
+  #' @param h_l height values for lower bounds
+  #' @param s_l sed rate values for lower bounds
+  #' @param h_u height values for upper bounds
+  #' @param s_u sed rate values for upper bounds
+  #' 
+  f = function(){
+    h_min = min(c(min(h_u), min(h_l)))
+    h_max = max(c(max(h_u), max(h_l)))
+    h = sort(unique(c(h_min, h_max, crppp(h_min, h_max, rate))))
+    s_min = approx(h_l, s_l, xout = h)$y
+    s_max = approx(h_u, s_u, xout = h)$y
+    sval = runif(length(h), s_min, s_max)
+    return(approxfun(h, sval, f=2))
+  }
+}
