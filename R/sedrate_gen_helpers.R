@@ -13,12 +13,12 @@ rej_sampling = function(x,y, n = 1){
     #'  
   #' @returns numeric vector of length n
   
-  f = approxfun(x,y)
+  f = stats::approxfun(x,y)
   f_max = max(y)
   out = c()
   while (length(out) < n){
-    x_draw = runif(1, min = min(x), max = max(x))
-    y_draw = runif(1, min = 0, max = f_max)
+    x_draw = stats::runif(1, min = min(x), max = max(x))
+    y_draw = stats::runif(1, min = 0, max = f_max)
     if (y_draw < f(x_draw)){
       out = c(out, x_draw)
     }
@@ -41,8 +41,8 @@ crppp = function(x_min, x_max, rate = 1){
   #' 
   #' @returns numeric vector of variable length
   #' 
-  n = rpois(1, (x_max - x_min)* rate)
-  points = runif(n, min = x_min, max = x_max)
+  n = stats::rpois(1, (x_max - x_min)* rate)
+  points = stats::runif(n, min = x_min, max = x_max)
   return(points)
 }
 
@@ -79,7 +79,7 @@ sed_rate_from_matrix = function(height, sedrate, matrix, rate = 1){
     se[i] = sed_rate_val
     
   }
-  return(approxfun(interp_heights, se, ties = function(x) sample(x, 1))) # for ties, randomly select one sample
+  return(stats::approxfun(interp_heights, se, ties = function(x) sample(x, 1))) # for ties, randomly select one sample
   }
   return(f)
 }
@@ -92,14 +92,16 @@ sed_rate_gen_from_bounds = function(h_l, s_l, h_u, s_u, rate = 1){
   #' @param s_l sed rate values for lower bounds
   #' @param h_u height values for upper bounds
   #' @param s_u sed rate values for upper bounds
+  #' @param rate rate parameter for Poisson point process
   #' 
   f = function(){
     h_min = min(c(min(h_u), min(h_l)))
     h_max = max(c(max(h_u), max(h_l)))
     h = sort(unique(c(h_min, h_max, crppp(h_min, h_max, rate))))
-    s_min = approx(h_l, s_l, xout = h)$y
-    s_max = approx(h_u, s_u, xout = h)$y
-    sval = runif(length(h), s_min, s_max)
-    return(approxfun(h, sval, f=2))
+    s_min = stats::approx(h_l, s_l, xout = h)$y
+    s_max = stats::approx(h_u, s_u, xout = h)$y
+    sval = stats::runif(length(h), s_min, s_max)
+    return(stats::approxfun(h, sval, f=2))
   }
+  return(f)
 }

@@ -162,7 +162,6 @@ The S3 class `multiadm` represents **multi**ple **a**ge **d**epth **m**odels.. S
 
 `h[[i]][j]` is the height of the i-th age-depth model at time `t[[i]][j]`. For each `i`, the quintuple `h[[i]]`, `t[[i]]`, `destr[[i]]`, `T_unit` and `L_unit` specify an `adm` object with the constraints as specified in the section *S3 class `adm`* (e.g., on monotonicity, length, etc.). `T_unit` and `L_unit` are shared among all age-depth models in an `multiamd` object.
 
-
 #### Construction
 
 The following functions construct `multiadm` objects:
@@ -233,3 +232,34 @@ The following functions transform `multiadm` objects into other S3 classes:
 -   `strat_to_time`: Transform stratigraphic tree into time domain
 -   `time_to_strat`: Transform time tree into strat domain
 
+## Plotting
+
+The following functions are used for plotting:
+
+-   `plot.adm` plotting for S3 class `adm`
+
+-   `plot.multiadm` plotting for S3 class `multiadm`
+
+-   `plot.sac` plotting for S3 class `sac`
+
+-   `T_axis_lab` to annotate time axis
+
+-   `L_axis_lab` to annotate length/depth axis
+
+-   `plot_sed_rate_l` to plot sedimentation rate in length/depth domain
+
+-   `plot_sed_rate_t` to plot sedimentation rate in time domain
+
+-   `plot_condensation`
+
+-   `plot_erosive_intervals` to highlight erosive intervals, called after `plot.adm`
+
+### Internals
+
+The following functions are used internally and not exposed to users. They can be accessed via `admtools:::function_name`.
+
+-   `plot_destr_parts`
+
+-   `plot_acc_parts`
+
+-   `make_adm_canvas`

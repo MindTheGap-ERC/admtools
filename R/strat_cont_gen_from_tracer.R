@@ -1,7 +1,11 @@
-strat_cont_gen_from_proxy = function(bin_borders, df, distribution = "normal", cap = TRUE, cap_val = 0){
+strat_cont_gen_from_tracer = function(bin_borders, df, distribution = "normal", cap = TRUE, cap_val = 0){
   #' @export
   #' 
-  #' @title proxy record fluxes
+  #' @title proxy values in strat domain
+  #' 
+  #' @description
+    #' Generates a function factory for usage with _strat_cont_to_multiadm_ based on empirical tracer measurements in the section
+    #' 
   #' 
   #' @param bin_borders borders of sampling bins
   #' @param df data frame with proxy records
@@ -11,6 +15,13 @@ strat_cont_gen_from_proxy = function(bin_borders, df, distribution = "normal", c
   #' 
   #' @returns a functional for usage with strat_cont_to_multiadm
   #' 
+  #' @seealso [flux_const()], [flux_linear()], [flux_quad()] to define tracer fluxes
+  #' 
+  #' @examples
+  #' \dontrun{
+  #' # see this vignette for a use case
+  #' vignette("adm_from_trace_cont")
+  #' }
   
   if (distribution != "normal"){
     stop("Distribution type not implemented. Use one of the currently available options: \"normal\".")

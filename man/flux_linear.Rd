@@ -2,7 +2,7 @@
 % Please edit documentation in R/flux_helpers.R
 \name{flux_linear}
 \alias{flux_linear}
-\title{linear deterministic proxy flux}
+\title{linear deterministic tracer flux}
 \usage{
 flux_linear(x0 = 0, y0 = 1, x1 = 1, y1 = 2)
 }
@@ -16,9 +16,12 @@ flux_linear(x0 = 0, y0 = 1, x1 = 1, y1 = 2)
 \item{y1}{numeric, ordinate}
 }
 \value{
-a functional that takes no arguments. Upon each evaluation, it returns a linear function passing thrpugh the points (x0, y0) and (x1, y1)
+a function factory that takes no arguments. Upon each evaluation, it returns a linear function passing through the points (x0, y0) and (x1, y1)
 }
 \description{
-For usage with \emph{strat_cont_to_multiadm} : defines linear proxy flux in the time domain
-Proxy flux is the linear function passing thrpugh the points (x0, y0) and (x1, y1)
+For usage with \emph{strat_cont_to_multiadm} : defines linear tracer flux in the time domain
+Tracer flux is the linear function passing through the points (x0, y0) and (x1, y1)
+}
+\seealso{
+\code{\link[=flux_const]{flux_const()}}, \code{\link[=flux_quad]{flux_quad()}}, \code{\link[=strat_cont_gen_from_tracer]{strat_cont_gen_from_tracer()}}
 }
