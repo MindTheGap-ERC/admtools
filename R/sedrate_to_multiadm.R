@@ -2,7 +2,7 @@ sedrate_to_multiadm = function(h_tp, t_tp, sed_rate_gen, h, no_of_rep = 100L, su
   #' 
   #' @export
   #' 
-  #' @title Estimate age-depth model from sedimentation rate & tie points
+  #' @title Estimate age-depth model from sedimentation rates & tie points
   #' 
   #' @description
     #' Combines information on tie points and sedimentation rates to estimate age-depth models and their associated uncertainty. For an example, see `vignette("adm_from_sedrate")`.
@@ -12,7 +12,7 @@ sedrate_to_multiadm = function(h_tp, t_tp, sed_rate_gen, h, no_of_rep = 100L, su
   #' @param t_tp : function, returns times of tie points
   #' @param sed_rate_gen : function, returns function describing sedimentation rate
   #' @param h : numeric, heights where the adm is calculated
-  #' @param no_of_rep : numeric, number of repetitions
+  #' @param no_of_rep : integer, number of repetitions
   #' @param subdivisions maximum no of subintervals used in numeric integration. passed to _integrate_, see ?stats::integrate for details
   #' @param stop.on.error logical passed to _integrate_, see ?stats::integrate for details
   #' @param T_unit time unit

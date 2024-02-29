@@ -85,6 +85,8 @@ sed_rate_from_matrix = function(height, sedrate, matrix, rate = 1){
 }
 
 sed_rate_gen_from_bounds = function(h_l, s_l, h_u, s_u, rate = 1){
+  
+  #' @export
   #' 
   #' @title seg rate gen from upper/lower bounds
   #' 
@@ -92,14 +94,14 @@ sed_rate_gen_from_bounds = function(h_l, s_l, h_u, s_u, rate = 1){
   #' @param s_l sed rate values for lower bounds
   #' @param h_u height values for upper bounds
   #' @param s_u sed rate values for upper bounds
-  #' @param rate rate parameter for Poisson point process
+  #' @param rate rate of poisson point process
   #' 
   f = function(){
     h_min = min(c(min(h_u), min(h_l)))
     h_max = max(c(max(h_u), max(h_l)))
     h = sort(unique(c(h_min, h_max, crppp(h_min, h_max, rate))))
-    s_min = stats::approx(h_l, s_l, xout = h)$y
-    s_max = stats::approx(h_u, s_u, xout = h)$y
+    s_min = stats::approx(h_l, s_l, xout = h, f = 2)$y
+    s_max = stats::approx(h_u, s_u, xout = h, f = 2)$y
     sval = stats::runif(length(h), s_min, s_max)
     return(stats::approxfun(h, sval, f=2))
   }

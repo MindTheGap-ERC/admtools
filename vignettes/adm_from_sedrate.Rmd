@@ -39,7 +39,112 @@ In addition, it takes the following inputs that specify the estimation procedure
 
 -   `no_of_rep`: integer, number of runs
 
-Additional parameters that determine the numeric behavior are `subdivisions` and `stop.on.error`. The parameters `T_unit` and `L_unit` can be used to associate time and length units with the generated age-depth model.
+Additional parameters that determine the numeric behavior of the integration method used are `subdivisions` and `stop.on.error`. The parameters `T_unit` and `L_unit` can be used to associate time and length units with the generated age-depth model.
+
+## Example ##
+
+We construct an age depth model for a section of 10 m thickness where upper and lower bounds on sedimentation rates are available.
+
+### Data
+
+We start by defining the section as well as lower and upper bounds on sedimentation rates
+
+```{r}
+h_min = 2 # lower boundary of the section
+h_max = 10 # upper boundary of the section
+T_unit = "Myr"
+L_unit = "m"
+```
+
+We want to know the age-depth model every 10 cm, so we define
+
+```{r}
+h = seq(h_min, h_max, by = 0.1)
+```
+
+### Tie points
+
+We assume there is one tie points in the section at 5 m in the section, and its mean age is 66 years with a standard deviation of 0.25 Myr
+
+```{r}
+h1 = 5
+mean_age = -66
+sd = 0.25 
+```
+
+Then the tie point timing is given by
+
+```{r}
+t_tp = tp_time_norm(mean = mean_age, sd = sd)
+```
+
+and the tie point height is given by
+
+```{r}
+h_tp = tp_height_det(heights = h1)
+```
+
+Every time `t_tp`is evaluated, it returns one possible time of the tie points. Similarily, every time `h_tp`is evaluated, it returns the stratigraphic position of the tie point (which is deterministic in this case):
+```{r}
+h_tp()
+t_tp()
+```
+### Sedimentation rates
+
+We assume the following upper and lower limits for sedimentation rates:
+
+```{r}
+sedrate_max_y = c(2,5,8,5)
+sedrate_max_x = c(1,4,6,10)
+sedrate_min_y = c(1,1,7,0.5)
+sedrate_min_x = sedrate_max_x 
+```
+
+Here, `sedrate_max_y[i]` is the upper limit on sedimentation rate at `sedrate_max_x[i]`. Between these points, we assume linear interpolation. This is done by the function `sed_rate_gen_from_bounds`: 
+
+```{r}
+sedrate = sed_rate_gen_from_bounds(h_l = sedrate_min_x,
+                                   s_l = sedrate_min_y,
+                                   h_u = sedrate_max_x,
+                                   s_u = sedrate_max_y,
+                                   rate = 1)
+```
+
+Because the sedimentation rates are uncertain, functions returned by `sedrate` will differ each time the function is evaluated. As an example, we plot three different sample paths (realizations) of the sedimentation rate through the section:
+
+```{r}
+plot(NULL,
+     xlim = range(h),
+     ylim = c(0, max(c(sedrate_max_y))),
+     xlab = "Height [m]",
+     ylab = "Sedimentation Rate [m/Myr]")
+no_sedrates = 3
+cols = c("red", "blue", "black")
+for (i in seq_len(no_sedrates)){
+  sedrate_sample = sedrate()
+  lines(h, sedrate_sample(h), lwd = 3, col = cols[i])
+}
+```
+These sedimentation rates assume sedimentation rates are drawn from a uniform distribution between the upper and lower limits of sedimentation rate provided by the user. This is done at random locations determined according to a Poisson point process with rate `rate`.
+
+### Estimate age depth model
+
+With tie points and sedimentation rates specified, we can now estimate the age depth model using
+
+```{r}
+my_adm = sedrate_to_multiadm(h_tp = h_tp,
+                             t_tp = t_tp,
+                             sed_rate_gen = sedrate,
+                             h = h,
+                             T_unit = T_unit,
+                             L_unit = L_unit)
+```
+
+The age-depth model can be plotted using
+
+```{r}
+plot(my_adm)
+```
 
 ## Coding user knowledge
 
