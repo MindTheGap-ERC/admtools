@@ -89,3 +89,17 @@ test_that("errors in tie point encoding are caught", {
   expect_error(strat_cont_to_multiadm(h_tp, t_tp, strat_cont__gen, time_cont_gen, h, no_of_rep = 1))
   
 })
+
+test_that("unbounded intervals with finite tracer volumes are caught", {
+h_1 = 0
+t_1 = 0
+no_of_rep = 1
+t_tp = function() return(t_1)
+h_tp = function() return(h_1)
+strat_cont_gen = function() return(function(x) pmin(rep(1,length(x)),exp(-x)))
+time_cont_gen = function() return(function(x) pmin(rep(1,length(x)),exp(-x)))
+h = seq(0,1,by = 0.1)
+madm = strat_cont_to_multiadm(h_tp, t_tp, strat_cont_gen, time_cont_gen, h, no_of_rep = no_of_rep)
+expect_equal(madm$h[[1]], h)
+expect_equal(madm$t[[no_of_rep]], seq(0,1,by = 0.1), tolerance = 0.001)
+})

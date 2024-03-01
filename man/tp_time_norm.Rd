@@ -14,8 +14,11 @@ tp_time_norm(mean, sd, force_order = TRUE)
 \item{force_order}{logical, enforce strictly increasing times}
 }
 \value{
-a function
+function for usage with \emph{strat_cont_to_multiadm} and \emph{sedrate_to_multiamd} as t_tp input
 }
 \description{
 defines a function factory that returns normally distributed times. FOr usage with \code{sedrate_to_multiadm} and \code{strat_cont_to_multiadm}.
+}
+\seealso{
+\code{\link[=tp_time_floating_scale]{tp_time_floating_scale()}} for tie points for a floating scale, \code{\link[=tp_height_det]{tp_height_det()}} for deterministic height tie points
 }

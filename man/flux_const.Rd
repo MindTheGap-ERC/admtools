@@ -2,13 +2,23 @@
 % Please edit documentation in R/flux_helpers.R
 \name{flux_const}
 \alias{flux_const}
-\title{constant deterministic proxy flux}
+\title{constant deterministic tracer flux}
 \usage{
 flux_const()
 }
 \value{
-a functional
+a function factory that takes no arguments
 }
 \description{
-For usage with \emph{strat_cont_to_multiadm}; defines constant proxy flux in the time domain
+For usage with \emph{strat_cont_to_multiadm}; defines constant tracer flux in the time domain
+}
+\examples{
+\dontrun{
+# see this vignette for an example
+vignette("adm_from_trace_cont")
+}
+
+}
+\seealso{
+\code{\link[=flux_linear]{flux_linear()}}, \code{\link[=flux_quad]{flux_quad()}}, \code{\link[=strat_cont_gen_from_tracer]{strat_cont_gen_from_tracer()}}
 }

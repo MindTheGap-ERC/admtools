@@ -33,6 +33,14 @@ get_L_unit.multiadm = function(x, ...){
   return(x$L_unit)
 }
 
+get_L_unit.sac = function(x, ...){
+  
+  #' @export
+  
+  return(x$L_unit)
+}
+
+
 set_L_unit = function(x, L_unit, ...){
   
   #' 
@@ -65,6 +73,14 @@ set_L_unit.adm = function(x, L_unit, ...){
 }
 
 set_L_unit.multiadm = function(x, L_unit, ...){
+  
+  #' @export
+  #' 
+  x$L_unit = L_unit
+  return(x)
+}
+
+set_L_unit.sac = function(x, L_unit, ...){
   
   #' @export
   #' 
@@ -106,6 +122,13 @@ get_T_unit.multiadm = function(x, ...){
   return(x$T_unit)
 }
 
+get_T_unit.sac = function(x, ...){
+  
+  #' @export
+  
+  return(x$T_unit)
+}
+
 set_T_unit = function(x, T_unit, ...){
   
   #' 
@@ -138,6 +161,14 @@ set_T_unit.adm = function(x, T_unit, ...){
 }
 
 set_T_unit.multiadm = function(x, T_unit, ...){
+  
+  #' @export
+  #' 
+  x$T_unit = T_unit
+  return(x)
+}
+
+set_T_unit.sac = function(x, T_unit, ...){
   
   #' @export
   #' 

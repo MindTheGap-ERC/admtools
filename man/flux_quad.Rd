@@ -2,7 +2,7 @@
 % Please edit documentation in R/flux_helpers.R
 \name{flux_quad}
 \alias{flux_quad}
-\title{quadratic deterministix proxy flux}
+\title{quadratic deterministic tracer flux}
 \usage{
 flux_quad(a = 1, b = 1, c = 1)
 }
@@ -14,9 +14,12 @@ flux_quad(a = 1, b = 1, c = 1)
 \item{c}{numeric}
 }
 \value{
-a functional that takes no arguments. Upon each evaluation, it returns the quadratic function f(x) = ax^2 + bx + c
+a function factory that takes no arguments. Upon each evaluation, it returns the quadratic function f(x) = ax^2 + bx + c
 }
 \description{
-For usage with \emph{strat_cont_to_multiadm} : defines quadratic proxy flux in the time domain
+For usage with \emph{strat_cont_to_multiadm} : defines quadratic tracer flux in the time domain
 defined by the function f(x) = ax^2 + bx + c
+}
+\seealso{
+\code{\link[=flux_linear]{flux_linear()}}, \code{\link[=flux_const]{flux_const()}}, \code{\link[=strat_cont_gen_from_tracer]{strat_cont_gen_from_tracer()}}
 }

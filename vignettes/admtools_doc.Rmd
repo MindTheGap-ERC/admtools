@@ -1,0 +1,265 @@
+---
+title: "Structure and classes of the admtools package"
+output: rmarkdown::html_vignette
+author: "Niklas Hohmann"
+vignette: >
+  %\VignetteIndexEntry{admtools_doc}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(admtools)
+```
+
+# Introduction
+
+This vignette provides an overview of the larger scale structure of the `admtools` package and the classes used therein.
+
+## S3 Classes
+
+### S3 class `adm`
+
+#### Description
+
+The S3 class `adm` represents **a**ge **d**epth **m**odels. Structurally, they are lists with five fields:
+
+-   `t` : numeric vector, time points
+
+-   `h` : numeric vectors, heights
+
+-   `destr`: logical vector, is the interval destructive
+
+-   `T_unit` : `NULL` or a string, time unit
+
+-   `L_unit` : `NULL` or a string, length unit
+
+`h[i]` is the height at time `t[i]`. `h` and `t` must be of same length and have at least 2 elements, `t` must be strictly increasing and `h` must be nondecreasing. `length(destr)` must be identical to `length(t) - 1`. `destr[i] == TRUE` indicates that the time interval from `t[i]` to `t[i+1]` is destructive and no information is preserved. Whether tie points are considered destructive is determined by the function `is_destructive`. Geologically, `destr[i] == TRUE` should imply `h[i] == h[i+1]` , as no sediment is accumulated during hiatuses.
+
+#### Construction
+
+The following functions construct `adm` objects:
+
+-   `tp_to_adm` for construction from tie points
+-   `sac_to_adm` for construction from sediment accumulation curves `sac`
+-   `split_multiadm` for extraction from multiple age-depth models `multiadm`
+
+#### Logic
+
+The following functions examine the logic of `adm` objects:
+
+-   `is_adm` to check for validity of an adm object
+
+#### Representation
+
+The following functions yield a representation of `adm` objects:
+
+-   `plot.adm` for plotting
+-   `print.adm` for printing to the console
+-   `summary.adm` to provide a quick summary of an object
+
+#### Modification
+
+The following functions modify `adm` objects:
+
+-   `set_L_unit` and `set_T_unit` to change units
+
+#### Extracting information
+
+The following functions extract information from `adm` objects:
+
+-   `condensation` and `condensation_fun` to extract condensation
+-   `get_L_unit` and `get_T_unit` to extract data
+-   `get_completeness` and `get_incompleteness`
+-   `get_height`
+-   `get_time`
+-   `get_hiat_duration`
+-   `get_hiat_list`
+-   `get_hiat_no`
+-   `get_hiat_pos`
+-   `get_total_duration`
+-   `get_total_thickness`
+-   `is_destructive`
+-   `sed_rate_l` and `sed_rate_l_fun` to extract sedimentation rate in height domain
+-   `sed_rate_t` and `sed_rate_t_fun` to extract sedimentation rate in time domain
+
+#### Transformation into other S3 classes
+
+The following functions transform `adm` objects into other S3 classes:
+
+-   `merge_adm_to_multiadm` into `multiamd`
+-   `add_adm_to_multiadm` to add `adm` to `multiadm`
+
+### S3 class `sac`
+
+#### Description
+
+The S3 class `sac` represents **s**ediment **a**ccumulation **c**urves. Structurally, they are lists with four fields:
+
+-   `t` : numeric vector, time points
+-   `h` : numeric vectors, heights
+-   `T_unit` : `NULL` or a string, time unit
+-   `L_unit` : `NULL` or a string, length unit
+
+`h[i]` is the height at time `t[i]`. `h` and `t` must be of same length and have at least 2 elements, `t` must be increasing.
+
+#### Construction
+
+The following functions construct `sac` objects:
+
+Standard constructor is `tp_to_sac` (tie point to sediment accumulation curve)
+
+#### Logic
+
+The following functions inspect the logic of `sac` objects:
+
+-   `is_sac` to check validity of `sac` object
+
+#### Representation
+
+The following functions yield a representation of `sac` objects:
+
+-   `plot.sac` for plotting
+-   `print.sac` for printing to the console
+
+#### Modification
+
+The following functions modify `sac` objects:
+
+-   `set_L_unit` and `set_T_unit` to change units
+
+#### Extracting information
+
+The following functions extract information from `sac` objects:
+
+-   `get_L_unit` and `get_T_unit` to extract units
+
+#### Transformation into other S3 classes
+
+The following functions transform `sac` objects into other S3 classes:
+
+-   `sac_to_adm` to transform `sac` into the S3 class `adm`
+
+### S3 class `multiadm`
+
+#### Description
+
+The S3 class `multiadm` represents **multi**ple **a**ge **d**epth **m**odels.. Structurally, they are lists with the following elements:
+
+-   `no_of_entries`: Positive integer, number of age depth models contained
+-   `t` list of length `no_of_entries`. Each element contains a numeric vector
+-   `h`: list of length `no_of_entries`. Each element contain a numeric vector
+-   `destr`: list of length `no_of_entries`. Each element contain a logic
+-   `T_unit` : `NULL` or a string, time unit
+-   `L_unit` : `NULL` or a string, length unit
+
+`h[[i]][j]` is the height of the i-th age-depth model at time `t[[i]][j]`. For each `i`, the quintuple `h[[i]]`, `t[[i]]`, `destr[[i]]`, `T_unit` and `L_unit` specify an `adm` object with the constraints as specified in the section *S3 class `adm`* (e.g., on monotonicity, length, etc.). `T_unit` and `L_unit` are shared among all age-depth models in an `multiamd` object.
+
+#### Construction
+
+The following functions construct `multiadm` objects:
+
+-   `merge_adm_to_multiadm` to contruct `multiadm` from `adm` objects
+-   `sedrate_to_multiadm` construct `multiadm` from info on sedimentation rates, see `vignette("adm_from_sedrate")`
+-   `strat_cont_to_multiadm` construct `multiadm` from tracer information, see `vignette("adm_from_trace_cont")`
+
+#### Logic
+
+The following functions inspect the logic of `multiadm` objects:
+
+-   `is_multiadm` to check for validity of multiadm object
+
+#### Representation
+
+The following functions yield a representation `multiadm` objects:
+
+-   `plot.multiadm` for plotting
+-   `print.multiadm` for printing to console
+-   `summary.multiadm` for providing summary statistics
+
+#### Modification
+
+The following functions modify `multiadm` objects:
+
+-   `merge_multiadm` to combine multiple `multiadm` objects
+-   `set_L_unit` and `set_T_unit` to change units
+
+#### Extracting information
+
+The following functions extract information from `multiadm` objects:
+
+-   `condensation` to extract condensation
+-   `get_completeness` and `get_incompleteness`
+-   `get_height`
+-   `get_hiat_duration`
+-   `get_hiat_list`
+-   `get_hiat_no`
+-   `get_hiat_pos`
+-   `get_L_unit` and `get_T_unit` to extract data
+-   `get_time`
+-   `get_total_duration`
+-   `get_total_thickness`
+-   `is_destructive`
+-   `sed_rate_l`
+-   `sed_rate_t`
+
+#### Transformation into other S3 classes
+
+The following functions transform `multiadm` objects into other S3 classes:
+
+-   `split_multiadm` to split `multiadm` into list of `adm` objects
+
+## Methods implemented for external S3 classes
+
+### S3 class `list`
+
+`admtools` implements the following methods for `list`:
+
+-   `strat_to_time`: Transform strat-val pairs into time domain
+-   `time_to_strat`: Transform time-val pairs into strat domain
+
+### S3 class `phylo`
+
+`admtools` implements the following methods for `phylo`:
+
+-   `strat_to_time`: Transform stratigraphic tree into time domain
+-   `time_to_strat`: Transform time tree into strat domain
+
+## Plotting
+
+The following functions are used for plotting:
+
+-   `plot.adm` plotting for S3 class `adm`
+
+-   `plot.multiadm` plotting for S3 class `multiadm`
+
+-   `plot.sac` plotting for S3 class `sac`
+
+-   `T_axis_lab` to annotate time axis
+
+-   `L_axis_lab` to annotate length/depth axis
+
+-   `plot_sed_rate_l` to plot sedimentation rate in length/depth domain
+
+-   `plot_sed_rate_t` to plot sedimentation rate in time domain
+
+-   `plot_condensation`
+
+-   `plot_erosive_intervals` to highlight erosive intervals, called after `plot.adm`
+
+### Internals
+
+The following functions are used internally and not exposed to users. They can be accessed via `admtools:::function_name`.
+
+-   `plot_destr_parts`
+
+-   `plot_acc_parts`
+
+-   `make_adm_canvas`

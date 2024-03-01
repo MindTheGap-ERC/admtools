@@ -7,8 +7,17 @@
 tp_time_floating_scale()
 }
 \value{
-a functional
+function for usage with \emph{strat_cont_to_multiadm} and \emph{sedrate_to_multiamd} as t_tp input
 }
 \description{
 Defines tie points for a floating time sclae for usage with \emph{sedrate_to_multiadm} and \emph{strat_cont_to_multiadm}
+}
+\examples{
+\dontrun{
+# see this vignette for an example
+vignette("adm_from_trace_cont")
+} 
+}
+\seealso{
+\code{\link[=tp_time_norm]{tp_time_norm()}} for tie points following a normal distribution, \code{\link[=tp_height_det]{tp_height_det()}} for deterministic height tie points
 }

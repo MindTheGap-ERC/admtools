@@ -2,7 +2,7 @@
 % Please edit documentation in R/sedrate_to_multiadm.R
 \name{sedrate_to_multiadm}
 \alias{sedrate_to_multiadm}
-\title{Estimate age-depth model from sedimentation rate & tie points}
+\title{Estimate age-depth model from sedimentation rates & tie points}
 \usage{
 sedrate_to_multiadm(
   h_tp,
@@ -25,7 +25,7 @@ sedrate_to_multiadm(
 
 \item{h}{: numeric, heights where the adm is calculated}
 
-\item{no_of_rep}{: numeric, number of repetitions}
+\item{no_of_rep}{: integer, number of repetitions}
 
 \item{subdivisions}{maximum no of subintervals used in numeric integration. passed to \emph{integrate}, see ?stats::integrate for details}
 

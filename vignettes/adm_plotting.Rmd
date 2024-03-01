@@ -1,5 +1,5 @@
 ---
-title: "adm_plotting"
+title: "Plotting Age-Depth Aodels"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{adm_plotting}

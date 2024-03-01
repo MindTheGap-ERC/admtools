@@ -10,8 +10,11 @@ tp_height_det(heights)
 \item{heights}{numeric vector. Stratigraphic positions of the tie points}
 }
 \value{
-a function for usage with \emph{strat_cont_to_multiadm} and \emph{sedrate_to_multiamd}
+a function for usage with \emph{strat_cont_to_multiadm} and \emph{sedrate_to_multiamd} as t_tp input
 }
 \description{
 defines deterministic stratigraphic tie points
+}
+\seealso{
+\code{\link[=tp_time_norm]{tp_time_norm()}} for tie points following a normal distribution, \code{\link[=tp_time_floating_scale]{tp_time_floating_scale()}} for tie points for a floating scale,
 }

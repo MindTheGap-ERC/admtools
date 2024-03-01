@@ -3,18 +3,22 @@ strat_cont_to_multiadm = function(h_tp, t_tp, strat_cont_gen, time_cont_gen, h, 
                                   T_unit = NULL, L_unit = NULL){
   
   #'
-  #' @title estimate age-depth model from stratigraphic contents
+  #' @title estimate age-depth model from tracer
+  #' 
+  #' @description
+    #' Estimates age-depth models by comparing observed tracer values in a section with assumptions on tracer flux in time. See `vignette("adm_from_trace_cont")` for a full example.
+    #' 
   #' 
   #' @param h_tp function, returning tie point heights
   #' @param t_tp function, returning tie points times
-  #' @param strat_cont_gen function, generating stratigraphic contents
-  #' @param time_cont_gen function, generating the hypothesis on content input in time
-  #' @param h numeric vector, heights where the adm is evaluated
-  #' @param no_of_rep integer, number of repetitions
+  #' @param strat_cont_gen function, describing tracer data observed in the section
+  #' @param time_cont_gen function, describing tracer changes in time
+  #' @param h numeric vector, heights where the age depth model is described
+  #' @param no_of_rep integer, number of age depth models generated 
   #' @param subdivisions integer, max no. of subintervals used by integration procedure. passed to _integrate_, see ?stats::integrate for details
   #' @param stop.on.error logical passed to _integrate_, see ?stats::integrate for details
-  #' @param T_unit time unit 
-  #' @param L_unit length unit
+  #' @param T_unit NULL or character, time unit 
+  #' @param L_unit NULL or character, length unit
   #' 
   #' @returns Object of class multiadm
   #' 
@@ -39,10 +43,19 @@ strat_cont_to_multiadm = function(h_tp, t_tp, strat_cont_gen, time_cont_gen, h, 
   if(length(t_rel) != length(h_rel)){
     stop("Uneven number of tie points in time and height")
   }
+  if (length(t_rel) < 1){
+    stop("Need at least one tie point")
+  }
   ## initialize storage
   h_list = vector(mode = "list", length = no_of_rep)
   t_list = vector(mode = "list", length = no_of_rep)
   destr_list = vector(mode = "list", length = no_of_rep)
+  
+  if (length(t_tp()) == 1){
+    timescale = 10^3
+  } else {
+    timescale = 10* diff(range(t_tp()))
+  }
   
   for (i in seq_len(no_of_rep)){
     # sample stratigraphic & time contents, and tie points
@@ -59,7 +72,29 @@ strat_cont_to_multiadm = function(h_tp, t_tp, strat_cont_gen, time_cont_gen, h, 
       h_upper = h_tp_sample[int_no + 1]
       t_lower = t_tp_sample[int_no]
       t_upper = t_tp_sample[int_no + 1]
-      rescale = is.finite(h_upper - h_lower)
+      
+      h_relevant = h[h> h_lower & h <= h_upper]
+      if (length(h_relevant) == 0){
+        next
+      }
+      
+      rescale = TRUE
+      is_unbounded_interval = is.infinite(h_upper - h_lower)
+      if (is_unbounded_interval){
+        m1 = stats::integrate(strat_cont_sample,
+                              lower = h_lower,
+                              upper = h_upper,
+                              subdivisions = subdivisions,
+                              stop.on.error = FALSE)$message
+        m2 = stats::integrate(time_cont_sample,
+                               lower = t_lower,
+                               upper = t_upper,
+                               subdivisions = subdivisions,
+                               stop.on.error = FALSE)$message
+        if (m1 =="the integral is probably divergent" & m2 == "the integral is probably divergent"){
+          rescale = FALSE
+        }
+      }
       time_cont_sample_corr = get_corr_time_cont(strat_cont = strat_cont_sample,
                                                  time_cont = time_cont_sample, 
                                                  h_lower = h_lower,
@@ -70,10 +105,7 @@ strat_cont_to_multiadm = function(h_tp, t_tp, strat_cont_gen, time_cont_gen, h, 
                                                  stop.on.error = stop.on.error,
                                                  rescale = rescale)
       
-      h_relevant = h[h> h_lower & h <= h_upper]
-      if (length(h_relevant) == 0){
-        next
-      }
+
       t_out = rep(NA, length(h_relevant))
       
       reverse_direction = is.infinite(t_lower)
@@ -84,51 +116,62 @@ strat_cont_to_multiadm = function(h_tp, t_tp, strat_cont_gen, time_cont_gen, h, 
                                                             upper = t_upper,
                                                             subdivisions = subdivisions,
                                                             stop.on.error = stop.on.error)$val
+        for (j in seq_along(h_relevant)){
+            strat_cont_at_hi = stats::integrate(f = strat_cont_sample,
+                                                lower = h_relevant[j],
+                                                upper = h_upper,
+                                                subdivisions = subdivisions,
+                                                stop.on.error = stop.on.error)$val
+
+          f = function(t) integrated_time_cont(t) - strat_cont_at_hi
+          if (is.infinite(t_lower)){
+            t_lower_search = t_upper - timescale
+          } else {
+            t_lower_search = t_lower
+          }
+          if (is.infinite(t_upper)){
+            t_upper_search = t_lower + timescale
+          } else{
+            t_upper_search = t_upper
+          }
+            t_out[j] =  stats::uniroot(f = f, 
+                                       interval = c(t_lower_search, t_upper_search), 
+                                       extendInt = "yes")$root
+        }
       }
       if (!reverse_direction){
-        integrated_time_cont = function(t) stats::integrate(f = time_cont_sample_corr,
-                                                            lower = t_lower,
-                                                            upper = t,
-                                                            subdivisions = subdivisions,
-                                                            stop.on.error = stop.on.error)$val
-      }
-      
-      for (j in seq_along(h_relevant)){
-        if (reverse_direction){
-          strat_cont_at_hi = stats::integrate(f = strat_cont_sample,
-                                              lower = h_relevant[j],
-                                              upper = h_upper,
-                                              subdivisions = subdivisions,
-                                              stop.on.error = stop.on.error)$val
-        }
-        if (!reverse_direction){
-          strat_cont_at_hi = stats::integrate(f = strat_cont_sample,
-                                              lower = h_lower,
-                                              upper = h_relevant[j],
-                                              subdivisions = subdivisions,
-                                              stop.on.error = stop.on.error)$val
-        }
+        integrated_time_cont = function(t) sapply(t, function(x) stats::integrate(f = time_cont_sample_corr,
+                                                                                  lower = t_lower,
+                                                                                  upper = x,
+                                                                                  subdivisions = subdivisions,
+                                                                                  stop.on.error = stop.on.error)$val)
+        
+        for (j in seq_along(h_relevant)){
+            strat_cont_at_hi = stats::integrate(f = strat_cont_sample,
+                                                lower = h_lower,
+                                                upper = h_relevant[j],
+                                                subdivisions = subdivisions,
+                                                stop.on.error = stop.on.error)$val
 
-        
-        f = function(t) integrated_time_cont(t) - strat_cont_at_hi
-        if (is.infinite(t_lower)){
-          t_lower = -10^-99
-        }
-        if (is.infinite(t_upper)){
-          t_upper = 10^99
-        }
-        if (!reverse_direction){
-          t_out[j] =  stats::uniroot(f = f, 
-                                              interval = c(t_lower, t_upper), 
-                                              extendInt = "yes")$root
-        }
-        if (reverse_direction){
-          t_out[j] =  stats::uniroot(f = f, 
-                                              interval = c(t_lower, t_upper), 
-                                              extendInt = "yes")$root
+          
+          
+          f = function(t) integrated_time_cont(t) - strat_cont_at_hi
+          if (is.infinite(t_lower)){
+            t_lower_search = t_upper - timescale
+          } else {
+            t_lower_search = t_lower
+          }
+          if (is.infinite(t_upper)){
+            t_upper_search = t_lower + timescale
+          } else{
+            t_upper_search = t_upper
+          }
+            t_out[j] =  stats::uniroot(f = f, 
+                                       interval = c(t_lower_search, t_upper_search), 
+                                       extendInt = "yes")$root
+
         }
       }
-        
         
       h_temp = c(h_temp, h_relevant)
       t_temp = c(t_temp, t_out)
