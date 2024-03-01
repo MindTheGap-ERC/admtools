@@ -16,7 +16,13 @@ Orcid: [0000-0003-1559-1838](https://orcid.org/0000-0003-1559-1838)
 
 ## Installation
 
-To install the package from _GitHub_, first install the _remotes_ package
+You can install the package from _CRAN_. For this, run
+
+```R
+install.packages("admtools")
+```
+
+in R. To install the package from _GitHub_, first install the _remotes_ package
 
 ```R
 install.packages("remotes")
@@ -31,13 +37,15 @@ remotes::install_github(repo = "MindTheGap-ERC/admtools",
                         dependencies = TRUE)
 ```
 
-You can also install the package from _CRAN_. For this, run
+To install the latest stable version. To install the version under developemnt, use
 
 ```R
-install.packages("admtools")
+remotes::install_github(repo = "MindTheGap-ERC/admtools",
+                        build_vignettes = TRUE,
+                        ref = "dev",
+                        dependencies = TRUE)
 ```
 
-in R.  
 After installation, you can load the package using
 
 ```R
