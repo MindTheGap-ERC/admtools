@@ -18,6 +18,7 @@ identifiers:
     value: 10.5281/zenodo.10213587
     description: Archived version on Zenodo
 repository-code: 'https://github.com/MindTheGap-ERC/admtools'
+url: 'https://mindthegap-erc.github.io/admtools/'
 abstract: >-
   R package to estimate age-depth models and transform data
   between the time domain and the stratigraphic domain. 
@@ -26,6 +27,6 @@ keywords:
   - Age-depth modeling
   - Stratigraphy
   - Sedimentology
-license: Apache-2.0
-version: 0.1.0
-date-released: '2023-12-05'
+license: GPL-3.0
+version: 0.2.0
+date-released: '2024-03-03'
