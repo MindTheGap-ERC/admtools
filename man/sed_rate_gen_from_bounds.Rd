@@ -15,8 +15,14 @@ sed_rate_gen_from_bounds(h_l, s_l, h_u, s_u, rate = 1)
 
 \item{s_u}{sed rate values for upper bounds}
 
-\item{rate}{rate parameter for Poisson point process}
+\item{rate}{rate of poisson point process}
+}
+\value{
+a function factory for usage with \code{sedrate_to_multiadm}
 }
 \description{
 seg rate gen from upper/lower bounds
+}
+\seealso{
+\code{\link[=sedrate_to_multiadm]{sedrate_to_multiadm()}} for estimating age-depth models using the outputs, \code{\link[=sed_rate_from_matrix]{sed_rate_from_matrix()}} for other means of defining sedimentation rates
 }

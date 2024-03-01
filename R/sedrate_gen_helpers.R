@@ -47,16 +47,20 @@ crppp = function(x_min, x_max, rate = 1){
 }
 
 sed_rate_from_matrix = function(height, sedrate, matrix, rate = 1){
-  #' @noRd
-  #' @keywords internal
+  #' @export
   #' @title make sed rate gen from matrix
   #' 
   #' @param height vector of heights
   #' @param sedrate vector of sed. rates x values
   #' @param matrix matrix of sed rate y values
+  #' @param rate numeric, rate of the Poisson point process determining frequency of sedimentation rate changes.
+  #' 
+  #' @returns a function factory for usage with `sedrate_to_multiadm`
+  #' 
+  #' @seealso [sedrate_to_multiadm()] for estimating sedimentation rates based on the outputs, [get_data_from_eTimeOpt()] for extracting data from the `eTimeOpt` function of the astrochron package.
   #' 
   #' @description
-    #' at height `height[i]`, the sedimentation rate is specified by the pdf approxfun(sedrate, matrix[i,])
+    #' at height `height[i]`, the sedimentation rate is specified by the pdf `approxfun(sedrate, matrix[i,]`)
     #' 
   
   # x_min = -2
@@ -96,6 +100,9 @@ sed_rate_gen_from_bounds = function(h_l, s_l, h_u, s_u, rate = 1){
   #' @param s_u sed rate values for upper bounds
   #' @param rate rate of poisson point process
   #' 
+  #' @returns a function factory for usage with `sedrate_to_multiadm`
+  #' 
+  #' @seealso [sedrate_to_multiadm()] for estimating age-depth models using the outputs, [sed_rate_from_matrix()] for other means of defining sedimentation rates
   f = function(){
     h_min = min(c(min(h_u), min(h_l)))
     h_max = max(c(max(h_u), max(h_l)))

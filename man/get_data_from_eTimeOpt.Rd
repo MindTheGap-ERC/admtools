@@ -20,3 +20,6 @@ a list with three entries
 \description{
 Extracts data from eTimeOpt. The type of data extractecd dependes on the \code{output} setting used for eTimeOpt. If you want ot extract specific data, adjust the output parameter in eTimeOpt to return the correct data (e.g. 2 for r^2 envelope). See eTimeOpt documentation for details on this. Then call this function on the return variable.
 }
+\seealso{
+\code{\link[=sed_rate_from_matrix]{sed_rate_from_matrix()}} to use define sedimentation rates based on this functions outputs, \code{\link[=sedrate_to_multiadm]{sedrate_to_multiadm()}} to estimate age-depth models from the outputs.
+}

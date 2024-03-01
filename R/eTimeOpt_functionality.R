@@ -9,6 +9,7 @@ get_data_from_eTimeOpt = function(res, index = 1){
     #' Extracts data from eTimeOpt. The type of data extractecd dependes on the `output` setting used for eTimeOpt. If you want ot extract specific data, adjust the output parameter in eTimeOpt to return the correct data (e.g. 2 for r^2 envelope). See eTimeOpt documentation for details on this. Then call this function on the return variable.
     #' 
   #' 
+  #' @seealso [sed_rate_from_matrix()] to use define sedimentation rates based on this functions outputs, [sedrate_to_multiadm()] to estimate age-depth models from the outputs.
   #' 
   #' @returns a list with three entries
     #' "sed_rate" : numeric vector, sedimentation rates
