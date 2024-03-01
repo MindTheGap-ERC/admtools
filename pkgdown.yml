@@ -1,4 +1,4 @@
-pandoc: 2.19.2
+pandoc: 3.1.11
 pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
@@ -6,7 +6,8 @@ articles:
   adm_from_trace_cont: adm_from_trace_cont.html
   adm_plotting: adm_plotting.html
   admtools: admtools.html
-last_built: 2024-02-21T08:11Z
+  admtools_doc: admtools_doc.html
+last_built: 2024-03-01T14:02Z
 urls:
   reference: https://mindthegap-erc.github.io/admtools/reference
   article: https://mindthegap-erc.github.io/admtools/articles

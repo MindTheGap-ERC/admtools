@@ -19,6 +19,9 @@
     <loc>https://mindthegap-erc.github.io/admtools/articles/admtools.html</loc>
   </url>
   <url>
+    <loc>https://mindthegap-erc.github.io/admtools/articles/admtools_doc.html</loc>
+  </url>
+  <url>
     <loc>https://mindthegap-erc.github.io/admtools/articles/index.html</loc>
   </url>
   <url>
@@ -70,6 +73,9 @@
     <loc>https://mindthegap-erc.github.io/admtools/reference/get_completeness.html</loc>
   </url>
   <url>
+    <loc>https://mindthegap-erc.github.io/admtools/reference/get_data_from_eTimeOpt.html</loc>
+  </url>
+  <url>
     <loc>https://mindthegap-erc.github.io/admtools/reference/get_height.html</loc>
   </url>
   <url>
@@ -106,6 +112,9 @@
     <loc>https://mindthegap-erc.github.io/admtools/reference/is_multiadm.html</loc>
   </url>
   <url>
+    <loc>https://mindthegap-erc.github.io/admtools/reference/is_sac.html</loc>
+  </url>
+  <url>
     <loc>https://mindthegap-erc.github.io/admtools/reference/make_legend.html</loc>
   </url>
   <url>
@@ -139,6 +148,12 @@
     <loc>https://mindthegap-erc.github.io/admtools/reference/sac_to_adm.html</loc>
   </url>
   <url>
+    <loc>https://mindthegap-erc.github.io/admtools/reference/sed_rate_from_matrix.html</loc>
+  </url>
+  <url>
+    <loc>https://mindthegap-erc.github.io/admtools/reference/sed_rate_gen_from_bounds.html</loc>
+  </url>
+  <url>
     <loc>https://mindthegap-erc.github.io/admtools/reference/sed_rate_l.html</loc>
   </url>
   <url>
@@ -163,7 +178,7 @@
     <loc>https://mindthegap-erc.github.io/admtools/reference/split_multiadm.html</loc>
   </url>
   <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/strat_cont_gen_from_proxy.html</loc>
+    <loc>https://mindthegap-erc.github.io/admtools/reference/strat_cont_gen_from_tracer.html</loc>
   </url>
   <url>
     <loc>https://mindthegap-erc.github.io/admtools/reference/strat_cont_to_multiadm.html</loc>

@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">admtools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -46,7 +46,8 @@
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/adm_from_sedrate.html">Estimating Age-Depth Models from Sedimentation Rates</a>
     <a class="dropdown-item" href="../articles/adm_from_trace_cont.html">Estimating Age-Depth Models from Tracer Contents of Rocks and Sediments</a>
-    <a class="dropdown-item" href="../articles/adm_plotting.html">adm_plotting</a>
+    <a class="dropdown-item" href="../articles/adm_plotting.html">Plotting Age-Depth Aodels</a>
+    <a class="dropdown-item" href="../articles/admtools_doc.html">Structure and classes of the admtools package</a>
   </div>
 </li>
 <li class="nav-item">
@@ -116,137 +117,268 @@ estimation procedure:</p>
 determined</p></li>
 <li><p><code>no_of_rep</code>: integer, number of runs</p></li>
 </ul>
-<p>Additional parameters that determine the numeric behavior are
-<code>subdivisions</code> and <code>stop.on.error</code>. The parameters
-<code>T_unit</code> and <code>L_unit</code> can be used to associate
-time and length units with the generated age-depth model.</p>
+<p>Additional parameters that determine the numeric behavior of the
+integration method used are <code>subdivisions</code> and
+<code>stop.on.error</code>. The parameters <code>T_unit</code> and
+<code>L_unit</code> can be used to associate time and length units with
+the generated age-depth model.</p>
 </div>
 <div class="section level3">
-<h3 id="coding-user-knowledge">Coding user knowledge<a class="anchor" aria-label="anchor" href="#coding-user-knowledge"></a>
+<h3 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h3>
+<p>We construct an age depth model for a section of 10 m thickness where
+upper and lower bounds on sedimentation rates are available.</p>
+<div class="section level4">
+<h4 id="data">Data<a class="anchor" aria-label="anchor" href="#data"></a>
+</h4>
+<p>We start by defining the section as well as lower and upper bounds on
+sedimentation rates</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">h_min</span> <span class="op">=</span> <span class="fl">2</span> <span class="co"># lower boundary of the section</span></span>
+<span><span class="va">h_max</span> <span class="op">=</span> <span class="fl">10</span> <span class="co"># upper boundary of the section</span></span>
+<span><span class="va">T_unit</span> <span class="op">=</span> <span class="st">"Myr"</span></span>
+<span><span class="va">L_unit</span> <span class="op">=</span> <span class="st">"m"</span></span></code></pre></div>
+<p>We want to know the age-depth model every 10 cm, so we define</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">h</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="va">h_min</span>, <span class="va">h_max</span>, by <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span></code></pre></div>
+</div>
 <div class="section level4">
 <h4 id="tie-points">Tie points<a class="anchor" aria-label="anchor" href="#tie-points"></a>
+</h4>
+<p>We assume there is one tie point in the section at 5 m height, and
+its mean age is 66 years with a standard deviation of 0.25 Myr</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">h1</span> <span class="op">=</span> <span class="fl">5</span></span>
+<span><span class="va">mean_age</span> <span class="op">=</span> <span class="op">-</span><span class="fl">66</span></span>
+<span><span class="va">sd</span> <span class="op">=</span> <span class="fl">0.25</span> </span></code></pre></div>
+<p>Then the tie point timing is given by</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">t_tp</span> <span class="op">=</span> <span class="fu"><a href="../reference/tp_time_norm.html">tp_time_norm</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="va">mean_age</span>, sd <span class="op">=</span> <span class="va">sd</span><span class="op">)</span></span></code></pre></div>
+<p>and the tie point height is given by</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">h_tp</span> <span class="op">=</span> <span class="fu"><a href="../reference/tp_height_det.html">tp_height_det</a></span><span class="op">(</span>heights <span class="op">=</span> <span class="va">h1</span><span class="op">)</span></span></code></pre></div>
+<p>Every time <code>t_tp</code> is evaluated, it returns one possible
+time of the tie points. Similarly, every time <code>h_tp</code> is
+evaluated, it returns the stratigraphic position of the tie point (which
+is deterministic in this case):</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">h_tp</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 5</span></span>
+<span><span class="fu">t_tp</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] -66.03368</span></span></code></pre></div>
+</div>
+<div class="section level4">
+<h4 id="sedimentation-rates">Sedimentation rates<a class="anchor" aria-label="anchor" href="#sedimentation-rates"></a>
+</h4>
+<p>We assume the following upper and lower limits for sedimentation
+rates:</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">sedrate_max_y</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">5</span>,<span class="fl">8</span>,<span class="fl">5</span><span class="op">)</span></span>
+<span><span class="va">sedrate_max_x</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">4</span>,<span class="fl">6</span>,<span class="fl">10</span><span class="op">)</span></span>
+<span><span class="va">sedrate_min_y</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">7</span>,<span class="fl">0.5</span><span class="op">)</span></span>
+<span><span class="va">sedrate_min_x</span> <span class="op">=</span> <span class="va">sedrate_max_x</span> </span></code></pre></div>
+<p>Here, <code>sedrate_max_y[i]</code> is the upper limit on
+sedimentation rate at <code>sedrate_max_x[i]</code> (mutatis mutandis
+for <code>sedrate_min</code>). Between these points, we assume linear
+interpolation. This is done by the function
+<code>sed_rate_gen_from_bounds</code>:</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">sedrate</span> <span class="op">=</span> <span class="fu"><a href="../reference/sed_rate_gen_from_bounds.html">sed_rate_gen_from_bounds</a></span><span class="op">(</span>h_l <span class="op">=</span> <span class="va">sedrate_min_x</span>,</span>
+<span>                                   s_l <span class="op">=</span> <span class="va">sedrate_min_y</span>,</span>
+<span>                                   h_u <span class="op">=</span> <span class="va">sedrate_max_x</span>,</span>
+<span>                                   s_u <span class="op">=</span> <span class="va">sedrate_max_y</span>,</span>
+<span>                                   rate <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
+<p>Because the sedimentation rates are uncertain, functions returned by
+<code>sedrate</code> will differ each time the function is evaluated. As
+an example, we plot three different sample paths (realizations) of the
+sedimentation rate through the section:</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="cn">NULL</span>,</span>
+<span>     xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="va">h</span><span class="op">)</span>,</span>
+<span>     ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">sedrate_max_y</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>     xlab <span class="op">=</span> <span class="st">"Height [m]"</span>,</span>
+<span>     ylab <span class="op">=</span> <span class="st">"Sedimentation Rate [m/Myr]"</span><span class="op">)</span></span>
+<span><span class="va">no_sedrates</span> <span class="op">=</span> <span class="fl">3</span></span>
+<span><span class="va">cols</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"red"</span>, <span class="st">"blue"</span>, <span class="st">"black"</span><span class="op">)</span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="va">no_sedrates</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="va">sedrate_sample</span> <span class="op">=</span> <span class="fu">sedrate</span><span class="op">(</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">h</span>, <span class="fu">sedrate_sample</span><span class="op">(</span><span class="va">h</span><span class="op">)</span>, lwd <span class="op">=</span> <span class="fl">3</span>, col <span class="op">=</span> <span class="va">cols</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p><img src="adm_from_sedrate_files/figure-html/unnamed-chunk-10-1.png" width="700"></p>
+<p>These sedimentation rates assume sedimentation rates are drawn from a
+uniform distribution between the upper and lower limits of sedimentation
+rate provided by the user. This is done at random locations determined
+according to a Poisson point process with rate <code>rate</code>.</p>
+</div>
+<div class="section level4">
+<h4 id="estimate-age-depth-model">Estimate age depth model<a class="anchor" aria-label="anchor" href="#estimate-age-depth-model"></a>
+</h4>
+<p>With tie points and sedimentation rates specified, we can now
+estimate the age depth model using</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">my_adm</span> <span class="op">=</span> <span class="fu"><a href="../reference/sedrate_to_multiadm.html">sedrate_to_multiadm</a></span><span class="op">(</span>h_tp <span class="op">=</span> <span class="va">h_tp</span>,</span>
+<span>                             t_tp <span class="op">=</span> <span class="va">t_tp</span>,</span>
+<span>                             sed_rate_gen <span class="op">=</span> <span class="va">sedrate</span>,</span>
+<span>                             h <span class="op">=</span> <span class="va">h</span>,</span>
+<span>                             T_unit <span class="op">=</span> <span class="va">T_unit</span>,</span>
+<span>                             L_unit <span class="op">=</span> <span class="va">L_unit</span><span class="op">)</span></span></code></pre></div>
+<p>The age-depth model can be plotted using</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">my_adm</span><span class="op">)</span></span></code></pre></div>
+<p><img src="adm_from_sedrate_files/figure-html/unnamed-chunk-12-1.png" width="700"></p>
+</div>
+</div>
+<div class="section level3">
+<h3 id="coding-tie-points">Coding tie points<a class="anchor" aria-label="anchor" href="#coding-tie-points"></a>
+</h3>
+<div class="section level4">
+<h4 id="background">Background<a class="anchor" aria-label="anchor" href="#background"></a>
 </h4>
 <p>Times and heights of tie points are coded via the functions
 <code>t_tp</code> (timing) and <code>h_tp</code> (height) that take no
 inputs. They serve as wrappers around user-defined procedures that
 reflect uncertainties around tie points. Every time <code>t_tp</code>
 and <code>h_tp</code> are evaluated, they return possible values for the
-tie points. Writing these functions requires some effort, but it allows
-the user to hand over arbitrarily complex uncertainties of the tie
-points to the <code>sedrate_to_multiadm</code> function. The functions
-<code>tp_time_floating_scale</code>, <code>tp_time_norm</code> and
-<code>tp_height_det</code> can be used to simplify the definition of tie
-points.</p>
-<p>The function for the timing of the tie points must return a vector of
-increasing times.</p>
-<p>For this example, I assume that the first tie point follows a normal
-distribution with mean - 20 Myr before present and standard deviation
-0.5 Myr. The timing of the second tie point is bimodal and given as an
-equal mixture of two normal distributions with means - 5 and - 7 Myr
-years before present and standard deviations of 0.1 and 0.3 Myr years.
-This is implemented as follows in <code>t_tp</code>:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">t_tp</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span><span class="op">{</span></span>
-<span>  <span class="co"># first tie point</span></span>
-<span>  <span class="va">t1</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">1</span>, mean <span class="op">=</span> <span class="op">-</span><span class="fl">20</span> , sd <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span>
-<span>  </span>
-<span>  <span class="co"># second tie point</span></span>
-<span>  <span class="va">d1</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html" class="external-link">rbinom</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">1</span>, size <span class="op">=</span> <span class="fl">2</span>, prob <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span> <span class="co"># fair coin flip for mixture</span></span>
-<span>  <span class="kw">if</span> <span class="op">(</span><span class="va">d1</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span><span class="op">{</span></span>
-<span>    <span class="va">t2</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">1</span>, mean <span class="op">=</span>  <span class="op">-</span> <span class="fl">5</span>, sd <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span>
-<span>  <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
-<span>    <span class="va">t2</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">1</span>, mean <span class="op">=</span>  <span class="op">-</span> <span class="fl">7</span>, sd <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span></span>
-<span>  <span class="op">}</span></span>
-<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">t1</span>, <span class="va">t2</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">}</span></span></code></pre></div>
-<p>Sampling from <code>t_tp</code> yields the following empirical
-distribution for the tie points:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">no_of_samples</span> <span class="op">=</span> <span class="fl">10000</span></span>
-<span><span class="co"># Evaluate timing of tie points</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="va">no_of_samples</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">t_tp</span><span class="op">(</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>,</span>
-<span>     freq <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>     xlab <span class="op">=</span> <span class="st">"Time before present [Myr]"</span>,</span>
-<span>     main <span class="op">=</span> <span class="st">"Timing of first tie point"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="va">no_of_samples</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">t_tp</span><span class="op">(</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>,</span>
-<span>     freq <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>     xlab <span class="op">=</span> <span class="st">"Time before present [Myr]"</span>,</span>
-<span>     main <span class="op">=</span> <span class="st">"Timing of second tie point"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="adm_from_sedrate_files/figure-html/unnamed-chunk-3-1.png" width="50%"><img src="adm_from_sedrate_files/figure-html/unnamed-chunk-3-2.png" width="50%"></p>
-<p>The function for the heights of the tie points must return an ordered
-vector of stratigraphic positions of the tie points. The number of
-stratigraphic tie points and time tie points must be identical.</p>
-<p>For this example, I assume the stratigraphic positions of the tie
-points is known without uncertainty, and are at 10 and 85 m
-stratigraphic height.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">h_min</span> <span class="op">=</span> <span class="fl">10</span> <span class="co"># height of tie point 1</span></span>
-<span><span class="va">h_max</span> <span class="op">=</span> <span class="fl">85</span> <span class="co"># height of tie point 2</span></span></code></pre></div>
+tie points. Conceptually, both <code>t_tp</code>and <code>h_tp</code>
+are user implemented random number generators that draw from the
+distributions of tie points. Writing these functions requires some
+effort, but it allows the user to hand over arbitrarily complex
+uncertainties of the tie points to the
+<code>strat_cont_to_multiadm</code> function.</p>
+</div>
+<div class="section level4">
+<h4 id="wrappers">Wrappers<a class="anchor" aria-label="anchor" href="#wrappers"></a>
+</h4>
+<p>Multiple wrappers are available to simplify coding tie points:</p>
+<ul>
+<li><p><code>tp_height_det</code> for specifying deterministic
+stratigraphic heights</p></li>
+<li><p><code>tp_time_floating_scale</code> to encode time tie points for
+floating time scale</p></li>
+<li><p><code>tp_time_norm</code> for normally distributed tie points in
+time</p></li>
+</ul>
+</div>
+<div class="section level4">
+<h4 id="manually-coding-tie-points">Manually coding tie points<a class="anchor" aria-label="anchor" href="#manually-coding-tie-points"></a>
+</h4>
+<p>Both <code>t_tp</code> and <code>h_tp</code> must return strictly
+ordered numeric vectors of times/heights. This means that it is the
+users responsibility to avoid inversions of times/heights.</p>
+<p>As an example, I assume the stratigraphic positions of the tie points
+are known without uncertainty, and are at 10 and 20 m stratigraphic
+height.</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">h_min</span> <span class="op">=</span> <span class="fl">10</span> <span class="co"># stratigraphic height of lower tie point [m]</span></span>
+<span><span class="va">h_max</span> <span class="op">=</span> <span class="fl">20</span> <span class="co"># stratigraphic height of upper tie point [m]</span></span></code></pre></div>
 <p><code>h_tp</code> is then implemented as follows:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">h_tp</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">h_min</span>, <span class="va">h_max</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>When evaluated, this function returns the stratigraphic positions of
 the tie points:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">#Evaluate stratigraphic positions of tie points</span></span>
-<span><span class="fu">h_tp</span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 10 85</span></span></code></pre></div>
-<p>This is a lot of effort to simply encode fixed stratigraphic
-positions of tie points. However, it allows to implement arbitrary
-uncertainties on the position of the tie points if needed.</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">h_tp</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 10 20</span></span></code></pre></div>
+<p>For a more complex example, I assume that the timing of the first tie
+point follows a normal distribution with mean 0 and standard deviation
+0.5. For the second tie point, only maximum and minimum time is
+available. Due to the lack of information, I assume a uniform
+distribution between the minimum (9) and the maximum (11). This is
+implemented as follows in <code>t_tp</code>:</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">t_tp</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="kw">repeat</span><span class="op">{</span> </span>
+<span>    <span class="co"># timing first tie point</span></span>
+<span>    <span class="va">t1</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">1</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span>
+<span>    <span class="co"># timing second tie point</span></span>
+<span>    <span class="va">t2</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">1</span>, min <span class="op">=</span> <span class="fl">9</span>, max <span class="op">=</span> <span class="fl">11</span><span class="op">)</span></span>
+<span>    <span class="kw">if</span> <span class="op">(</span><span class="va">t1</span> <span class="op">&lt;</span> <span class="va">t2</span><span class="op">)</span><span class="op">{</span> <span class="co"># if order is correct, return values</span></span>
+<span>        <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">t1</span>, <span class="va">t2</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="op">}</span></span>
+<span>  <span class="op">}</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">t_tp</span><span class="op">(</span><span class="op">)</span> <span class="co"># evaluating the function returns a random pair of times drawn from the specified distribution</span></span>
+<span><span class="co">#&gt; [1] -0.08156382  9.20361378</span></span></code></pre></div>
+<p>Using Myr as time unit, the distribution of times for the tie points
+is as follows:</p>
+<p><img src="adm_from_sedrate_files/figure-html/unnamed-chunk-16-1.png" width="700"><img src="adm_from_sedrate_files/figure-html/unnamed-chunk-16-2.png" width="700"></p>
+</div>
+</div>
+<div class="section level3">
+<h3 id="coding-sedimentation-rates">Coding sedimentation rates<a class="anchor" aria-label="anchor" href="#coding-sedimentation-rates"></a>
+</h3>
+<div class="section level4">
+<h4 id="background-1">Background<a class="anchor" aria-label="anchor" href="#background-1"></a>
+</h4>
+<p>Mathematically, sedimentation rates are assumed to be stochastic
+processes. With each iteration of the estimation procedure, a sample
+path is generated from the stochastic processes. This sample path
+reflects one possible change of sedimentation rate in the section, given
+our uncertainties about it.</p>
+<p>Computationally, this is implemented using <em>function
+factories</em>, which are functions that return functions. A function
+factory defines a stochastic process, and each function <span class="math inline">\(f\)</span> generated by a function factory is a
+sample path. In turn, <span class="math inline">\(f(x)\)</span> returns
+the value of the sample path at <span class="math inline">\(x\)</span>
+.</p>
+<p>Here, function factories are used as complex random number
+generators: Instead of returning one or multiple random numbers, they
+return a random function.</p>
 </div>
 <div class="section level4">
-<h4 id="coding-sedimentation-rates">Coding Sedimentation Rates<a class="anchor" aria-label="anchor" href="#coding-sedimentation-rates"></a>
+<h4 id="wrappers-1">Wrappers<a class="anchor" aria-label="anchor" href="#wrappers-1"></a>
 </h4>
-<p>Sedimentation rates are specified via a function
-<code>sed_rate_gen</code> that takes no inputs. It serves as wrapper for
-user-defined procedures that specify uncertainties in sedimentation
-rates. <code>sed_rate_gen</code> is a “function factory”: every time it
-is evaluated, it returns another function that is one potential
-sedimentation rate scenario. Writing this function factory requires some
-effort, but it allows the user to specify how uncertainties of
-sedimentation rates are expressed in the section, and implement
-arbitrarily complex distributions. The idea behind this is that
-sedimentation rates are considered stochastic processes. Every time
-<code>sed_rate_gen</code> is evaluated, it returns one sample path from
-this process.</p>
-<p>The functions returned by <code>sed_rate_gen</code> must return
-strictly positive values - negative sedimentation rates can not be
-observed in the section.</p>
-<p>I use a simple sedimentation rate model, where only upper and lower
-bounds on sedimentation rates in the section are known. Between these
-limits, I assume a uniform distribution.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># limits on sed. rates</span></span>
-<span><span class="va">lower_limit</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>,<span class="fl">2</span>,<span class="fl">0.1</span>,<span class="fl">10</span><span class="op">)</span></span>
-<span><span class="va">upper_limit</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.2</span>,<span class="fl">3</span>,<span class="fl">2</span>,<span class="fl">12</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># strat intervals where sed rates are defined</span></span>
+<p>Available wrappers to define sedimentation rates are</p>
+<ul>
+<li><p><code>sed_rate_gen_from_bounds</code> : generate sed. rate from
+upper and lower bounds on the sedimentation rate (see above)</p></li>
+<li><p><code>sed_rate_from_matrix</code>: specify sedimentation rate
+based on matrix, to be used in conjunction with
+<code>get_data_from_eTimeOpt</code></p></li>
+</ul>
+</div>
+<div class="section level4">
+<h4 id="manually-coding-sedimentation-rates">Manually coding sedimentation rates<a class="anchor" aria-label="anchor" href="#manually-coding-sedimentation-rates"></a>
+</h4>
+<p>Sedimentation rates must be coded as function factories, i.e.,
+functions that return functions. They must be able to take vector inputs
+and return a vector of the same length as output, and always return
+strictly positive values.</p>
+<p>As example, I use a simple sedimentation rate model, where only upper
+and lower bounds on sedimentation rates in the section are known.
+Between these limits, I assume a uniform distribution.</p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">h_min</span> <span class="op">=</span> <span class="fl">10</span></span>
+<span><span class="va">h_max</span> <span class="op">=</span> <span class="fl">90</span></span>
+<span><span class="co"># limits on sed. rates </span></span>
+<span><span class="va">lower_limit</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>,<span class="fl">2</span>,<span class="fl">0.1</span>,<span class="fl">10</span><span class="op">)</span> </span>
+<span><span class="va">upper_limit</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.2</span>,<span class="fl">3</span>,<span class="fl">2</span>,<span class="fl">12</span><span class="op">)</span>  </span>
+<span><span class="co"># strat intervals where sed rates are defined </span></span>
 <span><span class="va">s</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">h_min</span>, <span class="fl">30</span>,<span class="fl">65</span>, <span class="fl">80</span>, <span class="va">h_max</span><span class="op">)</span></span></code></pre></div>
 <p>Based on these parameters, the sedimentation rate function factory is
 defined as follows:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># define function factory</span></span>
-<span><span class="va">sed_rate_fun</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span><span class="op">{</span></span>
-<span>  <span class="co"># draw sed rates from uniform distribution</span></span>
-<span>  <span class="va">aa</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">lower_limit</span><span class="op">)</span>,</span>
-<span>             min <span class="op">=</span> <span class="va">lower_limit</span>,</span>
-<span>             max <span class="op">=</span> <span class="va">upper_limit</span><span class="op">)</span></span>
-<span>  <span class="co"># define sed rate "realization" based on samples from uniform distribution</span></span>
-<span> <span class="va">sed_rate_fun</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/approxfun.html" class="external-link">approxfun</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">s</span>,</span>
-<span>                          y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">aa</span>, <span class="va">aa</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">aa</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>, <span class="co"># duplicate right most value bc of step function, see ?stats::approxfun for details</span></span>
-<span>                          method <span class="op">=</span> <span class="st">"constant"</span>,</span>
-<span>                          rule <span class="op">=</span> <span class="fl">2</span>, <span class="co">#extrapolate outside of domain of definition, see ?stats::approxfun</span></span>
-<span>                          f <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="co"># left continuous function</span></span>
-<span> <span class="co"># return the function</span></span>
-<span> <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">sed_rate_fun</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># define function factory </span></span>
+<span><span class="va">sed_rate_fun</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span><span class="op">{</span>   </span>
+<span>  <span class="co"># draw sed rates from uniform distribution  </span></span>
+<span>  <span class="va">aa</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">lower_limit</span><span class="op">)</span>, min <span class="op">=</span> <span class="va">lower_limit</span>, max <span class="op">=</span> <span class="va">upper_limit</span><span class="op">)</span>   </span>
+<span>  <span class="co"># define sed rate "realization" based on samples from uniform distribution </span></span>
+<span>  <span class="va">sed_rate_fun</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/approxfun.html" class="external-link">approxfun</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">s</span>, </span>
+<span>                           y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">aa</span>, <span class="va">aa</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">aa</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>, </span>
+<span>                           method <span class="op">=</span> <span class="st">"constant"</span>, </span>
+<span>                           rule <span class="op">=</span> <span class="fl">2</span>,  </span>
+<span>                          f <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> </span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">sed_rate_fun</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-<p>To visualize, here are three sedimentation rates generated by the
-“sedimentation rate function factory” <code>sed_rate_fun</code>:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<p>Note that the inner function is a function of one variable (height),
+while the outer function takes no arguments - it simply returns the
+inner function. To visualize this, let’s plot three sedimentation rates
+generated by the “sedimentation rate function factory”
+<code>sed_rate_fun</code>:</p>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="cn">NULL</span>,</span>
 <span>     xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">h_min</span>, <span class="va">h_max</span><span class="op">)</span>,</span>
 <span>     ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">upper_limit</span><span class="op">)</span><span class="op">)</span>,</span>
@@ -255,46 +387,17 @@ defined as follows:</p>
 <span></span>
 <span><span class="va">no_of_sedrates</span> <span class="op">=</span> <span class="fl">3</span> <span class="co"># no. of sed rates displayed</span></span>
 <span><span class="va">h</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="va">h_min</span>,<span class="va">h_max</span>, by <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span> <span class="co"># strat. positions where sed rates are plotted</span></span>
-<span></span>
+<span><span class="va">cols</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"red"</span>, <span class="st">"blue"</span>, <span class="st">"black"</span><span class="op">)</span></span>
 <span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="va">no_of_sedrates</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="co"># generate sed rate from the factory</span></span>
 <span>  <span class="va">sed_rate_sample</span> <span class="op">=</span> <span class="fu">sed_rate_fun</span><span class="op">(</span><span class="op">)</span></span>
 <span>  </span>
 <span>  <span class="co"># plot sed rate in the section</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">h</span>, <span class="fu">sed_rate_sample</span><span class="op">(</span><span class="va">h</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">h</span>, <span class="fu">sed_rate_sample</span><span class="op">(</span><span class="va">h</span><span class="op">)</span>, col <span class="op">=</span> <span class="va">cols</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-<p><img src="adm_from_sedrate_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
+<p><img src="adm_from_sedrate_files/figure-html/unnamed-chunk-19-1.png" width="700"></p>
 <p>All sedimentation rates generated by <code>sed_rate_fun</code> will
 be different, because they are determined by random numbers.</p>
-</div>
-<div class="section level4">
-<h4 id="estimating-the-age-depth-models">Estimating the Age-Depth Models<a class="anchor" aria-label="anchor" href="#estimating-the-age-depth-models"></a>
-</h4>
-<p>The function <code>sedrate_to_multiadm</code> estimates the age-depth
-model from the inputs. Here, I determine the age-depth models every
-meter, and generate 10 ADMs</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">h</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="va">h_min</span>,<span class="va">h_max</span>, by <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="co"># strat. positions where ADMs are estimated</span></span>
-<span><span class="va">no_of_rep</span> <span class="op">=</span> <span class="fl">1000</span> <span class="co"># no. of ADMs estimated</span></span></code></pre></div>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">my_adm</span> <span class="op">=</span> <span class="fu"><a href="../reference/sedrate_to_multiadm.html">sedrate_to_multiadm</a></span><span class="op">(</span>h_tp <span class="op">=</span> <span class="fu">h_tp</span><span class="op">(</span><span class="op">)</span>,</span>
-<span>                             t_tp <span class="op">=</span> <span class="fu">t_tp</span><span class="op">(</span><span class="op">)</span>,</span>
-<span>                             sed_rate_gen <span class="op">=</span> <span class="va">sed_rate_fun</span>,</span>
-<span>                             h <span class="op">=</span> <span class="va">h</span>,</span>
-<span>                             no_of_rep <span class="op">=</span> <span class="va">no_of_rep</span>,</span>
-<span>                             L_unit <span class="op">=</span> <span class="st">"m"</span>,</span>
-<span>                             T_unit <span class="op">=</span> <span class="st">"Myr BP"</span><span class="op">)</span></span></code></pre></div>
-<p>It generates a portfolio of age-depth models combined into the
-variable <code>madm</code> (multi-adm). <code>madm</code> is an object
-of class multiadm.</p>
-<p><img src="adm_from_sedrate_files/figure-html/unnamed-chunk-12-1.png" width="700"></p>
-<p>These are 10 age-depth models generated by the
-<code>sedrate_to_adm</code> function, which are all equally likely
-candidates for the age-depth relationship in the section. Running
-summary statistics on large number of age-depth models (increasing the
-<code>no_of_rep</code> input variable) gives an assessment of the
-uncertainties of the age-depth relationship. This can be used to
-generate the classic envelopes of uncertainty (95 % CI).</p>
 </div>
 </div>
 <div class="section level3">
@@ -302,8 +405,16 @@ generate the classic envelopes of uncertainty (95 % CI).</p>
 </h3>
 <p>For information on estimating age-depth models from tracer contents
 of rocks and sediments, see</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/vignette.html" class="external-link">vignette</a></span><span class="op">(</span><span class="st">"adm_from_trace_cont"</span><span class="op">)</span></span></code></pre></div>
+<p>For an overview of the structure of the <code>admtools</code> package
+and the classes used therein see</p>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/vignette.html" class="external-link">vignette</a></span><span class="op">(</span><span class="st">"admtools_doc"</span><span class="op">)</span></span></code></pre></div>
+<p>For an overview over all available vignettes for the
+<code>admtools</code> package use</p>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/browseVignettes.html" class="external-link">browseVignettes</a></span><span class="op">(</span>package <span class="op">=</span> <span class="st">"admtools"</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

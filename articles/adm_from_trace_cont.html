@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">admtools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -46,7 +46,8 @@
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/adm_from_sedrate.html">Estimating Age-Depth Models from Sedimentation Rates</a>
     <a class="dropdown-item" href="../articles/adm_from_trace_cont.html">Estimating Age-Depth Models from Tracer Contents of Rocks and Sediments</a>
-    <a class="dropdown-item" href="../articles/adm_plotting.html">adm_plotting</a>
+    <a class="dropdown-item" href="../articles/adm_plotting.html">Plotting Age-Depth Aodels</a>
+    <a class="dropdown-item" href="../articles/admtools_doc.html">Structure and classes of the admtools package</a>
   </div>
 </li>
 <li class="nav-item">
@@ -133,8 +134,12 @@ tracer into the sediment (units tracer per time unit).</p>
 </h2>
 <p>We construct a floating age-depth model for a section of 5 m
 thickness from measurements of extraterrestrial 3He based on the
-assumption that 3He flux is constant with time. We start by defining the
-section, the sampling bins, and the measurements of 3He:</p>
+assumption that 3He flux is constant with time.</p>
+<div class="section level3">
+<h3 id="data">Data<a class="anchor" aria-label="anchor" href="#data"></a>
+</h3>
+<p>We start by defining the section, the sampling bins, and the
+measurements of 3He:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">h_min</span> <span class="op">=</span> <span class="fl">3</span> <span class="co"># bottom of section</span></span>
 <span><span class="va">h_max</span> <span class="op">=</span> <span class="fl">8</span> <span class="co"># top of section</span></span>
@@ -147,35 +152,50 @@ section, the sampling bins, and the measurements of 3He:</p>
 <code class="sourceCode R"><span><span class="va">h</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="va">h_min</span>, <span class="va">h_max</span>, by <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span>
 <span><span class="va">T_unit</span> <span class="op">=</span> <span class="st">"dimensionless"</span></span>
 <span><span class="va">L_unit</span> <span class="op">=</span> <span class="st">"m"</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="tie-points">Tie points<a class="anchor" aria-label="anchor" href="#tie-points"></a>
+</h3>
 <p>The tie points in height are deterministic and defined using the
 function <code>tp_height_det</code>:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tp_height</span> <span class="op">=</span> <span class="fu"><a href="../reference/tp_height_det.html">tp_height_det</a></span><span class="op">(</span>heights <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">h_min</span>, <span class="va">h_max</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>We use the function <code>tp_time_floating_scale</code> to define the
-time tie points for the floting time scale</p>
+time tie points for the floating time scale</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tp_time</span> <span class="op">=</span> <span class="fu"><a href="../reference/tp_time_floating_scale.html">tp_time_floating_scale</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p>This introduces an auxiliary time scale where the bottom of the
+section corresponds to time 0 and the top to time 1, which allows to
+examine the relative distribution of time within the section.</p>
+</div>
+<div class="section level3">
+<h3 id="tracer-values">Tracer values<a class="anchor" aria-label="anchor" href="#tracer-values"></a>
+</h3>
 <p>To define the assumption of constant 3He flux in time, we use the
 function <code>flux_const</code>:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">flux</span> <span class="op">=</span> <span class="fu"><a href="../reference/flux_const.html">flux_const</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>The observations of 3He are put into a machine-readable format using
-the function <code>strat_cont_gen_from_proxy</code>:</p>
+the function <code>strat_cont_gen_from_tracer</code>:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">observed_proxy</span> <span class="op">=</span> <span class="fu"><a href="../reference/strat_cont_gen_from_proxy.html">strat_cont_gen_from_proxy</a></span><span class="op">(</span>bin_borders <span class="op">=</span> <span class="va">sampling_bin_borders</span>, </span>
+<code class="sourceCode R"><span><span class="va">observed_tracer</span> <span class="op">=</span> <span class="fu"><a href="../reference/strat_cont_gen_from_tracer.html">strat_cont_gen_from_tracer</a></span><span class="op">(</span>bin_borders <span class="op">=</span> <span class="va">sampling_bin_borders</span>, </span>
 <span>                                          df <span class="op">=</span> <span class="va">He_measurements</span>,</span>
 <span>                                          distribution <span class="op">=</span> <span class="st">"normal"</span><span class="op">)</span></span></code></pre></div>
 <p>Because the 3He measurements are uncertain, values returned from
-<code>observed_flux</code> will differ every time the function is
-evaluated. As example, we plot three realizations of the proxy values
-with depth:
-<img src="adm_from_trace_cont_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
+<code>observed_tracer</code> will differ every time the function is
+evaluated. As example, we plot three realizations of the tracer values
+with depth:</p>
+<p><img src="adm_from_trace_cont_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
+</div>
+<div class="section level3">
+<h3 id="estimate-age-depth-model">Estimate age depth model<a class="anchor" aria-label="anchor" href="#estimate-age-depth-model"></a>
+</h3>
 <p>With the tie points, assumptions on flux in time, and observed values
 of the tracer coded, we can now estimate the age-depth model:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">my_adm</span> <span class="op">=</span> <span class="fu"><a href="../reference/strat_cont_to_multiadm.html">strat_cont_to_multiadm</a></span><span class="op">(</span>h_tp <span class="op">=</span> <span class="va">tp_height</span>,</span>
 <span>                                t_tp <span class="op">=</span> <span class="va">tp_time</span>,</span>
-<span>                                strat_cont_gen <span class="op">=</span> <span class="va">observed_proxy</span>,</span>
+<span>                                strat_cont_gen <span class="op">=</span> <span class="va">observed_tracer</span>,</span>
 <span>                                time_cont_gen <span class="op">=</span> <span class="va">flux</span>,</span>
 <span>                                h <span class="op">=</span> <span class="va">h</span>,</span>
 <span>                                T_unit <span class="op">=</span> <span class="va">T_unit</span>,</span>
@@ -186,22 +206,48 @@ of the tracer coded, we can now estimate the age-depth model:</p>
 <span><span class="fu"><a href="../reference/L_axis_lab.html">L_axis_lab</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/make_legend.html">make_legend</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="adm_from_trace_cont_files/figure-html/unnamed-chunk-10-1.png" width="700"></p>
+</div>
+</div>
+<div class="section level2">
+<h2 id="coding-tie-points">Coding tie points<a class="anchor" aria-label="anchor" href="#coding-tie-points"></a>
+</h2>
 <div class="section level3">
-<h3 id="coding-tie-points">Coding tie points<a class="anchor" aria-label="anchor" href="#coding-tie-points"></a>
+<h3 id="background">Background<a class="anchor" aria-label="anchor" href="#background"></a>
 </h3>
 <p>Times and heights of tie points are coded via the functions
 <code>t_tp</code> (timing) and <code>h_tp</code> (height) that take no
 inputs. They serve as wrappers around user-defined procedures that
 reflect uncertainties around tie points. Every time <code>t_tp</code>
 and <code>h_tp</code> are evaluated, they return possible values for the
-tie points. Writing these functions requires some effort, but it allows
-the user to hand over arbitrarily complex uncertainties of the tie
-points to the <code>strat_cont_to_multiadm</code> function.</p>
-<p>The function for the heights of the tie points must return an ordered
-vector of tie point heights.</p>
-<p>For this example, I assume the stratigraphic positions of the tie
-points are known without uncertainty, and are at 10 and 20 m
-stratigraphic height.</p>
+tie points. Conceptually, both <code>t_tp</code>and <code>h_tp</code>
+are user implemented random number generators that draw from the
+distributions of tie points. Writing these functions requires some
+effort, but it allows the user to hand over arbitrarily complex
+uncertainties of the tie points to the
+<code>strat_cont_to_multiadm</code> function.</p>
+</div>
+<div class="section level3">
+<h3 id="wrappers">Wrappers<a class="anchor" aria-label="anchor" href="#wrappers"></a>
+</h3>
+<p>Multiple wrappers are available to simplify coding tie points:</p>
+<ul>
+<li><p><code>tp_height_det</code> for specifying deterministic
+stratigraphic heights</p></li>
+<li><p><code>tp_time_floating_scale</code> to encode time tie points for
+floating time scale</p></li>
+<li><p><code>tp_time_norm</code> for normally distributed tie points in
+time</p></li>
+</ul>
+</div>
+<div class="section level3">
+<h3 id="manually-coding-tie-points">Manually coding tie points<a class="anchor" aria-label="anchor" href="#manually-coding-tie-points"></a>
+</h3>
+<p>Both <code>t_tp</code> and <code>h_tp</code> must return strictly
+ordered numeric vectors of times/heights. This means that it is the
+users responsibility to avoid inversions of times/heights.</p>
+<p>As an example, I assume the stratigraphic positions of the tie points
+are known without uncertainty, and are at 10 and 20 m stratigraphic
+height.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">h_min</span> <span class="op">=</span> <span class="fl">10</span> <span class="co"># stratigraphic height of lower tie point [m]</span></span>
 <span><span class="va">h_max</span> <span class="op">=</span> <span class="fl">20</span> <span class="co"># stratigraphic height of upper tie point [m]</span></span></code></pre></div>
@@ -215,45 +261,83 @@ the tie points:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">h_tp</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 10 20</span></span></code></pre></div>
-<p>The function for the timing of the tie points must return a vector of
-strictly increasing values corresponding to the times of the tie
-points.</p>
-<p>For this example, I assume that the timing of the first tie point
-follows a normal distribution with mean 0 and standard deviation 0.5.
-For the second tie point, only maximum and minimum time is available.
-Due to the lack of information, I assume a uniform distribution between
-the minimum (9) and the maximum (11). This is implemented as follows in
-<code>t_tp</code>:</p>
+<p>For a more complex example, I assume that the timing of the first tie
+point follows a normal distribution with mean 0 and standard deviation
+0.5. For the second tie point, only maximum and minimum time is
+available. Due to the lack of information, I assume a uniform
+distribution between the minimum (9) and the maximum (11). This is
+implemented as follows in <code>t_tp</code>:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">t_tp</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="co"># timing first tie point</span></span>
-<span>  <span class="va">t1</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">1</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span>
-<span>  </span>
-<span>  <span class="co"># timing second tie point</span></span>
-<span>  <span class="va">t2</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">1</span>, min <span class="op">=</span> <span class="fl">9</span>, max <span class="op">=</span> <span class="fl">11</span><span class="op">)</span></span>
-<span>  </span>
-<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">t1</span>, <span class="va">t2</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="kw">repeat</span><span class="op">{</span> </span>
+<span>    <span class="co"># timing first tie point</span></span>
+<span>    <span class="va">t1</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">1</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span>
+<span>    <span class="co"># timing second tie point</span></span>
+<span>    <span class="va">t2</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">1</span>, min <span class="op">=</span> <span class="fl">9</span>, max <span class="op">=</span> <span class="fl">11</span><span class="op">)</span></span>
+<span>    <span class="kw">if</span> <span class="op">(</span><span class="va">t1</span> <span class="op">&lt;</span> <span class="va">t2</span><span class="op">)</span><span class="op">{</span> <span class="co"># if order is correct, return values</span></span>
+<span>        <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">t1</span>, <span class="va">t2</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="op">}</span></span>
+<span>  <span class="op">}</span></span>
 <span><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">t_tp</span><span class="op">(</span><span class="op">)</span> <span class="co"># evaluating the function returns a random pair of times drawn from the specified distribution</span></span>
+<span><span class="co">#&gt; [1] -0.3034391 10.5704464</span></span></code></pre></div>
 <p>Using Myr as time unit, the distribution of times for the tie points
 is as follows:</p>
-<p><img src="adm_from_trace_cont_files/figure-html/unnamed-chunk-13-1.png" width="700"><img src="adm_from_trace_cont_files/figure-html/unnamed-chunk-13-2.png" width="700"></p>
+<p><img src="adm_from_trace_cont_files/figure-html/unnamed-chunk-14-1.png" width="700"><img src="adm_from_trace_cont_files/figure-html/unnamed-chunk-14-2.png" width="700"></p>
+</div>
+</div>
+<div class="section level2">
+<h2 id="coding-tracer-data-and-hypothesis">Coding tracer data and hypothesis<a class="anchor" aria-label="anchor" href="#coding-tracer-data-and-hypothesis"></a>
+</h2>
+<div class="section level3">
+<h3 id="background-1">Background<a class="anchor" aria-label="anchor" href="#background-1"></a>
+</h3>
+<p>Mathematically, tracer data and hypothesis are assumed to be
+stochastic processes. With each iteration of the estimation procedure, a
+sample path is generated from the stochastic processes. This sample path
+reflects one possible change of tracer values in the section/time, given
+our uncertainties of tracer measurements.</p>
+<p>Computationally, this is implemented using <em>function
+factories</em>, which are functions that return functions. A function
+factory defines a stochastic process, and each function <span class="math inline">\(f\)</span> generated by a function factory is a
+sample path. In turn, <span class="math inline">\(f(x)\)</span> returns
+the value of the sample path at <span class="math inline">\(x\)</span>
+.</p>
+<p>Here, function factories are used as complex random number
+generators: Instead of returning one or multiple random numbers, they
+return a random function.</p>
 </div>
 <div class="section level3">
-<h3 id="coding-stratigraphic-data">Coding stratigraphic data<a class="anchor" aria-label="anchor" href="#coding-stratigraphic-data"></a>
+<h3 id="wrappers-1">Wrappers<a class="anchor" aria-label="anchor" href="#wrappers-1"></a>
 </h3>
-<p>Both stratigraphic contents and age contents must be coded as
+<p>Available wrappers are</p>
+<ul>
+<li><p><code>flux_const</code> : assume constant flux in time</p></li>
+<li><p><code>flux_linear</code>: linear change in flux in time</p></li>
+<li><p><code>flux_quad</code>: quadratic change in flux in time</p></li>
+<li><p><code>strat_cont_gen_from_tracer</code>: use empirical tracer
+data in stratigraphic domain</p></li>
+</ul>
+</div>
+<div class="section level3">
+<h3 id="manually-coding-tracer-data-and-hypothesis">Manually coding tracer data and hypothesis<a class="anchor" aria-label="anchor" href="#manually-coding-tracer-data-and-hypothesis"></a>
+</h3>
+<p>Both stratigraphic contents and time contents must be coded as
 function factories, i.e., functions that return functions. They must be
 able to take vector inputs and return a vector of the same length as
-output.</p>
-<p>I assume the tracer input into the sediment is constant with time.
-This is implemented with the following function:</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+output, and always return strictly positive values.</p>
+<p>For example, assume the tracer input into the sediment is constant
+with time. This is implemented with the following function:</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">time_cont_gen</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span><span class="op">{</span></span>
-<span>  <span class="va">time_cont</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/approxfun.html" class="external-link">approxfun</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">10</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>, rule <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span>  <span class="va">time_cont</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">time_cont</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-<p>To visualize this, let’s plot this from time 0 to 10:</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<p>Note that the inner function is a function of x (time), while the
+outer function takes no arguments - it simply returns the inner
+function. To visualize this, let’s plot this from time 0 to 10:</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># generate one function from time_cont_gen</span></span>
 <span><span class="va">time_cont</span> <span class="op">=</span> <span class="fu">time_cont_gen</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co"># time where to evaluate the function</span></span>
@@ -262,31 +346,33 @@ This is implemented with the following function:</p>
 <span>     y <span class="op">=</span> <span class="fu">time_cont</span><span class="op">(</span><span class="va">t</span><span class="op">)</span>,</span>
 <span>     type <span class="op">=</span> <span class="st">"l"</span>,</span>
 <span>     xlab <span class="op">=</span> <span class="st">"Time [Myr]"</span>,</span>
-<span>     ylab <span class="op">=</span> <span class="st">"Tracer Input into the Sediment [1/Myr]"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="adm_from_trace_cont_files/figure-html/unnamed-chunk-15-1.png" width="700">
-The implementation of the tracer values can be simplified using the
-helper functions <code>flux_const</code>, <code>flux_linear</code>,
-<code>flux_quad</code> that are wrappers that define constant, linear,
-and quadratic changes of tracer flux with time.</p>
-<p>For the tracer measured in the section, I assume it was measured at
-the bottom, middle, and top of the examined section:</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">locations</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"h_1"</span> <span class="op">=</span> <span class="va">h_min</span>, <span class="st">"h_2"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">h_min</span>, <span class="va">h_max</span><span class="op">)</span><span class="op">)</span>, <span class="st">"h_3"</span> <span class="op">=</span> <span class="va">h_max</span><span class="op">)</span></span></code></pre></div>
-<p>At these locations, tracer values each follow a normal distribution
-with mean 10, 1, and 8 and standard deviations 1, 0.1, and 0.2.</p>
+<span>     ylab <span class="op">=</span> <span class="st">"Tracer Input into the Sediment [X/Myr]"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="adm_from_trace_cont_files/figure-html/unnamed-chunk-16-1.png" width="700"></p>
+<p>This is a lot of effort to code a constant function. The used
+approach shows its power and versatility when used in more complex
+situations. For example, assume the tracer was measured at the bottom,
+middle, and top of the examined section:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">mean_vals</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"mu_1"</span> <span class="op">=</span> <span class="fl">10</span>, <span class="st">"mu_2"</span> <span class="op">=</span> <span class="fl">1</span>, <span class="st">"mu_3"</span> <span class="op">=</span> <span class="fl">8</span><span class="op">)</span></span>
-<span><span class="va">sd_vals</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sig_1"</span> <span class="op">=</span> <span class="fl">1</span>, <span class="st">"sig_2"</span> <span class="op">=</span> <span class="fl">0.1</span>, <span class="st">"sig_3"</span> <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">h_min</span> <span class="op">=</span> <span class="fl">2</span></span>
+<span><span class="va">h_max</span> <span class="op">=</span> <span class="fl">5</span></span>
+<span><span class="va">locations</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span> <span class="va">h_min</span>,  <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">h_min</span>, <span class="va">h_max</span><span class="op">)</span><span class="op">)</span>,  <span class="va">h_max</span><span class="op">)</span></span></code></pre></div>
+<p>At these locations, tracer values measured follow a normal
+distribution with mean 10, 1, and 8 and standard deviations 1, 0.1, and
+0.2.</p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">mean_vals</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>,  <span class="fl">1</span>,  <span class="fl">8</span><span class="op">)</span></span>
+<span><span class="va">sd_vals</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span> <span class="fl">1</span>, <span class="fl">0.1</span>, <span class="fl">0.8</span><span class="op">)</span></span></code></pre></div>
 <p>I assume that between the measured points, tracer values change
 linearly. With these assumptions and values, the function factory for
 the tracer can be coded as follows</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">strat_cont_gen</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span><span class="op">{</span></span>
-<span>   <span class="va">loc</span> <span class="op">=</span> <span class="va">locations</span></span>
+<span>  <span class="co"># draw sample tracer values from specified distributions</span></span>
 <span>   <span class="va">trac_vals</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">mean_vals</span><span class="op">)</span>,</span>
 <span>                     mean <span class="op">=</span> <span class="va">mean_vals</span>,</span>
 <span>                     sd <span class="op">=</span> <span class="va">sd_vals</span><span class="op">)</span></span>
-<span>   <span class="va">strat_cont</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/approxfun.html" class="external-link">approxfun</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">loc</span>,</span>
+<span>   <span class="co"># define function that linearly interpolates between drawn values</span></span>
+<span>   <span class="va">strat_cont</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/approxfun.html" class="external-link">approxfun</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">locations</span>,</span>
 <span>                          y <span class="op">=</span> <span class="va">trac_vals</span>,</span>
 <span>                          yleft <span class="op">=</span> <span class="va">trac_vals</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
 <span>                          yright <span class="op">=</span> <span class="va">trac_vals</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span>
@@ -294,9 +380,9 @@ the tracer can be coded as follows</p>
 <span><span class="op">}</span></span></code></pre></div>
 <p>To visualize this, here are 3 possible scenarios of how tracer values
 change in the section:</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">n</span> <span class="op">=</span> <span class="fl">3</span> <span class="co"># number of sampled tracer values </span></span>
-<span><span class="va">h</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="va">h_min</span>, <span class="va">h_max</span>, by <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span> <span class="co"># determine age-depth model every 0.1 m</span></span>
+<span><span class="va">h</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="va">h_min</span>, <span class="va">h_max</span>, by <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span> <span class="co"># determine tracer values every 0.1 m </span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="cn">NULL</span>,</span>
 <span>     xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">h_min</span>, <span class="va">h_max</span><span class="op">)</span>,</span>
 <span>     ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">mean_vals</span><span class="op">)</span> <span class="op">+</span><span class="fl">2</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">sd_vals</span><span class="op">)</span><span class="op">)</span>,</span>
@@ -304,48 +390,26 @@ change in the section:</p>
 <span>     ylab <span class="op">=</span> <span class="st">"Measured Tracer [1/m]"</span><span class="op">)</span></span>
 <span><span class="va">cols</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"red"</span>, <span class="st">"blue"</span>, <span class="st">"black"</span><span class="op">)</span></span>
 <span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
-<span>  <span class="va">strat_cont</span> <span class="op">=</span> <span class="fu">strat_cont_gen</span><span class="op">(</span><span class="op">)</span></span>
+<span>  <span class="va">strat_cont</span> <span class="op">=</span> <span class="fu">strat_cont_gen</span><span class="op">(</span><span class="op">)</span> <span class="co"># draw sample path from stoch process </span></span>
+<span>  <span class="co"># draw sample path</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">h</span>,</span>
 <span>        y <span class="op">=</span> <span class="fu">strat_cont</span><span class="op">(</span><span class="va">h</span><span class="op">)</span>,</span>
 <span>        col <span class="op">=</span> <span class="va">cols</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-<p><img src="adm_from_trace_cont_files/figure-html/unnamed-chunk-19-1.png" width="700"></p>
+<p><img src="adm_from_trace_cont_files/figure-html/unnamed-chunk-20-1.png" width="700"></p>
 </div>
-</div>
-<div class="section level2">
-<h2 id="estimating-the-age-depth-model">Estimating the age-depth model<a class="anchor" aria-label="anchor" href="#estimating-the-age-depth-model"></a>
-</h2>
-<p>With all the input data coded, age-depth models can be estimated
-using the function <code>strat_cont_to_multiadm</code>. Here, I
-determine the age-depth models every 0.25 m, and generate 10 ADMs</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">h</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="va">h_min</span>,<span class="va">h_max</span>, by <span class="op">=</span> <span class="fl">0.25</span><span class="op">)</span> <span class="co"># strat. positions where ADMs are estimated</span></span>
-<span><span class="va">no_of_rep</span> <span class="op">=</span> <span class="fl">1000</span> <span class="co"># no. of ADMs estimated</span></span></code></pre></div>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">my_adm</span> <span class="op">=</span> <span class="fu"><a href="../reference/strat_cont_to_multiadm.html">strat_cont_to_multiadm</a></span><span class="op">(</span>h_tp <span class="op">=</span> <span class="va">h_tp</span>,</span>
-<span>                                t_tp <span class="op">=</span> <span class="va">t_tp</span>,</span>
-<span>                                strat_cont_gen <span class="op">=</span> <span class="va">strat_cont_gen</span>,</span>
-<span>                                time_cont_gen <span class="op">=</span> <span class="va">time_cont_gen</span>,</span>
-<span>                                h <span class="op">=</span> <span class="va">h</span>,</span>
-<span>                                no_of_rep <span class="op">=</span> <span class="va">no_of_rep</span>,</span>
-<span>                                T_unit <span class="op">=</span> <span class="st">"m"</span>,</span>
-<span>                                L_unit <span class="op">=</span> <span class="st">"Myr"</span><span class="op">)</span></span></code></pre></div>
-<p>The estimated age-depth model can be handed to plot to display
-it:</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">my_adm</span>, mode <span class="op">=</span> <span class="st">"envelope"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/T_axis_lab.html">T_axis_lab</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># plot time axis label, see ?T_axis_lab for details</span></span>
-<span><span class="fu"><a href="../reference/L_axis_lab.html">L_axis_lab</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># plot length axis label, see ?L_axis_lab for details</span></span>
-<span><span class="fu"><a href="../reference/make_legend.html">make_legend</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># make legend</span></span></code></pre></div>
-<p><img src="adm_from_trace_cont_files/figure-html/unnamed-chunk-22-1.png" width="700"></p>
 </div>
 <div class="section level2">
 <h2 id="further-information">Further information<a class="anchor" aria-label="anchor" href="#further-information"></a>
 </h2>
 <p>For information on estimating age-depth models from sedimentation
 rates, see</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/vignette.html" class="external-link">vignette</a></span><span class="op">(</span><span class="st">"adm_from_sedrate"</span><span class="op">)</span></span></code></pre></div>
+<p>For an overview of the structure of the <code>admtools</code> package
+and the classes used therein see</p>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/vignette.html" class="external-link">vignette</a></span><span class="op">(</span><span class="st">"admtools_doc"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a>

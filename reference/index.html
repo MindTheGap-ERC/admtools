@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">admtools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,7 +29,8 @@
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/adm_from_sedrate.html">Estimating Age-Depth Models from Sedimentation Rates</a>
     <a class="dropdown-item" href="../articles/adm_from_trace_cont.html">Estimating Age-Depth Models from Tracer Contents of Rocks and Sediments</a>
-    <a class="dropdown-item" href="../articles/adm_plotting.html">adm_plotting</a>
+    <a class="dropdown-item" href="../articles/adm_plotting.html">Plotting Age-Depth Aodels</a>
+    <a class="dropdown-item" href="../articles/admtools_doc.html">Structure and classes of the admtools package</a>
   </div>
 </li>
 <li class="nav-item">
@@ -99,17 +100,17 @@
           
           <code><a href="flux_const.html">flux_const()</a></code> 
         </dt>
-        <dd>constant deterministic proxy flux</dd>
+        <dd>constant deterministic tracer flux</dd>
       </dl><dl><dt>
           
           <code><a href="flux_linear.html">flux_linear()</a></code> 
         </dt>
-        <dd>linear deterministic proxy flux</dd>
+        <dd>linear deterministic tracer flux</dd>
       </dl><dl><dt>
           
           <code><a href="flux_quad.html">flux_quad()</a></code> 
         </dt>
-        <dd>quadratic deterministix proxy flux</dd>
+        <dd>quadratic deterministic tracer flux</dd>
       </dl><dl><dt>
           
           <code><a href="get_L_unit.html">get_L_unit()</a></code> 
@@ -125,6 +126,11 @@
           <code><a href="get_completeness.html">get_completeness()</a></code> <code><a href="get_completeness.html">get_incompleteness()</a></code> 
         </dt>
         <dd>Determine stratigraphic (in)completeness</dd>
+      </dl><dl><dt>
+          
+          <code><a href="get_data_from_eTimeOpt.html">get_data_from_eTimeOpt()</a></code> 
+        </dt>
+        <dd>extract data from eTimeOpt results</dd>
       </dl><dl><dt>
           
           <code><a href="get_height.html">get_height()</a></code> 
@@ -182,6 +188,11 @@
         <dd>is valid multiadm object?</dd>
       </dl><dl><dt>
           
+          <code><a href="is_sac.html">is_sac()</a></code> 
+        </dt>
+        <dd>is valid sac objects</dd>
+      </dl><dl><dt>
+          
           <code><a href="make_legend.html">make_legend()</a></code> 
         </dt>
         <dd>plot legend</dd>
@@ -237,6 +248,16 @@
         <dd>turn sed. acc curve into adm</dd>
       </dl><dl><dt>
           
+          <code><a href="sed_rate_from_matrix.html">sed_rate_from_matrix()</a></code> 
+        </dt>
+        <dd>make sed rate gen from matrix</dd>
+      </dl><dl><dt>
+          
+          <code><a href="sed_rate_gen_from_bounds.html">sed_rate_gen_from_bounds()</a></code> 
+        </dt>
+        <dd>seg rate gen from upper/lower bounds</dd>
+      </dl><dl><dt>
+          
           <code><a href="sed_rate_l.html">sed_rate_l()</a></code> 
         </dt>
         <dd>sedimentation rate in stratigraphic height</dd>
@@ -259,7 +280,7 @@
           
           <code><a href="sedrate_to_multiadm.html">sedrate_to_multiadm()</a></code> 
         </dt>
-        <dd>Estimate age-depth model from sedimentation rate &amp; tie points</dd>
+        <dd>Estimate age-depth model from sedimentation rates &amp; tie points</dd>
       </dl><dl><dt>
           
           <code><a href="set_L_unit.html">set_L_unit()</a></code> 
@@ -277,14 +298,14 @@
         <dd>split multiadm objects into adm</dd>
       </dl><dl><dt>
           
-          <code><a href="strat_cont_gen_from_proxy.html">strat_cont_gen_from_proxy()</a></code> 
+          <code><a href="strat_cont_gen_from_tracer.html">strat_cont_gen_from_tracer()</a></code> 
         </dt>
-        <dd>proxy record fluxes</dd>
+        <dd>proxy values in strat domain</dd>
       </dl><dl><dt>
           
           <code><a href="strat_cont_to_multiadm.html">strat_cont_to_multiadm()</a></code> 
         </dt>
-        <dd>estimate age-depth model from stratigraphic contents</dd>
+        <dd>estimate age-depth model from tracer</dd>
       </dl><dl><dt>
           
           <code><a href="strat_to_time.html">strat_to_time()</a></code> 
