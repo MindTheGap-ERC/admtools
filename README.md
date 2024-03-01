@@ -4,6 +4,7 @@ R package to estimate age-depth models from stratigraphic and sedimentological d
 
 <!-- badges: start -->
   [![R-CMD-check](https://github.com/MindTheGap-ERC/admtools/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/MindTheGap-ERC/admtools/actions/workflows/R-CMD-check.yaml)
+  [![fair-software.eu](https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8B%20%20%E2%97%8F%20%20%E2%97%8B-orange)](https://fair-software.eu)
   <!-- badges: end -->
 
 ## Authors
