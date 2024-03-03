@@ -6,7 +6,7 @@ R package to estimate age-depth models from stratigraphic and sedimentological d
   [![R-CMD-check](https://github.com/MindTheGap-ERC/admtools/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/MindTheGap-ERC/admtools/actions/workflows/R-CMD-check.yaml)
 [![fair-software.eu](https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8B-yellow)](https://fair-software.eu)
   [![](https://www.r-pkg.org/badges/version/admtools?color=pink)](https://cran.r-project.org/package=admtools)
-  [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10261246.svg)](https://doi.org/10.5281/zenodo.10261246)
+ [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10774574.svg)](https://doi.org/10.5281/zenodo.10774574)
   <!-- badges: end -->
 
 ## Authors
