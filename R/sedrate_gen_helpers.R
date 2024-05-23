@@ -77,7 +77,7 @@ sed_rate_from_matrix = function(height, sedrate, matrix, rate = 1){
   se = rep(NA, length(interp_points))
   for (i in seq_along(interp_points)){
     interp_index = which.min(abs(interp_points[i] - height))
-    sed_rate_vals = matrix[interp_index,]
+    sed_rate_vals = matrix[,interp_index]
     sed_rate_val = rej_sampling(sedrate, sed_rate_vals)
     interp_heights[i] = height[interp_index]
     se[i] = sed_rate_val
