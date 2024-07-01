@@ -134,6 +134,13 @@ L_axis_lab()
 make_legend()
 ```
 
+You can extract mean, median, and quantile age-depth models using `mean_adm`, `median_adm` and `quantile_adm`:
+
+```{r}
+mean_adm = mean_adm(my_adm, h)
+plot(mean_adm)
+```
+
 ## Coding tie points
 
 ### Background
