@@ -223,15 +223,15 @@ The following functions transform `multiadm` objects into other S3 classes:
 
 `admtools` implements the following methods for `list`:
 
--   `strat_to_time`: Transform strat-val pairs into time domain
--   `time_to_strat`: Transform time-val pairs into strat domain
+-   `strat_to_time.list`: Transform strat-val pairs into time domain
+-   `time_to_strat.list`: Transform time-val pairs into strat domain
 
 ### S3 class `phylo`
 
 `admtools` implements the following methods for `phylo`:
 
--   `strat_to_time`: Transform stratigraphic tree into time domain
--   `time_to_strat`: Transform time tree into strat domain
+-   `strat_to_time.phylo`: Transform stratigraphic tree into time domain
+-   `time_to_strat.phylo`: Transform time tree into strat domain
 
 ## Plotting
 

@@ -21,5 +21,5 @@ Takes an object and transforms it from the time domain into the stratigraphic do
 Currently implemented for the "phylo" class.
 }
 \seealso{
-\code{\link[=time_to_strat]{time_to_strat()}} to transform data from the time to the stratigraphic domain
+\code{\link[=time_to_strat]{time_to_strat()}} to transform data from the time to the stratigraphic domain, \code{\link[=strat_to_time.phylo]{strat_to_time.phylo()}} and \code{\link[=strat_to_time.list]{strat_to_time.list()}} for details on how to transform phylo objects and lists
 }

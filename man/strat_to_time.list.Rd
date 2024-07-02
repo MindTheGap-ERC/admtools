@@ -11,7 +11,7 @@
 
 \item{x}{an \emph{adm} object}
 
-\item{...}{options passed to \emph{get_time}}
+\item{...}{options passed to \code{get_time}}
 }
 \value{
 a list with one named element "t" instead of the element "h". This element contains the times of the stratigraphic positions in "h".
@@ -26,5 +26,5 @@ the observations are associated with time.
 
 }
 \seealso{
-\code{\link[=time_to_strat.list]{time_to_strat.list()}} for the transformation from time to height domain
+\code{\link[=time_to_strat.list]{time_to_strat.list()}} for the transformation from time to height domain, \code{\link[=get_time]{get_time()}} for the underlying procedure, \code{\link[=time_to_strat]{time_to_strat()}} for the higher level function
 }
