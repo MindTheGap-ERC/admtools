@@ -238,16 +238,14 @@ get_height(my_adm,
 
 The `admtools` package can transform complex objects between the time and stratigraphic domain. This is done using the functions `strat_to_time` and `time_to_strat`.
 
-As an example, we transform a chronogram (a phylogenetic tree where branch length represents time). For this, we first generate a tree following the birth-death model using the `ape` package.
+As an example, we transform a chronogram (a phylogenetic tree where branch length represents time). An example tree following the birth-death model is stored with the package as the variable `timetree`. See `?timetree` for details on how this tree was generated.
 
 ```{r}
 #install.packages("ape") Package for analyses of phylogenetics and evolution
 # see ?ape::rlineage for help
-set.seed(1)
-tree_in_time = ape::rlineage(birth = 1.8,
-                             death = 0.2,
-                             Tmax = 2)
-plot(tree_in_time) # see also ?ape::plot.phylo
+#set.seed(1)
+
+ape::plot.phylo(timetree) # see also ?ape::plot.phylo
 axis(1)
 mtext("Time [Myr]", side = 1, line = 2.5)
 ```
@@ -255,14 +253,14 @@ mtext("Time [Myr]", side = 1, line = 2.5)
 You can transform the tree using `time_to_strat`:
 
 ```{r}
-tree_in_strat_domain = time_to_strat(obj = tree_in_time,
+tree_in_strat_domain = time_to_strat(obj = timetree,
                                      x = my_adm)
 ```
 
 Plotting the resulting tree along the tratigraphic column shows how the evolutinoary relationships would be preserved 2 km offshore in the simulated carbonate platform:
 
 ```{r}
-plot(tree_in_strat_domain, direction = "upwards")
+ape::plot.phylo(tree_in_strat_domain, direction = "upwards")
 axis(side = 2)
 mtext("Stratigraphic Height [m]",
       side = 2,
