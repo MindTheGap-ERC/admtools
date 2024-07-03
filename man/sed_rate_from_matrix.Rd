@@ -4,7 +4,7 @@
 \alias{sed_rate_from_matrix}
 \title{make sed rate gen from matrix}
 \usage{
-sed_rate_from_matrix(height, sedrate, matrix, rate = 1)
+sed_rate_from_matrix(height, sedrate, matrix, rate = 1, expand_domain = TRUE)
 }
 \arguments{
 \item{height}{vector of heights}
@@ -14,6 +14,8 @@ sed_rate_from_matrix(height, sedrate, matrix, rate = 1)
 \item{matrix}{matrix of sed rate y values}
 
 \item{rate}{numeric, rate of the Poisson point process determining frequency of sedimentation rate changes.}
+
+\item{expand_domain}{should sedimentation rates be defined below/above the highest/lowest height in the section? If TRUE, the sed rate values are the values at the closest interpolated point, if FALSE it will be NA}
 }
 \value{
 a function factory for usage with \code{sedrate_to_multiadm}

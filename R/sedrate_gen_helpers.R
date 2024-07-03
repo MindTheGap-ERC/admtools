@@ -46,7 +46,7 @@ crppp = function(x_min, x_max, rate = 1){
   return(points)
 }
 
-sed_rate_from_matrix = function(height, sedrate, matrix, rate = 1){
+sed_rate_from_matrix = function(height, sedrate, matrix, rate = 1, expand_domain = TRUE){
   #' @export
   #' @title make sed rate gen from matrix
   #' 
@@ -54,6 +54,7 @@ sed_rate_from_matrix = function(height, sedrate, matrix, rate = 1){
   #' @param sedrate vector of sed. rates x values
   #' @param matrix matrix of sed rate y values
   #' @param rate numeric, rate of the Poisson point process determining frequency of sedimentation rate changes.
+  #' @param expand_domain should sedimentation rates be defined below/above the highest/lowest height in the section? If TRUE, the sed rate values are the values at the closest interpolated point, if FALSE it will be NA
   #' 
   #' @returns a function factory for usage with `sedrate_to_multiadm`
   #' 
@@ -68,6 +69,10 @@ sed_rate_from_matrix = function(height, sedrate, matrix, rate = 1){
   # height = seq(x_min, x_max, by = 0.25)
   # sedrate = seq(0.1, 10, by = 0.1)
   # matrix = matrix(data = runif(n = length(height) * length(sedrate)), nrow = length(height), ncol = length(sedrate))
+  rule = 1
+  if (expand_domain == TRUE){
+    rule = 2
+  }
   f = function(){
   x_max = max(height)
   x_min = min(height)
@@ -77,13 +82,13 @@ sed_rate_from_matrix = function(height, sedrate, matrix, rate = 1){
   se = rep(NA, length(interp_points))
   for (i in seq_along(interp_points)){
     interp_index = which.min(abs(interp_points[i] - height))
-    sed_rate_vals = matrix[interp_index,]
+    sed_rate_vals = matrix[,interp_index]
     sed_rate_val = rej_sampling(sedrate, sed_rate_vals)
     interp_heights[i] = height[interp_index]
     se[i] = sed_rate_val
     
   }
-  return(stats::approxfun(interp_heights, se, ties = function(x) sample(x, 1))) # for ties, randomly select one sample
+  return(stats::approxfun(x = interp_heights, y = se, ties = function(x) sample(x, 1), rule = rule)) # for ties, randomly select one sample
   }
   return(f)
 }

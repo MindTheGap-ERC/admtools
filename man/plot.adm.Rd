@@ -35,3 +35,6 @@
 \description{
 plotting adm objects
 }
+\seealso{
+\code{\link[=L_axis_lab]{L_axis_lab()}} and \code{\link[=T_axis_lab]{T_axis_lab()}} for plotting time and axis labels, the vignette on plotting available via \code{browseVignettes(package = "admtools")}
+}

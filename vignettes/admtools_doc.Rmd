@@ -215,6 +215,7 @@ The following functions extract information from `multiadm` objects:
 The following functions transform `multiadm` objects into other S3 classes:
 
 -   `split_multiadm` to split `multiadm` into list of `adm` objects
+-   `mean_adm` , `median_adm` and `quantile_adm` to extract mean, median, and quantile age-depth model of `adm` class.m
 
 ## Methods implemented for external S3 classes
 
@@ -222,15 +223,15 @@ The following functions transform `multiadm` objects into other S3 classes:
 
 `admtools` implements the following methods for `list`:
 
--   `strat_to_time`: Transform strat-val pairs into time domain
--   `time_to_strat`: Transform time-val pairs into strat domain
+-   `strat_to_time.list`: Transform strat-val pairs into time domain
+-   `time_to_strat.list`: Transform time-val pairs into strat domain
 
 ### S3 class `phylo`
 
 `admtools` implements the following methods for `phylo`:
 
--   `strat_to_time`: Transform stratigraphic tree into time domain
--   `time_to_strat`: Transform time tree into strat domain
+-   `strat_to_time.phylo`: Transform stratigraphic tree into time domain
+-   `time_to_strat.phylo`: Transform time tree into strat domain
 
 ## Plotting
 

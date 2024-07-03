@@ -20,6 +20,8 @@ T_axis_lab = function(label = "Time", unit = TRUE, sep = " ", brac = c("[", "]")
   #' @param font parameter passed to _mtext_, see ?mtext for details
   #' @param ... further graphical parameters passed to _mtext_, see ?mtext for details
   #' 
+  #' @seealso [plot.adm()] for plotting of adms
+  #' 
   #' @returns invisible NULL
   
   list = get("adm_plot_info", envir = .adm_plot_env)

@@ -12,9 +12,10 @@ BugReports: https://github.com/MindTheGap-ERC/admtools/issues
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.2
 Depends: 
     R (>= 2.10),
+Imports:
     ape
 LazyData: true
 Suggests: 

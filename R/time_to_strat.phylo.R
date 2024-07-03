@@ -3,6 +3,20 @@ time_to_strat.phylo = function(obj, x, ...){
   #' 
   #' @export
   #' @import ape
+  #' 
+  #' @title transfrom phylo object
+  #' 
+  #' @description
+  #' transfrom phylo object from the time domain to the stratigraphic domain
+  #' 
+  #' 
+  #' @param obj the phylo object to be transformed
+  #' @param x age-depth model
+  #' @param ... other parameters, currently ignored
+  #' 
+  #' @returns a phylo object, representation of the tree in the strat domain
+  #' 
+  #' @seealso [get_height()] for the underlying procedure, [time_to_strat()] for the higher level function, and [strat_to_time.phylo()] for the transformantion of phylo objects from strat domain to the time domain.
   
   tree = obj
   adm = x

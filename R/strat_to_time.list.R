@@ -13,9 +13,9 @@ strat_to_time.list = function(obj, x, ...){
   #' 
   #' @param obj a list with one element named "h", which will be interpreted as stratigraphic positions
   #' @param x an _adm_ object
-  #' @param ... options passed to _get_time_
+  #' @param ... options passed to `get_time`
   #' 
-  #' @seealso [time_to_strat.list()] for the transformation from time to height domain
+  #' @seealso [time_to_strat.list()] for the transformation from time to height domain, [get_time()] for the underlying procedure, [time_to_strat()] for the higher level function
   #' 
   #' @returns a list with one named element "t" instead of the element "h". This element contains the times of the stratigraphic positions in "h".
   #' 
