@@ -89,8 +89,7 @@ Hohmann</h4>
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/MindTheGap-ERC/admtools" class="external-link">admtools</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; Loading required package: ape</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/MindTheGap-ERC/admtools" class="external-link">admtools</a></span><span class="op">)</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
@@ -452,6 +451,10 @@ other S3 classes:</p>
 <li>
 <code>split_multiadm</code> to split <code>multiadm</code> into list
 of <code>adm</code> objects</li>
+<li>
+<code>mean_adm</code> , <code>median_adm</code> and
+<code>quantile_adm</code> to extract mean, median, and quantile
+age-depth model of <code>adm</code> class.m</li>
 </ul>
 </div>
 </div>
@@ -466,10 +469,10 @@ of <code>adm</code> objects</li>
 <code>list</code>:</p>
 <ul>
 <li>
-<code>strat_to_time</code>: Transform strat-val pairs into time
+<code>strat_to_time.list</code>: Transform strat-val pairs into time
 domain</li>
 <li>
-<code>time_to_strat</code>: Transform time-val pairs into strat
+<code>time_to_strat.list</code>: Transform time-val pairs into strat
 domain</li>
 </ul>
 </div>
@@ -480,10 +483,10 @@ domain</li>
 <code>phylo</code>:</p>
 <ul>
 <li>
-<code>strat_to_time</code>: Transform stratigraphic tree into time
-domain</li>
+<code>strat_to_time.phylo</code>: Transform stratigraphic tree into
+time domain</li>
 <li>
-<code>time_to_strat</code>: Transform time tree into strat
+<code>time_to_strat.phylo</code>: Transform time tree into strat
 domain</li>
 </ul>
 </div>

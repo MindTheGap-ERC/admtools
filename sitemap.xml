@@ -118,6 +118,12 @@
     <loc>https://mindthegap-erc.github.io/admtools/reference/make_legend.html</loc>
   </url>
   <url>
+    <loc>https://mindthegap-erc.github.io/admtools/reference/mean_adm.html</loc>
+  </url>
+  <url>
+    <loc>https://mindthegap-erc.github.io/admtools/reference/median_adm.html</loc>
+  </url>
+  <url>
     <loc>https://mindthegap-erc.github.io/admtools/reference/merge_adm_to_multiadm.html</loc>
   </url>
   <url>
@@ -143,6 +149,9 @@
   </url>
   <url>
     <loc>https://mindthegap-erc.github.io/admtools/reference/plot_sed_rate_t.html</loc>
+  </url>
+  <url>
+    <loc>https://mindthegap-erc.github.io/admtools/reference/quantile_adm.html</loc>
   </url>
   <url>
     <loc>https://mindthegap-erc.github.io/admtools/reference/sac_to_adm.html</loc>
@@ -190,6 +199,9 @@
     <loc>https://mindthegap-erc.github.io/admtools/reference/strat_to_time.list.html</loc>
   </url>
   <url>
+    <loc>https://mindthegap-erc.github.io/admtools/reference/strat_to_time.phylo.html</loc>
+  </url>
+  <url>
     <loc>https://mindthegap-erc.github.io/admtools/reference/summary.adm.html</loc>
   </url>
   <url>
@@ -202,7 +214,16 @@
     <loc>https://mindthegap-erc.github.io/admtools/reference/time_to_strat.list.html</loc>
   </url>
   <url>
+    <loc>https://mindthegap-erc.github.io/admtools/reference/time_to_strat.phylo.html</loc>
+  </url>
+  <url>
+    <loc>https://mindthegap-erc.github.io/admtools/reference/timetree.html</loc>
+  </url>
+  <url>
     <loc>https://mindthegap-erc.github.io/admtools/reference/tp_height_det.html</loc>
+  </url>
+  <url>
+    <loc>https://mindthegap-erc.github.io/admtools/reference/tp_time_det.html</loc>
   </url>
   <url>
     <loc>https://mindthegap-erc.github.io/admtools/reference/tp_time_floating_scale.html</loc>

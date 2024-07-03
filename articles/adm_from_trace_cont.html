@@ -88,7 +88,6 @@ Hohmann</h4>
 
     
     
-<pre><code><span><span class="co">#&gt; Loading required package: ape</span></span></code></pre>
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
@@ -140,7 +139,7 @@ assumption that 3He flux is constant with time.</p>
 </h3>
 <p>We start by defining the section, the sampling bins, and the
 measurements of 3He:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">h_min</span> <span class="op">=</span> <span class="fl">3</span> <span class="co"># bottom of section</span></span>
 <span><span class="va">h_max</span> <span class="op">=</span> <span class="fl">8</span> <span class="co"># top of section</span></span>
 <span><span class="va">sampling_bin_borders</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="va">h_min</span>, <span class="va">h_max</span>, by <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="co"># limits of sampling bins</span></span>
@@ -148,7 +147,7 @@ measurements of 3He:</p>
 <span><span class="va">sd_3He</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">mean_3He</span><span class="op">)</span>, min <span class="op">=</span> <span class="fl">0.1</span> <span class="op">*</span> <span class="va">mean_3He</span>, max <span class="op">=</span> <span class="fl">0.2</span> <span class="op">*</span> <span class="va">mean_3He</span><span class="op">)</span> <span class="co"># standard deviation of 3He</span></span>
 <span><span class="va">He_measurements</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="st">"mean"</span> <span class="op">=</span> <span class="va">mean_3He</span>, <span class="st">"sd"</span> <span class="op">=</span> <span class="va">sd_3He</span><span class="op">)</span></span></code></pre></div>
 <p>We want to know the age every 10 cm, so we define</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">h</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="va">h_min</span>, <span class="va">h_max</span>, by <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span>
 <span><span class="va">T_unit</span> <span class="op">=</span> <span class="st">"dimensionless"</span></span>
 <span><span class="va">L_unit</span> <span class="op">=</span> <span class="st">"m"</span></span></code></pre></div>
@@ -158,11 +157,11 @@ measurements of 3He:</p>
 </h3>
 <p>The tie points in height are deterministic and defined using the
 function <code>tp_height_det</code>:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tp_height</span> <span class="op">=</span> <span class="fu"><a href="../reference/tp_height_det.html">tp_height_det</a></span><span class="op">(</span>heights <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">h_min</span>, <span class="va">h_max</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>We use the function <code>tp_time_floating_scale</code> to define the
 time tie points for the floating time scale</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tp_time</span> <span class="op">=</span> <span class="fu"><a href="../reference/tp_time_floating_scale.html">tp_time_floating_scale</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>This introduces an auxiliary time scale where the bottom of the
 section corresponds to time 0 and the top to time 1, which allows to
@@ -173,11 +172,11 @@ examine the relative distribution of time within the section.</p>
 </h3>
 <p>To define the assumption of constant 3He flux in time, we use the
 function <code>flux_const</code>:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">flux</span> <span class="op">=</span> <span class="fu"><a href="../reference/flux_const.html">flux_const</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>The observations of 3He are put into a machine-readable format using
 the function <code>strat_cont_gen_from_tracer</code>:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">observed_tracer</span> <span class="op">=</span> <span class="fu"><a href="../reference/strat_cont_gen_from_tracer.html">strat_cont_gen_from_tracer</a></span><span class="op">(</span>bin_borders <span class="op">=</span> <span class="va">sampling_bin_borders</span>, </span>
 <span>                                          df <span class="op">=</span> <span class="va">He_measurements</span>,</span>
 <span>                                          distribution <span class="op">=</span> <span class="st">"normal"</span><span class="op">)</span></span></code></pre></div>
@@ -192,7 +191,7 @@ with depth:</p>
 </h3>
 <p>With the tie points, assumptions on flux in time, and observed values
 of the tracer coded, we can now estimate the age-depth model:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">my_adm</span> <span class="op">=</span> <span class="fu"><a href="../reference/strat_cont_to_multiadm.html">strat_cont_to_multiadm</a></span><span class="op">(</span>h_tp <span class="op">=</span> <span class="va">tp_height</span>,</span>
 <span>                                t_tp <span class="op">=</span> <span class="va">tp_time</span>,</span>
 <span>                                strat_cont_gen <span class="op">=</span> <span class="va">observed_tracer</span>,</span>
@@ -200,12 +199,19 @@ of the tracer coded, we can now estimate the age-depth model:</p>
 <span>                                h <span class="op">=</span> <span class="va">h</span>,</span>
 <span>                                T_unit <span class="op">=</span> <span class="va">T_unit</span>,</span>
 <span>                                L_unit <span class="op">=</span> <span class="va">L_unit</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">my_adm</span>, mode <span class="op">=</span> <span class="st">"envelope"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/T_axis_lab.html">T_axis_lab</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/L_axis_lab.html">L_axis_lab</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/make_legend.html">make_legend</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="adm_from_trace_cont_files/figure-html/unnamed-chunk-10-1.png" width="700"></p>
+<p>You can extract mean, median, and quantile age-depth models using
+<code>mean_adm</code>, <code>median_adm</code> and
+<code>quantile_adm</code>:</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">mean_adm</span> <span class="op">=</span> <span class="fu"><a href="../reference/mean_adm.html">mean_adm</a></span><span class="op">(</span><span class="va">my_adm</span>, <span class="va">h</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mean_adm</span><span class="op">)</span></span></code></pre></div>
+<p><img src="adm_from_trace_cont_files/figure-html/unnamed-chunk-11-1.png" width="700"></p>
 </div>
 </div>
 <div class="section level2">
@@ -233,6 +239,8 @@ uncertainties of the tie points to the
 <ul>
 <li><p><code>tp_height_det</code> for specifying deterministic
 stratigraphic heights</p></li>
+<li><p><code>tp_time_det</code> for specifying deterministic time
+points</p></li>
 <li><p><code>tp_time_floating_scale</code> to encode time tie points for
 floating time scale</p></li>
 <li><p><code>tp_time_norm</code> for normally distributed tie points in
@@ -261,6 +269,8 @@ the tie points:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">h_tp</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 10 20</span></span></code></pre></div>
+<p>Note that the <code>h_tp</code> defined here is a synonym for
+<code>h_tp = tp_height_det(c(h_min, h_max))</code>.</p>
 <p>For a more complex example, I assume that the timing of the first tie
 point follows a normal distribution with mean 0 and standard deviation
 0.5. For the second tie point, only maximum and minimum time is
@@ -284,7 +294,7 @@ implemented as follows in <code>t_tp</code>:</p>
 <span><span class="co">#&gt; [1]  0.8846097 10.4742473</span></span></code></pre></div>
 <p>Using Myr as time unit, the distribution of times for the tie points
 is as follows:</p>
-<p><img src="adm_from_trace_cont_files/figure-html/unnamed-chunk-14-1.png" width="700"><img src="adm_from_trace_cont_files/figure-html/unnamed-chunk-14-2.png" width="700"></p>
+<p><img src="adm_from_trace_cont_files/figure-html/unnamed-chunk-15-1.png" width="700"><img src="adm_from_trace_cont_files/figure-html/unnamed-chunk-15-2.png" width="700"></p>
 </div>
 </div>
 <div class="section level2">
@@ -347,7 +357,7 @@ function. To visualize this, let’s plot this from time 0 to 10:</p>
 <span>     type <span class="op">=</span> <span class="st">"l"</span>,</span>
 <span>     xlab <span class="op">=</span> <span class="st">"Time [Myr]"</span>,</span>
 <span>     ylab <span class="op">=</span> <span class="st">"Tracer Input into the Sediment [X/Myr]"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="adm_from_trace_cont_files/figure-html/unnamed-chunk-16-1.png" width="700"></p>
+<p><img src="adm_from_trace_cont_files/figure-html/unnamed-chunk-17-1.png" width="700"></p>
 <p>This is a lot of effort to code a constant function. The used
 approach shows its power and versatility when used in more complex
 situations. For example, assume the tracer was measured at the bottom,
@@ -396,7 +406,7 @@ change in the section:</p>
 <span>        y <span class="op">=</span> <span class="fu">strat_cont</span><span class="op">(</span><span class="va">h</span><span class="op">)</span>,</span>
 <span>        col <span class="op">=</span> <span class="va">cols</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-<p><img src="adm_from_trace_cont_files/figure-html/unnamed-chunk-20-1.png" width="700"></p>
+<p><img src="adm_from_trace_cont_files/figure-html/unnamed-chunk-21-1.png" width="700"></p>
 </div>
 </div>
 <div class="section level2">

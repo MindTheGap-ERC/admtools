@@ -63,7 +63,7 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">sed_rate_from_matrix</span><span class="op">(</span><span class="va">height</span>, <span class="va">sedrate</span>, <span class="va">matrix</span>, rate <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">sed_rate_from_matrix</span><span class="op">(</span><span class="va">height</span>, <span class="va">sedrate</span>, <span class="va">matrix</span>, rate <span class="op">=</span> <span class="fl">1</span>, expand_domain <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -82,6 +82,10 @@
 
 <dt>rate</dt>
 <dd><p>numeric, rate of the Poisson point process determining frequency of sedimentation rate changes.</p></dd>
+
+
+<dt>expand_domain</dt>
+<dd><p>should sedimentation rates be defined below/above the highest/lowest height in the section? If TRUE, the sed rate values are the values at the closest interpolated point, if FALSE it will be NA</p></dd>
 
 </dl></div>
     <div class="section level2">
