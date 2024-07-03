@@ -21,6 +21,8 @@ L_axis_lab = function(label = "Height", unit = TRUE, sep = " ", brac = c("[", "]
   #' @param ... further graphical parameters passed to _mtext_, see ?mtext for details
   #' 
   #' @returns invisible NULL
+  #' 
+  #' @seealso [plot.adm()] for plotting of adms
   
   list = get("adm_plot_info", envir = .adm_plot_env)
   

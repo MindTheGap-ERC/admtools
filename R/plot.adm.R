@@ -15,6 +15,8 @@ plot.adm = function(x, lwd_destr = 1, lwd_acc = 1, lty_destr = 3, lty_acc = 1,
   #' @param col_acc color of conservative intervals
   #' @param ... arguments passed to plot
   #' 
+  #' @seealso [L_axis_lab()] and [T_axis_lab()] for plotting time and axis labels, the vignette on plotting available via `browseVignettes(package = "admtools")`
+  #' 
   
   assign(x = "adm_plot_info",
          value = list("T_unit" = x$T_unit,
