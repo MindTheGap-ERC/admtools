@@ -168,6 +168,8 @@ Multiple wrappers are available to simplify coding tie points:
 
 -   `tp_height_det` for specifying deterministic stratigraphic heights
 
+-   `tp_time_det` for specifying deterministic time points
+
 -   `tp_time_floating_scale` to encode time tie points for floating time scale
 
 -   `tp_time_norm` for normally distributed tie points in time
@@ -196,6 +198,8 @@ When evaluated, this function returns the stratigraphic positions of the tie poi
 ```{r, Evaluate stratigraphic positions of tie points}
 h_tp()
 ```
+
+Note that the `h_tp` defined here is a synonym for `h_tp = tp_height_det(c(h_min, h_max))`.
 
 For a more complex example, I assume that the timing of the first tie point follows a normal distribution with mean 0 and standard deviation 0.5. For the second tie point, only maximum and minimum time is available. Due to the lack of information, I assume a uniform distribution between the minimum (9) and the maximum (11). This is implemented as follows in `t_tp`:
 

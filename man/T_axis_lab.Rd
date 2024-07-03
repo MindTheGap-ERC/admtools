@@ -53,3 +53,6 @@ invisible NULL
 \description{
 plot time axis label
 }
+\seealso{
+\code{\link[=plot.adm]{plot.adm()}} for plotting of adms
+}

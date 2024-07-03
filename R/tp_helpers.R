@@ -4,7 +4,7 @@ tp_time_floating_scale = function(){
   #' @title tie points for floating time scale
   #' 
   #' @description
-    #' Defines tie points for a floating time sclae for usage with _sedrate_to_multiadm_ and _strat_cont_to_multiadm_
+    #' Defines tie points for a floating (auxiliary) time sclae for usage with _sedrate_to_multiadm_ and _strat_cont_to_multiadm_ as t_tp input. This floating time scale consists of two tie points in time, the first at time t = 0, the second at time t = 1. `tp_time_floating_scale` is a synonym of  `tp_time_det(times = c(0,1))`
     #' 
   #' @returns  function for usage with _strat_cont_to_multiadm_ and _sedrate_to_multiamd_ as t_tp input
   #' 
@@ -69,12 +69,33 @@ tp_height_det = function(heights){
     #' 
   #' @param heights numeric vector. Stratigraphic positions of the tie points
   #' 
-  #' @seealso [tp_time_norm()] for tie points following a normal distribution, [tp_time_floating_scale()] for tie points for a floating scale,
+  #' @seealso [tp_time_det()] for deterministic tie points in time, [tp_time_norm()] for tie points following a normal distribution, [tp_time_floating_scale()] for tie points for a floating scale,
   #' 
-  #' @returns a function for usage with _strat_cont_to_multiadm_ and _sedrate_to_multiamd_ as t_tp input
+  #' @returns a function for usage with _strat_cont_to_multiadm_ and _sedrate_to_multiamd_ as h_tp input
   if (is.unsorted(heights, strictly = TRUE)){
     stop("Need strictly increasing heights")
   }
   f = function() return(heights)
+  return(f)
+}
+
+tp_time_det = function(times){
+  #' @export
+  #' 
+  #' @title deterministic tie points in time domain
+  #' 
+  #' @description
+    #' defines deterministc tie points in time. 
+    #' 
+  #' @param times numeric vector, times of the tie points
+  #' 
+  #' @seealso [tp_height_det()] for deterministic tie points in height, [tp_time_norm()] for tie points following a normal distribution 
+  #' 
+  #' @returns a function for usage with _strat_cont_to_multiadm_ and_sedrate_to_mulitadm_ as t_tp input
+  #' 
+  if (is.unsorted(times, strictly = TRUE)){
+    stop("Need strictly increasing times")
+  }
+  f = function() return(times)
   return(f)
 }
