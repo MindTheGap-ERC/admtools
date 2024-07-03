@@ -47,10 +47,10 @@ move_multiadm_to_env = function(x, ...){
   multiadm = x
   
   no_of_entries = multiadm$no_of_entries
-  t_min = min(sapply(seq_len(no_of_entries), function(x) min(multiadm[["t"]][[x]])))
-  t_max = max(sapply(seq_len(no_of_entries), function(x) max(multiadm[["t"]][[x]])))
-  h_min = min(sapply(seq_len(no_of_entries), function(x) min(multiadm[["h"]][[x]])))
-  h_max = max(sapply(seq_len(no_of_entries), function(x) max(multiadm[["h"]][[x]])))
+  t_min = min(sapply(seq_len(no_of_entries), function(x) min(multiadm[["t"]][[x]])), na.rm = TRUE)
+  t_max = max(sapply(seq_len(no_of_entries), function(x) max(multiadm[["t"]][[x]])), na.rm = TRUE)
+  h_min = min(sapply(seq_len(no_of_entries), function(x) min(multiadm[["h"]][[x]])), na.rm = TRUE)
+  h_max = max(sapply(seq_len(no_of_entries), function(x) max(multiadm[["h"]][[x]])), na.rm = TRUE)
   
   assign(x = "adm_plot_info",
          value = list("T_unit" = x$T_unit,
