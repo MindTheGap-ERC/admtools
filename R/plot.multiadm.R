@@ -81,14 +81,13 @@ plot_envelope = function(){
   multiadm = list$madm
   
   h = seq(list$h_range[1], list$h_range[2], length.out = 100)
-  h_list = get_time(multiadm, h)
-  h_t= list()
-  for ( i in seq_len(100)){
-    h_t[[i]] = sapply(h_list, function(x) x[i])
-  }
-  graphics::lines(sapply(h_t, function(x) stats::quantile(x, 0.5 * (1 - list$p_envelope) , na.rm = TRUE)),h, col = list$envelope_col)
-  graphics::lines(sapply(h_t, function(x) stats::quantile(x, 0.5 * (1 - list$p_envelope) + list$p_envelope, na.rm = TRUE)),h, col = list$envelope_col)
-  graphics::lines(sapply(h_t, function(x) stats::quantile(x, 0.5, na.rm = TRUE)),h, col = list$median_col)
+  
+  q1 = quantile_adm(multiadm, h, 0.025)
+  q2 = quantile_adm(multiadm, h, 0.975)
+  me = median_adm(multiadm, h)
+  graphics::lines(q1$t, q1$h, col = list$envelope_col)
+  graphics::lines(q2$t, q2$h, col = list$envelope_col)
+  graphics::lines(me$t, me$h, col = list$median_col)
   
   return(invisible())
 }
