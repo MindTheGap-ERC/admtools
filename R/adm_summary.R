@@ -60,7 +60,7 @@ mean_adm = function(x, h){
   for ( i in seq_along(h)){
     h_t[[i]] = sapply(h_list, function(x) x[i])
   }
-  t = sapply(h_t, function(x) base::mean(x))
+  t = sapply(h_t, function(x) base::mean(x, na.rm = TRUE))
   adm = tp_to_adm(t = t, h = h, T_unit = get_T_unit(x), L_unit = get_L_unit(x))
   return(adm)
 }
