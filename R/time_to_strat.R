@@ -7,7 +7,7 @@ time_to_strat = function(obj, x, ...){
   #' 
   #' @description
     #' Takes an object and transforms it from the time domain into the stratigraphic domain using the provided age-depth model.
-    #' Currently implemented for the "phylo" class.
+    #' Currently implemented for the "phylo", "list", and "numeric" class.
     #' 
   #' 
   #' @param obj the object to be transformed
@@ -16,7 +16,7 @@ time_to_strat = function(obj, x, ...){
   #' 
   #' @returns an object of the same type as obj
   #' 
-  #' @seealso [strat_to_time()] to transform data from the stratigraphic domain to the time domain, [time_to_strat.phylo()] and [time_to_strat.list()] for details on how to transfrom phylo objects and lists
+  #' @seealso [strat_to_time()] to transform data from the stratigraphic domain to the time domain, [time_to_strat.phylo()], [time_to_strat.numeric()] and [time_to_strat.list()] for details on how to transfrom phylo objects, vectors, and lists. See [get_height()] for the underlying procedure.
   #' 
   
   UseMethod("time_to_strat")

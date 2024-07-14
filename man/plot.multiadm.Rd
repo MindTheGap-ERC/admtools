@@ -15,5 +15,5 @@
 a plot of the multiadm object
 }
 \description{
-plot multiadm object
+plots the median age (red) and the 95 \% envelope (blue) of a multiadm object
 }
