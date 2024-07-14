@@ -16,7 +16,7 @@ time_to_strat.phylo = function(obj, x, ...){
   #' 
   #' @returns a phylo object, representation of the tree in the strat domain
   #' 
-  #' @seealso [get_height()] for the underlying procedure, [time_to_strat()] for the higher level function, and [strat_to_time.phylo()] for the transformantion of phylo objects from strat domain to the time domain.
+  #' @seealso [get_height()] for the underlying procedure, [time_to_strat()] for the higher level function, and [strat_to_time.phylo()] for the transformantion of phylo objects from strat domain to the time domain. See [time_to_strat.list()] and [time_to_strat.numeric()] for the transformation of lists and numeric vectors 
   
   tree = obj
   adm = x

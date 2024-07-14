@@ -10,6 +10,19 @@ plot.multiadm = function(x, ...){
   #' 
   #' @returns a plot of the multiadm object
   #' 
+  #' @description
+    #' plots the median age (red) and the 95 % envelope (blue) of a multiadm object
+    #' 
+  #' 
+  #' @examples
+    #' \dontrun{
+    #' # see
+    #' vignette("adm_from_trace_cont")
+    #' # and 
+    #' vignette("adm_from_sedrate")
+    #' # for example plots.
+    #' }
+    #' 
   
   
   
@@ -47,10 +60,10 @@ move_multiadm_to_env = function(x, ...){
   multiadm = x
   
   no_of_entries = multiadm$no_of_entries
-  t_min = min(sapply(seq_len(no_of_entries), function(x) min(multiadm[["t"]][[x]])))
-  t_max = max(sapply(seq_len(no_of_entries), function(x) max(multiadm[["t"]][[x]])))
-  h_min = min(sapply(seq_len(no_of_entries), function(x) min(multiadm[["h"]][[x]])))
-  h_max = max(sapply(seq_len(no_of_entries), function(x) max(multiadm[["h"]][[x]])))
+  t_min = min(sapply(seq_len(no_of_entries), function(x) min(multiadm[["t"]][[x]])), na.rm = TRUE)
+  t_max = max(sapply(seq_len(no_of_entries), function(x) max(multiadm[["t"]][[x]])), na.rm = TRUE)
+  h_min = min(sapply(seq_len(no_of_entries), function(x) min(multiadm[["h"]][[x]])), na.rm = TRUE)
+  h_max = max(sapply(seq_len(no_of_entries), function(x) max(multiadm[["h"]][[x]])), na.rm = TRUE)
   
   assign(x = "adm_plot_info",
          value = list("T_unit" = x$T_unit,
@@ -59,7 +72,7 @@ move_multiadm_to_env = function(x, ...){
                       "t_range" = c(t_min, t_max),
                       "median_col" = "red",
                       "envelope_col" = "blue",
-                      "p_envelope" = 0.9,
+                      "p_envelope" = 0.95,
                       "madm" = x),
          envir = .adm_plot_env)
   return(invisible())
@@ -81,14 +94,13 @@ plot_envelope = function(){
   multiadm = list$madm
   
   h = seq(list$h_range[1], list$h_range[2], length.out = 100)
-  h_list = get_time(multiadm, h)
-  h_t= list()
-  for ( i in seq_len(100)){
-    h_t[[i]] = sapply(h_list, function(x) x[i])
-  }
-  graphics::lines(sapply(h_t, function(x) stats::quantile(x, 0.5 * (1 - list$p_envelope) , na.rm = TRUE)),h, col = list$envelope_col)
-  graphics::lines(sapply(h_t, function(x) stats::quantile(x, 0.5 * (1 - list$p_envelope) + list$p_envelope, na.rm = TRUE)),h, col = list$envelope_col)
-  graphics::lines(sapply(h_t, function(x) stats::quantile(x, 0.5, na.rm = TRUE)),h, col = list$median_col)
+  
+  q1 = quantile_adm(multiadm, h, 0.025)
+  q2 = quantile_adm(multiadm, h, 0.975)
+  me = median_adm(multiadm, h)
+  graphics::lines(q1$t, q1$h, col = list$envelope_col)
+  graphics::lines(q2$t, q2$h, col = list$envelope_col)
+  graphics::lines(me$t, me$h, col = list$median_col)
   
   return(invisible())
 }

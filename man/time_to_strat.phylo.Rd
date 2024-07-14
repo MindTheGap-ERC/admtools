@@ -20,5 +20,5 @@ a phylo object, representation of the tree in the strat domain
 transfrom phylo object from the time domain to the stratigraphic domain
 }
 \seealso{
-\code{\link[=get_height]{get_height()}} for the underlying procedure, \code{\link[=time_to_strat]{time_to_strat()}} for the higher level function, and \code{\link[=strat_to_time.phylo]{strat_to_time.phylo()}} for the transformantion of phylo objects from strat domain to the time domain.
+\code{\link[=get_height]{get_height()}} for the underlying procedure, \code{\link[=time_to_strat]{time_to_strat()}} for the higher level function, and \code{\link[=strat_to_time.phylo]{strat_to_time.phylo()}} for the transformantion of phylo objects from strat domain to the time domain. See \code{\link[=time_to_strat.list]{time_to_strat.list()}} and \code{\link[=time_to_strat.numeric]{time_to_strat.numeric()}} for the transformation of lists and numeric vectors
 }
