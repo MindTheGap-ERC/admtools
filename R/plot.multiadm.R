@@ -10,6 +10,10 @@ plot.multiadm = function(x, ...){
   #' 
   #' @returns a plot of the multiadm object
   #' 
+  #' @description
+    #' plots the median age (red) and the 95 % envelope (blue) of a multiadm object
+    #' 
+  #' 
   
   
   
@@ -59,7 +63,7 @@ move_multiadm_to_env = function(x, ...){
                       "t_range" = c(t_min, t_max),
                       "median_col" = "red",
                       "envelope_col" = "blue",
-                      "p_envelope" = 0.9,
+                      "p_envelope" = 0.95,
                       "madm" = x),
          envir = .adm_plot_env)
   return(invisible())
