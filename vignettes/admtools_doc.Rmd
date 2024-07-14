@@ -264,3 +264,7 @@ The following functions are used internally and not exposed to users. They can b
 -   `plot_acc_parts`
 
 -   `make_adm_canvas`
+
+## Vignettes
+
+-   `browseVignettes(package = "admtools")` to show a list of vignettes

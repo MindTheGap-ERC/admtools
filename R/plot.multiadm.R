@@ -14,6 +14,15 @@ plot.multiadm = function(x, ...){
     #' plots the median age (red) and the 95 % envelope (blue) of a multiadm object
     #' 
   #' 
+  #' @examples
+    #' \dontrun{
+    #' # see
+    #' vignette("adm_from_trace_cont")
+    #' # and 
+    #' vignette("adm_from_sedrate")
+    #' # for example plots.
+    #' }
+    #' 
   
   
   

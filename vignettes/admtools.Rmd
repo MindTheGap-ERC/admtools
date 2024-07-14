@@ -310,6 +310,12 @@ For an overview of the structure of the `admtools` package and the classes used 
 vignette("admtools_doc")
 ```
 
+For details on plotting ADMs see
+
+```{r, eval=FALSE}
+vignette("adm_plotting)
+```
+
 For information on estimating age-depth models from sedimentation rates, see
 
 ```{r, eval=FALSE}
