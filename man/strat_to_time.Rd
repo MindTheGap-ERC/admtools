@@ -18,8 +18,8 @@ an object of the same type as obj
 }
 \description{
 Takes an object and transforms it from the time domain into the stratigraphic domain using the provided age-depth model.
-Currently implemented for the "phylo" class.
+Currently implemented for the "phylo", "list", and "numeric" class. Wraps around \code{get_time}.
 }
 \seealso{
-\code{\link[=time_to_strat]{time_to_strat()}} to transform data from the time to the stratigraphic domain, \code{\link[=strat_to_time.phylo]{strat_to_time.phylo()}} and \code{\link[=strat_to_time.list]{strat_to_time.list()}} for details on how to transform phylo objects and lists
+\code{\link[=time_to_strat]{time_to_strat()}} to transform data from the time to the stratigraphic domain, \code{\link[=strat_to_time.phylo]{strat_to_time.phylo()}}, \code{\link[=strat_to_time.numeric]{strat_to_time.numeric()}} and \code{\link[=strat_to_time.list]{strat_to_time.list()}} for details on how to transform phylogenetic trees, vectors, and lists. See \code{\link[=get_time]{get_time()}} for the underlying procedure.
 }

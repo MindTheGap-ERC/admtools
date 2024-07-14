@@ -233,6 +233,11 @@ The following functions transform `multiadm` objects into other S3 classes:
 -   `strat_to_time.phylo`: Transform stratigraphic tree into time domain
 -   `time_to_strat.phylo`: Transform time tree into strat domain
 
+### Class `numeric`
+
+-   `strat_to_time.numeric`: Transform vectors from stratigraphic domain to time domain. Wrapper around `get_time`
+-   `time_to_strat.numeric`: Transform vectors from time to stratigraphic domain. Wrapper around `get_height`
+
 ## Plotting
 
 The following functions are used for plotting:
