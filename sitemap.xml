@@ -1,240 +1,84 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/404.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/articles/adm_from_sedrate.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/articles/adm_from_trace_cont.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/articles/adm_plotting.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/articles/admtools.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/articles/admtools_doc.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/index.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/CarboCATLite_data.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/L_axis_lab.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/T_axis_lab.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/add_adm_to_multiadm.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/admtools-package.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/condensation.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/condensation_fun.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/flux_const.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/flux_linear.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/flux_quad.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/get_L_unit.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/get_T_unit.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/get_completeness.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/get_data_from_eTimeOpt.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/get_height.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/get_hiat_duration.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/get_hiat_list.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/get_hiat_no.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/get_hiat_pos.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/get_time.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/get_total_duration.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/get_total_thickness.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/is_adm.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/is_destructive.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/is_multiadm.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/is_sac.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/make_legend.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/mean_adm.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/median_adm.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/merge_adm_to_multiadm.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/merge_multiadm.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/plot.adm.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/plot.multiadm.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/plot.sac.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/plot_condensation.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/plot_erosive_intervals.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/plot_sed_rate_l.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/plot_sed_rate_t.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/quantile_adm.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/sac_to_adm.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/sed_rate_from_matrix.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/sed_rate_gen_from_bounds.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/sed_rate_l.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/sed_rate_l_fun.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/sed_rate_t.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/sed_rate_t_fun.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/sedrate_to_multiadm.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/set_L_unit.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/set_T_unit.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/split_multiadm.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/strat_cont_gen_from_tracer.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/strat_cont_to_multiadm.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/strat_to_time.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/strat_to_time.list.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/strat_to_time.phylo.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/summary.adm.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/summary.multiadm.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/time_to_strat.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/time_to_strat.list.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/time_to_strat.phylo.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/timetree.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/tp_height_det.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/tp_time_det.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/tp_time_floating_scale.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/tp_time_norm.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/tp_to_adm.html</loc>
-  </url>
-  <url>
-    <loc>https://mindthegap-erc.github.io/admtools/reference/tp_to_sac.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://mindthegap-erc.github.io/admtools/404.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/LICENSE-text.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/articles/adm_from_sedrate.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/articles/adm_from_trace_cont.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/articles/adm_plotting.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/articles/admtools.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/articles/admtools_doc.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/articles/index.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/authors.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/index.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/news/index.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/CarboCATLite_data.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/L_axis_lab.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/T_axis_lab.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/add_adm_to_multiadm.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/admtools-package.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/condensation.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/condensation_fun.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/flux_const.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/flux_linear.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/flux_quad.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/get_L_unit.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/get_T_unit.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/get_completeness.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/get_data_from_eTimeOpt.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/get_height.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/get_hiat_duration.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/get_hiat_list.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/get_hiat_no.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/get_hiat_pos.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/get_time.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/get_total_duration.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/get_total_thickness.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/index.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/is_adm.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/is_destructive.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/is_multiadm.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/is_sac.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/make_legend.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/mean_adm.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/median_adm.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/merge_adm_to_multiadm.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/merge_multiadm.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/plot.adm.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/plot.multiadm.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/plot.sac.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/plot_condensation.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/plot_erosive_intervals.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/plot_sed_rate_l.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/plot_sed_rate_t.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/quantile_adm.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/sac_to_adm.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/sed_rate_from_matrix.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/sed_rate_gen_from_bounds.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/sed_rate_l.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/sed_rate_l_fun.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/sed_rate_t.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/sed_rate_t_fun.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/sedrate_to_multiadm.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/set_L_unit.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/set_T_unit.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/split_multiadm.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/strat_cont_gen_from_tracer.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/strat_cont_to_multiadm.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/strat_to_time.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/strat_to_time.list.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/strat_to_time.numeric.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/strat_to_time.phylo.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/summary.adm.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/summary.multiadm.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/time_to_strat.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/time_to_strat.list.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/time_to_strat.numeric.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/time_to_strat.phylo.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/timetree.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/tp_height_det.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/tp_time_det.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/tp_time_floating_scale.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/tp_time_norm.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/tp_to_adm.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/tp_to_sac.html</loc></url>
 </urlset>
+
