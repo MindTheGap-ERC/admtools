@@ -26,5 +26,5 @@ the observations are associated with stratigraphic position.
 
 }
 \seealso{
-\code{\link[=strat_to_time.list]{strat_to_time.list()}} for the transformation from height to time domain
+\code{\link[=strat_to_time.list]{strat_to_time.list()}} for the transformation from height to time domain, \code{\link[=time_to_strat.phylo]{time_to_strat.phylo()}} and \code{\link[=time_to_strat.numeric]{time_to_strat.numeric()}} for transformations of phylogenetic trees and vectors. See \code{\link[=get_height]{get_height()}} for the underlying procedure.
 }
