@@ -89,6 +89,10 @@ The following functions extract information from `adm` objects:
 -   `is_destructive`
 -   `sed_rate_l` and `sed_rate_l_fun` to extract sedimentation rate in height domain
 -   `sed_rate_t` and `sed_rate_t_fun` to extract sedimentation rate in time domain
+-   `max_height.adm` extracts highest stratigraphic point in adm
+-   `min_height.adm` extracts lowest stratigaphic point in adm
+-   `min_time.adm` extracts timing of first tie point in adm
+_   `max_time.adm` extracts timing of last tie point in adm
 
 #### Transformation into other S3 classes
 

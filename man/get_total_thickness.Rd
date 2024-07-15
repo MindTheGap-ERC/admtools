@@ -15,3 +15,6 @@ numeric vector containing total sediment thickness accumulated
 \description{
 get thickness
 }
+\seealso{
+\code{\link[=max_height]{max_height()}} and \code{\link[=min_height]{min_height()}} to extract the highest/lowest stratigraphic point
+}
