@@ -1,5 +1,6 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
 <url><loc>https://mindthegap-erc.github.io/admtools/404.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/CONTRIBUTING.html</loc></url>
 <url><loc>https://mindthegap-erc.github.io/admtools/LICENSE-text.html</loc></url>
 <url><loc>https://mindthegap-erc.github.io/admtools/articles/adm_from_sedrate.html</loc></url>
 <url><loc>https://mindthegap-erc.github.io/admtools/articles/adm_from_trace_cont.html</loc></url>
@@ -38,10 +39,14 @@
 <url><loc>https://mindthegap-erc.github.io/admtools/reference/is_multiadm.html</loc></url>
 <url><loc>https://mindthegap-erc.github.io/admtools/reference/is_sac.html</loc></url>
 <url><loc>https://mindthegap-erc.github.io/admtools/reference/make_legend.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/max_height.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/max_time.html</loc></url>
 <url><loc>https://mindthegap-erc.github.io/admtools/reference/mean_adm.html</loc></url>
 <url><loc>https://mindthegap-erc.github.io/admtools/reference/median_adm.html</loc></url>
 <url><loc>https://mindthegap-erc.github.io/admtools/reference/merge_adm_to_multiadm.html</loc></url>
 <url><loc>https://mindthegap-erc.github.io/admtools/reference/merge_multiadm.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/min_height.html</loc></url>
+<url><loc>https://mindthegap-erc.github.io/admtools/reference/min_time.html</loc></url>
 <url><loc>https://mindthegap-erc.github.io/admtools/reference/plot.adm.html</loc></url>
 <url><loc>https://mindthegap-erc.github.io/admtools/reference/plot.multiadm.html</loc></url>
 <url><loc>https://mindthegap-erc.github.io/admtools/reference/plot.sac.html</loc></url>
