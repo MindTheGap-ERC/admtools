@@ -77,6 +77,10 @@ GPL-3.0, see LICENSE file for license text.
 
 Copyright 2023 Netherlands eScience Center and Utrecht University
 
+## Contribution
+
+For contribution guidelines see the CONTRIBUTING.md file
+
 ## Citation
 
 To cite the package, use

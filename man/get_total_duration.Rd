@@ -15,3 +15,6 @@ numeric vector, total duration covered by the age-depth models
 \description{
 Total duration covered
 }
+\seealso{
+\code{\link[=min_time]{min_time()}} and \code{\link[=max_time]{max_time()}} to extract the first/last tie point in time
+}
