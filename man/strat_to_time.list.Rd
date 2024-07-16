@@ -14,7 +14,7 @@
 \item{...}{options passed to \code{get_time}}
 }
 \value{
-a list with one named element "t" instead of the element "h". This element contains the times of the stratigraphic positions in "h".
+a \code{timelist} (inherits from \code{list}). A list with one named element "t" instead of the element "h". This element contains the times of the stratigraphic positions in "h".
 }
 \description{
 Lists are useful to keep data closely associated. This function transforms a list that contains observations
