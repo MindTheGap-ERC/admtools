@@ -451,6 +451,49 @@ age-depth model of <code>adm</code> class.m</li>
 </ul>
 </div>
 </div>
+<div class="section level4">
+<h4 id="s3-classes-stratlist-and-timelist">S3 classes <code>stratlist</code> and <code>timelist</code><a class="anchor" aria-label="anchor" href="#s3-classes-stratlist-and-timelist"></a>
+</h4>
+<p><code>stratlist</code> and <code>timelist</code> inherit from the
+base <code>list</code>. They are list of stratigraphic positions or
+times, associated with other data (e.g. trait values, proxy values)</p>
+</div>
+<div class="section level4">
+<h4 id="description-3">Description<a class="anchor" aria-label="anchor" href="#description-3"></a>
+</h4>
+<ul>
+<li>
+<code>stratlist</code> is a list with one element named “h”</li>
+<li>
+<code>timelist</code> is a list with one element named “t”</li>
+</ul>
+</div>
+<div class="section level4">
+<h4 id="construction-3">Construction<a class="anchor" aria-label="anchor" href="#construction-3"></a>
+</h4>
+<ul>
+<li>
+<code>stratlist</code> is returned by
+<code>time_to_strat.list</code>
+</li>
+<li>
+<code>timelist</code> is retruned by
+<code>strat_to_time.list</code>
+</li>
+</ul>
+</div>
+<div class="section level4">
+<h4 id="representation-3">Representation<a class="anchor" aria-label="anchor" href="#representation-3"></a>
+</h4>
+<ul>
+<li>
+<code>plot.stratlist</code> for plotting <code>stratlist</code>
+</li>
+<li>
+<code>plot.timelist</code> for plotting <code>timelist</code>
+</li>
+</ul>
+</div>
 </div>
 <div class="section level3">
 <h3 id="methods-implemented-for-external-s3-classes">Methods implemented for external S3 classes<a class="anchor" aria-label="anchor" href="#methods-implemented-for-external-s3-classes"></a>
@@ -510,6 +553,10 @@ stratigraphic domain. Wrapper around <code>get_height</code>
 <code>multiadm</code></p></li>
 <li><p><code>plot.sac</code> plotting for S3 class
 <code>sac</code></p></li>
+<li><p><code>plot.timelist</code> for plotting
+<code>timelist</code></p></li>
+<li><p><code>plot.stratlist</code> for plotting
+<code>stratlist</code></p></li>
 <li><p><code>T_axis_lab</code> to annotate time axis</p></li>
 <li><p><code>L_axis_lab</code> to annotate length/depth axis</p></li>
 <li><p><code>plot_sed_rate_l</code> to plot sedimentation rate in
