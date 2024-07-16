@@ -221,6 +221,25 @@ The following functions transform `multiadm` objects into other S3 classes:
 -   `split_multiadm` to split `multiadm` into list of `adm` objects
 -   `mean_adm` , `median_adm` and `quantile_adm` to extract mean, median, and quantile age-depth model of `adm` class.m
 
+### S3 classes `stratlist` and `timelist`
+
+`stratlist` and `timelist` inherit from the base `list`. They are list of stratigraphic positions or times, associated with other data (e.g. trait values, proxy values)
+
+### Description
+
+-   `stratlist` is a list with one element named "h"
+-   `timelist` is a list with one element named "t"
+
+### Construction
+
+-   `stratlist` is returned by `time_to_strat.list`
+-   `timelist` is retruned by `strat_to_time.list`
+
+### Representation
+
+-   `plot.stratlist` for plotting `stratlist`
+-   `plot.timelist` for plotting `timelist`
+
 ## Methods implemented for external S3 classes
 
 ### S3 class `list`
@@ -251,6 +270,10 @@ The following functions are used for plotting:
 -   `plot.multiadm` plotting for S3 class `multiadm`
 
 -   `plot.sac` plotting for S3 class `sac`
+
+-   `plot.timelist` for plotting `timelist`
+
+-   `plot.stratlist` for plotting `stratlist`
 
 -   `T_axis_lab` to annotate time axis
 

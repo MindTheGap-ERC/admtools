@@ -14,7 +14,7 @@
 \item{...}{options passed to \emph{get_height}}
 }
 \value{
-a list with one named element "h" instead of the element "t", containing the stratigraphic positions corresponding to the times inf "t"
+a \code{stratlist} (inherits from \code{list}): A list with one named element "h" instead of the element "t", containing the stratigraphic positions corresponding to the times inf "t"
 }
 \description{
 Lists are useful to keep data closely associated. This function transforms a list that contains observations

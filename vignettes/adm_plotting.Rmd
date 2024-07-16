@@ -63,4 +63,8 @@ L_axis_lab(label = "Stratigraphic Height")
 
 By default, `multiadm` plots median ages in red and the 95 % envelope in blue. See also `?plot.multiadm`.
 
+## Lists in time and stratigraphic domain
+
+`admtools` defines S3 classes `timelist` and `stratlist` that are lists with one element that contain time/stratigraphic information. They can be plotted as ordinary lists, see `?plot.timelist` and `?plot.stratlist` for details.
+
 
