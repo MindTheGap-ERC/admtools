@@ -1,5 +1,11 @@
 # admtools (development version)
 
+* removed dependency from `ape` package
+
+* defined S3 class `timelist` and `stratlist` for data assiciated with time/height
+
+* unified syntax for time-depth transformation
+
 # admtools 0.2.0
 
 * expanded documentation of defined S3 classes

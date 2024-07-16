@@ -17,7 +17,7 @@ strat_to_time.list = function(obj, x, ...){
   #' 
   #' @seealso [time_to_strat.list()] for the transformation from time to height domain, [get_time()] for the underlying procedure, [time_to_strat()] for the higher level function
   #' 
-  #' @returns a list with one named element "t" instead of the element "h". This element contains the times of the stratigraphic positions in "h".
+  #' @returns a `timelist` (inherits from `list`). A list with one named element "t" instead of the element "h". This element contains the times of the stratigraphic positions in "h".
   #' 
   #' @examples
     #' # see vignette("admtools") for an example
@@ -35,5 +35,6 @@ strat_to_time.list = function(obj, x, ...){
   
   li[["t"]]  = get_time(adm, h = li[["h"]], ...)
   li = li[names(li) != "h" ]
+  class(li) = c("timelist", "list")
   return(li)
 }
