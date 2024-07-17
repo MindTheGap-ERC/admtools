@@ -12,3 +12,4 @@
 ^pkgdown$
 
 ^CONTRIBUTING.md$
+^cran-comments\.md$

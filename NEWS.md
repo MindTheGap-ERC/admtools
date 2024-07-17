@@ -6,6 +6,8 @@
 
 * unified syntax for time-depth transformation
 
+* add CONTRIBUTING.md
+
 # admtools 0.2.0
 
 * expanded documentation of defined S3 classes
