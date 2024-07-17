@@ -225,17 +225,17 @@ The following functions transform `multiadm` objects into other S3 classes:
 
 `stratlist` and `timelist` inherit from the base `list`. They are list of stratigraphic positions or times, associated with other data (e.g. trait values, proxy values)
 
-### Description
+#### Description
 
 -   `stratlist` is a list with one element named "h"
 -   `timelist` is a list with one element named "t"
 
-### Construction
+#### Construction
 
 -   `stratlist` is returned by `time_to_strat.list`
--   `timelist` is retruned by `strat_to_time.list`
+-   `timelist` is returned by `strat_to_time.list`
 
-### Representation
+#### Representation
 
 -   `plot.stratlist` for plotting `stratlist`
 -   `plot.timelist` for plotting `timelist`
