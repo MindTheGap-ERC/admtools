@@ -13,7 +13,7 @@ R package to estimate age-depth models from stratigraphic and sedimentological d
 
 __Niklas Hohmann__  
 Utrecht University  
-email: n.hohmann [at] uu.nl  
+email: n.h.hohmann [at] uu.nl  
 Web page: [uu.nl/staff/NHohmann](https://www.uu.nl/staff/NHHohmann)  
 Orcid: [0000-0003-1559-1838](https://orcid.org/0000-0003-1559-1838)
 
