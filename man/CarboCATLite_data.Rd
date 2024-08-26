@@ -25,12 +25,14 @@ the \href{https://github.com/MindTheGap-ERC/CarboCATLite/tree/scenarioA}{scenari
 CarboCATLite_data
 }
 \description{
-Data exported from CarboCATLite model run
+Data exported from CarboCATLite model run, equivalent to scenario A from Hohmann et al. (2024). See therein for details.
 }
 \references{
 \itemize{
 \item Burgess, Peter. "CarboCAT: A cellular automata model of heterogeneous carbonate strata." Computers & geosciences 53 (2013): 129-140. \doi{10.1016/j.cageo.2011.08.026}
 \item Burgess, Peter. (2023). CarboCATLite (v1.0.1). Zenodo. \doi{10.5281/zenodo.8402578}
+\item Hohmann, Niklas; Koelewijn, Joël R.; Burgess, Peter; Jarochowska, Emilia. 2024. "Identification of the mode of evolution in incomplete carbonate successions." BMC Ecology and Evolution 24, 113. \doi{10.1186/s12862-024-02287-2}.
+\item Hohmann, Niklas, Koelewijn, Joël R.; Burgess, Peter; Jarochowska, Emilia. 2023. “Identification of the Mode of Evolution in Incomplete Carbonate Successions - Supporting Data.” Open Science Framework. \doi{10.17605/OSF.IO/ZBPWA}, published under the \href{https://creativecommons.org/licenses/by/4.0/}{CC-BY 4.0} license.
 }
 }
 \keyword{datasets}

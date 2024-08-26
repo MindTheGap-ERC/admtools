@@ -90,14 +90,24 @@ To cite the package, use
 or run
 
 ```R
-citation("admtools)
+citation("admtools")
 ```
 
 in R. Alternatively, you can use the information in the CITATION.cff file, or generate it using the "cite this repository" button on GitHub.
 
+## References
+
+This package uses data from
+
+-   Hohmann, Niklas; Koelewijn, Joël R.; Burgess, Peter; Jarochowska, Emilia. 2024. "Identification of the mode of evolution in incomplete carbonate successions." BMC Ecology and Evolution, **24**, 113. [DOI: 10.1186/s12862-024-02287-2](https://doi.org/10.1186/s12862-024-02287-2).
+
+-   Hohmann, Niklas, Koelewijn, Joël R.; Burgess, Peter; Jarochowska, Emilia. 2023. "Identification of the Mode of Evolution in Incomplete Carbonate Successions - Supporting Data." Open Science Framework. <https://doi.org/10.17605/OSF.IO/ZBPWA>, published under the [CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/) license.
+
 ## Funding information
+
+The authors acknowledge the contribution of the CycloNet project, funded by the Research Foundation Flanders (FWO, grant no. W000522N)
 
 Funded by the European Union (ERC, MindTheGap, StG project no 101041077). Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union or the European Research Council. Neither the European Union nor the granting authority can be held responsible for them.
 ![European Union and European Research Council logos](https://erc.europa.eu/sites/default/files/2023-06/LOGO_ERC-FLAG_FP.png)
 
-The authors acknowledge the contribution of the CycloNet project, funded by the Research Foundation Flanders (FWO, grant no. W000522N)
+
