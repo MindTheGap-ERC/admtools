@@ -3,7 +3,7 @@ title: "Structure and classes of the admtools package"
 output: rmarkdown::html_vignette
 author: "Niklas Hohmann"
 vignette: >
-  %\VignetteIndexEntry{admtools_doc}
+  %\VignetteIndexEntry{Structure and classes of the admtools package}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
