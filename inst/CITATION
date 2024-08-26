@@ -1,7 +1,10 @@
 bibentry(
   bibtype  = "Misc",
-  title    = "admtools package for R",
+  title    = "admtools: R package for estimating age-depth models and transform data",
   author   = "Niklas Hohmann",
-  year     = "2023",
-  doi      ="10.5281/zenodo.10213587"
+  year     = "2024",
+  doi      ="10.5281/zenodo.12761132",
+  publisher = "Zenodo",
+  version = "v0.3.0",
+  url = "https://zenodo.org/records/12761132"
 )

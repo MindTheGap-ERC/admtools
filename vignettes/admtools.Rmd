@@ -27,6 +27,14 @@ This vignette is an introduction to the *admtools* package.
 
 ### From GitHub
 
+### From CRAN
+
+To install the package from *CRAN*, run
+
+```{r, eval=FALSE}
+install.packages("admtools")
+```
+
 To install the package from *GitHub*, first install the *remotes* package:
 
 ```{r, eval=FALSE}
@@ -43,22 +51,7 @@ remotes::install_github(repo = "MindTheGap-ERC/admtools",
                         dependencies = TRUE)
 ```
 
-to install the latest stable release. To install the version under development, use
-
-```{r, eval=FALSE}
-remotes::install_github(repo = "MindTheGap-ERC/admtools",
-                        build_vignettes = TRUE,
-                        ref = "dev",
-                        dependencies = TRUE)
-```
-
-### From CRAN
-
-To install the package from CRAN, run
-
-```{r, eval=FALSE}
-install.packages("admtools")
-```
+to install the latest stable version.
 
 ## Loading the package
 
@@ -104,11 +97,13 @@ In contrast to its name, the *admtools* package currently deals with time and he
 
 ## Example
 
-This example explains the construction and application of `adm` objects. As example data we use outputs from CarboCAT Lite, a model of carbonate platform growth (Burgess 2013, 2023). This data is automatically loaded in the background by the package. To get some info of the data use
+This example explains the construction and application of `adm` objects. As example data we use outputs from CarboCAT Lite, a model of carbonate platform growth [(Burgess 2013, 2023)](#References). This data is automatically loaded in the background by the package. To get some info of the data use
 
 ```{r, eval=FALSE}
 ?CarboCATLite_data
 ```
+
+This data is identical to scenario A from [Hohmann et al. (2024)](#References) as published in [Hohmann et al. (2023)](#References). See therein for details on the simulation, reproducibility, and a chronostratigraphic chart and a figure showing a transect through the carbonate platform.
 
 ### Defining age-depth models
 
@@ -167,7 +162,7 @@ plot_sed_rate_t(my_adm)
 
 For more information on the extraction of sedimentation rates xin the time domain see the functions `sed_rate_t` and `sed_rate_t_fun`. Sedimentation rates in the length domain can be extracted using `sed_rate_l` and `sed_rate_l_fun` and plotted via `plot_sed_rate_l`. In addition, condensation (time preserved per stratigraphic increment) can be examined using the functions `condensation`, `condensation_fun` and `plot_condensation`.
 
-### Extracting data from age-depth models
+## Extracting data from age-depth models
 
 Use the functions `get_total_duration`, `get_total_thickness`, `get_completeness`, and `get_hiat_no` to extract information:
 
@@ -234,6 +229,8 @@ get_height(my_adm,
            destructive = FALSE)
 ```
 
+Alternatively, you can also use the wrappers `strat_to_time` and `time_to_strat` for the transformation. For expanded modeling features please use the `StratPal` package ([Github](https://github.com/MindTheGap-ERC/StratPal) | [Webpage](https://mindthegap-erc.github.io/StratPal/) |  [CRAN](https://cran.r-project.org/package=StratPal)). It provides more biological context and utility functions to build modeling pipelines that include ecological, taphonomic, stratigraphic, and evolutionary effects.
+
 #### Phylogenetic trees
 
 The `admtools` package can transform complex objects between the time and stratigraphic domain. This is done using the functions `strat_to_time` and `time_to_strat`.
@@ -257,7 +254,7 @@ tree_in_strat_domain = time_to_strat(obj = timetree,
                                      x = my_adm)
 ```
 
-Plotting the resulting tree along the tratigraphic column shows how the evolutinoary relationships would be preserved 2 km offshore in the simulated carbonate platform:
+Plotting the resulting tree along the tratigraphic column shows how the evolutionary relationships would be preserved 2 km offshore in the simulated carbonate platform:
 
 ```{r}
 ape::plot.phylo(tree_in_strat_domain, direction = "upwards")
@@ -269,7 +266,7 @@ mtext("Stratigraphic Height [m]",
 
 #### Lists and time/stratigraphic series
 
-*admtools* can transfrom lists from the time to the height domain and vice versa given they have elements with names `h` or `t`. These lists can be interpreted as time/stratigraphic series, where times and stratigraphic positions are associated with measured values. Note that these are not `t` objects as used by the `stats` package, as they will be generally heterodistant due to hte irregular nature of the age-depth transformation.
+*admtools* can transfrom lists from the time to the height domain and vice versa given they have elements with names `h` or `t`. These lists can be interpreted as time/stratigraphic series, where times and stratigraphic positions are associated with measured values. Note that these are not `ts` objects as used by the `stats` package, as they will be generally heterodistant due to the irregular nature of the age-depth transformation.
 
 As example, we simulate trait evolution over 2 Myr using a Brownian motion, and transform the simulation into the stratigraphic domain.
 
@@ -300,7 +297,9 @@ plot(x = strat_list,
      main = "Trait Evolution 2 km Offshore")
 ```
 
-Note the jump in traits generated by the erosional interval in `my_adm`. Both `time_to_strat` and `strat_to_time` return `stratlist` and `timelist` objects when applied to lists. These are like ordinary lists, but come with simplified plotting optinality, see `?plot.stratlist` and `plot.timelist` for details.
+Note the jump in traits generated by the erosional interval in `my_adm`. Both `time_to_strat` and `strat_to_time` return `stratlist` and `timelist` objects when applied to lists. These are like ordinary lists, but come with simplified plotting optionality, see `?plot.stratlist` and `?plot.timelist` for details.
+
+For expanded modeling features with biological context, please use the `StratPal` package ([Github](https://github.com/MindTheGap-ERC/StratPal) | [Webpage](https://mindthegap-erc.github.io/StratPal/) |  [CRAN](https://cran.r-project.org/package=StratPal)). It provides light wrappers around `admtools` and out of the box modeling of trait evolution.
 
 #### Numeric vectors
 
@@ -332,7 +331,12 @@ For information on estimating age-depth models from tracer contents of rocks and
 vignette("adm_from_trace_cont")
 ```
 
-## References
+## References {#References}
 
 -   Burgess, Peter. "CarboCAT: A cellular automata model of heterogeneous carbonate strata." Computers & geosciences 53 (2013): 129-140. [DOI: 10.1016/j.cageo.2011.08.026](https://doi.org/10.1016/j.cageo.2011.08.026)
+
 -   Burgess, Peter. "CarboCAT Lite v1.0.1". Zenodo 2023. [DOI: 10.5281/zenodo.8402578](https://doi.org/10.5281/zenodo.8402578)
+
+-   Hohmann, Niklas; Koelewijn, Joël R.; Burgess, Peter; Jarochowska, Emilia. 2024. "Identification of the mode of evolution in incomplete carbonate successions." BMC Ecology and Evolution 24, 113. <https://doi.org/10.1186/s12862-024-02287-2>.
+
+-   Hohmann, Niklas, Koelewijn, Joël R.; Burgess, Peter; Jarochowska, Emilia. 2023. "Identification of the Mode of Evolution in Incomplete Carbonate Successions - Supporting Data." Open Science Framework. <https://doi.org/10.17605/OSF.IO/ZBPWA>, published under the [CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/) license.

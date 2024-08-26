@@ -2,7 +2,7 @@
 title: "Plotting Age-Depth Models"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{adm_plotting}
+  %\VignetteIndexEntry{Plotting Age-Depth Models}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
