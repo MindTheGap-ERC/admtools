@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">admtools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -218,7 +218,8 @@ that the generated variable is an age-depth model</p>
 <span><span class="co">#&gt;  - attr(*, "class")= chr "adm"</span></span></code></pre></div>
 <p>You can manually manipulate the fields of the <code>adm</code> object
 by treating it like a list. I do not recommend doing so, as it might
-result in unexpected downstream behavior.</p>
+result in unexpected downstream behavior. If you want to extract tie
+points use <code>get_L_tp</code> and <code>get_T_tp</code>.</p>
 <p>You can plot <code>adm</code> objects via the standard
 <code>plot</code> function. Here, I use the option to highlight hiatuses
 in red, and increase the linw width of the conservative ( =
