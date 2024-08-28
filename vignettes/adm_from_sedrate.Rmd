@@ -251,7 +251,7 @@ Available wrappers to define sedimentation rates are
 
 -   `sed_rate_gen_from_bounds` : generate sed. rate from upper and lower bounds on the sedimentation rate (see above)
 
--   `sed_rate_from_matrix`: specify sedimentation rate based on matrix, to be used in conjunction with `get_data_from_eTimeOpt`
+-   `sed_rate_from_matrix`: specify sedimentation rate based on matrix, to be used in conjunction with `get_data_from_eTimeOpt`. This allows to have sedimentation rates change both at deterministic and randomized heights, see `?sed_rate_from_matrix` for details.
 
 ### Manually coding sedimentation rates
 
