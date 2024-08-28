@@ -4,24 +4,37 @@
 \alias{sed_rate_from_matrix}
 \title{make sed rate gen from matrix}
 \usage{
-sed_rate_from_matrix(height, sedrate, matrix, rate = 1, expand_domain = TRUE)
+sed_rate_from_matrix(
+  height,
+  sedrate,
+  matrix,
+  mode = "deterministic",
+  rate = 1,
+  expand_domain = TRUE,
+  transform = identity
+)
 }
 \arguments{
 \item{height}{vector of heights}
 
 \item{sedrate}{vector of sed. rates x values}
 
-\item{matrix}{matrix of sed rate y values}
+\item{matrix}{matrix of sed rate y values. Must have as many columns as length(height) and as many rows as length(sedrate).}
+
+\item{mode}{character, "deterministic" or "poisson". Determines at which stratigraphic heights the sed rate is determined. If "deterministic" this will be the heights in \code{height}, if "poisson" the heights where the sed rate is determined follows a poisson point process with rate specified by \code{rate}}
 
 \item{rate}{numeric, rate of the Poisson point process determining frequency of sedimentation rate changes.}
 
 \item{expand_domain}{should sedimentation rates be defined below/above the highest/lowest height in the section? If TRUE, the sed rate values are the values at the closest interpolated point, if FALSE it will be NA}
+
+\item{transform}{a function, the identity function by default. How should the values of the (pseudo)pdf defined by the entries of \code{matrix} be transformed? Using this function allows to (nonlinearly) rescale the values in matrix to put more emphasis on higher/lower values}
 }
 \value{
 a function factory for usage with \code{sedrate_to_multiadm}
 }
 \description{
-at height \code{height[i]}, the sedimentation rate is specified by the pdf \verb{approxfun(sedrate, matrix[i,]})
+Construct a sedimentation rate generator (function factory) from a matrix, e.g. one returned from \code{get_data_from_eTimeOpt}. This generator can be passed on to \code{sedrate_to_multiadm} to estimate age-depth models from it.
+If mode is "deterministic", the generator evaluates the sedimentation rates at heights specified by \code{height}, if the mode is "poisson" it is evaluated at heights that are determined based on a poisson point process. At these heights, the value of the sedimentation rate is determined based on the (pseudo) pdf that is determined by the matrix values.
 }
 \seealso{
 \code{\link[=sedrate_to_multiadm]{sedrate_to_multiadm()}} for estimating sedimentation rates based on the outputs, \code{\link[=get_data_from_eTimeOpt]{get_data_from_eTimeOpt()}} for extracting data from the \code{eTimeOpt} function of the astrochron package.

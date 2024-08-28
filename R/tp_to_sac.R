@@ -12,6 +12,8 @@ tp_to_sac = function(t, h, T_unit = NULL, L_unit = NULL){
   #' @param L_unit length unit
   #' 
   #' @returns a _sac_ object reflecting a sediment accumulation curve
+  #' 
+  #' @seealso [sac_to_adm()] to transform sediment accumulation curves into age-depth models,  [get_T_tp()] and [get_L_tp()] to extract time and height/length tie points
   
   li = list(t = t,
             h = h,

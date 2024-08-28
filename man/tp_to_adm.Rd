@@ -36,5 +36,5 @@ plot(my_adm)
 
 }
 \seealso{
-\code{\link[=is_adm]{is_adm()}} to check validity of \code{adm} objects
+\code{\link[=is_adm]{is_adm()}} to check validity of \code{adm} objects, \code{\link[=get_T_tp]{get_T_tp()}} and \code{\link[=get_L_tp]{get_L_tp()}} to extract time and height/length tie points
 }

@@ -141,7 +141,7 @@ If you want to inspect the insides of the object, use `str`:
 str(my_adm)
 ```
 
-You can manually manipulate the fields of the `adm` object by treating it like a list. I do not recommend doing so, as it might result in unexpected downstream behavior.
+You can manually manipulate the fields of the `adm` object by treating it like a list. I do not recommend doing so, as it might result in unexpected downstream behavior. If you want to extract tie points use `get_L_tp` and `get_T_tp`.
 
 You can plot `adm` objects via the standard `plot` function. Here, I use the option to highlight hiatuses in red, and increase the linw width of the conservative ( = non-destructive) intervals.
 
