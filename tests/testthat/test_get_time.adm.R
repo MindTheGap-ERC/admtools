@@ -51,5 +51,13 @@ test_that("Hiatuses at start/end of adm are treated correctly", {
   expect_true(is.na(get_time(adm, 3, hiat_mode = "end", bdry_pts_hiat = "destructive")))
 })
 
+test_that("values above hiatuses are correct",{
+  t = 1:5
+  h = c(2,3,3,4,5)
+  adm = tp_to_adm(t, h)
+  t_eval = 3.1
+  h_ev = get_height(adm, t_eval)
+  expect_equal(get_time(adm, h_ev), t_eval)
+})
 
 

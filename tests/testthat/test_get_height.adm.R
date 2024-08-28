@@ -16,3 +16,5 @@ test_that("Assignement of values outside of domain are correct", {
   expect_equal(get_height( adm, t = max(t) + 1, out_dom_val_h = "strat_limits"), max(adm$h))
   expect_equal(get_height( adm, t = min(t) - 1, out_dom_val_h = "strat_limits"), min(adm$h))
 })
+
+
