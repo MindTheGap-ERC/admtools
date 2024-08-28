@@ -21,3 +21,6 @@ a \emph{sac} object reflecting a sediment accumulation curve
 \description{
 defines \emph{sac} (sediment accumulation curve) object from tie points
 }
+\seealso{
+\code{\link[=sac_to_adm]{sac_to_adm()}} to transform sediment accumulation curves into age-depth models,  \code{\link[=get_T_tp]{get_T_tp()}} and \code{\link[=get_L_tp]{get_L_tp()}} to extract time and height/length tie points
+}

@@ -22,7 +22,7 @@ tp_to_adm = function(t, h, T_unit = NULL, L_unit = NULL){
   #' 
   #' @returns object of class `adm`
   #' 
-  #' @seealso [is_adm()] to check validity of `adm` objects
+  #' @seealso [is_adm()] to check validity of `adm` objects, [get_T_tp()] and [get_L_tp()] to extract time and height/length tie points
   #'
   #'
   #' @examples
