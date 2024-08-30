@@ -1,19 +1,28 @@
-min_time = function(x){
+min_time = function(x, ...){
   #' @export
   #' 
-  #' @title extract last time from adm
+  #' @title first time tie point
   #' 
-  #' @param x age-depth model
+  #' @param x age-depth model (adm) or sediment accumulation curve (sac)
+  #' @param ... other variables, ignored
   #' 
-  #' @returns a scalar, timing of last tie point in the adm
+  #' @returns number, timing of first tie point of the age-depth model/sediment accumulation curve
   #' 
   #' @seealso [max_time()], [get_total_duration()]
   #' 
   UseMethod("min_time")
 }
 
-min_time.adm = function(x){
+min_time.adm = function(x, ...){
   #' @export
   #' 
-  return(min(x$t))
+  t = get_T_tp.adm(x)
+  return(min(t))
+}
+
+min_time.sac = function(x, ...){
+  #' @export
+  #' 
+  t = get_T_tp.sac(x)
+  return(min(t))
 }

@@ -1,10 +1,13 @@
-min_height = function(x){
+min_height = function(x, ...){
   
   #' @export
   #' 
-  #' @title get lowest stratigraphic position in an adm
+  #' @title get lowest stratigraphic tie point
   #' 
-  #' @param x an age-depth model
+  #' @param x an age-depth model (adm) or sediment accumulation curve (sac)
+  #' @param ... other parameters, ignored
+  #' 
+  #' @returns number, stratigraphic position of lowest tie poin
   #' 
   #' @seealso [get_total_thickness()], [max_height()]
   #' 
@@ -12,9 +15,15 @@ min_height = function(x){
   
 }
 
-min_height.adm = function(x){
+min_height.adm = function(x, ...){
   
   #' @export
-  
-  return(min(x$h))
+  h = get_L_tp.adm(x)
+  return(min(h))
+}
+
+min_height.sac = function(x, ...){
+  #' @export
+  h = get_L_tp.sac(x)
+  return(min(h))
 }

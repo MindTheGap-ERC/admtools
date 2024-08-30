@@ -2,15 +2,20 @@
 % Please edit documentation in R/min_height.R
 \name{min_height}
 \alias{min_height}
-\title{get lowest stratigraphic position in an adm}
+\title{get lowest stratigraphic tie point}
 \usage{
-min_height(x)
+min_height(x, ...)
 }
 \arguments{
-\item{x}{an age-depth model}
+\item{x}{an age-depth model (adm) or sediment accumulation curve (sac)}
+
+\item{...}{other parameters, ignored}
+}
+\value{
+number, stratigraphic position of lowest tie poin
 }
 \description{
-get lowest stratigraphic position in an adm
+get lowest stratigraphic tie point
 }
 \seealso{
 \code{\link[=get_total_thickness]{get_total_thickness()}}, \code{\link[=max_height]{max_height()}}
