@@ -147,6 +147,7 @@ The following functions extract information from `sac` objects:
 -   `get_L_unit` and `get_T_unit` to extract units
 -   `get_T_tp` and `get_L_tp` to extract tie points
 -   `get_total_duration` to extract total duration covered
+-   `get_total_thickness`
 
 #### Transformation into other S3 classes
 

@@ -1,16 +1,56 @@
-get_total_thickness = function(x){
+get_total_thickness = function(x, ...){
   
   #' 
   #' 
   #' @export
   #' 
-  #' @title get thickness
+  #' @title get total thickness
   #' 
-  #' @param x an adm object
+  #' @param x an age-depth model (adm/multiadm) or a sediment accumulation curve (sac)
+  #' @param ... other options, currently unused
   #' 
-  #' @returns numeric vector containing total sediment thickness accumulated
+  #' @returns numeric, total sediment thickness accumulated
+  #' 
+  #' @description
+    #' for sediment accumulation curves, returns the difference between the highest and lowest point of the curve. For age-depth models, returns the total thickness of sediment accumulated.
+    #' 
   #' 
   #' @seealso [max_height()] and [min_height()] to extract the highest/lowest stratigraphic point
   #' 
   UseMethod("get_total_thickness")
+}
+
+get_total_thickness.multiadm = function(x, ...){
+  
+  #'
+  #' @export
+  #' 
+  
+  multiadm = x
+  
+  adm_list = split_multiadm(multiadm)
+  
+  thicknesses  = sapply(adm_list, function(x) get_total_thickness(x))
+  return(thicknesses)
+  
+  
+}
+
+
+get_total_thickness.adm = function(x, ...){
+  
+  #' 
+  #' @export
+  #' 
+  #' 
+  
+  adm = x
+  return(diff(range(adm$h)))
+}
+
+get_total_thickness.sac = function(x, ...){
+  #' @export
+  #' 
+  h = get_L_tp(x)
+  return(diff(range(h)))
 }

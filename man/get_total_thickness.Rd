@@ -2,18 +2,20 @@
 % Please edit documentation in R/get_total_thickness.R
 \name{get_total_thickness}
 \alias{get_total_thickness}
-\title{get thickness}
+\title{get total thickness}
 \usage{
-get_total_thickness(x)
+get_total_thickness(x, ...)
 }
 \arguments{
-\item{x}{an adm object}
+\item{x}{an age-depth model (adm/multiadm) or a sediment accumulation curve (sac)}
+
+\item{...}{other options, currently unused}
 }
 \value{
-numeric vector containing total sediment thickness accumulated
+numeric, total sediment thickness accumulated
 }
 \description{
-get thickness
+for sediment accumulation curves, returns the difference between the highest and lowest point of the curve. For age-depth models, returns the total thickness of sediment accumulated.
 }
 \seealso{
 \code{\link[=max_height]{max_height()}} and \code{\link[=min_height]{min_height()}} to extract the highest/lowest stratigraphic point

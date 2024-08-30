@@ -4,13 +4,15 @@
 \alias{get_total_duration}
 \title{Total duration covered}
 \usage{
-get_total_duration(x)
+get_total_duration(x, ...)
 }
 \arguments{
-\item{x}{an adm object}
+\item{x}{age-depth model (adm/multiadm) or sediment accumulation curve (sac)}
+
+\item{...}{other options, currently unused}
 }
 \value{
-numeric vector, total duration covered by the age-depth models
+numeric, total duration covered by the age-depth models/sediment accumulation curve
 }
 \description{
 Total duration covered
