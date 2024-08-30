@@ -3,7 +3,7 @@ get_L_tp = function(x, ...){
   #' 
   #' @title get height/length tie point
   #' 
-  #' @param x age-depth model (adm) or sediment accumulation curve (sac)
+  #' @param x age-depth model (adm/multiadm) or sediment accumulation curve (sac)
   #' @param ... other options, currently not used
   #' 
   #' @description
@@ -23,6 +23,12 @@ get_L_tp.adm = function(x, ...){
 }
 
 get_L_tp.sac = function(x, ...){
+  #' @export
+  #' 
+  return(x$h)
+}
+
+get_L_tp.multiadm = function(x, ...){
   #' @export
   #' 
   return(x$h)

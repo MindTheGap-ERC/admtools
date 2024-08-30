@@ -7,7 +7,7 @@
 get_L_tp(x, ...)
 }
 \arguments{
-\item{x}{age-depth model (adm) or sediment accumulation curve (sac)}
+\item{x}{age-depth model (adm/multiadm) or sediment accumulation curve (sac)}
 
 \item{...}{other options, currently not used}
 }
