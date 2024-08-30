@@ -4,12 +4,10 @@
 \alias{max_time}
 \title{last time tie point}
 \usage{
-max_time(x, ...)
+max_time(x)
 }
 \arguments{
 \item{x}{age-depth model (adm) or sediment accumulation curve (sac)}
-
-\item{...}{other variables, ignored}
 }
 \value{
 number, last time tie point of the age-depth model/sediment accumulation curve

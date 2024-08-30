@@ -4,12 +4,10 @@
 \alias{max_height}
 \title{get highest stratigraphic tie point}
 \usage{
-max_height(x, ...)
+max_height(x)
 }
 \arguments{
 \item{x}{age-depth model (adm) or sediment accumulation curve (sac)}
-
-\item{...}{other variables, ignored}
 }
 \value{
 number, stratigraphic position of the highest stratigraphic tie point

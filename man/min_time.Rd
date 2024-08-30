@@ -4,12 +4,10 @@
 \alias{min_time}
 \title{first time tie point}
 \usage{
-min_time(x, ...)
+min_time(x)
 }
 \arguments{
 \item{x}{age-depth model (adm) or sediment accumulation curve (sac)}
-
-\item{...}{other variables, ignored}
 }
 \value{
 number, timing of first tie point of the age-depth model/sediment accumulation curve

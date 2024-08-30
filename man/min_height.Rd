@@ -4,12 +4,10 @@
 \alias{min_height}
 \title{get lowest stratigraphic tie point}
 \usage{
-min_height(x, ...)
+min_height(x)
 }
 \arguments{
 \item{x}{an age-depth model (adm) or sediment accumulation curve (sac)}
-
-\item{...}{other parameters, ignored}
 }
 \value{
 number, stratigraphic position of lowest tie poin

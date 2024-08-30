@@ -4,11 +4,13 @@
 
 * abstracted exctraction of tie points
 
+* added utility functions for S3 class `sac`
+
 # admtools 0.3.0
 
 * removed dependency from `ape` package
 
-* defined S3 class `timelist` and `stratlist` for data assiciated with time/height
+* defined S3 class `timelist` and `stratlist` for data associated with time/height
 
 * unified syntax for time-depth transformation
 
