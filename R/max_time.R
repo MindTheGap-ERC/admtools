@@ -1,11 +1,11 @@
 max_time = function(x){
   #' @export
   #' 
-  #' @title extract earliest time from adm
+  #' @title last time tie point
   #' 
-  #' @param x age-depth model
+  #' @param x age-depth model (adm) or sediment accumulation curve (sac)
   #' 
-  #' @returns a scalar, timing of earliest tie point in the adm
+  #' @returns number, last time tie point of the age-depth model/sediment accumulation curve
   #' 
   #' @seealso [min_time()], [get_total_duration()]
   #' 
@@ -15,5 +15,12 @@ max_time = function(x){
 max_time.adm = function(x){
   #' @export
   #' 
-  return(max(x$t))
+  t = get_T_tp.adm(x)
+  return(max(t))
+}
+
+max_time.sac = function(x){
+  #' @export
+  t = get_T_tp.sac(x)
+  return(max(t))
 }

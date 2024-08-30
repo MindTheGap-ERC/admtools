@@ -2,18 +2,18 @@
 % Please edit documentation in R/max_time.R
 \name{max_time}
 \alias{max_time}
-\title{extract earliest time from adm}
+\title{last time tie point}
 \usage{
 max_time(x)
 }
 \arguments{
-\item{x}{age-depth model}
+\item{x}{age-depth model (adm) or sediment accumulation curve (sac)}
 }
 \value{
-a scalar, timing of earliest tie point in the adm
+number, last time tie point of the age-depth model/sediment accumulation curve
 }
 \description{
-extract earliest time from adm
+last time tie point
 }
 \seealso{
 \code{\link[=min_time]{min_time()}}, \code{\link[=get_total_duration]{get_total_duration()}}

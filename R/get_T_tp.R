@@ -3,7 +3,7 @@ get_T_tp = function(x, ...){
   #' 
   #' @title extract time tie points
   #' 
-  #' @param x age-depth model (adm) or sediment accumulation curve (sac)
+  #' @param x age-depth model (adm/multiadm) or sediment accumulation curve (sac)
   #' @param ... other options, currently unused
   #' 
   #' @description
@@ -22,6 +22,11 @@ get_T_tp.adm = function(x, ...){
 }
 
 get_T_tp.sac = function(x, ...){
+  #' @export
+  return(x$t)
+}
+
+get_T_tp.multiadm = function(x, ...){
   #' @export
   return(x$t)
 }

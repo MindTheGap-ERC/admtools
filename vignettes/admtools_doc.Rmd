@@ -92,7 +92,7 @@ The following functions extract information from `adm` objects:
 -   `max_height.adm` extracts highest stratigraphic point in adm
 -   `min_height.adm` extracts lowest stratigaphic point in adm
 -   `min_time.adm` extracts timing of first tie point in adm
--    `max_time.adm` extracts timing of last tie point in adm
+-   `max_time.adm` extracts timing of last tie point in adm
 -   `get_L_tp` and `get_T_tp` to extract tie points.
 
 #### Transformation into other S3 classes
@@ -133,6 +133,7 @@ The following functions yield a representation of `sac` objects:
 
 -   `plot.sac` for plotting
 -   `print.sac` for printing to the console
+-   `summary.sac` to provide a quick summary
 
 #### Modification
 
@@ -146,6 +147,10 @@ The following functions extract information from `sac` objects:
 
 -   `get_L_unit` and `get_T_unit` to extract units
 -   `get_T_tp` and `get_L_tp` to extract tie points
+-   `get_total_duration` to extract total duration covered
+-   `get_total_thickness`
+-   `min_time` and `max_time`
+-   `min_height` and `max_height`
 
 #### Transformation into other S3 classes
 
@@ -215,6 +220,7 @@ The following functions extract information from `multiadm` objects:
 -   `is_destructive`
 -   `sed_rate_l`
 -   `sed_rate_t`
+-   `get_T_tp` and `get_L_tp` to extract time and length/height tie points
 
 #### Transformation into other S3 classes
 
