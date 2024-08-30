@@ -133,6 +133,7 @@ The following functions yield a representation of `sac` objects:
 
 -   `plot.sac` for plotting
 -   `print.sac` for printing to the console
+-   `summary.sac` to provide a quick summary
 
 #### Modification
 
