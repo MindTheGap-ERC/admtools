@@ -91,7 +91,7 @@ tp_time_det = function(times){
   #' 
   #' @seealso [tp_height_det()] for deterministic tie points in height, [tp_time_norm()] for tie points following a normal distribution 
   #' 
-  #' @returns a function for usage with _strat_cont_to_multiadm_ and_sedrate_to_mulitadm_ as t_tp input
+  #' @returns a function for usage with _strat_cont_to_multiadm_ and _sedrate_to_mulitadm_ as t_tp input
   #' 
   if (is.unsorted(times, strictly = TRUE)){
     stop("Need strictly increasing times")

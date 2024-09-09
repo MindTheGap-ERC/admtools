@@ -11,9 +11,9 @@ tp_to_adm(t, h, T_unit = NULL, L_unit = NULL)
 
 \item{h}{Vector, tie points in height}
 
-\item{T_unit}{time unit}
+\item{T_unit}{character, time unit}
 
-\item{L_unit}{length unit}
+\item{L_unit}{character, length unit}
 }
 \value{
 object of class \code{adm}
@@ -27,11 +27,11 @@ by default, intervals with no sediment accumulation are marked as destructive.
 \code{is_adm}
 }
 \examples{
-\dontrun{
+
 my_adm = tp_to_adm(t = 1:4, h = c(1,2,2,3), T_unit = "kyr", L_unit = "m")
 plot(my_adm)
 # see vignette("admtools") for other examples
-}
+
  
 
 }
