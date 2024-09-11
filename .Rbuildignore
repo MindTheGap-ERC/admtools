@@ -13,3 +13,4 @@
 
 ^CONTRIBUTING.md$
 ^cran-comments\.md$
+^.covrignore$
