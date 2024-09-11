@@ -10,7 +10,7 @@ tp_time_det(times)
 \item{times}{numeric vector, times of the tie points}
 }
 \value{
-a function for usage with \emph{strat_cont_to_multiadm} and_sedrate_to_mulitadm_ as t_tp input
+a function for usage with \emph{strat_cont_to_multiadm} and \emph{sedrate_to_mulitadm} as t_tp input
 }
 \description{
 defines deterministc tie points in time.

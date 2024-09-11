@@ -11,8 +11,8 @@ tp_to_adm = function(t, h, T_unit = NULL, L_unit = NULL){
   #' 
   #' @param t Vector, tie points in time
   #' @param h Vector, tie points in height
-  #' @param T_unit time unit
-  #' @param L_unit length unit
+  #' @param T_unit character, time unit
+  #' @param L_unit character, length unit
   #' 
   #' @details
     #' by default, intervals with no sediment accumulation are marked as destructive.
@@ -26,11 +26,11 @@ tp_to_adm = function(t, h, T_unit = NULL, L_unit = NULL){
   #'
   #'
   #' @examples
-    #' \dontrun{
+    #' 
     #' my_adm = tp_to_adm(t = 1:4, h = c(1,2,2,3), T_unit = "kyr", L_unit = "m")
     #' plot(my_adm)
     #' # see vignette("admtools") for other examples
-    #' }
+    #' 
     #'  
   #' 
   
