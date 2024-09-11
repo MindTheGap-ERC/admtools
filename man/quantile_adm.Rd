@@ -11,11 +11,14 @@ quantile_adm(x, h, p)
 
 \item{h}{the heights at which to evaluate the adm}
 
-\item{p}{percentile}
+\item{p}{percentile, as number between 0 and 1}
 }
 \value{
 an adm object
 }
 \description{
 returns the quantile adm of a multiadm object
+}
+\seealso{
+\code{\link[=median_adm]{median_adm()}} to extract the median adm, \code{\link[=mean_adm]{mean_adm()}} for the mean adm
 }

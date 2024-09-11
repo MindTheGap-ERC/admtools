@@ -3,7 +3,9 @@ test_that("incorrect input for index paramter is caught", {
   x = tp_to_adm(c(0,1), c(0,1), "Myr", "m")
   expect_no_condition(anchor(x, index = "last", t_anchor, n = 10))
   expect_no_condition(anchor(x, index = "first", t_anchor, n = 10))
-  expect_error(anchor(x, index = 2, t_anchor, n = 10))
+  expect_error(anchor(x, index = "2", t_anchor, n = 10))
+  expect_no_condition(anchor(x, index = 2L, t_anchor , n = 10))
+  expect_error(anchor(x, index = 3, t_anchor, n = 10))
 })
 
 test_that("incorrect input for t_anchor parameter is caught", {

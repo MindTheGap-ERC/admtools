@@ -7,7 +7,9 @@ quantile_adm = function(x, h, p){
   #' 
   #' @param x a multiadm object
   #' @param h the heights at which to evaluate the adm
-  #' @param p percentile
+  #' @param p percentile, as number between 0 and 1
+  #' 
+  #' @seealso [median_adm()] to extract the median adm, [mean_adm()] for the mean adm
   #' 
   #' @returns an adm object
   
@@ -31,6 +33,8 @@ median_adm = function(x, h){
   #' @param x a multiadm object
   #' @param h the heights at which to evaluate the adm
   #' 
+  #' @seealso [mean_adm()] for the mean age-depth model, [quantile_adm()] for the more general implementation 
+  #' 
   #' @returns an adm object
   
   h_list = get_time(x, h)
@@ -52,6 +56,8 @@ mean_adm = function(x, h){
   #' 
   #' @param x a multiadm object
   #' @param h the heights at which to evaluate the adm
+  #' 
+  #' @seealso [median_adm()] and [quantile_adm()] for median and quantile adms, respectively
   #' 
   #' @returns an adm object
   

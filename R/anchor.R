@@ -4,7 +4,7 @@ anchor = function(x, index = "last", t_anchor = NULL, n = 1000L){
   #' @title anchor age-depth model
   #' 
   #' @param x age-depth model
-  #' @param index "last" or "first", specifying at which tie point the age-depth model will be anchored
+  #' @param index "last" or "first", or an integer (marked by L, e.g. 2L), specifying at which tie point the age-depth model will be anchored. If i is passed as integer, the i-th tie point is anchored.
   #' @param t_anchor time at which the adm is anchored. must be a function that takes no arguments and returns the timing of the tie point. see example or vignettes for details
   #' @param n integer, number of samples drawn from the tie point
   #' 
@@ -17,12 +17,15 @@ anchor = function(x, index = "last", t_anchor = NULL, n = 1000L){
   #' 
   #' @examples
     #' t_anchor = function() rnorm(1) # normally distributed uncertainty
-    #' x = tp_to_adm(t = c(1,2), h = c(2,3)) # simple age-depth model
+    #' x = tp_to_adm(t = c(1,2, 3), h = c(2,3, 4)) # simple age-depth model
     #' m = anchor(x, index = "last", t_anchor = t_anchor, n = 100) # anchor age-depth model
     #' plot(m)
+    #' m = anchor(x, index = 2L, t_anchor = t_anchor, n = 100)
+    #' plot(m)
     #' 
-  if (! index %in% c("last", "first")){
-    stop("can only anchor at first or last tie point")
+    #' 
+  if (! (index %in% c("last", "first") | is.integer(index))){
+    stop("Invalid input for index. Use `first`, `last`, or an integer.")
   }
   
   if (! (is.function(t_anchor))){
@@ -34,6 +37,14 @@ anchor = function(x, index = "last", t_anchor = NULL, n = 1000L){
   }
   if (index == "first"){
     t_ref = min_time(x)
+  }
+  if (is.integer(index)){
+    t = get_T_tp(x)
+    l = length(t)
+    if (index > l | index < 1){
+      stop(paste0("index must be between 1 and ", l, " or character" ))
+    }
+    t_ref = t[index]
   }
   
   for (i in seq_len(n)){

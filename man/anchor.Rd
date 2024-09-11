@@ -9,7 +9,7 @@ anchor(x, index = "last", t_anchor = NULL, n = 1000L)
 \arguments{
 \item{x}{age-depth model}
 
-\item{index}{"last" or "first", specifying at which tie point the age-depth model will be anchored}
+\item{index}{"last" or "first", or an integer (marked by L, e.g. 2L), specifying at which tie point the age-depth model will be anchored. If i is passed as integer, the i-th tie point is anchored.}
 
 \item{t_anchor}{time at which the adm is anchored. must be a function that takes no arguments and returns the timing of the tie point. see example or vignettes for details}
 
@@ -23,8 +23,11 @@ anchors a deterministic age-depth model (adm object) at a tie point that is asso
 }
 \examples{
 t_anchor = function() rnorm(1) # normally distributed uncertainty
-x = tp_to_adm(t = c(1,2), h = c(2,3)) # simple age-depth model
+x = tp_to_adm(t = c(1,2, 3), h = c(2,3, 4)) # simple age-depth model
 m = anchor(x, index = "last", t_anchor = t_anchor, n = 100) # anchor age-depth model
 plot(m)
+m = anchor(x, index = 2L, t_anchor = t_anchor, n = 100)
+plot(m)
+
 
 }

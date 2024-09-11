@@ -17,3 +17,6 @@ an adm object
 \description{
 returns the median adm of a multiadm object
 }
+\seealso{
+\code{\link[=mean_adm]{mean_adm()}} for the mean age-depth model, \code{\link[=quantile_adm]{quantile_adm()}} for the more general implementation
+}
