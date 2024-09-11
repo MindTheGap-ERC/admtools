@@ -225,6 +225,10 @@ S3 classes:</p>
 <code>add_adm_to_multiadm</code> to add <code>adm</code> to
 <code>multiadm</code>
 </li>
+<li>
+<code>anchor</code> to transform anchor <code>adm</code> at a tie
+point with uncertainty, resulting in a <code>multiadm</code>
+</li>
 </ul>
 </div>
 </div>
@@ -375,8 +379,11 @@ age-depth models in an <code>multiamd</code> object.</p>
 <p>The following functions construct <code>multiadm</code> objects:</p>
 <ul>
 <li>
-<code>merge_adm_to_multiadm</code> to contruct <code>multiadm</code>
-from <code>adm</code> objects</li>
+<code>anchor</code> to construct <code>multiadm</code> from
+uncertain tie points and <code>adm</code> objects.</li>
+<li>
+<code>merge_adm_to_multiadm</code> to construct
+<code>multiadm</code> from <code>adm</code> objects</li>
 <li>
 <code>sedrate_to_multiadm</code> construct <code>multiadm</code>
 from info on sedimentation rates, see
