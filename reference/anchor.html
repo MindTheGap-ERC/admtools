@@ -59,7 +59,7 @@
 
 
 <dt id="arg-index">index<a class="anchor" aria-label="anchor" href="#arg-index"></a></dt>
-<dd><p>"last" or "first", specifying at which tie point the age-depth model will be anchored</p></dd>
+<dd><p>"last" or "first", or an integer (marked by L, e.g. 2L), specifying at which tie point the age-depth model will be anchored. If i is passed as integer, the i-th tie point is anchored.</p></dd>
 
 
 <dt id="arg-t-anchor">t_anchor<a class="anchor" aria-label="anchor" href="#arg-t-anchor"></a></dt>
@@ -78,10 +78,14 @@
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">t_anchor</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span> <span class="co"># normally distributed uncertainty</span></span></span>
-<span class="r-in"><span><span class="va">x</span> <span class="op">=</span> <span class="fu"><a href="tp_to_adm.html">tp_to_adm</a></span><span class="op">(</span>t <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>, h <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span><span class="op">)</span> <span class="co"># simple age-depth model</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">=</span> <span class="fu"><a href="tp_to_adm.html">tp_to_adm</a></span><span class="op">(</span>t <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span>, h <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span> <span class="co"># simple age-depth model</span></span></span>
 <span class="r-in"><span><span class="va">m</span> <span class="op">=</span> <span class="fu">anchor</span><span class="op">(</span><span class="va">x</span>, index <span class="op">=</span> <span class="st">"last"</span>, t_anchor <span class="op">=</span> <span class="va">t_anchor</span>, n <span class="op">=</span> <span class="fl">100</span><span class="op">)</span> <span class="co"># anchor age-depth model</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="anchor-1.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="va">m</span> <span class="op">=</span> <span class="fu">anchor</span><span class="op">(</span><span class="va">x</span>, index <span class="op">=</span> <span class="fl">2L</span>, t_anchor <span class="op">=</span> <span class="va">t_anchor</span>, n <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="anchor-2.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
