@@ -17,3 +17,6 @@ an adm object
 \description{
 returns the mean adm of a multiadm object
 }
+\seealso{
+\code{\link[=median_adm]{median_adm()}} and \code{\link[=quantile_adm]{quantile_adm()}} for median and quantile adms, respectively
+}
