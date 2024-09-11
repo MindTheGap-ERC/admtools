@@ -101,6 +101,7 @@ The following functions transform `adm` objects into other S3 classes:
 
 -   `merge_adm_to_multiadm` into `multiamd`
 -   `add_adm_to_multiadm` to add `adm` to `multiadm`
+-   `anchor` to transform anchor `adm` at a tie point with uncertainty, resulting in a `multiadm`
 
 ### S3 class `sac`
 
@@ -177,7 +178,8 @@ The S3 class `multiadm` represents **multi**ple **a**ge **d**epth **m**odels.. S
 
 The following functions construct `multiadm` objects:
 
--   `merge_adm_to_multiadm` to contruct `multiadm` from `adm` objects
+-   `anchor` to construct `multiadm` from uncertain tie points and `adm` objects.
+-   `merge_adm_to_multiadm` to construct `multiadm` from `adm` objects
 -   `sedrate_to_multiadm` construct `multiadm` from info on sedimentation rates, see `vignette("adm_from_sedrate")`
 -   `strat_cont_to_multiadm` construct `multiadm` from tracer information, see `vignette("adm_from_trace_cont")`
 

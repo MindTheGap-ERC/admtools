@@ -20,11 +20,11 @@ merge_adm_to_multiadm = function(...){
                   "L_unit" = NULL)
   T_units = unlist(sapply(adm_list, get_T_unit))
   L_units = unlist(sapply(adm_list, get_L_unit))
-  
-  if (any(rep(T_units[1], length(adm_list)) != T_units)){
-    stop("Inconsistent time units, can not merge adms")
+
+   if (any(rep(T_units[1], length(adm_list)) != T_units)){
+     stop("Inconsistent time units, can not merge adms")
   }
-  if (any(rep(L_units[1], length(adm_list)) != L_units)){
+   if (any(rep(L_units[1], length(adm_list)) != L_units)){
     stop("Inconsistent length units, can not merge adms")
   }
   
