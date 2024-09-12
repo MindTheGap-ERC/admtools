@@ -15,6 +15,13 @@ is_adm = function(x, quietly = TRUE){
   #' 
   #' @returns logical. Is the input a valid adm object?
   #' 
+  #' 
+  #' @examples
+    #' 
+    #' x = tp_to_adm(t = c(2,1), h = c(1,2)) # reversed order of time tie points
+    #' is_adm(x) # returns FALSE
+    #' 
+    #' 
 
   
   warning_status = getOption("warn")
