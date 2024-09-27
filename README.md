@@ -40,7 +40,7 @@ remotes::install_github(repo = "MindTheGap-ERC/admtools",
                         dependencies = TRUE)
 ```
 
-To install the latest stable version. To install the version under developemnt, use
+To install the latest stable version. To install the version under development, use
 
 ```R
 remotes::install_github(repo = "MindTheGap-ERC/admtools",
@@ -63,7 +63,7 @@ browseVignettes(package = "admtools") # opens in Browser
 vignette(package = "admtools")
 ```
 
-A good place to start reading is the introductionary vignette, available via
+A good place to start reading is the introductory vignette, available via
 
 ```R
 vignette("admtools")

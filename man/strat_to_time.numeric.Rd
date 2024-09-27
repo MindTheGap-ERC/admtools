@@ -17,7 +17,7 @@
 A numeric vector with times of deposition of the entries in \code{obj}
 }
 \description{
-This function transforms numeric vectors from the stratigrahpic to the time domain
+This function transforms numeric vectors from the stratigraphic to the time domain
 Fundamentally a wrapper around get_time for consistent syntax
 }
 \examples{

@@ -23,5 +23,5 @@ start/end be removed, or treated consistently with mode?}
 logical vector of same length as t. Is deposition at time t destructive?
 }
 \description{
-Determines whether specified time is destrucive or not
+Determines whether specified time is destructive or not
 }

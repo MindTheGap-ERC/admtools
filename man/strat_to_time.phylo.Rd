@@ -2,7 +2,7 @@
 % Please edit documentation in R/strat_to_time.phylo.R
 \name{strat_to_time.phylo}
 \alias{strat_to_time.phylo}
-\title{transfrom phylo object}
+\title{transform phylo object}
 \usage{
 \method{strat_to_time}{phylo}(obj, x, ...)
 }
@@ -17,8 +17,8 @@
 a phylo object, representation of the tree in the time domain
 }
 \description{
-transfrom phylo object from the stratigraphic domain to the time domain
+transform phylo object from the stratigraphic domain to the time domain
 }
 \seealso{
-\code{\link[=get_time]{get_time()}} for the underlying procedure, \code{\link[=strat_to_time]{strat_to_time()}} for the higher level function, and \code{\link[=time_to_strat.phylo]{time_to_strat.phylo()}} for the transformantion of phylo objects from the time to the strat domain.
+\code{\link[=get_time]{get_time()}} for the underlying procedure, \code{\link[=strat_to_time]{strat_to_time()}} for the higher level function, and \code{\link[=time_to_strat.phylo]{time_to_strat.phylo()}} for the transformation of phylo objects from the time to the strat domain.
 }

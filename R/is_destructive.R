@@ -6,7 +6,7 @@ is_destructive = function(x, t, mode = "rcll", bdry_pts_hiat = "destructive", ou
   #' @title Is deposition destructive?
   #' 
   #' @description
-  #' Determines whether specified time is destrucive or not
+  #' Determines whether specified time is destructive or not
   #' 
   #' 
   #' @usage is_destructive(x, t, mode = "rcll", 

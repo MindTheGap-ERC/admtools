@@ -107,7 +107,7 @@ This data is identical to scenario A from [Hohmann et al. (2024)](#References) a
 
 ### Defining age-depth models
 
-The standard constructor for age-depth models is `tp_to_adm` ("tiepoint to age-depth model"). It returns an objecto of class `adm`. This object combines information of stratigraphic heights and times and erosive interval. It allows to transform data between the stratigraphic and the time domain, and identify which data is destroyed due to hiatuses.
+The standard constructor for age-depth models is `tp_to_adm` ("tie point to age-depth model"). It returns an objecto of class `adm`. This object combines information of stratigraphic heights and times and erosive interval. It allows to transform data between the stratigraphic and the time domain, and identify which data is destroyed due to hiatuses.
 
 As example, I use the timing and stratigraphic positions of tie points taken from CarboCAT Lite to construct an age-depth model, and use the option to directly associate length and time units with it.
 
@@ -160,7 +160,7 @@ You can also plot sedimentation rates in the time domain using `plot_sed_rate_t`
 plot_sed_rate_t(my_adm)
 ```
 
-For more information on the extraction of sedimentation rates xin the time domain see the functions `sed_rate_t` and `sed_rate_t_fun`. Sedimentation rates in the length domain can be extracted using `sed_rate_l` and `sed_rate_l_fun` and plotted via `plot_sed_rate_l`. In addition, condensation (time preserved per stratigraphic increment) can be examined using the functions `condensation`, `condensation_fun` and `plot_condensation`.
+For more information on the extraction of sedimentation rates in the time domain see the functions `sed_rate_t` and `sed_rate_t_fun`. Sedimentation rates in the length domain can be extracted using `sed_rate_l` and `sed_rate_l_fun` and plotted via `plot_sed_rate_l`. In addition, condensation (time preserved per stratigraphic increment) can be examined using the functions `condensation`, `condensation_fun` and `plot_condensation`.
 
 ## Extracting data from age-depth models
 
@@ -254,7 +254,7 @@ tree_in_strat_domain = time_to_strat(obj = timetree,
                                      x = my_adm)
 ```
 
-Plotting the resulting tree along the tratigraphic column shows how the evolutionary relationships would be preserved 2 km offshore in the simulated carbonate platform:
+Plotting the resulting tree along the stratigraphic column shows how the evolutionary relationships would be preserved 2 km offshore in the simulated carbonate platform:
 
 ```{r}
 ape::plot.phylo(tree_in_strat_domain, direction = "upwards")
@@ -266,7 +266,7 @@ mtext("Stratigraphic Height [m]",
 
 #### Lists and time/stratigraphic series
 
-*admtools* can transfrom lists from the time to the height domain and vice versa given they have elements with names `h` or `t`. These lists can be interpreted as time/stratigraphic series, where times and stratigraphic positions are associated with measured values. Note that these are not `ts` objects as used by the `stats` package, as they will be generally heterodistant due to the irregular nature of the age-depth transformation.
+*admtools* can transform lists from the time to the height domain and vice versa given they have elements with names `h` or `t`. These lists can be interpreted as time/stratigraphic series, where times and stratigraphic positions are associated with measured values. Note that these are not `ts` objects as used by the `stats` package, as they will be generally heterodistant due to the irregular nature of the age-depth transformation.
 
 As example, we simulate trait evolution over 2 Myr using a Brownian motion, and transform the simulation into the stratigraphic domain.
 

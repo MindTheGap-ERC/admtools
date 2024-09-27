@@ -18,7 +18,7 @@
 \arguments{
 \item{x}{an adm object}
 
-\item{lwd_destr}{line width of hiatuse}
+\item{lwd_destr}{line width of hiatuses}
 
 \item{lwd_acc}{line width of conservative intervals}
 

@@ -28,7 +28,7 @@ the corresponding time of formation
 \details{
 If a stratigraphic position
 coincides with a hiatus, should the start time or the end time of the hiatus be returned?
-Using "destroy" retruns NA
+Using "destroy" returns NA
 If the adm starts/ends with a hiatus, should
 the time returned be consistent with \emph{hiat_mode}, or should it be NA?
 }

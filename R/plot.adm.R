@@ -7,7 +7,7 @@ plot.adm = function(x, lwd_destr = 1, lwd_acc = 1, lty_destr = 3, lty_acc = 1,
   #' @title plotting adm objects
   #' 
   #' @param x an adm object
-  #' @param lwd_destr line width of hiatuse
+  #' @param lwd_destr line width of hiatuses
   #' @param lwd_acc line width of conservative intervals
   #' @param lty_destr linetype of hiatuses
   #' @param lty_acc line type of conservative intervals
