@@ -1,5 +1,7 @@
 # admtools (development version)
 
+* added transformations for S3 class `pre_paleoTS` to integrate with `StratPal` and `paleoTS` package
+
 * added anchoring of age-depth models via `anchor`
 
 # admtools 0.3.1
