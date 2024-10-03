@@ -4,7 +4,7 @@ tp_time_floating_scale = function(){
   #' @title tie points for floating time scale
   #' 
   #' @description
-    #' Defines tie points for a floating (auxiliary) time sclae for usage with _sedrate_to_multiadm_ and _strat_cont_to_multiadm_ as t_tp input. This floating time scale consists of two tie points in time, the first at time t = 0, the second at time t = 1. `tp_time_floating_scale` is a synonym of  `tp_time_det(times = c(0,1))`
+    #' Defines tie points for a floating (auxiliary) time scale for usage with _sedrate_to_multiadm_ and _strat_cont_to_multiadm_ as t_tp input. This floating time scale consists of two tie points in time, the first at time t = 0, the second at time t = 1. `tp_time_floating_scale` is a synonym of  `tp_time_det(times = c(0,1))`
     #' 
   #' @returns  function for usage with _strat_cont_to_multiadm_ and _sedrate_to_multiamd_ as t_tp input
   #' 
@@ -85,7 +85,7 @@ tp_time_det = function(times){
   #' @title deterministic tie points in time domain
   #' 
   #' @description
-    #' defines deterministc tie points in time. 
+    #' defines deterministic tie points in time. 
     #' 
   #' @param times numeric vector, times of the tie points
   #' 

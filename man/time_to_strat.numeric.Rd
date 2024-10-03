@@ -14,10 +14,10 @@
 \item{...}{options passed to \emph{get_height}}
 }
 \value{
-a numberic vector - stratigraphic position of the events
+a numeric vector - stratigraphic position of the events
 }
 \description{
-This function transforms numeric vectors from the time to the stratigrahpic domain
+This function transforms numeric vectors from the time to the stratigraphic domain
 Fundamentally a wrapper around get_height for consistent syntax
 }
 \examples{

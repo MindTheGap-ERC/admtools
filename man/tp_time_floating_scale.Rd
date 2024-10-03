@@ -10,7 +10,7 @@ tp_time_floating_scale()
 function for usage with \emph{strat_cont_to_multiadm} and \emph{sedrate_to_multiamd} as t_tp input
 }
 \description{
-Defines tie points for a floating (auxiliary) time sclae for usage with \emph{sedrate_to_multiadm} and \emph{strat_cont_to_multiadm} as t_tp input. This floating time scale consists of two tie points in time, the first at time t = 0, the second at time t = 1. \code{tp_time_floating_scale} is a synonym of  \code{tp_time_det(times = c(0,1))}
+Defines tie points for a floating (auxiliary) time scale for usage with \emph{sedrate_to_multiadm} and \emph{strat_cont_to_multiadm} as t_tp input. This floating time scale consists of two tie points in time, the first at time t = 0, the second at time t = 1. \code{tp_time_floating_scale} is a synonym of  \code{tp_time_det(times = c(0,1))}
 }
 \examples{
 \dontrun{

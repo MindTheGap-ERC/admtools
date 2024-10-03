@@ -45,7 +45,7 @@ sed_rate_t_fun = function(x, mode = "rcll"){
   #' @title sedimentation rate function
   #' 
   #' @description
-    #' returns a function that retruns sedimentation rate
+    #' returns a function that returns sedimentation rate
   #' 
   #' @param x an adm object
   #' @param mode string, "rcll" or "lcrl". Should the sedimentation rate be Right Continuous with Left Limits (rcll) or Left Continuous with Right Limits (lcrl)

@@ -9,7 +9,7 @@
 \arguments{
 \item{x}{stratlist object}
 
-\item{orientation}{charachter, either "du" (down-up) or "lr" (left-right). Orientation of plotting}
+\item{orientation}{character, either "du" (down-up) or "lr" (left-right). Orientation of plotting}
 
 \item{ord_name}{name of the ordinate. Values plotted against time}
 

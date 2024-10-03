@@ -13,7 +13,7 @@ tp_time_det(times)
 a function for usage with \emph{strat_cont_to_multiadm} and \emph{sedrate_to_mulitadm} as t_tp input
 }
 \description{
-defines deterministc tie points in time.
+defines deterministic tie points in time.
 }
 \seealso{
 \code{\link[=tp_height_det]{tp_height_det()}} for deterministic tie points in height, \code{\link[=tp_time_norm]{tp_time_norm()}} for tie points following a normal distribution

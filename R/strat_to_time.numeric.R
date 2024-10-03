@@ -6,7 +6,7 @@ strat_to_time.numeric = function(obj, x, ...){
   #' @title transform numeric vectors from height to time domain
   #' 
   #' @description
-  #' This function transforms numeric vectors from the stratigrahpic to the time domain
+  #' This function transforms numeric vectors from the stratigraphic to the time domain
   #' Fundamentally a wrapper around get_time for consistent syntax
   #' 
   #' 

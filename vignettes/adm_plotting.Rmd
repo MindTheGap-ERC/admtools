@@ -33,7 +33,7 @@ adm = tp_to_adm(t = CarboCATLite_data$time_myr,
                 T_unit = "Myr")
 ```
 
-The adm can be directly plotted using the standard `plot`comman from R. It can be modified using the arguments listed under `?plot.adm`
+The adm can be directly plotted using the standard `plot` command from R. It can be modified using the arguments listed under `?plot.adm`
 
 ```{r}
 plot(adm,
@@ -49,7 +49,7 @@ Here the prefixes `lwd`, `lty`, and `col` stand for line width, line type, and c
 
 ### Adding axis labels
 
-Axis lables can be added using the functions `T_axis_lab` (axis label of time axis) and `L_axis_lab` (length axis label). By default, they use the units associated with the age-depth model object. This behavior can be overwritten using the `label`and `unit` options. For more details, see the help page under `?T_axis_lab` and `L_axis_lab`. As example, we plot only accumulating parts, and add axis labels.
+Axis labels can be added using the functions `T_axis_lab` (axis label of time axis) and `L_axis_lab` (length axis label). By default, they use the units associated with the age-depth model object. This behavior can be overwritten using the `label`and `unit` options. For more details, see the help page under `?T_axis_lab` and `L_axis_lab`. As example, we plot only accumulating parts, and add axis labels.
 
 ```{r}
 plot(adm,

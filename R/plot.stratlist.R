@@ -5,7 +5,7 @@ plot.stratlist = function(x, orientation = "du", ord_name = "y", ...){
   #' @title plot strat list
   #'
   #' @param x stratlist object
-  #' @param orientation charachter, either "du" (down-up) or "lr" (left-right). Orientation of plotting
+  #' @param orientation character, either "du" (down-up) or "lr" (left-right). Orientation of plotting
   #' @param ord_name name of the ordinate. Values plotted against time
   #' @param ... further arguments passed to plot
   #' 

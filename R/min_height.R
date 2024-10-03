@@ -6,7 +6,7 @@ min_height = function(x){
   #' 
   #' @param x an age-depth model (adm) or sediment accumulation curve (sac)
   #' 
-  #' @returns number, stratigraphic position of lowest tie poin
+  #' @returns number, stratigraphic position of lowest tie point
   #' 
   #' @seealso [get_total_thickness()], [max_height()]
   #' 

@@ -5,7 +5,7 @@ time_to_strat.numeric = function(obj, x, ...){
   #' @title transform vectors from time to height domain
   #' 
   #' @description
-  #' This function transforms numeric vectors from the time to the stratigrahpic domain
+  #' This function transforms numeric vectors from the time to the stratigraphic domain
   #' Fundamentally a wrapper around get_height for consistent syntax
   #' 
   #' 
@@ -15,7 +15,7 @@ time_to_strat.numeric = function(obj, x, ...){
   #' 
   #' @seealso [strat_to_time.numeric()] for the transformation from height to time domain, [time_to_strat.phylo()] and [time_to_strat.list()] for transformations of phylogenetic trees and lists. See [get_height()] for the underlying procedure.
   #' 
-  #' @returns a numberic vector - stratigraphic position of the events
+  #' @returns a numeric vector - stratigraphic position of the events
   #' 
   #' @examples
   #' # see vignette("admtools") for an example

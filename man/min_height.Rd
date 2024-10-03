@@ -10,7 +10,7 @@ min_height(x)
 \item{x}{an age-depth model (adm) or sediment accumulation curve (sac)}
 }
 \value{
-number, stratigraphic position of lowest tie poin
+number, stratigraphic position of lowest tie point
 }
 \description{
 get lowest stratigraphic tie point
