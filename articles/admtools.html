@@ -169,7 +169,7 @@ figure showing a transect through the carbonate platform.</p>
 <h4 id="defining-age-depth-models">Defining age-depth models<a class="anchor" aria-label="anchor" href="#defining-age-depth-models"></a>
 </h4>
 <p>The standard constructor for age-depth models is
-<code>tp_to_adm</code> (“tiepoint to age-depth model”). It returns an
+<code>tp_to_adm</code> (“tie point to age-depth model”). It returns an
 objecto of class <code>adm</code>. This object combines information of
 stratigraphic heights and times and erosive interval. It allows to
 transform data between the stratigraphic and the time domain, and
@@ -237,7 +237,7 @@ non-destructive) intervals.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_sed_rate_t.html">plot_sed_rate_t</a></span><span class="op">(</span><span class="va">my_adm</span><span class="op">)</span></span></code></pre></div>
 <p><img src="admtools_files/figure-html/unnamed-chunk-15-1.png" width="700"></p>
-<p>For more information on the extraction of sedimentation rates xin the
+<p>For more information on the extraction of sedimentation rates in the
 time domain see the functions <code>sed_rate_t</code> and
 <code>sed_rate_t_fun</code>. Sedimentation rates in the length domain
 can be extracted using <code>sed_rate_l</code> and
@@ -360,7 +360,7 @@ this tree was generated.</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tree_in_strat_domain</span> <span class="op">=</span> <span class="fu"><a href="../reference/time_to_strat.html">time_to_strat</a></span><span class="op">(</span>obj <span class="op">=</span> <span class="va">timetree</span>,</span>
 <span>                                     x <span class="op">=</span> <span class="va">my_adm</span><span class="op">)</span></span></code></pre></div>
-<p>Plotting the resulting tree along the tratigraphic column shows how
+<p>Plotting the resulting tree along the stratigraphic column shows how
 the evolutionary relationships would be preserved 2 km offshore in the
 simulated carbonate platform:</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
@@ -374,7 +374,7 @@ simulated carbonate platform:</p>
 <div class="section level5">
 <h5 id="lists-and-timestratigraphic-series">Lists and time/stratigraphic series<a class="anchor" aria-label="anchor" href="#lists-and-timestratigraphic-series"></a>
 </h5>
-<p><em>admtools</em> can transfrom lists from the time to the height
+<p><em>admtools</em> can transform lists from the time to the height
 domain and vice versa given they have elements with names <code>h</code>
 or <code>t</code>. These lists can be interpreted as time/stratigraphic
 series, where times and stratigraphic positions are associated with
