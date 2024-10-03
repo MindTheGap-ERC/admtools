@@ -1,4 +1,4 @@
-# admtools (development version)
+# admtools 0.4.0
 
 * added transformations for S3 class `pre_paleoTS` to integrate with `StratPal` and `paleoTS` package
 
