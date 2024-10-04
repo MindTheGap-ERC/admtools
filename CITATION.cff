@@ -15,7 +15,7 @@ authors:
     affiliation: Utrecht University
 identifiers:
   - type: doi
-    value: 10.5281/zenodo.13628460
+    value: 10.5281/zenodo.13888709
     description: Archived version on Zenodo
 repository-code: 'https://github.com/MindTheGap-ERC/admtools'
 url: 'https://mindthegap-erc.github.io/admtools/'
@@ -28,5 +28,5 @@ keywords:
   - Stratigraphy
   - Sedimentology
 license: GPL-3.0
-version: 0.3.1
-date-released: '2024-09-02'
+version: 0.4.0
+date-released: '2024-09-04'
