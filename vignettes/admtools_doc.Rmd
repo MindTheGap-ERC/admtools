@@ -266,6 +266,14 @@ The following functions transform `multiadm` objects into other S3 classes:
 -   `strat_to_time.phylo`: Transform stratigraphic tree into time domain
 -   `time_to_strat.phylo`: Transform time tree into strat domain
 
+### S3 class `pre_paleoTS`
+
+`admtools` implements the following methods for `pre_paleoTS` objects as defined by the `StratPal` package:
+
+-   `strat_to_time.pre_paleoTS`: transform pre-paleoTS time series into time domain
+
+-   `time_to_strat.pre_paleoTS`: transform pre-paleoTS time series into strat. domain
+
 ### Class `numeric`
 
 -   `strat_to_time.numeric`: Transform vectors from stratigraphic domain to time domain. Wrapper around `get_time`
