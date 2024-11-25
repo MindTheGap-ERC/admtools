@@ -133,7 +133,17 @@ sed_rate_gen_from_bounds = function(h_l, s_l, h_u, s_u, rate = 1){
   #' 
   #' @returns a function factory for usage with `sedrate_to_multiadm`
   #' 
+  #' @description
+    #' constructs a sedimentation rate generator for usage with `sedrate_to_multiadm` based on the following procedure: (1) determine stratigraphic points based on a Poisson point process with rate `rate` (2) at these points, determine the sedimentation rate based on a uniform distribution between the bounds provided by the input parameters (3) linearly interpolate between those points with sedimentation rate determined in step 2.
+    #' This approach can be used to estimate age-depth models when only rough boundaries on sedimentation rates are available. Here, the uniform distribution is chosen to reflect that no other information other than maximum and minimum sed. rate is available.
+  #' 
   #' @seealso [sedrate_to_multiadm()] for estimating age-depth models using the outputs, [sed_rate_from_matrix()] for other means of defining sedimentation rates
+  #' 
+  #' @examples
+    #' # see vignette 
+    #' # vignette("adm_from_sedrate")
+    #' # for an example
+    #' 
   f = function(){
     h_min = min(c(min(h_u), min(h_l)))
     h_max = max(c(max(h_u), max(h_l)))
