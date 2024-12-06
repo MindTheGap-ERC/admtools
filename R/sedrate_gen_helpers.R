@@ -60,11 +60,17 @@ sed_rate_from_matrix = function(height, sedrate, matrix, mode = "deterministic",
   #' 
   #' @returns a function factory for usage with `sedrate_to_multiadm`
   #' 
-  #' @seealso [sedrate_to_multiadm()] for estimating sedimentation rates based on the outputs, [get_data_from_eTimeOpt()] for extracting data from the `eTimeOpt` function of the astrochron package.
+  #' @seealso [sedrate_to_multiadm()] for estimating sedimentation rates based on the outputs, [get_data_from_eTimeOpt()] for extracting data from the `eTimeOpt` function of the astrochron package. [sed_rate_gen_from_bounds()] for construction sedimentation rate generators from simple bounds. See also the vignettes for details on how arbitrary sedimentation rates can be constructed.
   #' 
   #' @description
     #' Construct a sedimentation rate generator (function factory) from a matrix, e.g. one returned from `get_data_from_eTimeOpt`. This generator can be passed on to `sedrate_to_multiadm` to estimate age-depth models from it. 
     #' If mode is "deterministic", the generator evaluates the sedimentation rates at heights specified by `height`, if the mode is "poisson" it is evaluated at heights that are determined based on a poisson point process. At these heights, the value of the sedimentation rate is determined based on the (pseudo) pdf that is determined by the matrix values.
+    #' 
+  #' @examples
+    #' # see vignette 
+    #' # vignette("adm_from_sedrate")
+    #' # for more general examples
+    #' 
   if (!all(dim(matrix) == c(length(sedrate), length(height)))){
     stop("dimension mismatch. \"matrix\" must have length(height) columns and length(sedrate) rows")
   }
@@ -137,7 +143,7 @@ sed_rate_gen_from_bounds = function(h_l, s_l, h_u, s_u, rate = 1){
     #' constructs a sedimentation rate generator for usage with `sedrate_to_multiadm` based on the following procedure: (1) determine stratigraphic points based on a Poisson point process with rate `rate` (2) at these points, determine the sedimentation rate based on a uniform distribution between the bounds provided by the input parameters (3) linearly interpolate between those points with sedimentation rate determined in step 2.
     #' This approach can be used to estimate age-depth models when only rough boundaries on sedimentation rates are available. Here, the uniform distribution is chosen to reflect that no other information other than maximum and minimum sed. rate is available.
   #' 
-  #' @seealso [sedrate_to_multiadm()] for estimating age-depth models using the outputs, [sed_rate_from_matrix()] for other means of defining sedimentation rates
+  #' @seealso [sedrate_to_multiadm()] for estimating age-depth models using the outputs, [sed_rate_from_matrix()] for other means of defining sedimentation rates, the vignette on how to construct arbitrary sedimentation rate generators.
   #' 
   #' @examples
     #' # see vignette 

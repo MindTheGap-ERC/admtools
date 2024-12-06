@@ -31,5 +31,5 @@ This approach can be used to estimate age-depth models when only rough boundarie
 
 }
 \seealso{
-\code{\link[=sedrate_to_multiadm]{sedrate_to_multiadm()}} for estimating age-depth models using the outputs, \code{\link[=sed_rate_from_matrix]{sed_rate_from_matrix()}} for other means of defining sedimentation rates
+\code{\link[=sedrate_to_multiadm]{sedrate_to_multiadm()}} for estimating age-depth models using the outputs, \code{\link[=sed_rate_from_matrix]{sed_rate_from_matrix()}} for other means of defining sedimentation rates, the vignette on how to construct arbitrary sedimentation rate generators.
 }
