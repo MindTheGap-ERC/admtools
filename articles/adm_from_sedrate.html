@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">admtools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0.9001</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -109,7 +109,9 @@ the generated age-depth model.</p>
 <h3 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h3>
 <p>We construct an age depth model for a section of 10 m thickness where
-upper and lower bounds on sedimentation rates are available.</p>
+upper and lower bounds on sedimentation rates are available. This is a
+simplified example, details on how arbitrary sedimentation rates can be
+encoded can be found below.</p>
 <div class="section level4">
 <h4 id="data">Data<a class="anchor" aria-label="anchor" href="#data"></a>
 </h4>
@@ -232,8 +234,8 @@ tie points. Conceptually, both <code>t_tp</code>and <code>h_tp</code>
 are user implemented random number generators that draw from the
 distributions of tie points. Writing these functions requires some
 effort, but it allows the user to hand over arbitrarily complex
-uncertainties of the tie points to the
-<code>strat_cont_to_multiadm</code> function.</p>
+uncertainties of the tie points to the <code>sedrate_to_multiadm</code>
+function.</p>
 </div>
 <div class="section level4">
 <h4 id="wrappers">Wrappers<a class="anchor" aria-label="anchor" href="#wrappers"></a>
