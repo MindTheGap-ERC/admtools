@@ -22,3 +22,13 @@ test_that("transformation of lists works", {
   li = list("t" = t, "r" = "a")
   expect_equal(time_to_strat(li, adm)$h, h)
 })
+
+test_that("transformation for fossils objects works", {
+  # check class is preserved
+  # object is preserved under identity
+})
+
+test_that("transformation for taxonomy objects works", {
+  # check class is preserved
+  # object is preserved under identity transformation
+})

@@ -1,0 +1,38 @@
+---
+title: "Integration with the FossilSim and paleotree packages"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Integration with the FossilSim and paleotree packages}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(admtools)
+```
+
+This vignette explains the integration of `admtools` with the `FossilSim` and `paleotree` packages.
+
+## Integration with `paleotree`
+
+To combine the `admtools` package with the `paleotree` package, please convert the `paleotree` format into the `FossilSim` format as described in the `paleotree` vignette of the `FossilSim` vignette:
+
+```{r eval=FALSE}
+vignette("paleotree", package = "FossilSim")
+```
+
+After conversion you can proceed as described in the section *Integration with the `FossilSim` package*
+
+## References
+
+* FossilSim package
+* paleotree package
+* FossilSim publication
+* paleotree publication
