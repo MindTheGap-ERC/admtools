@@ -20,6 +20,33 @@ library(admtools)
 
 This vignette explains the integration of `admtools` with the `FossilSim` and `paleotree` packages.
 
+## Integration with the `FossilSim` package
+
+`admtools` can transform phylogenetic trees coded as `phylo` objects as well as `fossils` and `taxonomy` objects as defined by the `FossilSim` package. This allows to transform phylogenetic trees with their associated taxonomic information and fossil locations between the time and the stratigraphic domain. We give an example of this workflow
+
+```{r}
+set.seed(42)
+# construct age-depth model
+my_adm = tp_to_adm(t = CarboCATLite_data$time_myr,
+                  h = CarboCATLite_data$height_2_km_offshore_m,
+                  L_unit = "m",
+                  T_unit = "Myr")
+# simulate phylogenetic tree
+t = ape::rbdtree(birth = 3, death = 1, Tmax = 2)
+# simulate taxonomy along the tree
+s = FossilSim::sim.taxonomy(tree = t)
+# simulate fossils based on taxonomy
+f = FossilSim::sim.fossils.poisson(rate = 4, taxonomy = s)
+# plot tree with taxonomy and fossil times
+FossilSim:::plot.fossils(f, tree = t, taxonomy = s, show.taxonomy = TRUE)
+
+## transform everything into the strat domain
+t_strat = time_to_strat(t, my_adm)
+s_strat = time_to_strat(s, my_adm, destructive = FALSE)
+f_strat = time_to_strat(f, my_adm, destructive = FALSE)
+FossilSim:::plot.fossils(f_strat, tree = t_strat, taxonomy = s_strat, show.taxonomy = TRUE)
+```
+
 ## Integration with `paleotree`
 
 To combine the `admtools` package with the `paleotree` package, please convert the `paleotree` format into the `FossilSim` format as described in the `paleotree` vignette of the `FossilSim` vignette:
@@ -32,7 +59,7 @@ After conversion you can proceed as described in the section *Integration with t
 
 ## References
 
-* FossilSim package
-* paleotree package
-* FossilSim publication
-* paleotree publication
+*  Barido-Sottani J, Pett W, O'Reilly JE, Warnock RCM. Fossilsim: An r package for simulating fossil occurrence data under mechanistic models of preservation and recovery. Methods Ecol Evol. 2019; 10: 835–840. <https://doi.org/10.1111/2041-210X.13170>
+*  Bapst, D.W. (2012), paleotree: an R package for paleontological and phylogenetic analyses of evolution. Methods in Ecology and Evolution, 3: 803-807. <https://doi.org/10.1111/j.2041-210X.2012.00223.x>
+*  Warnock R, Barido-Sottani J, Pett W, Joseph O, Stolz U (2024). _FossilSim: Simulation and Plots for Fossil and Taxonomy Data_. R package version 2.4.1,
+  <https://CRAN.R-project.org/package=FossilSim>

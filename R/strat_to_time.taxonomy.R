@@ -8,7 +8,7 @@ strat_to_time.taxonomy = function(obj, x, ...){
   #' @param ... further parameters passed to _get_time_
   #' 
   obj$start = get_time.adm(x, obj$start, ...)
-  obj$end  = get_time.adm(x, obj$start, ...)
+  obj$end  = get_time.adm(x, obj$end, ...)
   
   return(obj)
 }

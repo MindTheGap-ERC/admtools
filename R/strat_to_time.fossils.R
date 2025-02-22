@@ -14,7 +14,7 @@ strat_to_time.fossils = function(obj, x, ...){
   obj$hmin = get_height.adm(x, obj$hmin, ...)
   obj$hmax = get_height.adm(x, obj$hmax, ...)
   
-  destr = is.na(obj$hmin) | obj$hmax
+  destr = is.na(obj$hmin) | is.na(obj$hmax)
   
   obj = obj[!destr, ]
   

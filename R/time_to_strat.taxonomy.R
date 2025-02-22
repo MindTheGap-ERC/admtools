@@ -12,7 +12,7 @@ time_to_strat.taxonomy = function(obj, x, ...){
     #' 
   
   obj$start = get_height.adm( x,obj$start, destructive = FALSE)
-  obj$end = get_height.adm( x, obj$start, destructive = FALSE)
+  obj$end = get_height.adm( x, obj$end, destructive = FALSE)
   
   return(obj)
 }
