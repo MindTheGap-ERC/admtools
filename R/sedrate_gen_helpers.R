@@ -145,3 +145,15 @@ sed_rate_gen_from_bounds = function(h_l, s_l, h_u, s_u, rate = 1){
   }
   return(f)
 }
+
+sed_rate_gen_gamma = function(h, shapes, rates){
+  #' @export
+  #' 
+  #' @title sed. rate gen based on gamma distribution
+  #' 
+  #' @param h heights at which sedimentation rate is determined
+  #' @param shapes shape parameters for the gamma distribution
+  #' @param rates rate parameter for the gamma distribution
+  #' 
+  #' @returns a function factory for usage with `sedrate_to_multiadm`
+}
