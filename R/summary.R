@@ -74,3 +74,21 @@ summary.sac = function(object, ...){
   
   return(invisible())
 }
+
+summary.ddc = function(object, ...){
+  #' @export
+  #' 
+  #' @title summary of depth-depth curve
+  #' 
+  #' @description
+    #' displays some summary numbers of a depth-depth curve (`ddc` object)
+    #' 
+  #' @param object depth-depth curve (`ddc`)
+  #' @param ... other variables, currently ignored
+  #' 
+  #' @returns invisible NULL
+  #' 
+  cat("depth-depth curve\n")
+  
+  return(invisible())
+}
