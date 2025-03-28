@@ -253,6 +253,8 @@ Available wrappers to define sedimentation rates are
 
 -   `sed_rate_from_matrix`: specify sedimentation rate based on matrix, to be used in conjunction with `get_data_from_eTimeOpt`. This allows to have sedimentation rates change both at deterministic and randomized heights, see `?sed_rate_from_matrix` for details.
 
+-   `sed_rate_gen_gamma` : generate sed. rate based on gamma distribution.
+
 ### Manually coding sedimentation rates
 
 Sedimentation rates must be coded as function factories, i.e., functions that return functions. They must be able to take vector inputs and return a vector of the same length as output, and always return strictly positive values.

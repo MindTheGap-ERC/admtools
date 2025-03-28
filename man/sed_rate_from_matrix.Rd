@@ -38,4 +38,7 @@ If mode is "deterministic", the generator evaluates the sedimentation rates at h
 }
 \seealso{
 \code{\link[=sedrate_to_multiadm]{sedrate_to_multiadm()}} for estimating sedimentation rates based on the outputs, \code{\link[=get_data_from_eTimeOpt]{get_data_from_eTimeOpt()}} for extracting data from the \code{eTimeOpt} function of the astrochron package.
+\itemize{
+\item \code{\link[=sed_rate_gen_gamma]{sed_rate_gen_gamma()}} for sed. rate generator based on a gamma distribution
+}
 }

@@ -24,5 +24,9 @@ a function factory for usage with \code{sedrate_to_multiadm}
 seg rate gen from upper/lower bounds
 }
 \seealso{
-\code{\link[=sedrate_to_multiadm]{sedrate_to_multiadm()}} for estimating age-depth models using the outputs, \code{\link[=sed_rate_from_matrix]{sed_rate_from_matrix()}} for other means of defining sedimentation rates
+\itemize{
+\item \code{\link[=sedrate_to_multiadm]{sedrate_to_multiadm()}} for estimating age-depth models using the outputs
+\item \code{\link[=sed_rate_from_matrix]{sed_rate_from_matrix()}} for other means of defining sedimentation rates
+\item \code{\link[=sed_rate_gen_gamma]{sed_rate_gen_gamma()}} for sed. rate generator based on a gamma distribution
+}
 }
