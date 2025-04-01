@@ -36,9 +36,12 @@ a function factory for usage with \code{sedrate_to_multiadm}
 Construct a sedimentation rate generator (function factory) from a matrix, e.g. one returned from \code{get_data_from_eTimeOpt}. This generator can be passed on to \code{sedrate_to_multiadm} to estimate age-depth models from it.
 If mode is "deterministic", the generator evaluates the sedimentation rates at heights specified by \code{height}, if the mode is "poisson" it is evaluated at heights that are determined based on a poisson point process. At these heights, the value of the sedimentation rate is determined based on the (pseudo) pdf that is determined by the matrix values.
 }
-\seealso{
-\code{\link[=sedrate_to_multiadm]{sedrate_to_multiadm()}} for estimating sedimentation rates based on the outputs, \code{\link[=get_data_from_eTimeOpt]{get_data_from_eTimeOpt()}} for extracting data from the \code{eTimeOpt} function of the astrochron package.
-\itemize{
-\item \code{\link[=sed_rate_gen_gamma]{sed_rate_gen_gamma()}} for sed. rate generator based on a gamma distribution
+\examples{
+# see vignette 
+# vignette("adm_from_sedrate")
+# for more general examples
+
 }
+\seealso{
+\code{\link[=sedrate_to_multiadm]{sedrate_to_multiadm()}} for estimating sedimentation rates based on the outputs, \code{\link[=get_data_from_eTimeOpt]{get_data_from_eTimeOpt()}} for extracting data from the \code{eTimeOpt} function of the astrochron package. \code{\link[=sed_rate_gen_from_bounds]{sed_rate_gen_from_bounds()}} for construction sedimentation rate generators from simple bounds. See also the vignettes for details on how arbitrary sedimentation rates can be constructed.
 }

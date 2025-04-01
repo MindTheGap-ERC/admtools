@@ -43,7 +43,7 @@ Additional parameters that determine the numeric behavior of the integration met
 
 ## Example
 
-We construct an age depth model for a section of 10 m thickness where upper and lower bounds on sedimentation rates are available.
+We construct an age depth model for a section of 10 m thickness where upper and lower bounds on sedimentation rates are available. This is a simplified example, details on how arbitrary sedimentation rates can be encoded can be found below.
 
 ### Data
 
@@ -160,7 +160,7 @@ plot(mean_adm)
 
 ### Background
 
-Times and heights of tie points are coded via the functions `t_tp` (timing) and `h_tp` (height) that take no inputs. They serve as wrappers around user-defined procedures that reflect uncertainties around tie points. Every time `t_tp` and `h_tp` are evaluated, they return possible values for the tie points. Conceptually, both `t_tp`and `h_tp` are user implemented random number generators that draw from the distributions of tie points. Writing these functions requires some effort, but it allows the user to hand over arbitrarily complex uncertainties of the tie points to the `strat_cont_to_multiadm` function.
+Times and heights of tie points are coded via the functions `t_tp` (timing) and `h_tp` (height) that take no inputs. They serve as wrappers around user-defined procedures that reflect uncertainties around tie points. Every time `t_tp` and `h_tp` are evaluated, they return possible values for the tie points. Conceptually, both `t_tp`and `h_tp` are user implemented random number generators that draw from the distributions of tie points. Writing these functions requires some effort, but it allows the user to hand over arbitrarily complex uncertainties of the tie points to the `sedrate_to_multiadm` function.
 
 ### Wrappers
 

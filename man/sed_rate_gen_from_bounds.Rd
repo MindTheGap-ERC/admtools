@@ -21,7 +21,14 @@ sed_rate_gen_from_bounds(h_l, s_l, h_u, s_u, rate = 1)
 a function factory for usage with \code{sedrate_to_multiadm}
 }
 \description{
-seg rate gen from upper/lower bounds
+constructs a sedimentation rate generator for usage with \code{sedrate_to_multiadm} based on the following procedure: (1) determine stratigraphic points based on a Poisson point process with rate \code{rate} (2) at these points, determine the sedimentation rate based on a uniform distribution between the bounds provided by the input parameters (3) linearly interpolate between those points with sedimentation rate determined in step 2.
+This approach can be used to estimate age-depth models when only rough boundaries on sedimentation rates are available. Here, the uniform distribution is chosen to reflect that no other information other than maximum and minimum sed. rate is available.
+}
+\examples{
+# see vignette 
+# vignette("adm_from_sedrate")
+# for an example
+
 }
 \seealso{
 \itemize{
@@ -29,4 +36,6 @@ seg rate gen from upper/lower bounds
 \item \code{\link[=sed_rate_from_matrix]{sed_rate_from_matrix()}} for other means of defining sedimentation rates
 \item \code{\link[=sed_rate_gen_gamma]{sed_rate_gen_gamma()}} for sed. rate generator based on a gamma distribution
 }
+
+\code{\link[=sedrate_to_multiadm]{sedrate_to_multiadm()}} for estimating age-depth models using the outputs, \code{\link[=sed_rate_from_matrix]{sed_rate_from_matrix()}} for other means of defining sedimentation rates, the vignette on how to construct arbitrary sedimentation rate generators.
 }
