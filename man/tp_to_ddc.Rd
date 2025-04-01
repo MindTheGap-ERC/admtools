@@ -4,7 +4,14 @@
 \alias{tp_to_ddc}
 \title{construct depth-depth curve from coeval heights}
 \usage{
-tp_to_ddc(h1, h2, L_unit_1 = NULL, L_unit_2 = NULL, sec_1 = "", sec_2 = "")
+tp_to_ddc(
+  h1,
+  h2,
+  L_unit_1 = NULL,
+  L_unit_2 = NULL,
+  sec_1 = "unnamed section 1",
+  sec_2 = "unnamed section 2"
+)
 }
 \arguments{
 \item{h1}{height tie points in section 1}

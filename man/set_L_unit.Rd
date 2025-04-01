@@ -9,7 +9,7 @@ set_L_unit(x, L_unit, ...)
 \arguments{
 \item{x}{adm or multiadm object}
 
-\item{L_unit}{time unit}
+\item{L_unit}{length unit}
 
 \item{...}{further parameters}
 }
@@ -17,7 +17,7 @@ set_L_unit(x, L_unit, ...)
 an adm or multiadm object with the L unit assigned
 }
 \description{
-set length units for adm and multiadm objects
+set length units for sac, adm and multiadm objects
 }
 \seealso{
 \code{\link[=set_T_unit]{set_T_unit()}} \code{\link[=get_L_unit]{get_L_unit()}}

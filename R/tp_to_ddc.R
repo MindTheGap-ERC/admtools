@@ -1,4 +1,4 @@
-tp_to_ddc = function(h1, h2, L_unit_1 = NULL, L_unit_2 = NULL, sec_1 = "", sec_2 = ""){
+tp_to_ddc = function(h1, h2, L_unit_1 = NULL, L_unit_2 = NULL, sec_1 = "unnamed section 1", sec_2 = "unnamed section 2"){
   #' @export
   #' 
   #' @title construct depth-depth curve from coeval heights

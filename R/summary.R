@@ -88,7 +88,11 @@ summary.ddc = function(object, ...){
   #' 
   #' @returns invisible NULL
   #' 
-  cat("depth-depth curve\n")
-  
+  names = get_section_names(object)
+  th = get_total_thicknesses(object)
+  units = get_L_units(object)
+  cat("depth-depth curve between", names[1], "and", names[2], "\n")
+  cat("Thickness of", names["sec_1"], ":", th["sec_1"], units["sec_1"], "\n")
+  cat("Thickness of", names["sec_2"], ":", th["sec_2"], units["sec_2"], "\n")
   return(invisible())
 }

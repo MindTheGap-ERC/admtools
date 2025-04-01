@@ -7,7 +7,7 @@
 get_T_unit(x, ...)
 }
 \arguments{
-\item{x}{adm or multiadm object}
+\item{x}{sac, adm or multiadm object}
 
 \item{...}{other parameters}
 }
@@ -15,7 +15,7 @@ get_T_unit(x, ...)
 character - the time unit of \code{x}
 }
 \description{
-extracts the Time unit from adm or multiadm object
+extracts the Time unit from sac, adm or multiadm object
 }
 \seealso{
 \code{\link[=set_T_unit]{set_T_unit()}} \code{\link[=get_L_unit]{get_L_unit()}}

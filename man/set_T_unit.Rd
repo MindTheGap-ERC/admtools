@@ -7,17 +7,17 @@
 set_T_unit(x, T_unit, ...)
 }
 \arguments{
-\item{x}{adm or multiadm object}
+\item{x}{sac, adm or multiadm object}
 
 \item{T_unit}{time unit}
 
 \item{...}{further parameters}
 }
 \value{
-an adm or multiadm object with the time unit assigned
+an sac, adm or multiadm object with the time unit assigned
 }
 \description{
-set time units for adm and multiadm objects
+set time units for sac, adm and multiadm objects
 }
 \seealso{
 \code{\link[=set_L_unit]{set_L_unit()}} \code{\link[=get_T_unit]{get_T_unit()}}

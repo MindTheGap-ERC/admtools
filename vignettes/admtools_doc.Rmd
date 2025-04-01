@@ -263,13 +263,15 @@ Not implemented yet
 
 #### Modification
 
-Not implemented yet
+-   `flip_ddc` to reverse direction of correlation
+-   `set_L_units` to change length units
 
 #### Extracting information
 
-Not implemented yet
+-   `get_L_units` to extract length units
+-   `get_total_thicknesses` to determine total thickness of correlated functions
 
-#### Transformation inot other S3 classes
+#### Transformation into other S3 classes
 
 Not implemented yet
 

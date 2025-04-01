@@ -15,7 +15,7 @@ get_L_unit(x, ...)
 character - the length unit of \code{x}
 }
 \description{
-extracts the length unit from adm or multiadm object
+extracts the length unit from sac, adm or multiadm object
 }
 \seealso{
 \code{\link[=get_T_unit]{get_T_unit()}} \code{\link[=set_L_unit]{set_L_unit()}}

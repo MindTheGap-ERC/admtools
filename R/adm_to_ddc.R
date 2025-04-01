@@ -26,8 +26,8 @@ adm_to_ddc = function(adm1, adm2){
              h2 = h2_joint,
              L_unit_1 = get_L_unit(adm1),
              L_unit_2 = get_L_unit(adm2),
-             sec_1_name = "",
-             sec_2_name = "")
+             sec_1_name = paste0("section of ", deparse(substitute(adm1))),
+             sec_2_name = paste0("section of ", deparse(substitute(adm2))))
   class(ddc) = "ddc"
   return(ddc)
   

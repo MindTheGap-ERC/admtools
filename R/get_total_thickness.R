@@ -15,7 +15,7 @@ get_total_thickness = function(x, ...){
     #' for sediment accumulation curves, returns the difference between the highest and lowest point of the curve. For age-depth models, returns the total thickness of sediment accumulated.
     #' 
   #' 
-  #' @seealso [max_height()] and [min_height()] to extract the highest/lowest stratigraphic point
+  #' @seealso [max_height()] and [min_height()] to extract the highest/lowest stratigraphic point, [get_total_thicknesses()] to extract thicknesses from depth-depth curves
   #' 
   UseMethod("get_total_thickness")
 }
@@ -53,4 +53,9 @@ get_total_thickness.sac = function(x, ...){
   #' 
   h = get_L_tp(x)
   return(diff(range(h)))
+}
+
+get_total_thickness.ddc = function(x, ...){
+  #' @export
+  stop("Total thickness of depth-depth curve not defined. Use `get_total_thicknesses` instead.")
 }
