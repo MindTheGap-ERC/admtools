@@ -331,6 +331,13 @@ For information on estimating age-depth models from tracer contents of rocks and
 vignette("adm_from_trace_cont")
 ```
 
+For information on depth-depth curves and correlation see
+
+```{r, eval=FALSE}
+vignette("correlation")
+```
+
+
 ## References {#References}
 
 -   Burgess, Peter. "CarboCAT: A cellular automata model of heterogeneous carbonate strata." Computers & geosciences 53 (2013): 129-140. [DOI: 10.1016/j.cageo.2011.08.026](https://doi.org/10.1016/j.cageo.2011.08.026)

@@ -102,6 +102,7 @@ The following functions transform `adm` objects into other S3 classes:
 -   `merge_adm_to_multiadm` into `multiamd`
 -   `add_adm_to_multiadm` to add `adm` to `multiadm`
 -   `anchor` to transform anchor `adm` at a tie point with uncertainty, resulting in a `multiadm`
+-   `adm_to_ddc` to construct a depth-depth curve from two age-depth models
 
 ### S3 class `sac`
 
@@ -157,7 +158,7 @@ The following functions extract information from `sac` objects:
 
 The following functions transform `sac` objects into other S3 classes:
 
--   `sac_to_adm` to transform `sac` into the S3 class `adm`
+-   `sac_to_adm` to transform `sac` into the S3 class `adm`.
 
 ### S3 class `multiadm`
 
@@ -230,6 +231,51 @@ The following functions transform `multiadm` objects into other S3 classes:
 
 -   `split_multiadm` to split `multiadm` into list of `adm` objects
 -   `mean_adm` , `median_adm` and `quantile_adm` to extract mean, median, and quantile age-depth model of `adm` class.m
+
+### S3 class `ddc`
+
+#### Description
+
+The class `ddc` describes **d**epth-**d**epth **c**urves used for correlation between sections. They are lists with the following components:
+
+- `h1`: numeric vector, heights in section 1
+- `h2`: numeric vector, heights in section 2. Elements at the same position in `h1` and `h2` are coeval heights in the two sections
+- `L_unit_1`: NULL or character, length unit of heights in section 1
+- `L_unit_2`: NULL or character, length unit of heights in section 2
+- `sec_1_name`: NULL or character, name of section 1
+- `sec_2_name`: NULL or character, name of section 2
+
+#### Construction
+
+`ddc` can be constructed using
+
+- `adm_to_ddc` to construct a depth-depth curve from two age-depth models
+- `tp_to_ddc` to construct a depth-depth curve from coeval tie points
+
+#### Logic
+
+Not implemented yet
+
+#### Representation
+
+- `plot.ddc` for plotting depth-depth curves
+- `summary.ddc` for a quick summary of the ddc object
+
+#### Modification
+
+-   `flip_ddc` to reverse direction of correlation
+-   `set_L_units` to change length units
+
+#### Extracting information
+
+-   `get_L_units` to extract length units
+-   `get_total_thicknesses` to determine total thickness of correlated functions
+
+#### Transformation into other S3 classes
+
+Not implemented yet
+
+
 
 ### S3 classes `stratlist` and `timelist`
 

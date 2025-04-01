@@ -74,3 +74,25 @@ summary.sac = function(object, ...){
   
   return(invisible())
 }
+
+summary.ddc = function(object, ...){
+  #' @export
+  #' 
+  #' @title summary of depth-depth curve
+  #' 
+  #' @description
+    #' displays some summary numbers of a depth-depth curve (`ddc` object)
+    #' 
+  #' @param object depth-depth curve (`ddc`)
+  #' @param ... other variables, currently ignored
+  #' 
+  #' @returns invisible NULL
+  #' 
+  names = get_section_names(object)
+  th = get_total_thicknesses(object)
+  units = get_L_units(object)
+  cat("depth-depth curve between", names[1], "and", names[2], "\n")
+  cat("Thickness of", names["sec_1"], ":", th["sec_1"], units["sec_1"], "\n")
+  cat("Thickness of", names["sec_2"], ":", th["sec_2"], units["sec_2"], "\n")
+  return(invisible())
+}

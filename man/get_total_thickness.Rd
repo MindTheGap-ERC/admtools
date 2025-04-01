@@ -18,5 +18,5 @@ numeric, total sediment thickness accumulated
 for sediment accumulation curves, returns the difference between the highest and lowest point of the curve. For age-depth models, returns the total thickness of sediment accumulated.
 }
 \seealso{
-\code{\link[=max_height]{max_height()}} and \code{\link[=min_height]{min_height()}} to extract the highest/lowest stratigraphic point
+\code{\link[=max_height]{max_height()}} and \code{\link[=min_height]{min_height()}} to extract the highest/lowest stratigraphic point, \code{\link[=get_total_thicknesses]{get_total_thicknesses()}} to extract thicknesses from depth-depth curves
 }
