@@ -22,3 +22,20 @@ test_that("transformation of lists works", {
   li = list("t" = t, "r" = "a")
   expect_equal(time_to_strat(li, adm)$h, h)
 })
+
+test_that("transformation for fossils objects works", {
+  t = ape::rlineage(birth = 1, death = 0, Tmax = 1)
+  rate = 2
+  f = FossilSim::sim.fossils.poisson(rate = rate, tree = t)
+  adm = tp_to_adm(t = c(0,1), h = c(0,1))
+  expect_equal(time_to_strat(f, adm), f)
+  expect_s3_class(time_to_strat(f, adm), "fossils")
+})
+
+test_that("transformation for taxonomy objects works", {
+  t = ape::rlineage(birth = 1, death = 0, Tmax = 1)
+  adm = tp_to_adm(t = c(0,1), h = c(0,1))
+  s = FossilSim::sim.taxonomy(tree = t) 
+  expect_equal(time_to_strat(s, adm), s)
+  expect_s3_class(time_to_strat(s, adm), "taxonomy")
+})
