@@ -47,6 +47,7 @@ get_L_unit.ddm = function(x, ...){
 }
 
 get_L_unit.default = function(x, ...){
+  #' @export
   
   .NotYetImplemented()
 }
@@ -267,7 +268,7 @@ set_L_units = function(x, L_units, ...){
   #' 
   #'
   #' @param x depth-depth curve (ddc object)
-  #' @param L_units length units, vector of length 2. i-th element is the length unit of i-th section
+  #' @param L_units length units
   #' @param ... further parameters
   #' 
   #' @returns an ddc object with the L unit assigned
@@ -279,7 +280,6 @@ set_L_units = function(x, L_units, ...){
 }
 
 set_L_units.default = function(x, L_units, ...){
-  #' 
   #' @export
   
   .NotYetImplemented()
