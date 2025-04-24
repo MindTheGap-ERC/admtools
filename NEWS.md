@@ -1,5 +1,9 @@
 # admtools (development version)
 
+* new helper functions for estimation of age-depth models
+
+* basic functionality for depth-depth models
+
 * integration with the `FossilSim` package, specifically transformation of `taxonomy` and `fossils` objects between time and stratigraphic domain
 
 # admtools 0.4.0

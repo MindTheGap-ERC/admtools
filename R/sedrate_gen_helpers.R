@@ -182,7 +182,7 @@ sed_rate_gen_gamma = function(h, shapes, rates, rule = 1){
     #' generates a function factory for usage with `sedrate_to_multiadm`. At `h[i]`,
     #' the sedimentation rate is given by a gamma distribution with parameters
     #' `shapes[i]` and `rates[i]`. Between those values, sedimentation rate is linearly interpolated
-    #' Outside of the range of `h`, behaviour is determined by the argument `rule`
+    #' Outside of the range of `h`, behavior is determined by the argument `rule`
     #' which is passed to `approxfun`. See there for details.
     #' 
   #' 

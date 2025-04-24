@@ -22,7 +22,7 @@ a function factory for usage with \code{sedrate_to_multiadm}
 generates a function factory for usage with \code{sedrate_to_multiadm}. At \code{h[i]},
 the sedimentation rate is given by a gamma distribution with parameters
 \code{shapes[i]} and \code{rates[i]}. Between those values, sedimentation rate is linearly interpolated
-Outside of the range of \code{h}, behaviour is determined by the argument \code{rule}
+Outside of the range of \code{h}, behavior is determined by the argument \code{rule}
 which is passed to \code{approxfun}. See there for details.
 }
 \seealso{
