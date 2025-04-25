@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">admtools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0.9001</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -23,6 +23,8 @@
     <li><a class="dropdown-item" href="../articles/adm_from_trace_cont.html">Estimating Age-Depth Models from Tracer Contents of Rocks and Sediments</a></li>
     <li><a class="dropdown-item" href="../articles/adm_plotting.html">Plotting Age-Depth Models</a></li>
     <li><a class="dropdown-item" href="../articles/admtools_doc.html">Structure and classes of the admtools package</a></li>
+    <li><a class="dropdown-item" href="../articles/correlation.html">Depth-depth curves and correlation</a></li>
+    <li><a class="dropdown-item" href="../articles/FossilSim_integration.html">Integration with the FossilSim and paleotree packages</a></li>
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
@@ -76,6 +78,12 @@
         <dd>add adm object ot multiadm object</dd>
       </dl><dl><dt>
 
+          <code><a href="adm_to_ddc.html">adm_to_ddc()</a></code>
+
+        </dt>
+        <dd>construct depth-depth curve from age-depth models</dd>
+      </dl><dl><dt>
+
           <code><a href="anchor.html">anchor()</a></code>
 
         </dt>
@@ -92,6 +100,12 @@
 
         </dt>
         <dd>condensation function</dd>
+      </dl><dl><dt>
+
+          <code><a href="flip_ddc.html">flip_ddc()</a></code>
+
+        </dt>
+        <dd>reverse direction of depth-depth curve</dd>
       </dl><dl><dt>
 
           <code><a href="flux_const.html">flux_const()</a></code>
@@ -122,6 +136,12 @@
 
         </dt>
         <dd>extract length unit</dd>
+      </dl><dl><dt>
+
+          <code><a href="get_L_units.html">get_L_units()</a></code>
+
+        </dt>
+        <dd>extract length units</dd>
       </dl><dl><dt>
 
           <code><a href="get_T_tp.html">get_T_tp()</a></code>
@@ -178,6 +198,12 @@
         <dd>get hiatus positions</dd>
       </dl><dl><dt>
 
+          <code><a href="get_section_names.html">get_section_names()</a></code>
+
+        </dt>
+        <dd>get section names from depth-depth curve</dd>
+      </dl><dl><dt>
+
           <code><a href="get_time.html">get_time()</a></code>
 
         </dt>
@@ -194,6 +220,12 @@
 
         </dt>
         <dd>get total thickness</dd>
+      </dl><dl><dt>
+
+          <code><a href="get_total_thicknesses.html">get_total_thicknesses()</a></code>
+
+        </dt>
+        <dd>get thicknesses of sections from depth-depth curves</dd>
       </dl><dl><dt>
 
           <code><a href="is_adm.html">is_adm()</a></code>
@@ -280,6 +312,12 @@
         <dd>plotting adm objects</dd>
       </dl><dl><dt>
 
+          <code><a href="plot.ddc.html">plot(<i>&lt;ddc&gt;</i>)</a></code>
+
+        </dt>
+        <dd>plot depth-depth curve</dd>
+      </dl><dl><dt>
+
           <code><a href="plot.multiadm.html">plot(<i>&lt;multiadm&gt;</i>)</a></code>
 
         </dt>
@@ -352,6 +390,12 @@
         <dd>seg rate gen from upper/lower bounds</dd>
       </dl><dl><dt>
 
+          <code><a href="sed_rate_gen_gamma.html">sed_rate_gen_gamma()</a></code>
+
+        </dt>
+        <dd>sed. rate gen based on gamma distribution</dd>
+      </dl><dl><dt>
+
           <code><a href="sed_rate_l.html">sed_rate_l()</a></code>
 
         </dt>
@@ -388,10 +432,22 @@
         <dd>set length units</dd>
       </dl><dl><dt>
 
+          <code><a href="set_L_units.html">set_L_units()</a></code>
+
+        </dt>
+        <dd>set length units</dd>
+      </dl><dl><dt>
+
           <code><a href="set_T_unit.html">set_T_unit()</a></code>
 
         </dt>
         <dd>set time units</dd>
+      </dl><dl><dt>
+
+          <code><a href="set_section_names.html">set_section_names()</a></code>
+
+        </dt>
+        <dd>set section names for depth-depth curves</dd>
       </dl><dl><dt>
 
           <code><a href="split_multiadm.html">split_multiadm()</a></code>
@@ -418,6 +474,12 @@
         <dd>transform objects from strat. to time domain</dd>
       </dl><dl><dt>
 
+          <code><a href="strat_to_time.fossils.html">strat_to_time(<i>&lt;fossils&gt;</i>)</a></code>
+
+        </dt>
+        <dd>transform <code>fossils</code> object from <code>FossilSim</code> between time and strat domain</dd>
+      </dl><dl><dt>
+
           <code><a href="strat_to_time.list.html">strat_to_time(<i>&lt;list&gt;</i>)</a></code>
 
         </dt>
@@ -436,10 +498,22 @@
         <dd>transform phylo object</dd>
       </dl><dl><dt>
 
+          <code><a href="strat_to_time.taxonomy.html">strat_to_time(<i>&lt;taxonomy&gt;</i>)</a></code>
+
+        </dt>
+        <dd>transform taxonomy object from strat to time domain</dd>
+      </dl><dl><dt>
+
           <code><a href="summary.adm.html">summary(<i>&lt;adm&gt;</i>)</a></code>
 
         </dt>
         <dd>summary of age-depth model</dd>
+      </dl><dl><dt>
+
+          <code><a href="summary.ddc.html">summary(<i>&lt;ddc&gt;</i>)</a></code>
+
+        </dt>
+        <dd>summary of depth-depth curve</dd>
       </dl><dl><dt>
 
           <code><a href="summary.multiadm.html">summary(<i>&lt;multiadm&gt;</i>)</a></code>
@@ -460,6 +534,12 @@
         <dd>transform objects from time domain to strat. domain</dd>
       </dl><dl><dt>
 
+          <code><a href="time_to_strat.fossils.html">time_to_strat(<i>&lt;fossils&gt;</i>)</a></code>
+
+        </dt>
+        <dd>transform <code>fossils</code> from FossilSim from time to strat domain</dd>
+      </dl><dl><dt>
+
           <code><a href="time_to_strat.list.html">time_to_strat(<i>&lt;list&gt;</i>)</a></code>
 
         </dt>
@@ -476,6 +556,12 @@
 
         </dt>
         <dd>transform phylo object</dd>
+      </dl><dl><dt>
+
+          <code><a href="time_to_strat.taxonomy.html">time_to_strat(<i>&lt;taxonomy&gt;</i>)</a></code>
+
+        </dt>
+        <dd>transform <code>taxomony</code> from time to strat domain</dd>
       </dl><dl><dt>
 
           <code><a href="timetree.html">timetree</a></code>
@@ -512,6 +598,12 @@
 
         </dt>
         <dd>Construct age-depth model from tie points</dd>
+      </dl><dl><dt>
+
+          <code><a href="tp_to_ddc.html">tp_to_ddc()</a></code>
+
+        </dt>
+        <dd>construct depth-depth curve from coeval heights</dd>
       </dl><dl><dt>
 
           <code><a href="tp_to_sac.html">tp_to_sac()</a></code>
