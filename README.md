@@ -85,7 +85,7 @@ For contribution guidelines see the CONTRIBUTING.md file
 
 To cite the package, use
 
-* Hohmann, N. (2024). admtools (v0.4.0). Zenodo. https://doi.org/10.5281/zenodo.13888709
+* Hohmann, N. (2025). admtools (v0.5.0). Zenodo. https://doi.org/10.5281/zenodo.15279284
 
 or run
 
