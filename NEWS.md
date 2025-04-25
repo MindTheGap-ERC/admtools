@@ -1,5 +1,7 @@
 # admtools (development version)
 
+# admtools 0.5.0
+
 * new helper functions for estimation of age-depth models
 
 * basic functionality for depth-depth models

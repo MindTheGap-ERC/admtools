@@ -9,7 +9,7 @@ set_L_units(x, L_units, ...)
 \arguments{
 \item{x}{depth-depth curve (ddc object)}
 
-\item{L_units}{length units, vector of length 2. i-th element is the length unit of i-th section}
+\item{L_units}{length units}
 
 \item{...}{further parameters}
 }
