@@ -40,11 +40,29 @@ f = FossilSim::sim.fossils.poisson(rate = 4, taxonomy = s)
 # plot tree with taxonomy and fossil times
 FossilSim:::plot.fossils(f, tree = t, taxonomy = s, show.taxonomy = TRUE)
 
+f$hmin = max_time(my_adm) - f$hmin
+f$hmax = max_time(my_adm) - f$hmax
+
+s$start = max_time(my_adm) - s$start
+s$end = max_time(my_adm) - s$end
+
 ## transform everything into the strat domain
 t_strat = time_to_strat(t, my_adm)
 s_strat = time_to_strat(s, my_adm, destructive = FALSE)
 f_strat = time_to_strat(f, my_adm, destructive = FALSE)
+
+f_strat$hmin = max_height(my_adm) - f_strat$hmin
+f_strat$hmax = max_height(my_adm) - f_strat$hmax
+
+s_strat$start = max_height(my_adm) - s_strat$start
+s_strat$end = max_height(my_adm) - s_strat$end
+
 FossilSim:::plot.fossils(f_strat, tree = t_strat, taxonomy = s_strat, show.taxonomy = TRUE)
+
+plot(s_strat, t_strat, legend.position = "topleft")
+
+# key take away: FossilSim trees end in the present, they call age height (sometimes time)
+# deal with $root.time and $origin.time??
 ```
 
 ## Integration with `paleotree`
