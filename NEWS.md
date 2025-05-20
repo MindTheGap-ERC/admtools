@@ -1,4 +1,4 @@
-# admtools (development version)
+# admtools 0.6.0
 
 * transformation between age and time for integration with `FossilSim`
 
