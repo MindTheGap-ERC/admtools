@@ -1,5 +1,9 @@
 # admtools (development version)
 
+* transformation between age and time for integration with `FossilSim`
+
+* vignette for connection between `admtools` and `FossilSim`
+
 # admtools 0.5.0
 
 * new helper functions for estimation of age-depth models
