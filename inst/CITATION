@@ -3,8 +3,8 @@ bibentry(
   title    = "admtools: R package for estimating age-depth models and transform data",
   author   = "Niklas Hohmann",
   year     = "2024",
-  doi      ="10.5281/zenodo.15279284",
+  doi      ="10.5281/zenodo.15479049",
   publisher = "Zenodo",
-  version = "v0.5.0",
-  url = "https://doi.org/10.5281/zenodo.15279284"
+  version = "v0.6.0",
+  url = "https://doi.org/10.5281/zenodo.15479049"
 )
