@@ -29,6 +29,9 @@ test_that("transformation for fossils objects works", {
   adm = tp_to_adm(t = c(0,1), h = c(0,1))
   expect_equal(strat_to_time(f, adm), f)
   expect_s3_class(strat_to_time(f, adm), "fossils")
+  # check correctness of transformation
+  adm = tp_to_adm(t = c(0,1), h = c(0,2))
+  expect_equal(strat_to_time(f, adm)$hmin, f$hmin*0.5)
 })
 
 test_that("transformation for taxonomy objects works", {
