@@ -1,0 +1,293 @@
+# Package index
+
+## All functions
+
+- [`CarboCATLite_data`](https://mindthegap-erc.github.io/admtools/reference/CarboCATLite_data.md)
+  : Example data from CarboCATLite
+
+- [`L_axis_lab()`](https://mindthegap-erc.github.io/admtools/reference/L_axis_lab.md)
+  : plot height axis label
+
+- [`T_axis_lab()`](https://mindthegap-erc.github.io/admtools/reference/T_axis_lab.md)
+  : plot time axis label
+
+- [`add_adm_to_multiadm()`](https://mindthegap-erc.github.io/admtools/reference/add_adm_to_multiadm.md)
+  : add adm object ot multiadm object
+
+- [`adm_to_ddc()`](https://mindthegap-erc.github.io/admtools/reference/adm_to_ddc.md)
+  : construct depth-depth curve from age-depth models
+
+- [`anchor()`](https://mindthegap-erc.github.io/admtools/reference/anchor.md)
+  : anchor age-depth model
+
+- [`condensation()`](https://mindthegap-erc.github.io/admtools/reference/condensation.md)
+  : condensation with height
+
+- [`condensation_fun()`](https://mindthegap-erc.github.io/admtools/reference/condensation_fun.md)
+  : condensation function
+
+- [`flip_ddc()`](https://mindthegap-erc.github.io/admtools/reference/flip_ddc.md)
+  : reverse direction of depth-depth curve
+
+- [`flux_const()`](https://mindthegap-erc.github.io/admtools/reference/flux_const.md)
+  : constant deterministic tracer flux
+
+- [`flux_linear()`](https://mindthegap-erc.github.io/admtools/reference/flux_linear.md)
+  : linear deterministic tracer flux
+
+- [`flux_quad()`](https://mindthegap-erc.github.io/admtools/reference/flux_quad.md)
+  : quadratic deterministic tracer flux
+
+- [`get_L_tp()`](https://mindthegap-erc.github.io/admtools/reference/get_L_tp.md)
+  : get height/length tie point
+
+- [`get_L_unit()`](https://mindthegap-erc.github.io/admtools/reference/get_L_unit.md)
+  : extract length unit
+
+- [`get_L_units()`](https://mindthegap-erc.github.io/admtools/reference/get_L_units.md)
+  : extract length units
+
+- [`get_T_tp()`](https://mindthegap-erc.github.io/admtools/reference/get_T_tp.md)
+  : extract time tie points
+
+- [`get_T_unit()`](https://mindthegap-erc.github.io/admtools/reference/get_T_unit.md)
+  : extract Time unit
+
+- [`get_completeness()`](https://mindthegap-erc.github.io/admtools/reference/get_completeness.md)
+  [`get_incompleteness()`](https://mindthegap-erc.github.io/admtools/reference/get_completeness.md)
+  : Determine stratigraphic (in)completeness
+
+- [`get_data_from_eTimeOpt()`](https://mindthegap-erc.github.io/admtools/reference/get_data_from_eTimeOpt.md)
+  : extract data from eTimeOpt results
+
+- [`get_height()`](https://mindthegap-erc.github.io/admtools/reference/get_height.md)
+  : determine stratigraphic height deposited at specific time
+
+- [`get_hiat_duration()`](https://mindthegap-erc.github.io/admtools/reference/get_hiat_duration.md)
+  : extract hiatus duration
+
+- [`get_hiat_list()`](https://mindthegap-erc.github.io/admtools/reference/get_hiat_list.md)
+  : extract hiatus info
+
+- [`get_hiat_no()`](https://mindthegap-erc.github.io/admtools/reference/get_hiat_no.md)
+  : get no. of hiatuses
+
+- [`get_hiat_pos()`](https://mindthegap-erc.github.io/admtools/reference/get_hiat_pos.md)
+  : get hiatus positions
+
+- [`get_section_names()`](https://mindthegap-erc.github.io/admtools/reference/get_section_names.md)
+  : get section names from depth-depth curve
+
+- [`get_time()`](https://mindthegap-erc.github.io/admtools/reference/get_time.md)
+  : Determine times based on age-depth model
+
+- [`get_total_duration()`](https://mindthegap-erc.github.io/admtools/reference/get_total_duration.md)
+  : Total duration covered
+
+- [`get_total_thickness()`](https://mindthegap-erc.github.io/admtools/reference/get_total_thickness.md)
+  : get total thickness
+
+- [`get_total_thicknesses()`](https://mindthegap-erc.github.io/admtools/reference/get_total_thicknesses.md)
+  : get thicknesses of sections from depth-depth curves
+
+- [`is_adm()`](https://mindthegap-erc.github.io/admtools/reference/is_adm.md)
+  : Is an adm object a valid age-depth model
+
+- [`is_destructive()`](https://mindthegap-erc.github.io/admtools/reference/is_destructive.md)
+  : Is deposition destructive?
+
+- [`is_multiadm()`](https://mindthegap-erc.github.io/admtools/reference/is_multiadm.md)
+  : is valid multiadm object?
+
+- [`is_sac()`](https://mindthegap-erc.github.io/admtools/reference/is_sac.md)
+  : is valid sac objects
+
+- [`make_legend()`](https://mindthegap-erc.github.io/admtools/reference/make_legend.md)
+  : plot legend
+
+- [`max_height()`](https://mindthegap-erc.github.io/admtools/reference/max_height.md)
+  : get highest stratigraphic tie point
+
+- [`max_time()`](https://mindthegap-erc.github.io/admtools/reference/max_time.md)
+  : last time tie point
+
+- [`mean_adm()`](https://mindthegap-erc.github.io/admtools/reference/mean_adm.md)
+  : get mean ADM
+
+- [`median_adm()`](https://mindthegap-erc.github.io/admtools/reference/median_adm.md)
+  : get median ADM
+
+- [`merge_adm_to_multiadm()`](https://mindthegap-erc.github.io/admtools/reference/merge_adm_to_multiadm.md)
+  : combine multiple adm ojects into multiadm object
+
+- [`merge_multiadm()`](https://mindthegap-erc.github.io/admtools/reference/merge_multiadm.md)
+  : merge multiple multiadm objects
+
+- [`min_height()`](https://mindthegap-erc.github.io/admtools/reference/min_height.md)
+  : get lowest stratigraphic tie point
+
+- [`min_time()`](https://mindthegap-erc.github.io/admtools/reference/min_time.md)
+  : first time tie point
+
+- [`plot(`*`<adm>`*`)`](https://mindthegap-erc.github.io/admtools/reference/plot.adm.md)
+  : plotting adm objects
+
+- [`plot(`*`<ddc>`*`)`](https://mindthegap-erc.github.io/admtools/reference/plot.ddc.md)
+  : plot depth-depth curve
+
+- [`plot(`*`<multiadm>`*`)`](https://mindthegap-erc.github.io/admtools/reference/plot.multiadm.md)
+  : plot multiadm object
+
+- [`plot(`*`<sac>`*`)`](https://mindthegap-erc.github.io/admtools/reference/plot.sac.md)
+  : plot sediment accumulation curve
+
+- [`plot(`*`<stratlist>`*`)`](https://mindthegap-erc.github.io/admtools/reference/plot.stratlist.md)
+  : plot strat list
+
+- [`plot(`*`<timelist>`*`)`](https://mindthegap-erc.github.io/admtools/reference/plot.timelist.md)
+  : plot time lists
+
+- [`plot_condensation()`](https://mindthegap-erc.github.io/admtools/reference/plot_condensation.md)
+  : plot condensation in height
+
+- [`plot_erosive_intervals()`](https://mindthegap-erc.github.io/admtools/reference/plot_erosive_intervals.md)
+  : mark erosive time intervals
+
+- [`plot_sed_rate_l()`](https://mindthegap-erc.github.io/admtools/reference/plot_sed_rate_l.md)
+  : plot sed. rate in height
+
+- [`plot_sed_rate_t()`](https://mindthegap-erc.github.io/admtools/reference/plot_sed_rate_t.md)
+  : plot sedimentation rate in time
+
+- [`quantile_adm()`](https://mindthegap-erc.github.io/admtools/reference/quantile_adm.md)
+  : get quantile ADM
+
+- [`rev_dir()`](https://mindthegap-erc.github.io/admtools/reference/rev_dir.md)
+  : reverse direction of time/depth axis
+
+- [`sac_to_adm()`](https://mindthegap-erc.github.io/admtools/reference/sac_to_adm.md)
+  : turn sed. acc curve into adm
+
+- [`sed_rate_from_matrix()`](https://mindthegap-erc.github.io/admtools/reference/sed_rate_from_matrix.md)
+  : make sed rate gen from matrix
+
+- [`sed_rate_gen_from_bounds()`](https://mindthegap-erc.github.io/admtools/reference/sed_rate_gen_from_bounds.md)
+  : seg rate gen from upper/lower bounds
+
+- [`sed_rate_gen_gamma()`](https://mindthegap-erc.github.io/admtools/reference/sed_rate_gen_gamma.md)
+  : sed. rate gen based on gamma distribution
+
+- [`sed_rate_l()`](https://mindthegap-erc.github.io/admtools/reference/sed_rate_l.md)
+  : sedimentation rate in stratigraphic height
+
+- [`sed_rate_l_fun()`](https://mindthegap-erc.github.io/admtools/reference/sed_rate_l_fun.md)
+  : sed rate in height function
+
+- [`sed_rate_t()`](https://mindthegap-erc.github.io/admtools/reference/sed_rate_t.md)
+  : sedimentation rate in time domain
+
+- [`sed_rate_t_fun()`](https://mindthegap-erc.github.io/admtools/reference/sed_rate_t_fun.md)
+  : sedimentation rate function
+
+- [`sedrate_to_multiadm()`](https://mindthegap-erc.github.io/admtools/reference/sedrate_to_multiadm.md)
+  : Estimate age-depth model from sedimentation rates & tie points
+
+- [`set_L_unit()`](https://mindthegap-erc.github.io/admtools/reference/set_L_unit.md)
+  : set length units
+
+- [`set_L_units()`](https://mindthegap-erc.github.io/admtools/reference/set_L_units.md)
+  : set length units
+
+- [`set_T_unit()`](https://mindthegap-erc.github.io/admtools/reference/set_T_unit.md)
+  : set time units
+
+- [`set_section_names()`](https://mindthegap-erc.github.io/admtools/reference/set_section_names.md)
+  : set section names for depth-depth curves
+
+- [`split_multiadm()`](https://mindthegap-erc.github.io/admtools/reference/split_multiadm.md)
+  : split multiadm objects into adm
+
+- [`strat_cont_gen_from_tracer()`](https://mindthegap-erc.github.io/admtools/reference/strat_cont_gen_from_tracer.md)
+  : proxy values in strat domain
+
+- [`strat_cont_to_multiadm()`](https://mindthegap-erc.github.io/admtools/reference/strat_cont_to_multiadm.md)
+  : estimate age-depth model from tracer
+
+- [`strat_to_time()`](https://mindthegap-erc.github.io/admtools/reference/strat_to_time.md)
+  : transform objects from strat. to time domain
+
+- [`strat_to_time(`*`<fossils>`*`)`](https://mindthegap-erc.github.io/admtools/reference/strat_to_time.fossils.md)
+  :
+
+  transform `fossils` object from `FossilSim` between time and strat
+  domain
+
+- [`strat_to_time(`*`<list>`*`)`](https://mindthegap-erc.github.io/admtools/reference/strat_to_time.list.md)
+  : transform list from height to time domain
+
+- [`strat_to_time(`*`<numeric>`*`)`](https://mindthegap-erc.github.io/admtools/reference/strat_to_time.numeric.md)
+  : transform numeric vectors from height to time domain
+
+- [`strat_to_time(`*`<phylo>`*`)`](https://mindthegap-erc.github.io/admtools/reference/strat_to_time.phylo.md)
+  : transform phylo object
+
+- [`strat_to_time(`*`<taxonomy>`*`)`](https://mindthegap-erc.github.io/admtools/reference/strat_to_time.taxonomy.md)
+  : transform taxonomy object from strat to time domain
+
+- [`summary(`*`<adm>`*`)`](https://mindthegap-erc.github.io/admtools/reference/summary.adm.md)
+  : summary of age-depth model
+
+- [`summary(`*`<ddc>`*`)`](https://mindthegap-erc.github.io/admtools/reference/summary.ddc.md)
+  : summary of depth-depth curve
+
+- [`summary(`*`<multiadm>`*`)`](https://mindthegap-erc.github.io/admtools/reference/summary.multiadm.md)
+  : summary of age-depth model
+
+- [`summary(`*`<sac>`*`)`](https://mindthegap-erc.github.io/admtools/reference/summary.sac.md)
+  : summary of sediment accumulation curve
+
+- [`time_to_strat()`](https://mindthegap-erc.github.io/admtools/reference/time_to_strat.md)
+  : transform objects from time domain to strat. domain
+
+- [`time_to_strat(`*`<fossils>`*`)`](https://mindthegap-erc.github.io/admtools/reference/time_to_strat.fossils.md)
+  :
+
+  transform `fossils` from FossilSim from time to strat domain
+
+- [`time_to_strat(`*`<list>`*`)`](https://mindthegap-erc.github.io/admtools/reference/time_to_strat.list.md)
+  : transform list from time to height domain
+
+- [`time_to_strat(`*`<numeric>`*`)`](https://mindthegap-erc.github.io/admtools/reference/time_to_strat.numeric.md)
+  : transform vectors from time to height domain
+
+- [`time_to_strat(`*`<phylo>`*`)`](https://mindthegap-erc.github.io/admtools/reference/time_to_strat.phylo.md)
+  : transform phylo object
+
+- [`time_to_strat(`*`<taxonomy>`*`)`](https://mindthegap-erc.github.io/admtools/reference/time_to_strat.taxonomy.md)
+  :
+
+  transform `taxomony` from time to strat domain
+
+- [`timetree`](https://mindthegap-erc.github.io/admtools/reference/timetree.md)
+  : example time tree
+
+- [`tp_height_det()`](https://mindthegap-erc.github.io/admtools/reference/tp_height_det.md)
+  : deterministic tie points height domain
+
+- [`tp_time_det()`](https://mindthegap-erc.github.io/admtools/reference/tp_time_det.md)
+  : deterministic tie points in time domain
+
+- [`tp_time_floating_scale()`](https://mindthegap-erc.github.io/admtools/reference/tp_time_floating_scale.md)
+  : tie points for floating time scale
+
+- [`tp_time_norm()`](https://mindthegap-erc.github.io/admtools/reference/tp_time_norm.md)
+  : time tie points with normal distribution
+
+- [`tp_to_adm()`](https://mindthegap-erc.github.io/admtools/reference/tp_to_adm.md)
+  : Construct age-depth model from tie points
+
+- [`tp_to_ddc()`](https://mindthegap-erc.github.io/admtools/reference/tp_to_ddc.md)
+  : construct depth-depth curve from coeval heights
+
+- [`tp_to_sac()`](https://mindthegap-erc.github.io/admtools/reference/tp_to_sac.md)
+  : define sed. acc. curve

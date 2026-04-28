@@ -127,7 +127,7 @@ depth-depth curves for the overlapping time interval.</p>
 <span>     ylab <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/mtext.html" class="external-link">mtext</a></span><span class="op">(</span><span class="fu"><a href="../reference/get_section_names.html">get_section_names</a></span><span class="op">(</span><span class="va">ddc1</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, side <span class="op">=</span> <span class="fl">1</span>, line <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/mtext.html" class="external-link">mtext</a></span><span class="op">(</span><span class="fu"><a href="../reference/get_section_names.html">get_section_names</a></span><span class="op">(</span><span class="va">ddc1</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, side <span class="op">=</span> <span class="fl">2</span>, line <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
-<p><img src="correlation_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
+<p><img src="correlation_files/figure-html/unnamed-chunk-3-1.png" class="r-plt" alt="" width="700"></p>
 <p>A quick overview of the contents is provided via
 <code>summary</code>:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
@@ -147,13 +147,13 @@ reverse the direction of correlation, use <code>flip_ddc</code>:</p>
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ddc1</span>, type <span class="op">=</span> <span class="st">"l"</span>, xlab <span class="op">=</span> <span class="st">""</span>, ylab <span class="op">=</span> <span class="st">""</span><span class="op">)</span> <span class="co"># correlation from 2 km offshore to 12 km offshore</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/mtext.html" class="external-link">mtext</a></span><span class="op">(</span><span class="fu"><a href="../reference/get_section_names.html">get_section_names</a></span><span class="op">(</span><span class="va">ddc1</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, side <span class="op">=</span> <span class="fl">1</span>, line <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/mtext.html" class="external-link">mtext</a></span><span class="op">(</span><span class="fu"><a href="../reference/get_section_names.html">get_section_names</a></span><span class="op">(</span><span class="va">ddc1</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, side <span class="op">=</span> <span class="fl">2</span>, line <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
-<p><img src="correlation_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
+<p><img src="correlation_files/figure-html/unnamed-chunk-5-1.png" class="r-plt" alt="" width="700"></p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ddc3</span> <span class="op">=</span> <span class="fu"><a href="../reference/flip_ddc.html">flip_ddc</a></span><span class="op">(</span><span class="va">ddc1</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ddc3</span>, type <span class="op">=</span> <span class="st">"l"</span>, xlab <span class="op">=</span> <span class="st">""</span>, ylab <span class="op">=</span> <span class="st">""</span><span class="op">)</span> <span class="co"># correlates 12 km offshore with 2 km offshore</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/mtext.html" class="external-link">mtext</a></span><span class="op">(</span><span class="fu"><a href="../reference/get_section_names.html">get_section_names</a></span><span class="op">(</span><span class="va">ddc3</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, side <span class="op">=</span> <span class="fl">1</span>, line <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/mtext.html" class="external-link">mtext</a></span><span class="op">(</span><span class="fu"><a href="../reference/get_section_names.html">get_section_names</a></span><span class="op">(</span><span class="va">ddc3</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, side <span class="op">=</span> <span class="fl">2</span>, line <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
-<p><img src="correlation_files/figure-html/unnamed-chunk-5-2.png" width="700"></p>
+<p><img src="correlation_files/figure-html/unnamed-chunk-5-2.png" class="r-plt" alt="" width="700"></p>
 <p>Note that this effectively flips the plot along the diagonal.</p>
 </div>
 </div>
@@ -168,7 +168,7 @@ reverse the direction of correlation, use <code>flip_ddc</code>:</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>

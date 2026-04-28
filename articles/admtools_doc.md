@@ -1,0 +1,396 @@
+# Structure and classes of the admtools package
+
+``` r
+library(admtools)
+```
+
+## Introduction
+
+This vignette provides an overview of the larger scale structure of the
+`admtools` package and the classes used therein.
+
+### S3 Classes
+
+#### S3 class `adm`
+
+##### Description
+
+The S3 class `adm` represents **a**ge **d**epth **m**odels.
+Structurally, they are lists with five fields:
+
+- `t` : numeric vector, time points
+
+- `h` : numeric vectors, heights
+
+- `destr`: logical vector, is the interval destructive
+
+- `T_unit` : `NULL` or a string, time unit
+
+- `L_unit` : `NULL` or a string, length unit
+
+`h[i]` is the height at time `t[i]`. `h` and `t` must be of same length
+and have at least 2 elements, `t` must be strictly increasing and `h`
+must be nondecreasing. `length(destr)` must be identical to
+`length(t) - 1`. `destr[i] == TRUE` indicates that the time interval
+from `t[i]` to `t[i+1]` is destructive and no information is preserved.
+Whether tie points are considered destructive is determined by the
+function `is_destructive`. Geologically, `destr[i] == TRUE` should imply
+`h[i] == h[i+1]` , as no sediment is accumulated during hiatuses.
+
+##### Construction
+
+The following functions construct `adm` objects:
+
+- `tp_to_adm` for construction from tie points
+- `sac_to_adm` for construction from sediment accumulation curves `sac`
+- `split_multiadm` for extraction from multiple age-depth models
+  `multiadm`
+
+##### Logic
+
+The following functions examine the logic of `adm` objects:
+
+- `is_adm` to check for validity of an adm object
+
+##### Representation
+
+The following functions yield a representation of `adm` objects:
+
+- `plot.adm` for plotting
+- `print.adm` for printing to the console
+- `summary.adm` to provide a quick summary of an object
+
+##### Modification
+
+The following functions modify `adm` objects:
+
+- `set_L_unit` and `set_T_unit` to change units
+
+##### Extracting information
+
+The following functions extract information from `adm` objects:
+
+- `condensation` and `condensation_fun` to extract condensation
+- `get_L_unit` and `get_T_unit` to extract data
+- `get_completeness` and `get_incompleteness`
+- `get_height`
+- `get_time`
+- `get_hiat_duration`
+- `get_hiat_list`
+- `get_hiat_no`
+- `get_hiat_pos`
+- `get_total_duration`
+- `get_total_thickness`
+- `is_destructive`
+- `sed_rate_l` and `sed_rate_l_fun` to extract sedimentation rate in
+  height domain
+- `sed_rate_t` and `sed_rate_t_fun` to extract sedimentation rate in
+  time domain
+- `max_height.adm` extracts highest stratigraphic point in adm
+- `min_height.adm` extracts lowest stratigraphic point in adm
+- `min_time.adm` extracts timing of first tie point in adm
+- `max_time.adm` extracts timing of last tie point in adm
+- `get_L_tp` and `get_T_tp` to extract tie points.
+
+##### Transformation into other S3 classes
+
+The following functions transform `adm` objects into other S3 classes:
+
+- `merge_adm_to_multiadm` into `multiamd`
+- `add_adm_to_multiadm` to add `adm` to `multiadm`
+- `anchor` to transform anchor `adm` at a tie point with uncertainty,
+  resulting in a `multiadm`
+- `adm_to_ddc` to construct a depth-depth curve from two age-depth
+  models
+
+#### S3 class `sac`
+
+##### Description
+
+The S3 class `sac` represents **s**ediment **a**ccumulation **c**urves.
+Structurally, they are lists with four fields:
+
+- `t` : numeric vector, time points
+- `h` : numeric vectors, heights
+- `T_unit` : `NULL` or a string, time unit
+- `L_unit` : `NULL` or a string, length unit
+
+`h[i]` is the height at time `t[i]`. `h` and `t` must be of same length
+and have at least 2 elements, `t` must be increasing.
+
+##### Construction
+
+The following functions construct `sac` objects:
+
+Standard constructor is `tp_to_sac` (tie point to sediment accumulation
+curve)
+
+##### Logic
+
+The following functions inspect the logic of `sac` objects:
+
+- `is_sac` to check validity of `sac` object
+
+##### Representation
+
+The following functions yield a representation of `sac` objects:
+
+- `plot.sac` for plotting
+- `print.sac` for printing to the console
+- `summary.sac` to provide a quick summary
+
+##### Modification
+
+The following functions modify `sac` objects:
+
+- `set_L_unit` and `set_T_unit` to change units
+
+##### Extracting information
+
+The following functions extract information from `sac` objects:
+
+- `get_L_unit` and `get_T_unit` to extract units
+- `get_T_tp` and `get_L_tp` to extract tie points
+- `get_total_duration` to extract total duration covered
+- `get_total_thickness`
+- `min_time` and `max_time`
+- `min_height` and `max_height`
+
+##### Transformation into other S3 classes
+
+The following functions transform `sac` objects into other S3 classes:
+
+- `sac_to_adm` to transform `sac` into the S3 class `adm`.
+
+#### S3 class `multiadm`
+
+##### Description
+
+The S3 class `multiadm` represents **multi**ple **a**ge **d**epth
+**m**odels.. Structurally, they are lists with the following elements:
+
+- `no_of_entries`: Positive integer, number of age depth models
+  contained
+- `t` list of length `no_of_entries`. Each element contains a numeric
+  vector
+- `h`: list of length `no_of_entries`. Each element contain a numeric
+  vector
+- `destr`: list of length `no_of_entries`. Each element contain a logic
+- `T_unit` : `NULL` or a string, time unit
+- `L_unit` : `NULL` or a string, length unit
+
+`h[[i]][j]` is the height of the i-th age-depth model at time
+`t[[i]][j]`. For each `i`, the quintuple `h[[i]]`, `t[[i]]`,
+`destr[[i]]`, `T_unit` and `L_unit` specify an `adm` object with the
+constraints as specified in the section *S3 class `adm`* (e.g., on
+monotonicity, length, etc.). `T_unit` and `L_unit` are shared among all
+age-depth models in an `multiamd` object.
+
+##### Construction
+
+The following functions construct `multiadm` objects:
+
+- `anchor` to construct `multiadm` from uncertain tie points and `adm`
+  objects.
+- `merge_adm_to_multiadm` to construct `multiadm` from `adm` objects
+- `sedrate_to_multiadm` construct `multiadm` from info on sedimentation
+  rates, see
+  [`vignette("adm_from_sedrate")`](https://mindthegap-erc.github.io/admtools/articles/adm_from_sedrate.md)
+- `strat_cont_to_multiadm` construct `multiadm` from tracer information,
+  see
+  [`vignette("adm_from_trace_cont")`](https://mindthegap-erc.github.io/admtools/articles/adm_from_trace_cont.md)
+
+##### Logic
+
+The following functions inspect the logic of `multiadm` objects:
+
+- `is_multiadm` to check for validity of multiadm object
+
+##### Representation
+
+The following functions yield a representation `multiadm` objects:
+
+- `plot.multiadm` for plotting
+- `print.multiadm` for printing to console
+- `summary.multiadm` for providing summary statistics
+
+##### Modification
+
+The following functions modify `multiadm` objects:
+
+- `merge_multiadm` to combine multiple `multiadm` objects
+- `set_L_unit` and `set_T_unit` to change units
+
+##### Extracting information
+
+The following functions extract information from `multiadm` objects:
+
+- `condensation` to extract condensation
+- `get_completeness` and `get_incompleteness`
+- `get_height`
+- `get_hiat_duration`
+- `get_hiat_list`
+- `get_hiat_no`
+- `get_hiat_pos`
+- `get_L_unit` and `get_T_unit` to extract data
+- `get_time`
+- `get_total_duration`
+- `get_total_thickness`
+- `is_destructive`
+- `sed_rate_l`
+- `sed_rate_t`
+- `get_T_tp` and `get_L_tp` to extract time and length/height tie points
+
+##### Transformation into other S3 classes
+
+The following functions transform `multiadm` objects into other S3
+classes:
+
+- `split_multiadm` to split `multiadm` into list of `adm` objects
+- `mean_adm` , `median_adm` and `quantile_adm` to extract mean, median,
+  and quantile age-depth model of `adm` class.m
+
+#### S3 class `ddc`
+
+##### Description
+
+The class `ddc` describes **d**epth-**d**epth **c**urves used for
+correlation between sections. They are lists with the following
+components:
+
+- `h1`: numeric vector, heights in section 1
+- `h2`: numeric vector, heights in section 2. Elements at the same
+  position in `h1` and `h2` are coeval heights in the two sections
+- `L_unit_1`: NULL or character, length unit of heights in section 1
+- `L_unit_2`: NULL or character, length unit of heights in section 2
+- `sec_1_name`: NULL or character, name of section 1
+- `sec_2_name`: NULL or character, name of section 2
+
+##### Construction
+
+`ddc` can be constructed using
+
+- `adm_to_ddc` to construct a depth-depth curve from two age-depth
+  models
+- `tp_to_ddc` to construct a depth-depth curve from coeval tie points
+
+##### Logic
+
+Not implemented yet
+
+##### Representation
+
+- `plot.ddc` for plotting depth-depth curves
+- `summary.ddc` for a quick summary of the ddc object
+
+##### Modification
+
+- `flip_ddc` to reverse direction of correlation
+- `set_L_units` to change length units
+
+##### Extracting information
+
+- `get_L_units` to extract length units
+- `get_total_thicknesses` to determine total thickness of correlated
+  functions
+
+##### Transformation into other S3 classes
+
+Not implemented yet
+
+#### S3 classes `stratlist` and `timelist`
+
+`stratlist` and `timelist` inherit from the base `list`. They are list
+of stratigraphic positions or times, associated with other data
+(e.g. trait values, proxy values)
+
+##### Description
+
+- `stratlist` is a list with one element named “h”
+- `timelist` is a list with one element named “t”
+
+##### Construction
+
+- `stratlist` is returned by `time_to_strat.list`
+- `timelist` is returned by `strat_to_time.list`
+
+##### Representation
+
+- `plot.stratlist` for plotting `stratlist`
+- `plot.timelist` for plotting `timelist`
+
+### Methods implemented for external S3 classes
+
+#### S3 class `list`
+
+`admtools` implements the following methods for `list`:
+
+- `strat_to_time.list`: Transform strat-val pairs into time domain
+- `time_to_strat.list`: Transform time-val pairs into strat domain
+
+#### S3 class `phylo`
+
+`admtools` implements the following methods for `phylo`:
+
+- `strat_to_time.phylo`: Transform stratigraphic tree into time domain
+- `time_to_strat.phylo`: Transform time tree into strat domain
+
+#### S3 class `pre_paleoTS`
+
+`admtools` implements the following methods for `pre_paleoTS` objects as
+defined by the `StratPal` package:
+
+- `strat_to_time.pre_paleoTS`: transform pre-paleoTS time series into
+  time domain
+
+- `time_to_strat.pre_paleoTS`: transform pre-paleoTS time series into
+  strat. domain
+
+#### Class `numeric`
+
+- `strat_to_time.numeric`: Transform vectors from stratigraphic domain
+  to time domain. Wrapper around `get_time`
+- `time_to_strat.numeric`: Transform vectors from time to stratigraphic
+  domain. Wrapper around `get_height`
+
+### Plotting
+
+The following functions are used for plotting:
+
+- `plot.adm` plotting for S3 class `adm`
+
+- `plot.multiadm` plotting for S3 class `multiadm`
+
+- `plot.sac` plotting for S3 class `sac`
+
+- `plot.timelist` for plotting `timelist`
+
+- `plot.stratlist` for plotting `stratlist`
+
+- `T_axis_lab` to annotate time axis
+
+- `L_axis_lab` to annotate length/depth axis
+
+- `plot_sed_rate_l` to plot sedimentation rate in length/depth domain
+
+- `plot_sed_rate_t` to plot sedimentation rate in time domain
+
+- `plot_condensation`
+
+- `plot_erosive_intervals` to highlight erosive intervals, called after
+  `plot.adm`
+
+#### Internals
+
+The following functions are used internally and not exposed to users.
+They can be accessed via `admtools:::function_name`.
+
+- `plot_destr_parts`
+
+- `plot_acc_parts`
+
+- `make_adm_canvas`
+
+### Vignettes
+
+- `browseVignettes(package = "admtools")` to show a list of vignettes
