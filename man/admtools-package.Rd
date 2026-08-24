@@ -18,7 +18,12 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Niklas Hohmann \email{N.H.Hohmann@uu.nl} (\href{https://orcid.org/0000-0003-1559-1838}{ORCID})
+\strong{Maintainer}: Emilia Jarochowska \email{e.jarochowska@uni-muenster.de} (\href{https://orcid.org/0000-0001-8937-9405}{ORCID})
+
+Authors:
+\itemize{
+  \item Niklas Hohmann \email{N.H.Hohmann@uu.nl} (\href{https://orcid.org/0000-0003-1559-1838}{ORCID})
+}
 
 }
 \keyword{internal}
