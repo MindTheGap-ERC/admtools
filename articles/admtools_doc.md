@@ -1,6 +1,7 @@
 # Structure and classes of the admtools package
 
 ``` r
+
 library(admtools)
 ```
 

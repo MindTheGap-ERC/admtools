@@ -27,6 +27,7 @@ logical. Is the input a valid adm object?
 ## Examples
 
 ``` r
+
 x = tp_to_adm(t = c(2,1), h = c(1,2)) # reversed order of time tie points
 is_adm(x) # returns FALSE
 #> [1] FALSE

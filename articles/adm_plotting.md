@@ -1,6 +1,7 @@
 # Plotting Age-Depth Models
 
 ``` r
+
 library(admtools)
 ```
 
@@ -16,6 +17,7 @@ carbonate platform modeled using CarboCAT Lite (Burgess 2013, 2023).
 This data is provided with the package.
 
 ``` r
+
 adm = tp_to_adm(t = CarboCATLite_data$time_myr,
                 h = CarboCATLite_data$height_4_km_offshore_m,
                 L_unit = "m",
@@ -27,6 +29,7 @@ R. It can be modified using the arguments listed under
 [`?plot.adm`](https://mindthegap-erc.github.io/admtools/reference/plot.adm.md)
 
 ``` r
+
 plot(adm,
      lwd_destr = 1,
      lty_destr = 4,
@@ -54,6 +57,7 @@ and `L_axis_lab`. As example, we plot only accumulating parts, and add
 axis labels.
 
 ``` r
+
 plot(adm,
      lty_destr = 0,
      lwd_acc = 3)

@@ -17,6 +17,7 @@ Orcid: [0000-0003-1559-1838](https://orcid.org/0000-0003-1559-1838)
 You can install the package from *CRAN*. For this, run
 
 ``` r
+
 install.packages("admtools")
 ```
 
@@ -24,12 +25,14 @@ in R. To install the package from *GitHub*, first install the *remotes*
 package
 
 ``` r
+
 install.packages("remotes")
 ```
 
 Then, run
 
 ``` r
+
 remotes::install_github(repo = "MindTheGap-ERC/admtools",
                         build_vignettes = TRUE,
                         ref = "HEAD",
@@ -40,6 +43,7 @@ To install the latest stable version. To install the version under
 development, use
 
 ``` r
+
 remotes::install_github(repo = "MindTheGap-ERC/admtools",
                         build_vignettes = TRUE,
                         ref = "dev",
@@ -49,12 +53,14 @@ remotes::install_github(repo = "MindTheGap-ERC/admtools",
 After installation, you can load the package using
 
 ``` r
+
 library("admtools")
 ```
 
 To get started, have a look at the available vignettes via
 
 ``` r
+
 browseVignettes(package = "admtools") # opens in Browser
 #or
 vignette(package = "admtools")
@@ -64,6 +70,7 @@ A good place to start reading is the introductory vignette, available
 via
 
 ``` r
+
 vignette("admtools")
 ```
 
@@ -89,6 +96,7 @@ To cite the package, use
 or run
 
 ``` r
+
 citation("admtools")
 ```
 

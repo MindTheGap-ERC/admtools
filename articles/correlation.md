@@ -3,6 +3,7 @@
 ## Depth-depth curves and correlation
 
 ``` r
+
 library(admtools)
 ```
 
@@ -18,6 +19,7 @@ points or from age-depth models. To construct depth-depth curves from
 coeval tie points use `tp_to_ddc` (ddc stands for depth-depth curve).
 
 ``` r
+
 # simulation data
 # entries in vectors are coeval bc simulation time steps were identical
 h1 = CarboCATLite_data$height_2_km_offshore_m
@@ -35,6 +37,7 @@ curves via `adm_to_ddc`. This will construct depth-depth curves for the
 overlapping time interval.
 
 ``` r
+
 adm_2km = tp_to_adm(t = CarboCATLite_data$time_myr,
                     h = CarboCATLite_data$height_2_km_offshore_m,
                     L_unit = "m",
@@ -55,6 +58,7 @@ ddc2 = set_section_names(ddc2, sec_names = c("2 km from shore", "8 km from shore
 You can quickly plot depth-depth curves using `plot`:
 
 ``` r
+
 plot(ddc1,
      type = "l",
      xlab = "",
@@ -68,6 +72,7 @@ mtext(get_section_names(ddc1)[2], side = 2, line = 3)
 A quick overview of the contents is provided via `summary`:
 
 ``` r
+
 summary(ddc1)
 ```
 
@@ -83,6 +88,7 @@ Length units and section names can be extracted and modified using
 `flip_ddc`:
 
 ``` r
+
 plot(ddc1, type = "l", xlab = "", ylab = "") # correlation from 2 km offshore to 12 km offshore
 mtext(get_section_names(ddc1)[1], side = 1, line = 3)
 mtext(get_section_names(ddc1)[2], side = 2, line = 3)
@@ -91,6 +97,7 @@ mtext(get_section_names(ddc1)[2], side = 2, line = 3)
 ![](correlation_files/figure-html/unnamed-chunk-5-1.png)
 
 ``` r
+
 ddc3 = flip_ddc(ddc1)
 plot(ddc3, type = "l", xlab = "", ylab = "") # correlates 12 km offshore with 2 km offshore
 mtext(get_section_names(ddc3)[1], side = 1, line = 3)

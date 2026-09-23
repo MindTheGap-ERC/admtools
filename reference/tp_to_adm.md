@@ -48,6 +48,7 @@ to extract time and height/length tie points
 ## Examples
 
 ``` r
+
 my_adm = tp_to_adm(t = 1:4, h = c(1,2,2,3), T_unit = "kyr", L_unit = "m")
 plot(my_adm)
 

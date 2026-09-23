@@ -13,6 +13,7 @@ This vignette is an introduction to the *admtools* package.
 To install the package from *CRAN*, run
 
 ``` r
+
 install.packages("admtools")
 ```
 
@@ -20,12 +21,14 @@ To install the package from *GitHub*, first install the *remotes*
 package:
 
 ``` r
+
 install.packages("remotes")
 ```
 
 Then run
 
 ``` r
+
 remotes::install_github(repo = "MindTheGap-ERC/admtools",
                         build_vignettes = TRUE,
                         ref = "HEAD",
@@ -39,6 +42,7 @@ to install the latest stable version.
 Load the package using
 
 ``` r
+
 library(admtools)
 ```
 
@@ -49,12 +53,14 @@ This makes all functions in the package available.
 Use
 
 ``` r
+
 help(package = "admtools")
 ```
 
 to get an overview of the available help pages of the package, and
 
 ``` r
+
 ?admtools
 ```
 
@@ -64,6 +70,7 @@ Vignettes are a long form of package documentation that provide more
 detailed examples. To list the available vignettes, use
 
 ``` r
+
 browseVignettes(package = "admtools") # opens in Browser
 #or
 vignette(package = "admtools")
@@ -98,6 +105,7 @@ automatically loaded in the background by the package. To get some info
 of the data use
 
 ``` r
+
 ?CarboCATLite_data
 ```
 
@@ -120,6 +128,7 @@ taken from CarboCAT Lite to construct an age-depth model, and use the
 option to directly associate length and time units with it.
 
 ``` r
+
 # see ?tp_to_adm for detailed documentation
 my_adm = tp_to_adm(t = CarboCATLite_data$time_myr,
                   h = CarboCATLite_data$height_2_km_offshore_m,
@@ -137,6 +146,7 @@ Typing the name `my_adm` in the console will only tell that the
 generated variable is an age-depth model
 
 ``` r
+
 my_adm
 #> age-depth model
 ```
@@ -144,6 +154,7 @@ my_adm
 To get a quick overview of the properties of `my_adm`, use `summary`:
 
 ``` r
+
 summary(my_adm)
 #> age-depth model 
 #> Total duration: 2 Myr
@@ -155,6 +166,7 @@ summary(my_adm)
 If you want to inspect the insides of the object, use `str`:
 
 ``` r
+
 str(my_adm)
 #> List of 5
 #>  $ t     : num [1:2001] 0 0.001 0.002 0.003 0.004 0.005 0.006 0.007 0.008 0.009 ...
@@ -175,6 +187,7 @@ the option to highlight hiatuses in red, and increase the linw width of
 the conservative ( = non-destructive) intervals.
 
 ``` r
+
 # see ?plot.adm for plotting options for adm objects
 plot(my_adm,
      col_destr = "red",
@@ -189,6 +202,7 @@ You can also plot sedimentation rates in the time domain using
 `plot_sed_rate_t`“:
 
 ``` r
+
 plot_sed_rate_t(my_adm)
 ```
 
@@ -208,6 +222,7 @@ Use the functions `get_total_duration`, `get_total_thickness`,
 `get_completeness`, and `get_hiat_no` to extract information:
 
 ``` r
+
 get_total_duration(my_adm) #total time covered by the age-depth model
 #> [1] 2
 get_total_thickness(my_adm) # total thickness of section represented by the adm
@@ -228,6 +243,7 @@ For more detailed information, you can use
 For example, to plot a histogram of hiatus durations, use
 
 ``` r
+
 hist(x = get_hiat_duration(my_adm),
      freq = TRUE,
      xlab = "Hiatus duration [Myr]",
@@ -240,6 +256,7 @@ The function `is_destructive` can be used to examine whether points in
 time coincide with hiatuses:
 
 ``` r
+
 is_destructive(my_adm,
                t = c(0.1,0.5)) 
 #> [1] FALSE  TRUE
@@ -261,6 +278,7 @@ As example, say we want to know the time of deposition of the following
 stratigraphic positions:
 
 ``` r
+
 h = c(30,120) # stratigraphic positions
 get_time(my_adm,
          h = h)
@@ -271,6 +289,7 @@ Conversely, to determine what parts of the section are deposited as a
 specific time, use
 
 ``` r
+
 t = c(0.2,1.4)
 get_height(my_adm,
            t = t)
@@ -282,6 +301,7 @@ you want to know the stratigraphic position of the hiatus that coincides
 with that time, use the option `destructive = FALSE`:
 
 ``` r
+
 t = c(0.2,1.4)
 get_height(my_adm,
            t = t,
@@ -313,6 +333,7 @@ See
 for details on how this tree was generated.
 
 ``` r
+
 #install.packages("ape") Package for analyses of phylogenetics and evolution
 # see ?ape::rlineage for help
 #set.seed(1)
@@ -327,6 +348,7 @@ mtext("Time [Myr]", side = 1, line = 2.5)
 You can transform the tree using `time_to_strat`:
 
 ``` r
+
 tree_in_strat_domain = time_to_strat(obj = timetree,
                                      x = my_adm)
 ```
@@ -336,6 +358,7 @@ evolutionary relationships would be preserved 2 km offshore in the
 simulated carbonate platform:
 
 ``` r
+
 ape::plot.phylo(tree_in_strat_domain, direction = "upwards")
 axis(side = 2)
 mtext("Stratigraphic Height [m]",
@@ -359,6 +382,7 @@ As example, we simulate trait evolution over 2 Myr using a Brownian
 motion, and transform the simulation into the stratigraphic domain.
 
 ``` r
+
 t = seq(0, 2, by = 0.001) # times
 BM = function(t){
   #" Simulate Brownian motion at times t
@@ -377,6 +401,7 @@ plot(x = evo_list,
 ![](admtools_files/figure-html/unnamed-chunk-25-1.png)
 
 ``` r
+
 strat_list = time_to_strat(obj = evo_list,
                             x = my_adm)
 plot(x = strat_list,
@@ -418,6 +443,7 @@ For an overview of the structure of the `admtools` package and the
 classes used therein see
 
 ``` r
+
 vignette("admtools_doc")
 ```
 
@@ -431,6 +457,7 @@ For information on estimating age-depth models from sedimentation rates,
 see
 
 ``` r
+
 vignette("adm_from_sedrate")
 ```
 
@@ -438,12 +465,14 @@ For information on estimating age-depth models from tracer contents of
 rocks and sediments, see
 
 ``` r
+
 vignette("adm_from_trace_cont")
 ```
 
 For information on depth-depth curves and correlation see
 
 ``` r
+
 vignette("correlation")
 ```
 
