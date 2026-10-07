@@ -15,8 +15,13 @@ Useful links:
 
 ## Author
 
-**Maintainer**: Niklas Hohmann <N.H.Hohmann@uu.nl>
-([ORCID](https://orcid.org/0000-0003-1559-1838))
+**Maintainer**: Emilia Jarochowska <e.jarochowska@uni-muenster.de>
+([ORCID](https://orcid.org/0000-0001-8937-9405))
+
+Authors:
+
+- Niklas Hohmann <N.H.Hohmann@uu.nl>
+  ([ORCID](https://orcid.org/0000-0003-1559-1838))
 
 Authors:
 

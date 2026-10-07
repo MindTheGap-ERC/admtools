@@ -2,8 +2,10 @@
 
 ## Authors
 
-- **Niklas Hohmann**. Author, maintainer.
-  [](https://orcid.org/0000-0003-1559-1838)
+- **Niklas Hohmann**. Author. [](https://orcid.org/0000-0003-1559-1838)
+
+- **Emilia Jarochowska**. Maintainer.
+  [](https://orcid.org/0000-0001-8937-9405)
 
 ## Citation
 
