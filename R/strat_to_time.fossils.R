@@ -11,8 +11,8 @@ strat_to_time.fossils = function(obj, x, ...){
   #' @description
     #' transforms `fossil` objects from stratigraphic to time domain
     #' `
-  obj$hmin = get_height.adm(x, obj$hmin, ...)
-  obj$hmax = get_height.adm(x, obj$hmax, ...)
+  obj$hmin = get_time.adm(x, obj$hmin, ...)
+  obj$hmax = get_time.adm(x, obj$hmax, ...)
   
   destr = is.na(obj$hmin) | is.na(obj$hmax)
   
