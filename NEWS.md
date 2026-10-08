@@ -1,5 +1,9 @@
 # admtools (development version)
 
+* transfer maintainer role from Niklas Hohmann to Emilia Jarochowska
+
+* bugfix for `strat_to_time.fossils`
+
 # admtools 0.6.0
 
 * transformation between age and time for integration with `FossilSim`
