@@ -1,4 +1,4 @@
-# admtools (development version)
+# admtools 0.7.0
 
 * transfer maintainer role from Niklas Hohmann to Emilia Jarochowska
 
