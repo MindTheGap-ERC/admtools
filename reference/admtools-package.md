@@ -22,8 +22,3 @@ Authors:
 
 - Niklas Hohmann <N.H.Hohmann@uu.nl>
   ([ORCID](https://orcid.org/0000-0003-1559-1838))
-
-Authors:
-
-- Niklas Hohmann <N.H.Hohmann@uu.nl>
-  ([ORCID](https://orcid.org/0000-0003-1559-1838))
