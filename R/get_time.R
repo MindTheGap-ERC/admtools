@@ -23,7 +23,8 @@ get_time = function(x, h, hiat_mode = "start", bdry_pts_hiat = "destructive", ou
   #' @details
   #'  If a stratigraphic position
   #' coincides with a hiatus, should the start time or the end time of the hiatus be returned? 
-  #' Using "destroy" returns NA
+  #' Using "destroy" returns NA. `hiat_mode = "start"` is consistent with
+  #' `mode = "lcrl"` in [get_height()], and `hiat_mode = "end"` with `mode = "rcll"`.
   #'If the adm starts/ends with a hiatus, should
   #' the time returned be consistent with _hiat_mode_, or should it be NA?
   

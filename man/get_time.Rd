@@ -28,7 +28,8 @@ the corresponding time of formation
 \details{
 If a stratigraphic position
 coincides with a hiatus, should the start time or the end time of the hiatus be returned?
-Using "destroy" returns NA
+Using "destroy" returns NA. \code{hiat_mode = "start"} is consistent with
+\code{mode = "lcrl"} in \code{\link[=get_height]{get_height()}}, and \code{hiat_mode = "end"} with \code{mode = "rcll"}.
 If the adm starts/ends with a hiatus, should
 the time returned be consistent with \emph{hiat_mode}, or should it be NA?
 }

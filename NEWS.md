@@ -1,3 +1,7 @@
+# admtools (development version)
+
+* bugfix for `get_time`: times in sections adjacent to hiatuses were interpolated incorrectly, so `strat_to_time` and `time_to_strat` were not inverses of each other (#37)
+
 # admtools 0.7.0
 
 * transfer maintainer role from Niklas Hohmann to Emilia Jarochowska
