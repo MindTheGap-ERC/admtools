@@ -1,5 +1,7 @@
 # admtools (development version)
 
+* new function `sampling_dissimilarity` to quantify how differently two age-depth models distribute events in the section, via the KL divergence of the induced Poisson point processes split into volume and position components
+
 * new function `rms_age_offset` to quantify the age offset between two age-depth models, including its decomposition into mean offset and variance
 
 * bugfix for `get_time`: times in sections adjacent to hiatuses were interpolated incorrectly, so `strat_to_time` and `time_to_strat` were not inverses of each other (#37)
