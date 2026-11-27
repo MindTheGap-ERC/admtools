@@ -38,15 +38,26 @@ get_time.adm = function(x, h, hiat_mode = "start", bdry_pts_hiat = "destructive"
     return(adm$h[length(adm$h) - 1]==adm$h[length(adm$h)])
   }
   
+  interp_time = function(adm, h, hiat_mode){
+    # Linear interpolation that does not collapse tied heights (hiatuses).
+    # For "start", choose segment i with h[i] < x <= h[i+1]; for "end",
+    # h[i] <= x < h[i+1]. Either way, the chosen segment is never a hiatus,
+    # so interpolation within it is well defined. Collapsing ties (as
+    # stats::approx does) shifts times in sections adjacent to hiatuses.
+    n = length(adm$h)
+    i = findInterval(h, adm$h, left.open = (hiat_mode == "start"))
+    j = pmin(pmax(i, 1), n - 1)
+    time = adm$t[j] + (h - adm$h[j]) / (adm$h[j + 1] - adm$h[j]) * (adm$t[j + 1] - adm$t[j])
+    time = replace(time, which(i == 0), adm$t[1]) # h == min(adm$h) for "start"
+    time = replace(time, which(i == n), adm$t[n]) # h == max(adm$h) for "end"
+    time = replace(time, which(h < adm$h[1]), yleft)
+    time = replace(time, which(h > adm$h[n]), yright)
+    return(time)
+  }
+
   if(hiat_mode == "start"){
-    time = stats::approx(x = adm$h,
-                         y = adm$t,
-                         method = "linear",
-                         yleft = yleft,
-                         yright = yright,
-                         ties = list("ordered",min),
-                         xout = h)$y
-    
+    time = interp_time(adm, h, "start")
+
     if (bdry_pts_hiat == "destructive"){
       if (starts_with_hiatus(adm)){
         time = replace(time, is_start_strat(adm, h), NA)
@@ -59,13 +70,7 @@ get_time.adm = function(x, h, hiat_mode = "start", bdry_pts_hiat = "destructive"
     return(time)
   }
   if (hiat_mode == "end"){
-    time = stats::approx(x = adm$h,
-                         y = adm$t,
-                         method = "linear", 
-                         yleft = yleft,
-                         yright = yright,
-                         ties = list("ordered",max),
-                         xout = h)$y
+    time = interp_time(adm, h, "end")
     if (bdry_pts_hiat == "destructive"){
       if (starts_with_hiatus(adm)){
         time = replace(time, is_start_strat(adm, h), NA)

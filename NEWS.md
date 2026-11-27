@@ -1,5 +1,17 @@
 # admtools (development version)
 
+* new function `diss_dating_error` to quantify the error when events placed in the section by one age-depth model are dated with another: mean absolute error, RMS error with its decomposition into mean error and variance, and the effective time interval
+
+* new function `diss_KL` to quantify how differently two age-depth models distribute time over the section, via a KL divergence split into a volume component (how much time is preserved) and a position component (where it is preserved)
+
+* new function `diss_age_offset` to quantify the age offset between two age-depth models: mean absolute offset, RMS offset with its decomposition into mean offset and variance, and the stratigraphic interval
+
+* `diss_age_offset`, `diss_dating_error`, and `diss_KL` return S3 objects with `print` and `summary` methods
+
+* bugfix for `get_time`: times in sections adjacent to hiatuses were interpolated incorrectly, so `strat_to_time` and `time_to_strat` were not inverses of each other (#37)
+
+# admtools 0.7.0
+
 * transfer maintainer role from Niklas Hohmann to Emilia Jarochowska
 
 * bugfix for `strat_to_time.fossils`
