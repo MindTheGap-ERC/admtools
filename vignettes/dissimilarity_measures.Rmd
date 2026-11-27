@@ -1,0 +1,353 @@
+---
+title: "Dissimilarity measures for age-depth models"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Dissimilarity measures for age-depth models}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.width = 6,
+  fig.height = 4.5
+)
+```
+
+```{r setup}
+library(admtools)
+```
+
+## Introduction
+
+Different data, methods, or assumptions often lead to different age-depth models for the same section. `admtools` provides three measures that quantify how different two age-depth models are:
+
+* `diss_age_offset`: how different are the ages that two age-depth models assign to the same stratigraphic position?
+* `diss_dating_error`: how large is the error when an event is placed in the section according to one age-depth model, and then dated using the other?
+* `diss_KL`: how differently do two age-depth models distribute time over the section?
+
+Each measure has a probabilistic interpretation: it is an expectation with respect to a random stratigraphic position, a random point in time, or a random record of events. This vignette introduces the three measures, derives their analytical expressions, and illustrates them using two age-depth models of the same section.
+
+All measures are computed exactly from the two age-depth models, without sampling or numerical integration. Simulations in this vignette only serve to illustrate the probabilistic interpretation.
+
+## Two age-depth models of the same section
+
+Throughout, we compare two age-depth models `x` and `y` of a 2 m thick section that spans 6 Myr.
+
+```{r}
+x = tp_to_adm(t = c(0, 1, 3, 4, 6),
+              h = c(0, 1, 1, 1.5, 2),
+              T_unit = "Myr",
+              L_unit = "m")
+y = tp_to_adm(t = c(0, 2, 3.5, 6),
+              h = c(0, 1, 1, 2),
+              T_unit = "Myr",
+              L_unit = "m")
+```
+
+Both age-depth models have a hiatus surface at 1 m. Under `x`, the hiatus spans the time interval $G_x = [1, 3]$ Myr, under `y` it spans $G_y = [2, 3.5]$ Myr. Note that the gaps overlap, but are not identical.
+
+The following helper functions are used for plotting. Accumulating intervals are drawn as solid lines, hiatuses as dashed lines.
+
+```{r}
+col_x = "#1b6ca8"
+col_y = "#d1495b"
+
+draw_adm = function(adm, col, lwd = 2){
+  for (i in seq_len(length(adm$t) - 1)){
+    hiatus = adm$h[i] == adm$h[i + 1]
+    segments(adm$t[i], adm$h[i], adm$t[i + 1], adm$h[i + 1],
+             col = col, lwd = lwd, lty = if (hiatus) 2 else 1)
+  }
+}
+
+adm_canvas = function(main = ""){
+  plot(NULL, xlim = c(0, 6), ylim = c(0, 2), main = main,
+       xlab = "Time [Myr]", ylab = "Stratigraphic position [m]")
+}
+
+shade_gap = function(gap, col){
+  usr = par("usr")
+  rect(gap[1], usr[3], gap[2], usr[4], col = adjustcolor(col, 0.12), border = NA)
+}
+```
+
+```{r, fig.cap = "Two age-depth models of the same section. Shaded areas mark the gaps of the hiatus at 1 m."}
+adm_canvas()
+shade_gap(c(1, 3), col_x)
+shade_gap(c(2, 3.5), col_y)
+draw_adm(x, col_x)
+draw_adm(y, col_y)
+legend("topleft", legend = c("x", "y"), col = c(col_x, col_y), lwd = 2, bty = "n")
+```
+
+In the remainder, $t_x(h)$ and $t_y(h)$ denote the times that `x` and `y` assign to stratigraphic position $h$ (see `strat_to_time`), and $h_x(t)$ denotes the position at which `x` places an event at time $t$ (see `time_to_strat`).
+
+## Age offset: comparing ages at a stratigraphic position
+
+### Probabilistic interpretation
+
+Pick a stratigraphic position $H$ uniformly at random from the stratigraphic interval $[h_0, h_1]$ covered by both age-depth models. The age offset at this position is the random variable
+
+$$D = d(H), \quad d(h) = t_x(h) - t_y(h).$$
+
+Positive values mean that `x` assigns a later time than `y`. `diss_age_offset` returns
+
+* the mean absolute offset $\mathrm{mae} = E|D|$, the expected age offset at a random position,
+* the mean offset $\mu = E[D]$, a systematic bias between the age-depth models,
+* the variance $\sigma^2 = \mathrm{Var}(D)$, and
+* the mean square difference $\mathrm{msd} = E[D^2] = \mu^2 + \sigma^2$, and its square root, the RMS offset.
+
+Graphically, the age offset is the horizontal distance between the two age-depth models at a fixed stratigraphic position:
+
+```{r, fig.cap = "The age offset is the horizontal distance between the age-depth models at a given stratigraphic position."}
+adm_canvas()
+draw_adm(x, col_x)
+draw_adm(y, col_y)
+h_ex = c(0.25, 0.75, 1.25, 1.75)
+arrows(x0 = strat_to_time(h_ex, y), y0 = h_ex, x1 = strat_to_time(h_ex, x), y1 = h_ex,
+       length = 0.08, code = 3, col = "grey30")
+legend("topleft", legend = c("x", "y"), col = c(col_x, col_y), lwd = 2, bty = "n")
+```
+
+### Analytical expression
+
+As $H$ is uniformly distributed, all expectations are averages over the stratigraphic interval:
+
+$$\mathrm{mae} = \frac{1}{h_1 - h_0} \int_{h_0}^{h_1} |d(h)| \, dh, \qquad \mu = \frac{1}{h_1 - h_0} \int_{h_0}^{h_1} d(h) \, dh, \qquad \mathrm{msd} = \frac{1}{h_1 - h_0} \int_{h_0}^{h_1} d(h)^2 \, dh.$$
+
+Hiatuses are jumps of $t_x$ or $t_y$ at a single stratigraphic position. As they have no thickness, they do not contribute to the averages: a randomly chosen stratigraphic position almost surely does not coincide with a hiatus.
+
+```{r}
+off = diss_age_offset(x, y)
+off
+```
+
+The offset profile $d(h)$ shows where the age-depth models agree and where they differ:
+
+```{r, fig.cap = "Age offset as a function of stratigraphic position. The vertical line marks the mean offset."}
+h_grid = seq(0, 2, length.out = 801)
+d_grid = strat_to_time(h_grid, x) - strat_to_time(h_grid, y)
+plot(d_grid, h_grid, type = "n", xlab = "Age offset t_x - t_y [Myr]",
+     ylab = "Stratigraphic position [m]")
+polygon(c(0, d_grid, 0), c(0, h_grid, 2), col = "grey85", border = NA)
+lines(d_grid, h_grid, lwd = 2)
+abline(v = 0, col = "grey50")
+abline(v = off$mu, lty = 2)
+```
+
+The probabilistic interpretation can be checked by drawing random stratigraphic positions:
+
+```{r}
+set.seed(1)
+H = runif(1e5, 0, 2)
+D = strat_to_time(H, x) - strat_to_time(H, y)
+c(monte_carlo = mean(abs(D)), exact = off$mae)
+```
+
+## Dating error: placing an event with one model, dating it with the other
+
+### Probabilistic interpretation
+
+Now suppose `x` is the "true" age-depth model, and `y` is used to date the section. An event (e.g. a speciation, an environmental change, or a volcanic eruption) occurs at a random time $T$, drawn uniformly from the time interval $[t_0, t_1]$ covered by `x` and `y`. It is recorded at stratigraphic position $h_x(T)$, and then dated using `y`. The dating error is
+
+$$E = T - t_y(h_x(T)),$$
+
+so positive values mean that `y` dates the event too early. `diss_dating_error` returns the same summary statistics as `diss_age_offset`: the mean absolute error $\mathrm{mae} = E|E|$ (the expected dating error of a randomly timed event), the mean error $\mu$, the variance $\sigma^2$, and the mean square error $\mu^2 + \sigma^2$.
+
+The construction can be followed in the age-depth model plot: go up from the time of the event to `x`, horizontally to `y`, and down to the time assigned by `y`.
+
+```{r}
+# time assigned by y: closest time in the gap at hiatus surfaces of y
+dated_time = function(t){
+  h = time_to_strat(t, x, destructive = FALSE)
+  g_minus = strat_to_time(h, y, hiat_mode = "start", bdry_pts_hiat = "consistent")
+  g_plus = strat_to_time(h, y, hiat_mode = "end", bdry_pts_hiat = "consistent")
+  pmin(pmax(t, g_minus), g_plus)
+}
+```
+
+```{r, fig.cap = "Dating error. Events at the times marked on the time axis are placed in the section by x (up), and dated by y (across and down)."}
+adm_canvas()
+shade_gap(c(1, 3), col_x)
+shade_gap(c(2, 3.5), col_y)
+draw_adm(x, col_x)
+draw_adm(y, col_y)
+t_ex = c(0.5, 1.5, 2.5, 4.5)
+for (t0 in t_ex){
+  h0 = time_to_strat(t0, x, destructive = FALSE)
+  t_hat = dated_time(t0)
+  segments(t0, 0, t0, h0, col = "grey30")
+  if (t_hat != t0) arrows(t0, h0, t_hat, h0, length = 0.08, col = "grey30") # no error: no arrow
+  arrows(t_hat, h0, t_hat, 0, length = 0.08, col = "grey30", lty = 3)
+  points(t0, 0, pch = 19, cex = 0.8)
+}
+legend("topleft", legend = c("x", "y"), col = c(col_x, col_y), lwd = 2, bty = "n")
+```
+
+### Hiatuses
+
+Hiatuses in `x` are not destructive here: events that occur during a hiatus of `x` are preserved at the hiatus surface (e.g. as a condensed horizon or a lag deposit). All of them are recorded at the same stratigraphic position, so the dating error changes linearly in time during the hiatus.
+
+If the hiatus surface is also a hiatus surface of `y`, as at 1 m in our example, `y` does not assign a single time to the surface, but the whole gap $G_y = [g^-, g^+]$. Any choice of a single time from this gap (e.g. its start or its end) would date all events on the surface to the same time, and introduce a systematic bias. Instead, `diss_dating_error` uses the set-valued dating error, the distance to the closest time in the gap:
+
+$$E = T - \pi_{G_y}(T), \qquad \pi_{[g^-, g^+]}(t) = \min(\max(t, g^-), g^+).$$
+
+This is the error under the best choice of time for each individual event, and depends only on the two age-depth models. Events in the intersection of the gaps, $G_x \cap G_y = [2, 3]$ Myr, have no dating error. In the figure above, this is the event at 2.5 Myr: it is dated to its own time. The event at 1.5 Myr precedes the gap of `y`, and is dated to its start, $g^- = 2$ Myr.
+
+```{r, fig.cap = "Dating error as a function of the time of the event. Shaded areas mark the gaps of x and y."}
+t_grid = seq(0, 6, length.out = 1201)
+e_grid = t_grid - dated_time(t_grid)
+plot(t_grid, e_grid, type = "n", xlab = "Time of event [Myr]",
+     ylab = "Dating error [Myr]")
+shade_gap(c(1, 3), col_x)
+shade_gap(c(2, 3.5), col_y)
+abline(h = 0, col = "grey50")
+lines(t_grid, e_grid, lwd = 2)
+```
+
+### Analytical expression
+
+As $T$ is uniformly distributed, all expectations are averages over time, e.g.
+
+$$\mathrm{mae} = \frac{1}{t_1 - t_0} \int_{t_0}^{t_1} |e(t)| \, dt, \qquad \mu = \frac{1}{t_1 - t_0} \int_{t_0}^{t_1} e(t) \, dt,$$
+
+and analogously for the mean square error. To relate the dating error to the age offset, consider times at which `x` accumulates sediment. There, the substitution $t = t_x(h)$, $dt = c_x(h) \, dh$ turns integrals over time into integrals over the section, e.g. for the $k$-th moment:
+
+$$\int_\text{accumulation} e(t)^k \, dt = \int d(h)^k \, c_x(h) \, dh,$$
+
+where $c_x(h)$ is the condensation of `x` (time per stratigraphic increment, see `condensation`), and $d(h) = t_x(h) - t_y(h)$ is the age offset from above. The dating error is thus the age offset, weighted by how much time `x` assigns to each stratigraphic position. For an age-depth model `x` with constant sedimentation rate and without hiatuses, the condensation is constant, and the dating error coincides with the age offset.
+
+To this, each hiatus of `x` at stratigraphic position $z$ with gap $G_x$ contributes
+
+$$\int_{G_x} \big(t - \pi_{T_y(z)}(t)\big)^k \, dt,$$
+
+where $T_y(z)$ is the gap of `y` if $z$ is also a hiatus surface of `y`, and the single time $t_y(z)$ otherwise. Unlike for the age offset, hiatuses of `x` contribute to the dating error, as they contain time.
+
+```{r}
+err = diss_dating_error(x, y)
+err
+```
+
+Comparing with the age offset shows the effect of the different weighting: the dating error weights the upper part of the section, which contains more time under `x`, more heavily, and includes the time contained in the hiatus of `x`.
+
+```{r}
+rbind(age_offset = c(mae = off$mae, mu = off$mu, rms = off$rms),
+      dating_error = c(mae = err$mae, mu = err$mu, rms = err$rms))
+```
+
+Again, the probabilistic interpretation can be checked by simulation. Providing random times via the argument `t` averages over these times instead of computing the exact value:
+
+```{r}
+set.seed(2)
+c(monte_carlo = diss_dating_error(x, y, t = runif(1e5, 0, 6))$mae,
+  exact = err$mae)
+```
+
+## KL divergence: comparing the distribution of time
+
+### Distribution of time in the section
+
+An age-depth model distributes time over the section. A stratigraphic increment $dh$ at position $h$ contains the time $c(h) \, dh$, where $c$ is the condensation. Hiatuses represent time that is not preserved in the section: they have no thickness, and do not contribute. The preserved time is
+
+$$\int c(h) \, dh = \text{duration} - \text{hiatus duration},$$
+
+which is 4 Myr for `x` (6 Myr minus the 2 Myr hiatus), and 4.5 Myr for `y`. The condensation shows where in the section each age-depth model places its time:
+
+```{r, fig.cap = "Condensation (time per stratigraphic increment) of x and y. The area under each curve is the preserved time."}
+# grid avoids the hiatus surface at 1 m, where all the time of the hiatus is
+# concentrated in a single point, and the top of the section
+h_grid = seq(0.0005, 1.9995, by = 0.001)
+plot(NULL, xlim = c(0, 4.5), ylim = c(0, 2), xlab = "Condensation [Myr/m]",
+     ylab = "Stratigraphic position [m]")
+for (adm_col in list(list(x, col_x), list(y, col_y))){
+  cond = condensation(adm_col[[1]], h_grid)
+  polygon(c(0, cond, 0), c(0, h_grid, 2), col = adjustcolor(adm_col[[2]], 0.25), border = NA)
+  lines(cond, h_grid, col = adm_col[[2]], lwd = 2)
+}
+legend("topright", legend = c("x", "y"), col = c(col_x, col_y), lwd = 2, bty = "n")
+```
+
+### Probabilistic interpretation
+
+Suppose events (e.g. fossils, or samples with a datable signal) occur at a constant rate $r$ in time, as a homogeneous Poisson point process. An age-depth model places them in the section, which results in an inhomogeneous Poisson point process in the stratigraphic domain with intensity
+
+$$\lambda(h) = r \, c(h).$$
+
+Events that occur during a hiatus are not preserved. The two age-depth models produce different stratigraphic records of the same history of events:
+
+```{r, fig.cap = "One history of events (rate 5 per Myr, left), and the stratigraphic records that x and y produce from it. Events during hiatuses are lost."}
+set.seed(3)
+r = 5
+event_times = sort(runif(rpois(1, r * 6), 0, 6))
+rec_x = time_to_strat(event_times, x) # NA for events during hiatuses
+rec_y = time_to_strat(event_times, y)
+par(mfrow = c(1, 2))
+adm_canvas(main = "Events in time")
+draw_adm(x, col_x)
+draw_adm(y, col_y)
+rug(event_times, lwd = 1.5)
+plot(NULL, xlim = c(0.5, 2.5), ylim = c(0, 2), xaxt = "n", xlab = "",
+     ylab = "Stratigraphic position [m]", main = "Stratigraphic records")
+axis(1, at = 1:2, labels = c("x", "y"))
+points(rep(1, sum(!is.na(rec_x))), rec_x[!is.na(rec_x)], pch = "-", cex = 2, col = col_x)
+points(rep(2, sum(!is.na(rec_y))), rec_y[!is.na(rec_y)], pch = "-", cex = 2, col = col_y)
+par(mfrow = c(1, 1))
+```
+
+The Kullback-Leibler (KL) divergence measures how well the record expected under `y` describes the record expected under `x`. It is the expected log-likelihood ratio of a record generated under `x`:
+
+$$\mathrm{KL}(x \,\|\, y) = E_x\left[\log \frac{L_x(\text{record})}{L_y(\text{record})}\right],$$
+
+where the likelihood of a record with events at positions $h_1, \dots, h_N$ under intensity $\lambda$ is $L = \prod_j \lambda(h_j) \, \exp(-\int \lambda \, dh)$.
+
+### Analytical expression
+
+For Poisson point processes, the KL divergence is
+
+$$\mathrm{KL}(x \,\|\, y) = \int \lambda_x \log\frac{\lambda_x}{\lambda_y} - \lambda_x + \lambda_y \, dh.$$
+
+It splits into two components. Let $\Lambda = \int \lambda \, dh$ be the expected number of preserved events (the preserved time multiplied by $r$), and $p = \lambda / \Lambda$ the distribution of preserved time in the section, normalized to one. Then
+
+$$\mathrm{KL}(x \,\|\, y) = \underbrace{\Lambda_x \log\frac{\Lambda_x}{\Lambda_y} - \Lambda_x + \Lambda_y}_{\text{volume}} + \underbrace{\Lambda_x \, \mathrm{KL}(p_x \,\|\, p_y)}_{\text{position}}.$$
+
+* The **volume** component only depends on how much time each age-depth model preserves. It is the KL divergence between the Poisson distributed numbers of events, $\mathrm{Pois}(\Lambda_x)$ and $\mathrm{Pois}(\Lambda_y)$.
+* The **position** component only depends on where in the section the time is preserved. The **shape** term $\mathrm{KL}(p_x \,\|\, p_y)$ compares the normalized distributions of preserved time, and does not depend on the rate $r$ or the time unit.
+
+```{r}
+kl = diss_KL(x, y, rate = r)
+kl
+summary(kl)
+```
+
+The KL divergence is not symmetric: it matters which model is considered "true". `diss_KL` therefore also returns the divergence in the reverse direction, and the symmetrized (Jeffreys) divergence $\mathrm{KL}(x \,\|\, y) + \mathrm{KL}(y \,\|\, x) = \int (\lambda_x - \lambda_y) \log(\lambda_x / \lambda_y) \, dh$.
+
+The interpretation as expected log-likelihood ratio can be checked by simulating records under `x`:
+
+```{r}
+log_lr = function(){
+  t_ev = runif(rpois(1, r * 6), 0, 6)
+  h_ev = time_to_strat(t_ev, x)
+  h_ev = h_ev[!is.na(h_ev)] # events during hiatuses are lost
+  sum(log(condensation(x, h_ev) / condensation(y, h_ev))) - (kl$Lambda_x - kl$Lambda_y)
+}
+set.seed(4)
+c(monte_carlo = mean(replicate(2e4, log_lr())), exact = kl$kl)
+```
+
+## Comparison
+
+| | `diss_age_offset` | `diss_dating_error` | `diss_KL` |
+|---|---|---|---|
+| Random quantity | position $H$, uniform in height | event time $T$, uniform in time | record of events, Poisson in time |
+| Compares | ages at the same position | true and estimated time of events | distributions of time in the section |
+| Weighting of the section | uniform | by condensation of `x` | by condensation of `x` |
+| Hiatuses | zero thickness, no contribution | not destructive, events dated to the closest time in the gap | destructive, events are lost |
+| Units | time | time | expected number of events (shape term: none) |
+| Symmetric | yes, up to sign | no | no (`kl_sym` is) |
+
+The treatment of hiatuses reflects the question each measure answers. The dating error asks how well the time of every event can be reconstructed, including events recorded at hiatus surfaces. The KL divergence asks how different the stratigraphic records are, and events that are not preserved do not appear in any record.
+
+All three functions can restrict the comparison to part of the section, via `h_range` (`diss_age_offset`, `diss_KL`) or `t_range` (`diss_dating_error`). `diss_age_offset` and `diss_dating_error` can also average over specific stratigraphic positions (`h`) or times (`t`) instead, e.g. the positions of samples. See `?diss_age_offset`, `?diss_dating_error`, and `?diss_KL` for details.

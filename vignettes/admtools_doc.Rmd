@@ -103,6 +103,7 @@ The following functions transform `adm` objects into other S3 classes:
 -   `add_adm_to_multiadm` to add `adm` to `multiadm`
 -   `anchor` to transform anchor `adm` at a tie point with uncertainty, resulting in a `multiadm`
 -   `adm_to_ddc` to construct a depth-depth curve from two age-depth models
+-   `diss_age_offset`, `diss_dating_error`, and `diss_KL` to compare two age-depth models, see [S3 classes for dissimilarity measures](#s3-classes-for-dissimilarity-measures)
 
 ### S3 class `sac`
 
@@ -296,6 +297,105 @@ Not implemented yet
 -   `plot.stratlist` for plotting `stratlist`
 -   `plot.timelist` for plotting `timelist`
 
+### S3 classes for dissimilarity measures
+
+The S3 classes `diss_age_offset`, `diss_dating_error`, and `diss_KL` store the results of comparing two `adm` objects `x` and `y` of the same section. All three are constructed by the function of the same name, and have a `print` and a `summary` method. The `summary` methods return objects of class `summary.diss_age_offset`, `summary.diss_dating_error`, and `summary.diss_KL`, which have their own `print` methods. See `vignette("dissimilarity_measures")` for the definition and probabilistic interpretation of the measures.
+
+All measures are computed exactly from the tie points of `x` and `y`, unless specific stratigraphic positions or times are provided.
+
+#### S3 class `diss_age_offset`
+
+##### Description
+
+Age offset $d(h) = t_x(h) - t_y(h)$ between the times that `x` and `y` assign to the same stratigraphic position, averaged over stratigraphic positions. A list with the following components:
+
+-   `mae`: mean absolute age offset
+-   `rms`: root mean square age offset
+-   `msd`: mean square difference, `msd = mu^2 + variance`
+-   `mu`: mean offset
+-   `variance`: variance of the offset
+-   `h_start`, `h_end`: start and end of the stratigraphic interval that is averaged over
+-   `thickness`: thickness of the stratigraphic interval, `h_end - h_start`
+-   `method`: "exact" (averaged over the whole stratigraphic interval) or "discrete" (averaged over provided stratigraphic positions)
+-   `n_positions`: number of stratigraphic positions for method "discrete", `NA` otherwise
+-   `T_unit`: NULL or character, time unit
+-   `L_unit`: NULL or character, length unit
+
+##### Construction
+
+-   `diss_age_offset`
+
+##### Representation
+
+-   `print.diss_age_offset` for printing to the console
+-   `summary.diss_age_offset` to summarize all measures with units, and the shares of bias and variance in `msd`
+-   `print.summary.diss_age_offset` for printing the summary
+
+#### S3 class `diss_dating_error`
+
+##### Description
+
+Dating error $e(t) = t - t_y(h_x(t))$ of events placed in the section by `x` and dated by `y`, averaged over time. Hiatuses in `x` are not destructive, and at hiatus surfaces of `y`, events are dated to the closest time in the gap. A list with the following components:
+
+-   `mae`: mean absolute dating error
+-   `rms`: root mean square dating error
+-   `msd`: mean square error, `msd = mu^2 + variance`
+-   `mu`: mean error
+-   `variance`: variance of the error
+-   `t_start`, `t_end`: start and end of the time interval that is averaged over
+-   `duration`: duration of the time interval, `t_end - t_start`
+-   `method`: "exact" (averaged over the whole time interval) or "discrete" (averaged over provided times)
+-   `n_times`: number of times for method "discrete", `NA` otherwise
+-   `T_unit`: NULL or character, time unit
+-   `L_unit`: NULL or character, length unit
+
+##### Construction
+
+-   `diss_dating_error`
+
+##### Representation
+
+-   `print.diss_dating_error` for printing to the console
+-   `summary.diss_dating_error` to summarize all measures with units, and the shares of bias and variance in `msd`
+-   `print.summary.diss_dating_error` for printing the summary
+
+#### S3 class `diss_KL`
+
+##### Description
+
+Kullback-Leibler divergence between the distributions of time that `x` and `y` assign to the section, i.e. between the Poisson point processes with intensity `rate` times the condensation of `x` and `y`. Hiatuses are destructive. A list with the following components:
+
+-   `kl`: KL divergence of `x` from `y`, `kl = volume + position`
+-   `volume`: volume component, depends only on how much time is preserved
+-   `position`: position component, depends only on where in the section time is preserved, `position = Lambda_x * shape`
+-   `shape`: KL divergence between the normalized distributions of preserved time. Independent of `rate` and the time unit
+-   `kl_reverse`: KL divergence of `y` from `x`
+-   `kl_sym`: symmetrized (Jeffreys) divergence, `kl + kl_reverse`
+-   `Lambda_x`, `Lambda_y`: preserved time of `x` and `y` multiplied by `rate` (expected number of preserved events)
+-   `reverse`: list with the components `kl`, `volume`, `position`, and `shape` of the reverse direction
+-   `h_range`: stratigraphic interval over which the distributions of time are compared
+-   `rate`: number of events per time unit
+-   `T_unit`: NULL or character, time unit
+-   `L_unit`: NULL or character, length unit
+
+##### Construction
+
+-   `diss_KL`
+
+##### Representation
+
+-   `print.diss_KL` for printing to the console
+-   `summary.diss_KL` to summarize the components for both directions, and the shares of the volume and position components
+-   `print.summary.diss_KL` for printing the summary
+
+#### Internals
+
+The following functions are used internally and not exposed to users. They can be accessed via `admtools:::function_name`.
+
+-   `new_diss_age_offset` and `new_diss_dating_error`: constructors for the S3 classes `diss_age_offset` and `diss_dating_error`
+-   `poisson_kl_parts`: KL divergence and its components for piecewise constant intensities, used by `diss_KL` for both directions
+-   `mean_abs_linear`: exact mean of the absolute value of a linear function on a segment, used by `diss_age_offset` and `diss_dating_error`
+
 ## Methods implemented for external S3 classes
 
 ### S3 class `list`
@@ -364,3 +464,4 @@ The following functions are used internally and not exposed to users. They can b
 ## Vignettes
 
 -   `browseVignettes(package = "admtools")` to show a list of vignettes
+-   `vignette("dissimilarity_measures")` for the dissimilarity measures `diss_age_offset`, `diss_dating_error`, and `diss_KL`
